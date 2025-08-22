@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice · Report Moderation
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+   <link href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" rel="stylesheet">
+     <link href="style.css" rel="stylesheet"/>
+     <link href="report_moderation.css" rel="stylesheet"/>
+     <style>
+      body { font-family: 'Poppins', var(--uc-font-sans), system-ui, -apple-system; }
+     </style>
+    </link>
+   </link>
+  </link>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to content
+  </a>
+  <!-- Header (Required on backoffice pages) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" data-page="platform_admin_dashboard" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a aria-label="Notifications" class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Messages" class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="platform_admin_dashboard" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="organizer_dashboard" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="login_page" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Backoffice) -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" data-page="platform_admin_dashboard" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="provider_verification" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="report_moderation" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaign_moderation" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="user_management" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1" data-page="organizer_dashboard" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaign_form" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="login_page" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="container-fluid py-3 rm-main" id="mainContent">
+   <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+     <h1 class="uc-page-title m-0">
+      Report Moderation
+     </h1>
+     <div class="uc-text-muted">
+      Review, validate, triage, and escalate community-submitted reports
+     </div>
+    </div>
+    <div class="d-none d-md-flex align-items-center gap-2">
+     <div class="uc-freshness" id="freshnessIndicator" title="Last updated">
+      Last updated just now
+     </div>
+     <button class="uc-btn uc-btn-outline" id="btnRefresh">
+      <i class="fa-solid fa-rotate">
+      </i>
+      Refresh
+     </button>
+    </div>
+   </div>
+   <!-- Top helper KPIs and chart -->
+   <div class="row g-3 mb-2">
+    <div class="col-12 col-md-8">
+     <div class="uc-card p-3">
+      <div class="row g-3">
+       <div class="col-6 col-lg-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-inbox">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           New
+          </div>
+          <div class="uc-stat-value" id="kpiNew">
+           --
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-6 col-lg-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-triangle-exclamation">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           High Severity
+          </div>
+          <div class="uc-stat-value" id="kpiHigh">
+           --
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-6 col-lg-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-up-right-from-square">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Escalated
+          </div>
+          <div class="uc-stat-value" id="kpiEscalated">
+           --
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-6 col-lg-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-clock-rotate-left">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Under Review
+          </div>
+          <div class="uc-stat-value" id="kpiUnderReview">
+           --
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="mt-3">
+       <div class="d-flex align-items-center justify-content-between mb-2">
+        <div class="uc-h4 m-0">
+         Reports in last 24h
+        </div>
+        <div class="small uc-text-muted">
+         Interactive • Hover for details
+        </div>
+       </div>
+       <div class="position-relative" style="height:220px;">
+        <canvas aria-label="Reports trend last 24 hours" height="220" id="reportsChart" role="img">
+        </canvas>
+        <div class="position-absolute top-50 start-50 translate-middle text-center" id="chartLoading">
+         <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">
+           Loading chart...
+          </span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="col-12 col-md-4">
+     <div class="uc-alert uc-alert-info mb-2">
+      <i class="fa-solid fa-circle-info text-info mt-1">
+      </i>
+      <div>
+       <div class="fw-semibold">
+        Assistive triage notice
+       </div>
+       <div class="small">
+        AI-assessed severity is assistive and not a substitute for professional diagnosis.
+       </div>
+      </div>
+      <div>
+      </div>
+     </div>
+     <div class="uc-card p-3">
+      <div class="d-flex align-items-center justify-content-between">
+       <div class="uc-h4 m-0">
+        Quick Actions
+       </div>
+      </div>
+      <div class="d-grid gap-2 mt-3">
+       <a class="uc-btn uc-btn-outline" href="./dispatcher_dashboard.html">
+        <i class="fa-solid fa-truck-medical">
+        </i>
+        Open Dispatcher Dashboard
+       </a>
+       <a class="uc-btn uc-btn-outline" href="./campaign_moderation.html">
+        <i class="fa-solid fa-bullhorn">
+        </i>
+        Moderate Campaigns
+       </a>
+       <a class="uc-btn uc-btn-outline" href="./user_management.html">
+        <i class="fa-solid fa-users-gear">
+        </i>
+        User Management
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="row g-3">
+    <!-- Report Queue -->
+    <div class="col-12 col-lg-4">
+     <div class="uc-card h-100 d-flex flex-column">
+      <div class="uc-card-header">
+       <div class="d-flex align-items-center gap-2">
+        <span class="uc-card-title">
+         Incoming Reports
+        </span>
+        <span class="badge text-bg-success" id="totalReportsBadge">
+         0
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary" id="btnClearFilters">
+         <i class="fa-solid fa-filter-circle-xmark">
+         </i>
+         Clear
+        </button>
+        <button class="btn btn-sm btn-outline-primary" id="btnApplyFilters">
+         <i class="fa-solid fa-filter">
+         </i>
+         Apply
+        </button>
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <!-- Filters -->
+       <div class="uc-filter-bar mb-3">
+        <div class="me-1">
+         <label class="uc-label small mb-1" for="filterStatus">
+          Status
+         </label>
+         <select class="form-select form-select-sm" id="filterStatus">
+          <option>
+           New
+          </option>
+          <option>
+           Under Review
+          </option>
+          <option>
+           Validated - High Severity
+          </option>
+          <option>
+           Escalated
+          </option>
+          <option>
+           Resolved
+          </option>
+          <option>
+           Spam
+          </option>
+         </select>
+        </div>
+        <div class="me-1">
+         <label class="uc-label small mb-1" for="filterSeverity">
+          Severity
+         </label>
+         <select class="form-select form-select-sm" id="filterSeverity">
+          <option value="">
+           Any
+          </option>
+          <option>
+           High
+          </option>
+          <option>
+           Medium
+          </option>
+          <option>
+           Low
+          </option>
+         </select>
+        </div>
+        <div class="me-1">
+         <label class="uc-label small mb-1" for="filterDate">
+          Date range
+         </label>
+         <input class="form-control form-control-sm" id="filterDate" placeholder="Select range">
+         </input>
+        </div>
+        <div class="ms-auto">
+         <label class="uc-label small mb-1" for="sortBy">
+          Sort
+         </label>
+         <select class="form-select form-select-sm" id="sortBy">
+          <option value="newest">
+           Newest
+          </option>
+          <option value="oldest">
+           Oldest
+          </option>
+          <option value="severity_desc">
+           Severity: High → Low
+          </option>
+          <option value="severity_asc">
+           Severity: Low → High
+          </option>
+         </select>
+        </div>
+       </div>
+       <div class="table-responsive rm-queue-table">
+        <table class="table table-hover table-sm align-middle uc-table m-0">
+         <thead>
+          <tr>
+           <th>
+            ID
+           </th>
+           <th>
+            Time
+           </th>
+           <th>
+            Location
+           </th>
+           <th>
+            Severity
+           </th>
+           <th>
+            Status
+           </th>
+          </tr>
+         </thead>
+         <tbody id="reportTableBody">
+          <!-- rows injected by JS -->
+         </tbody>
+        </table>
+       </div>
+      </div>
+      <div class="uc-card-footer d-flex align-items-center justify-content-between">
+       <div class="small uc-text-muted" id="paginationInfo">
+        Showing 0-0 of 0
+       </div>
+       <nav>
+        <ul class="pagination pagination-sm mb-0" id="pagination">
+         <!-- pagination injected by JS -->
+        </ul>
+       </nav>
+      </div>
+     </div>
+    </div>
+    <!-- Report Details -->
+    <div class="col-12 col-lg-5">
+     <div class="uc-card h-100 d-flex flex-column">
+      <div class="uc-card-header">
+       <div>
+        <div class="uc-card-title">
+         Report Details
+        </div>
+        <div class="small uc-text-muted" id="detailsSubtitle">
+         Select a report from the queue to view full details
+        </div>
+       </div>
+       <div id="detailsStatusBadge">
+       </div>
+      </div>
+      <div class="uc-card-body rm-details-body" id="detailsBody">
+       <div class="text-center p-4" id="emptyDetails">
+        <img alt="No report selected" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-empty/400/280'" src="assets/illustration_for_empty_report__3_21261fc3.png" style="max-width:280px;"/>
+        <div class="uc-h4 mt-2">
+         No report selected
+        </div>
+        <div class="uc-text-muted">
+         Choose a report from the left to review details
+        </div>
+       </div>
+       <div class="d-none" id="detailsContent">
+        <div class="mb-3 d-flex align-items-center justify-content-between">
+         <div class="d-flex align-items-center gap-2">
+          <span class="badge text-bg-secondary" id="detailReportId">
+           RPT-—
+          </span>
+          <span class="uc-dot uc-dot-info" title="AI triage computed">
+          </span>
+         </div>
+         <div class="uc-freshness" id="detailFreshness">
+          Updated just now
+         </div>
+        </div>
+        <div class="mb-3">
+         <div class="uc-h4">
+          Incident Information
+         </div>
+         <div class="row g-2 small">
+          <div class="col-12 col-md-6">
+           <div class="text-muted">
+            Submitted By
+           </div>
+           <a class="fw-semibold text-decoration-none" href="./user_management.html" id="detailReporter">
+            —
+           </a>
+          </div>
+          <div class="col-12 col-md-6">
+           <div class="text-muted">
+            Timestamp
+           </div>
+           <div class="fw-semibold" id="detailTime">
+            —
+           </div>
+          </div>
+          <div class="col-12 col-md-6">
+           <div class="text-muted">
+            Location
+           </div>
+           <div class="fw-semibold" id="detailLocation">
+            —
+           </div>
+          </div>
+          <div class="col-12 col-md-6">
+           <div class="text-muted">
+            Severity
+           </div>
+           <div id="detailSeverity">
+            —
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="mb-3">
+         <div class="text-muted">
+          Symptoms
+         </div>
+         <div class="d-flex flex-wrap gap-2 mt-1" id="detailSymptoms">
+         </div>
+        </div>
+        <div class="mb-3">
+         <div class="text-muted">
+          User Description
+         </div>
+         <div class="border rounded p-2 bg-light" id="detailDescription" style="white-space:pre-wrap">
+          —
+         </div>
+        </div>
+        <div class="mb-3">
+         <div class="d-flex align-items-center justify-content-between">
+          <div class="text-muted">
+           Attached Media
+          </div>
+          <div class="small uc-text-muted">
+           Click a thumbnail to view
+          </div>
+         </div>
+         <div class="row g-2 mt-1" id="detailMedia">
+         </div>
+        </div>
+        <div class="uc-divider">
+        </div>
+        <div class="mb-2">
+         <div class="uc-h4">
+          Moderation Actions
+         </div>
+         <div class="row g-2 align-items-end">
+          <div class="col-12 col-lg-7">
+           <label class="uc-label small" for="statusSelect">
+            Update Status
+           </label>
+           <div class="input-group input-group-sm">
+            <select class="form-select" id="statusSelect">
+             <option>
+              New
+             </option>
+             <option>
+              Under Review
+             </option>
+             <option>
+              Validated - High Severity
+             </option>
+             <option>
+              Escalated
+             </option>
+             <option>
+              Resolved
+             </option>
+             <option>
+              Spam
+             </option>
+            </select>
+            <button class="btn btn-success" disabled="" id="btnSaveStatus">
+             <i class="fa-solid fa-floppy-disk">
+             </i>
+             Save
+            </button>
+           </div>
+           <div class="uc-help-text">
+            All status changes are logged to the audit trail.
+           </div>
+          </div>
+          <div class="col-12 col-lg-5 d-grid">
+           <button class="btn btn-danger" disabled="" id="btnEscalate">
+            <i class="fa-solid fa-up-right-from-square">
+            </i>
+            Escalate to Health Authority
+           </button>
+           <div class="uc-help-text">
+            Enabled only for Validated - High Severity
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="mt-3">
+         <div class="uc-h4">
+          Audit Trail
+         </div>
+         <div class="uc-timeline mt-2" id="auditTrail">
+          <!-- timeline items injected -->
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Map & nearby -->
+    <div class="col-12 col-lg-3">
+     <div class="uc-card h-100 d-flex flex-column">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Map &amp; Nearby Reports
+       </div>
+       <div class="uc-card-subtitle">
+        Kolkata pilot
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="uc-real-time-map" id="reportMap">
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- Media Viewer Modal -->
+   <div aria-hidden="true" class="modal fade" id="mediaModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+     <div class="modal-content">
+      <div class="modal-header">
+       <h5 class="modal-title">
+        <i class="fa-regular fa-image me-2">
+        </i>
+        Attachment
+       </h5>
+       <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+       </button>
+      </div>
+      <div class="modal-body text-center">
+       <img alt="Attachment" class="img-fluid rounded" id="mediaModalImg" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-attachment/900/600'" src=""/>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer (Backoffice) -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg">
+      <span class="small text-muted">
+       © UnityCure Backoffice
+      </span>
+     </img>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" data-page="campaign_form" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+  </script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Mock data for reports
+const reports = [{
+    id: 'RPT-2025-001',
+    timestamp: '2025-08-20T10:15:00+05:30',
+    locationName: 'Salt Lake Sector V, Kolkata',
+    lat: 22.5697,
+    lng: 88.4332,
+    severity: 'High',
+    status: 'New',
+    reporter: {
+        id: 'USR-1001'
+    },
+    symptoms: ['High fever', 'Shortness of breath', 'Chest pain'],
+    description: 'Sudden onset of severe chest pain and breathlessness reported in an office premises. Multiple individuals complaining of similar symptoms.',
+    media: ['assets/placeholder_for_no_attached_me_1_7202eaff.png']
+}, {
+    id: 'RPT-2025-002',
+    timestamp: '2025-08-20T09:05:00+05:30',
+    locationName: 'Park Street, Kolkata',
+    lat: 22.5531,
+    lng: 88.3521,
+    severity: 'Medium',
+    status: 'Under Review',
+    reporter: {
+        id: 'USR-1023'
+    },
+    symptoms: ['Fever', 'Cough'],
+    description: 'Two residents in the same building with persistent fever and cough.',
+    media: ['assets/placeholder_for_no_attached_me_2_8dd1f678.png']
+}, {
+    id: 'RPT-2025-003',
+    timestamp: '2025-08-20T07:45:00+05:30',
+    locationName: 'Howrah Maidan',
+    lat: 22.5900,
+    lng: 88.3100,
+    severity: 'Low',
+    status: 'New',
+    reporter: {
+        id: 'USR-1044'
+    },
+    symptoms: ['Headache'],
+    description: 'Single user reported mild headache after sun exposure.',
+    media: []
+}, {
+    id: 'RPT-2025-004',
+    timestamp: '2025-08-20T06:30:00+05:30',
+    locationName: 'Tollygunge',
+    lat: 22.5010,
+    lng: 88.3400,
+    severity: 'High',
+    status: 'Validated - High Severity',
+    reporter: {
+        id: 'USR-1102'
+    },
+    symptoms: ['Severe breathlessness', 'Dizziness'],
+    description: 'Multiple emergency calls from a metro station platform for breathing difficulty.',
+    media: ['assets/placeholder_for_no_attached_me_3_d55121f5.png']
+}, {
+    id: 'RPT-2025-005',
+    timestamp: '2025-08-19T23:10:00+05:30',
+    locationName: 'Dum Dum',
+    lat: 22.6200,
+    lng: 88.4200,
+    severity: 'Medium',
+    status: 'Escalated',
+    reporter: {
+        id: 'USR-1018'
+    },
+    symptoms: ['Fainting', 'Nausea'],
+    description: 'Reported cluster of fainting incidents near a factory area.',
+    media: ['assets/placeholder_for_no_attached_me_4_c4a8ec5e.png']
+}, {
+    id: 'RPT-2025-006',
+    timestamp: '2025-08-19T21:30:00+05:30',
+    locationName: 'Barasat',
+    lat: 22.7200,
+    lng: 88.4800,
+    severity: 'Low',
+    status: 'Spam',
+    reporter: {
+        id: 'USR-1099'
+    },
+    symptoms: ['No symptoms detailed'],
+    description: 'Inconsistent information provided, flagged by moderators.',
+    media: []
+}, {
+    id: 'RPT-2025-007',
+    timestamp: '2025-08-20T08:25:00+05:30',
+    locationName: 'Ballygunge',
+    lat: 22.5250,
+    lng: 88.3650,
+    severity: 'Low',
+    status: 'New',
+    reporter: {
+        id: 'USR-1201'
+    },
+    symptoms: ['Mild fever'],
+    description: 'Single household case reported via community worker.',
+    media: ['assets/placeholder_for_no_attached_me_5_6e85c48b.png']
+}, {
+    id: 'RPT-2025-008',
+    timestamp: '2025-08-20T05:50:00+05:30',
+    locationName: 'Jadavpur',
+    lat: 22.5010,
+    lng: 88.3700,
+    severity: 'High',
+    status: 'Under Review',
+    reporter: {
+        id: 'USR-1222'
+    },
+    symptoms: ['High fever', 'Severe cough'],
+    description: 'College campus cluster suspected. Awaiting verification from on-ground team.',
+    media: []
+}];
+
+// State
+let activeFilters = {
+    status: 'New',
+    severity: '',
+    dateFrom: null,
+    dateTo: null
+};
+let sortOrder = 'newest';
+let currentPage = 1;
+const pageSize = 6;
+let selectedReportId = null;
+
+// Elements
+const tbody = document.getElementById('reportTableBody');
+const totalBadge = document.getElementById('totalReportsBadge');
+const paginationEl = document.getElementById('pagination');
+const paginationInfo = document.getElementById('paginationInfo');
+const detailsSubtitle = document.getElementById('detailsSubtitle');
+const detailsStatusBadge = document.getElementById('detailsStatusBadge');
+const detailReportId = document.getElementById('detailReportId');
+const detailReporter = document.getElementById('detailReporter');
+const detailTime = document.getElementById('detailTime');
+const detailLocation = document.getElementById('detailLocation');
+const detailSeverity = document.getElementById('detailSeverity');
+const detailSymptoms = document.getElementById('detailSymptoms');
+const detailDescription = document.getElementById('detailDescription');
+const detailMedia = document.getElementById('detailMedia');
+const emptyDetails = document.getElementById('emptyDetails');
+const detailsContent = document.getElementById('detailsContent');
+const statusSelect = document.getElementById('statusSelect');
+const btnSaveStatus = document.getElementById('btnSaveStatus');
+const btnEscalate = document.getElementById('btnEscalate');
+const auditTrail = document.getElementById('auditTrail');
+const freshnessIndicator = document.getElementById('freshnessIndicator');
+
+// Filters elements
+const filterStatus = document.getElementById('filterStatus');
+const filterSeverity = document.getElementById('filterSeverity');
+const filterDate = document.getElementById('filterDate');
+const sortBy = document.getElementById('sortBy');
+const btnApplyFilters = document.getElementById('btnApplyFilters');
+const btnClearFilters = document.getElementById('btnClearFilters');
+
+// KPIs
+const kpiNew = document.getElementById('kpiNew');
+const kpiHigh = document.getElementById('kpiHigh');
+const kpiEscalated = document.getElementById('kpiEscalated');
+const kpiUnderReview = document.getElementById('kpiUnderReview');
+
+// Utilities
+function formatTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleString('en-IN', {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+    });
+}
+
+function severityClass(sev) {
+    if (sev === 'High') return 'uc-status-high';
+    if (sev === 'Medium') return 'uc-status-medium';
+    return 'uc-status-low';
+}
+
+function renderSeverityBadge(sev) {
+    return `<span class="uc-status-badge ${severityClass(sev)}">${sev}</span>`;
+}
+
+function statusBadge(status) {
+    let cls = 'text-bg-secondary';
+    if (status === 'New') cls = 'text-bg-primary';
+    else if (status === 'Under Review') cls = 'text-bg-info';
+    else if (status === 'Validated - High Severity') cls = 'text-bg-warning';
+    else if (status === 'Escalated') cls = 'text-bg-danger';
+    else if (status === 'Resolved') cls = 'text-bg-success';
+    else if (status === 'Spam') cls = 'text-bg-dark';
+    return `<span class="badge ${cls}">${status}</span>`;
+}
+
+// Filtering/sorting/pagination
+function applyFilters(data) {
+    return data.filter(r => {
+        const matchStatus = activeFilters.status ? r.status === activeFilters.status : true;
+        const matchSeverity = activeFilters.severity ? r.severity === activeFilters.severity : true;
+        let matchDate = true;
+        if (activeFilters.dateFrom && activeFilters.dateTo) {
+            const t = new Date(r.timestamp).getTime();
+            matchDate = (t >= activeFilters.dateFrom.getTime() && t <= activeFilters.dateTo.getTime());
+        }
+        return matchStatus && matchSeverity && matchDate;
+    });
+}
+
+function applySort(data) {
+    const arr = [...data];
+    if (sortOrder === 'newest') arr.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    else if (sortOrder === 'oldest') arr.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    else if (sortOrder === 'severity_desc') {
+        const rank = {
+            High: 3,
+            Medium: 2,
+            Low: 1
+        };
+        arr.sort((a, b) => rank[b.severity] - rank[a.severity]);
+    } else if (sortOrder === 'severity_asc') {
+        const rank = {
+            High: 3,
+            Medium: 2,
+            Low: 1
+        };
+        arr.sort((a, b) => rank[a.severity] - rank[b.severity]);
+    }
+    return arr;
+}
+
+function paginate(data) {
+    const total = data.length;
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    currentPage = Math.min(currentPage, pages);
+    const start = (currentPage - 1) * pageSize;
+    const end = Math.min(start + pageSize, total);
+    return {
+        slice: data.slice(start, end),
+        total,
+        pages,
+        start: start + 1,
+        end
+    };
+}
+
+function renderPagination(pages, total) {
+    paginationEl.innerHTML = '';
+    if (pages <= 1) return;
+    const create = (label, page, disabled = false, active = false) => {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled?'disabled':''} ${active?'active':''}`;
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.href = '#';
+        a.textContent = label;
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!disabled) {
+                currentPage = page;
+                renderTable();
+            }
+        });
+        li.appendChild(a);
+        return li;
+    };
+    paginationEl.appendChild(create('«', Math.max(1, currentPage - 1), currentPage === 1));
+    for (let p = 1; p <= pages; p++) paginationEl.appendChild(create(String(p), p, false, p === currentPage));
+    paginationEl.appendChild(create('»', Math.min(pages, currentPage + 1), currentPage === pages));
+}
+
+function renderTable() {
+    const filtered = applyFilters(reports);
+    const sorted = applySort(filtered);
+    const {
+        slice,
+        total,
+        pages,
+        start,
+        end
+    } = paginate(sorted);
+    totalBadge.textContent = total;
+    tbody.innerHTML = '';
+    slice.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'rm-row';
+        tr.dataset.id = r.id;
+        if (selectedReportId === r.id) tr.classList.add('rm-row-selected');
+        tr.innerHTML = `
+          <td class="text-nowrap"><a href="#" class="text-decoration-none">${r.id}</a></td>
+          <td class="text-nowrap">${formatTime(r.timestamp)}</td>
+          <td class="text-truncate" style="max-width:160px" title="${r.locationName}">${r.locationName}</td>
+          <td>${renderSeverityBadge(r.severity)}</td>
+          <td>${statusBadge(r.status)}</td>
+        `;
+        tr.addEventListener('click', () => selectReport(r.id));
+        tbody.appendChild(tr);
+    });
+    paginationInfo.textContent = total ? `Showing ${start}-${end} of ${total}` : 'No results';
+    renderPagination(pages, total);
+    updateKPIs();
+    updateMapMarkers(sorted);
+}
+
+function updateKPIs() {
+    const counts = {
+        New: 0,
+        High: 0,
+        Escalated: 0,
+        UnderReview: 0
+    };
+    reports.forEach(r => {
+        if (r.status === 'New') counts.New++;
+        if (r.severity === 'High') counts.High++;
+        if (r.status === 'Escalated') counts.Escalated++;
+        if (r.status === 'Under Review') counts.UnderReview++;
+    });
+    kpiNew.textContent = counts.New;
+    kpiHigh.textContent = counts.High;
+    kpiEscalated.textContent = counts.Escalated;
+    kpiUnderReview.textContent = counts.UnderReview;
+}
+
+function selectReport(id) {
+    selectedReportId = id;
+    const r = reports.find(x => x.id === id);
+    if (!r) return;
+    // highlight row
+    document.querySelectorAll('.rm-row').forEach(row => {
+        row.classList.toggle('rm-row-selected', row.dataset.id === id);
+    });
+    // show loader skeleton briefly
+    emptyDetails.classList.add('d-none');
+    detailsContent.classList.remove('d-none');
+    detailsSubtitle.textContent = `Selected: ${r.id}`;
+    detailsStatusBadge.innerHTML = statusBadge(r.status);
+    detailReportId.textContent = r.id;
+    detailReporter.textContent = r.reporter.id;
+    detailTime.textContent = formatTime(r.timestamp);
+    detailLocation.textContent = r.locationName;
+    detailSeverity.innerHTML = renderSeverityBadge(r.severity);
+    detailSymptoms.innerHTML = r.symptoms.map(s => `<span class="uc-chip"><i class="fa-solid fa-check text-success"></i> ${s}</span>`).join('');
+    detailDescription.textContent = r.description || '—';
+    // media
+    detailMedia.innerHTML = '';
+    const mediaList = r.media && r.media.length ? r.media : ['assets/illustration_for_empty_report__1_495928c4.png'];
+    mediaList.forEach(src => {
+        const col = document.createElement('div');
+        col.className = 'col-4';
+        col.innerHTML = `<img src="${src}" alt="Attachment" class="img-fluid rounded rm-media-thumb" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-media/400/300'">`;
+        const img = col.querySelector('img');
+        img.addEventListener('click', () => {
+            document.getElementById('mediaModalImg').src = src;
+            const m = new bootstrap.Modal(document.getElementById('mediaModal'));
+            m.show();
+        });
+        detailMedia.appendChild(col);
+    });
+    // set status select and escalate button state
+    statusSelect.value = r.status;
+    btnSaveStatus.disabled = true;
+    btnEscalate.disabled = !(r.status === 'Validated - High Severity');
+    // Audit trail (mock)
+    auditTrail.innerHTML = '';
+    const trail = [{
+        t: r.timestamp,
+        text: 'Report submitted by user ' + r.reporter.id
+    }, {
+        t: new Date(new Date(r.timestamp).getTime() + 15 * 60000).toISOString(),
+        text: 'AI triage assessed severity as ' + r.severity
+    }, ];
+    if (r.status !== 'New') trail.push({
+        t: new Date().toISOString(),
+        text: 'Moderator set status to ' + r.status
+    });
+    trail.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'uc-timeline-item';
+        div.innerHTML = `<div class="small"><span class="text-muted">${formatTime(item.t)}</span> – ${item.text}</div>`;
+        auditTrail.appendChild(div);
+    });
+    // Map center
+    if (map) {
+        map.setView([r.lat, r.lng], 13);
+    }
+}
+
+// Status change handling
+statusSelect.addEventListener('change', () => {
+    const r = reports.find(x => x.id === selectedReportId);
+    btnSaveStatus.disabled = !r || (r.status === statusSelect.value);
+});
+btnSaveStatus.addEventListener('click', () => {
+    const r = reports.find(x => x.id === selectedReportId);
+    if (!r) return;
+    const old = r.status;
+    const next = statusSelect.value;
+    r.status = next;
+    detailsStatusBadge.innerHTML = statusBadge(r.status);
+    btnEscalate.disabled = !(r.status === 'Validated - High Severity');
+    btnSaveStatus.disabled = true;
+    renderTable();
+    Swal.fire({
+        icon: 'success',
+        title: 'Status updated',
+        text: `${r.id} changed from "${old}" to "${next}"`,
+        timer: 1600,
+        showConfirmButton: false
+    });
+});
+
+// Escalation
+btnEscalate.addEventListener('click', () => {
+    const r = reports.find(x => x.id === selectedReportId);
+    if (!r) return;
+    Swal.fire({
+        title: 'Confirm Escalation',
+        html: `<div class='text-start'>
+                 <p>You are escalating <strong>${r.id}</strong> (${r.locationName}). This action will notify district health authorities and is logged as irreversible for this report.</p>
+                 <ul class='small text-start'>
+                   <li>Severity: <strong>${r.severity}</strong></li>
+                   <li>Current status: <strong>${r.status}</strong></li>
+                   <li>Timestamp: ${formatTime(r.timestamp)}</li>
+                 </ul>
+               </div>`,
+        imageUrl: 'assets/illustration_for_escalation_co_2_6f4ed5e1.png',
+        imageWidth: 300,
+        imageAlt: 'Escalation illustration',
+        showCancelButton: true,
+        confirmButtonText: 'Escalate',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#CD2026'
+    }).then(res => {
+        if (res.isConfirmed) {
+            r.status = 'Escalated';
+            detailsStatusBadge.innerHTML = statusBadge(r.status);
+            statusSelect.value = r.status;
+            btnEscalate.disabled = true;
+            renderTable();
+            Swal.fire({
+                icon: 'success',
+                title: 'Escalated',
+                text: `${r.id} escalated to health authorities`,
+                timer: 1800,
+                showConfirmButton: false
+            });
+        }
+    });
+});
+
+// Filters wiring
+flatpickr('#filterDate', {
+    mode: 'range',
+    dateFormat: 'Y-m-d',
+    onClose: (sel) => {
+        if (sel.length === 2) {
+            activeFilters.dateFrom = sel[0];
+            activeFilters.dateTo = new Date(sel[1].getFullYear(), sel[1].getMonth(), sel[1].getDate(), 23, 59, 59, 999);
+        } else {
+            activeFilters.dateFrom = activeFilters.dateTo = null;
+        }
+    }
+});
+filterStatus.value = activeFilters.status;
+btnApplyFilters.addEventListener('click', () => {
+    activeFilters.status = filterStatus.value;
+    activeFilters.severity = filterSeverity.value;
+    currentPage = 1;
+    renderTable();
+});
+btnClearFilters.addEventListener('click', () => {
+    activeFilters = {
+        status: 'New',
+        severity: '',
+        dateFrom: null,
+        dateTo: null
+    };
+    filterStatus.value = activeFilters.status;
+    filterSeverity.value = '';
+    filterDate.value = '';
+    currentPage = 1;
+    renderTable();
+});
+sortBy.addEventListener('change', () => {
+    sortOrder = sortBy.value;
+    currentPage = 1;
+    renderTable();
+});
+
+// Refresh button
+document.getElementById('btnRefresh').addEventListener('click', () => {
+    // Simulate refresh
+    const now = new Date();
+    freshnessIndicator.textContent = `Last updated ${now.toLocaleTimeString('en-IN')}`;
+    addToast('Refreshed', 'Incoming reports reloaded', 'info');
+    renderTable();
+});
+
+// Toast helper
+function addToast(title, message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const div = document.createElement('div');
+    div.className = `uc-toast uc-toast-${type}`;
+    div.innerHTML = `<i class="fa-solid fa-circle-info"></i><div><div class="fw-semibold">${title}</div><div class="small">${message}</div></div>`;
+    container.appendChild(div);
+    setTimeout(() => div.remove(), 2500);
+}
+
+// Leaflet Map
+let map, clusterLayer;
+
+function initMap() {
+    map = L.map('reportMap').setView([22.5726, 88.3639], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    clusterLayer = L.markerClusterGroup();
+    map.addLayer(clusterLayer);
+    updateMapMarkers(reports);
+}
+
+function markerColorBySeverity(sev) {
+    if (sev === 'High') return '#CD2026';
+    if (sev === 'Medium') return '#FFA500';
+    return '#00774E';
+}
+
+function updateMapMarkers(data) {
+    if (!clusterLayer) return;
+    clusterLayer.clearLayers();
+    data.forEach(r => {
+        const marker = L.circleMarker([r.lat, r.lng], {
+            radius: 8,
+            color: markerColorBySeverity(r.severity),
+            weight: 2,
+            fillColor: markerColorBySeverity(r.severity),
+            fillOpacity: 0.7
+        });
+        const popupHtml = `
+          <div class="uc-infopopup" style="position:relative;transform:none;box-shadow:none;">
+            <div class="small text-muted">${formatTime(r.timestamp)}</div>
+            <div class="fw-semibold">${r.locationName}</div>
+            <div class="mt-1">${renderSeverityBadge(r.severity)}</div>
+            <div class="mt-2"><a href="#" data-id="${r.id}" class="btn btn-sm btn-outline-success">View full details</a></div>
+          </div>`;
+        marker.bindPopup(popupHtml);
+        marker.on('popupopen', e => {
+            const link = e.popup.getElement().querySelector('a[data-id]');
+            link.addEventListener('click', (ev) => {
+                ev.preventDefault();
+                selectReport(r.id);
+            });
+        });
+        clusterLayer.addLayer(marker);
+    });
+}
+
+// Chart.js - Reports last 24h (mock)
+let chart;
+
+function initChart() {
+    const ctx = document.getElementById('reportsChart').getContext('2d');
+    const now = new Date();
+    const labels = [];
+    const data = [];
+    for (let i = 23; i >= 0; i--) {
+        const d = new Date(now.getTime() - i * 3600 * 1000);
+        labels.push(d.getHours() + ':00');
+        // mock distribution
+        const base = 2 + Math.round(Math.random() * 3);
+        data.push(base);
+    }
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Reports',
+                data,
+                tension: 0.3,
+                borderColor: '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.15)',
+                fill: true,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        maxTicksLimit: 8
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    document.getElementById('chartLoading').classList.add('d-none');
+}
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+    renderTable();
+    initMap();
+    setTimeout(initChart, 600);
+});
+  </script>
+ </body>
+</html>

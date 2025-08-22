@@ -1,0 +1,102 @@
+/* user_management.css - Page-specific styles for User Management */
+/* Use brand font */
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Page header adjustments */
+.uc-page-title {
+    letter-spacing: 0.2px
+    }
+/* Filter bar specifics */
+#filterBar .form-select {
+    min-width: 180px
+    }
+#filterBar .btn {
+    white-space: nowrap
+    }
+/* Sortable columns */
+#userTable thead th.sortable {
+    cursor: pointer;
+    user-select: none
+    }
+#userTable thead th.sortable:hover {
+    background: rgba(0, 153, 210, 0.06)
+    }
+/* Role badges (leveraging uc-badge base) */
+.role-badge {
+    border: 1px solid var(--uc-color-border)
+    }
+.role-platform-admin {
+    background: color-mix(in oklab, var(--uc-color-primary) 10%, white);
+    color: var(--uc-color-primary)
+    }
+.role-hospital-admin {
+    background: color-mix(in oklab, var(--uc-color-info) 10%, white);
+    color: var(--uc-color-info)
+    }
+.role-doctor {
+    background: color-mix(in oklab, var(--uc-color-success) 12%, white);
+    color: var(--uc-color-success)
+    }
+.role-patient {
+    background: #fff;
+    color: var(--uc-color-text-muted)
+    }
+.role-dispatcher {
+    background: color-mix(in oklab, var(--uc-color-warning) 12%, white);
+    color: var(--uc-color-warning-700)
+    }
+.role-ngo-organizer {
+    background: color-mix(in oklab, var(--uc-color-info) 14%, white);
+    color: var(--uc-color-info)
+    }
+/* Status badges */
+.status-active {
+    border-color: color-mix(in oklab, var(--uc-color-success) 30%, white)
+    }
+.status-pending {
+    border-color: color-mix(in oklab, var(--uc-color-warning) 30%, white)
+    }
+.status-suspended {
+    border-color: color-mix(in oklab, var(--uc-color-error) 30%, white)
+    }
+/* Table row hover */
+#userTable tbody tr:hover {
+    background: #FAFDFF
+    }
+/* Empty state image responsiveness */
+#emptyState img {
+    max-width: min(640px, 90%)
+    }
+/* Modal refinements */
+#addEditUserModal .modal-content {
+    border-radius: var(--uc-radius-lg)
+    }
+#addEditUserModal .form-text {
+    color: var(--uc-color-text-muted)
+    }
+/* Action dropdown width consistency */
+.dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px
+    }
+/* Pagination buttons look aligned with theme */
+.uc-pagination .uc-page-btn {
+    border: none;
+    background: transparent
+    }
+.uc-pagination .uc-page-btn[aria-current="true"] {
+    background: color-mix(in oklab, var(--uc-color-info) 14%, white);
+    color: var(--uc-color-info);
+    font-weight: 700
+    }
+/* Loading overlay tweaks */
+#loadingOverlay .spinner-border {
+    width: 2.5rem;
+    height: 2.5rem
+    }
+/* Chart card canvas responsive fallback */
+#roleChart {
+    max-width: 100%
+    }

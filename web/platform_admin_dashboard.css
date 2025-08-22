@@ -1,0 +1,47 @@
+/* Platform Admin Dashboard - Page Specific Styles (platform_admin_dashboard.html.css)
+   Uses global theme from style.css; only minimal additions here. */
+body.platform-admin {
+    font-family: "Poppins", var(--uc-font-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    /* Subtle background image with soft overlay for admin dashboard */
+    background-image: url(assets/subtle_background_for_admin_da_3_5b3b7fe2.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay
+    }
+/* Ensure content blocks remain readable on image bg */
+#mainContent .uc-card, #mainContent .uc-table, #mainContent .bg-white, #mainContent .uc-stat-card {
+    backdrop-filter: saturate(1.05) blur(0.5px)
+    }
+/* Cursor helper */
+.cursor-pointer {
+    cursor: pointer
+    }
+/* Highlight high severity rows subtly */
+.table-danger-subtle {
+    background: rgba(205, 32, 38, 0.06)
+    }
+/* Nav tabs styling to blend with theme */
+.nav-tabs .nav-link.active {
+    color: var(--uc-color-primary);
+    font-weight: 600;
+    background: color-mix(in oklab, var(--uc-color-primary) 10%, white);
+    border-color: var(--uc-color-border) var(--uc-color-border) transparent
+    }
+.nav-tabs .nav-link {
+    color: var(--uc-color-text)
+    }
+/* Make chart card body responsive height */
+#severityChart {
+    min-height: 240px
+    }
+/* Toast slight elevation override */
+#toastContainer .uc-toast {
+    border-left-width: 4px
+    }
+/* Header quick action buttons spacing on small screens */
+@media (max-width: 576px) {
+    .uc-page-title {
+        font-size: 24px
+        }
+    }

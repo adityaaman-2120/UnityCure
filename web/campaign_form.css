@@ -1,0 +1,63 @@
+/* campaign_form.css - page-specific styles for Create Campaign page */
+/* Use Poppins as brand typography without altering global theme */
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Make the offcanvas behave as a persistent left sidebar on lg+ screens */
+@media (min-width: 992px) {
+    #ucSidebarBackoffice.offcanvas-start {
+        position: static;
+        transform: none !important;
+        visibility: visible !important;
+        display: block !important;
+        border-right: 1px solid var(--uc-color-border)
+        }
+    #staticSidebarCol {
+        position: sticky;
+        top: 0;
+        height: calc(100vh - 0);
+        overflow: auto
+        }
+    /* hide the close button on desktop */
+    #ucSidebarBackoffice .btn-close {
+        display: none
+        }
+    }
+/* Sticky action bar inside the form card */
+.sticky-actions {
+    position: sticky;
+    bottom: 0;
+    background: #FAFBFC;
+    border-top: 1px solid var(--uc-color-border);
+    z-index: 5
+    }
+/* Search results dropdown styling */
+#searchResults {
+    z-index: 20;
+    max-height: 220px;
+    overflow: auto;
+    top: 100%;
+    left: 0
+    }
+/* Improve image preview fit */
+#imagePreviewWrapper img {
+    object-fit: cover
+    }
+/* Utility: object-fit for bootstrap ratio */
+.object-fit-cover {
+    object-fit: cover
+    }
+/* Breadcrumbs spacing */
+.uc-breadcrumbs {
+    margin-top: 8px
+    }
+/* Table header sort hover */
+#draftsTable th.sortable:hover {
+    color: var(--uc-color-info)
+    }
+/* Reduce card body padding on right rail for compactness */
+@media (min-width: 992px) {
+    .col-lg-4 .uc-card-body {
+        padding: 14px
+        }
+    }

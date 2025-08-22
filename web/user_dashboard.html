@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   User Dashboard - UnityCure
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+   <!-- Global Theme CSS -->
+   <link href="style.css" rel="stylesheet">
+    <!-- Page-specific CSS -->
+    <link href="user_dashboard.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body style="font-family: 'Poppins', var(--uc-font-sans);">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Citizen/Community) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Notifications" class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Messages" class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i aria-hidden="true" class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div aria-label="User Menu" class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html" id="headerLogout">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Citizen/Community) as Offcanvas Left -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold" id="sidebarUserName">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="uc-app" id="mainContent">
+   <div class="uc-container py-3">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="uc-breadcrumbs mb-3">
+     <a aria-current="page" href="./user_dashboard.html">
+      Dashboard
+     </a>
+     <span>
+      /
+     </span>
+     <span class="text-muted">
+      My Appointments
+     </span>
+    </nav>
+    <!-- Welcome + Quick Actions -->
+    <section class="uc-section">
+     <div class="row g-3 align-items-stretch">
+      <div class="col-12 col-lg-8">
+       <div class="uc-card h-100">
+        <div class="uc-card-body">
+         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div>
+           <h1 class="uc-page-title mb-1">
+            Welcome back,
+            <span class="text-success" id="dashboardUserName">
+             Ananya
+            </span>
+            👋
+           </h1>
+           <p class="uc-text-muted mb-0">
+            Manage your care in one place: appointments, records, community events.
+           </p>
+          </div>
+          <div class="text-end">
+           <span class="uc-badge uc-badge-info">
+            <i class="fa-regular fa-clock">
+            </i>
+            Last login:
+            <span id="lastLogin">
+             2 hours ago
+            </span>
+           </span>
+          </div>
+         </div>
+         <div class="row g-3 mt-2">
+          <div class="col-6 col-md-3">
+           <a class="uc-stat-card uc-hover-raise h-100 text-decoration-none" href="./appointment_booking.html">
+            <div class="uc-stat-icon">
+             <i class="fa-solid fa-calendar-plus">
+             </i>
+            </div>
+            <div>
+             <div class="uc-stat-title">
+              Book
+             </div>
+             <div class="uc-stat-value">
+              Appointment
+             </div>
+            </div>
+           </a>
+          </div>
+          <div class="col-6 col-md-3">
+           <a class="uc-stat-card uc-hover-raise h-100 text-decoration-none" href="./teleconsult_session.html">
+            <div class="uc-stat-icon">
+             <i class="fa-solid fa-video">
+             </i>
+            </div>
+            <div>
+             <div class="uc-stat-title">
+              Join
+             </div>
+             <div class="uc-stat-value">
+              Teleconsult
+             </div>
+            </div>
+           </a>
+          </div>
+          <div class="col-6 col-md-3">
+           <a class="uc-stat-card uc-hover-raise h-100 text-decoration-none" href="./map_view.html">
+            <div class="uc-stat-icon">
+             <i class="fa-solid fa-map-location-dot">
+             </i>
+            </div>
+            <div>
+             <div class="uc-stat-title">
+              Find
+             </div>
+             <div class="uc-stat-value">
+              Hospitals
+             </div>
+            </div>
+           </a>
+          </div>
+          <div class="col-6 col-md-3">
+           <a class="uc-stat-card uc-hover-raise h-100 text-decoration-none" href="./sos_form.html">
+            <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-error) 10%, white); color: var(--uc-color-error)">
+             <i class="fa-solid fa-triangle-exclamation">
+             </i>
+            </div>
+            <div>
+             <div class="uc-stat-title">
+              Emergency
+             </div>
+             <div class="uc-stat-value">
+              SOS
+             </div>
+            </div>
+           </a>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-lg-4">
+       <div class="uc-card h-100">
+        <div class="uc-card-header">
+         <div class="uc-card-title">
+          Care Overview
+         </div>
+         <div class="uc-card-subtitle">
+          Last 6 months
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <canvas aria-label="Appointments overview chart" height="160" id="careChart">
+         </canvas>
+         <div class="uc-text-muted uc-text-sm mt-2">
+          Hover to see monthly totals. In-person vs Telemedicine split.
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Appointments Section -->
+    <section class="uc-section">
+     <div class="uc-section-header">
+      <div>
+       <h2 class="uc-h2 m-0">
+        My Appointments
+       </h2>
+       <div class="uc-text-muted">
+        View and manage upcoming and past visits
+       </div>
+      </div>
+      <div class="d-flex gap-2">
+       <div class="uc-search" style="min-width:240px;">
+        <i class="fa-solid fa-magnifying-glass">
+        </i>
+        <input aria-label="Search appointments" id="apptSearch" placeholder="Search doctor, hospital..." type="text">
+        </input>
+       </div>
+       <select aria-label="Filter by type" class="uc-select" id="apptTypeFilter" style="min-width:180px;">
+        <option value="">
+         All types
+        </option>
+        <option value="telemedicine">
+         Telemedicine
+        </option>
+        <option value="inperson">
+         In-person
+        </option>
+       </select>
+       <select aria-label="Sort appointments" class="uc-select" id="apptSort" style="min-width:180px;">
+        <option value="dateAsc">
+         Sort: Date (Asc)
+        </option>
+        <option value="dateDesc">
+         Sort: Date (Desc)
+        </option>
+       </select>
+      </div>
+     </div>
+     <ul class="nav nav-tabs" id="apptTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+       <button aria-controls="upcoming" aria-selected="true" class="nav-link active" data-bs-target="#upcoming" data-bs-toggle="tab" id="upcoming-tab" role="tab" type="button">
+        Upcoming
+       </button>
+      </li>
+      <li class="nav-item" role="presentation">
+       <button aria-controls="past" aria-selected="false" class="nav-link" data-bs-target="#past" data-bs-toggle="tab" id="past-tab" role="tab" type="button">
+        Past
+       </button>
+      </li>
+     </ul>
+     <div class="tab-content pt-3" id="apptTabsContent">
+      <!-- Upcoming -->
+      <div aria-labelledby="upcoming-tab" class="tab-pane fade show active" id="upcoming" role="tabpanel">
+       <div class="row g-3" id="upcomingLoading">
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-skeleton" style="height:140px;">
+         </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-skeleton" style="height:140px;">
+         </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-skeleton" style="height:140px;">
+         </div>
+        </div>
+       </div>
+       <div class="row g-3 d-none" id="upcomingList">
+        <!-- Card 1 (Join enabled within 15 min) -->
+        <div class="col-12 col-md-6 col-lg-4 appointment-card" data-date="2025-08-22T09:15:00+05:30" data-doctor="Dr. Sen" data-hospital="CityCare Hospital" data-type="telemedicine">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              CityCare Hospital
+             </div>
+             <div class="uc-text-muted">
+              Telemedicine with
+              <span class="text-dark">
+               Dr. Priya Sen
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-info">
+             <i class="fa-solid fa-video">
+             </i>
+             Telemedicine
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Fri, 22 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             09:30 AM IST
+            </span>
+           </div>
+           <div class="d-flex gap-2 mt-3">
+            <a class="uc-btn uc-btn-info uc-btn-sm join-btn" href="./teleconsult_session.html">
+             <i class="fa-solid fa-video">
+             </i>
+             Join Call
+            </a>
+            <button class="uc-btn uc-btn-outline uc-btn-sm cancel-btn" data-appt-id="APPT001">
+             <i class="fa-regular fa-circle-xmark">
+             </i>
+             Cancel
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-12 col-md-6 col-lg-4 appointment-card" data-date="2025-08-23T16:00:00+05:30" data-doctor="Dr. Gupta" data-hospital="Apollo Gleneagles" data-type="inperson">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              Apollo Gleneagles
+             </div>
+             <div class="uc-text-muted">
+              In-person with
+              <span class="text-dark">
+               Dr. R. Gupta
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-success">
+             <i class="fa-solid fa-user-doctor">
+             </i>
+             In-person
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Sat, 23 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             04:00 PM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <a class="uc-directions-button uc-btn-sm" href="https://www.google.com/maps" target="_blank">
+             <i class="fa-solid fa-location-arrow">
+             </i>
+             Get Directions
+            </a>
+            <button class="uc-btn uc-btn-outline uc-btn-sm cancel-btn" data-appt-id="APPT002">
+             <i class="fa-regular fa-circle-xmark">
+             </i>
+             Cancel
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-12 col-md-6 col-lg-4 appointment-card" data-date="2025-08-25T10:30:00+05:30" data-doctor="Dr. Bose" data-hospital="Fortis Kolkata" data-type="telemedicine">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              Fortis Kolkata
+             </div>
+             <div class="uc-text-muted">
+              Telemedicine with
+              <span class="text-dark">
+               Dr. A. Bose
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-info">
+             <i class="fa-solid fa-video">
+             </i>
+             Telemedicine
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Mon, 25 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             10:30 AM IST
+            </span>
+           </div>
+           <div class="d-flex gap-2 mt-3">
+            <a aria-disabled="true" class="uc-btn uc-btn-info uc-btn-sm disabled">
+             <i class="fa-solid fa-video">
+             </i>
+             Join (opens 15m before)
+            </a>
+            <button class="uc-btn uc-btn-outline uc-btn-sm cancel-btn" data-appt-id="APPT003">
+             <i class="fa-regular fa-circle-xmark">
+             </i>
+             Cancel
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-12 col-md-6 col-lg-4 appointment-card" data-date="2025-08-28T11:00:00+05:30" data-doctor="Dr. Chatterjee" data-hospital="AMRI Hospital" data-type="inperson">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              AMRI Hospital
+             </div>
+             <div class="uc-text-muted">
+              In-person with
+              <span class="text-dark">
+               Dr. S. Chatterjee
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-success">
+             <i class="fa-solid fa-user-doctor">
+             </i>
+             In-person
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Thu, 28 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             11:00 AM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <a class="uc-directions-button uc-btn-sm" href="https://www.google.com/maps" target="_blank">
+             <i class="fa-solid fa-location-arrow">
+             </i>
+             Get Directions
+            </a>
+            <button class="uc-btn uc-btn-outline uc-btn-sm cancel-btn" data-appt-id="APPT004">
+             <i class="fa-regular fa-circle-xmark">
+             </i>
+             Cancel
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-12 col-md-6 col-lg-4 appointment-card" data-date="2025-08-30T15:45:00+05:30" data-doctor="Dr. Mitra" data-hospital="Narayana Health" data-type="telemedicine">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              Narayana Health
+             </div>
+             <div class="uc-text-muted">
+              Telemedicine with
+              <span class="text-dark">
+               Dr. K. Mitra
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-info">
+             <i class="fa-solid fa-video">
+             </i>
+             Telemedicine
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Sat, 30 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             03:45 PM IST
+            </span>
+           </div>
+           <div class="d-flex gap-2 mt-3">
+            <a aria-disabled="true" class="uc-btn uc-btn-info uc-btn-sm disabled">
+             <i class="fa-solid fa-video">
+             </i>
+             Join (opens 15m before)
+            </a>
+            <button class="uc-btn uc-btn-outline uc-btn-sm cancel-btn" data-appt-id="APPT005">
+             <i class="fa-regular fa-circle-xmark">
+             </i>
+             Cancel
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Pagination info -->
+        <div class="col-12 d-flex align-items-center justify-content-between mt-1">
+         <div class="uc-text-sm uc-text-muted">
+          Showing 1–5 of 12 upcoming appointments
+         </div>
+         <nav aria-label="Upcoming pagination" class="uc-pagination">
+          <a aria-label="Previous page" class="uc-page-btn" href="#">
+           <i class="fa-solid fa-chevron-left">
+           </i>
+          </a>
+          <a aria-current="true" class="uc-page-btn" href="#">
+           1
+          </a>
+          <a class="uc-page-btn" href="#">
+           2
+          </a>
+          <a class="uc-page-btn" href="#">
+           3
+          </a>
+          <a aria-label="Next page" class="uc-page-btn" href="#">
+           <i class="fa-solid fa-chevron-right">
+           </i>
+          </a>
+         </nav>
+        </div>
+       </div>
+      </div>
+      <!-- Past -->
+      <div aria-labelledby="past-tab" class="tab-pane fade" id="past" role="tabpanel">
+       <div class="row g-3" id="pastLoading">
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-skeleton" style="height:140px;">
+         </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-skeleton" style="height:140px;">
+         </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-skeleton" style="height:140px;">
+         </div>
+        </div>
+       </div>
+       <div class="row g-3 d-none" id="pastList">
+        <!-- Past Card 1 (has prescription, no feedback) -->
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              CityCare Hospital
+             </div>
+             <div class="uc-text-muted">
+              Telemedicine with
+              <span class="text-dark">
+               Dr. Priya Sen
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-info">
+             <i class="fa-solid fa-video">
+             </i>
+             Telemedicine
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Fri, 15 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             09:00 AM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="uc-btn uc-btn-outline uc-btn-sm view-presc">
+             <i class="fa-regular fa-file-pdf">
+             </i>
+             View Prescription
+            </button>
+            <a class="uc-btn uc-btn-success uc-btn-sm" href="./feedback_form.html">
+             <i class="fa-regular fa-star">
+             </i>
+             Leave Feedback
+            </a>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Past Card 2 (no prescription, feedback done) -->
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              Apollo Gleneagles
+             </div>
+             <div class="uc-text-muted">
+              In-person with
+              <span class="text-dark">
+               Dr. R. Gupta
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-success">
+             <i class="fa-solid fa-user-doctor">
+             </i>
+             In-person
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Tue, 12 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             02:00 PM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <button aria-disabled="true" class="uc-btn uc-btn-outline uc-btn-sm" disabled="">
+             <i class="fa-regular fa-file-pdf">
+             </i>
+             No Prescription
+            </button>
+            <button aria-disabled="true" class="uc-btn uc-btn-ghost uc-btn-sm" disabled="">
+             <i class="fa-solid fa-check">
+             </i>
+             Feedback Submitted
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Past Card 3 (has prescription, feedback done) -->
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              Fortis Kolkata
+             </div>
+             <div class="uc-text-muted">
+              In-person with
+              <span class="text-dark">
+               Dr. A. Bose
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-success">
+             <i class="fa-solid fa-user-doctor">
+             </i>
+             In-person
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Mon, 05 Aug 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             11:45 AM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="uc-btn uc-btn-outline uc-btn-sm view-presc">
+             <i class="fa-regular fa-file-pdf">
+             </i>
+             View Prescription
+            </button>
+            <button aria-disabled="true" class="uc-btn uc-btn-ghost uc-btn-sm" disabled="">
+             <i class="fa-solid fa-check">
+             </i>
+             Feedback Submitted
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Past Card 4 -->
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              AMRI Hospital
+             </div>
+             <div class="uc-text-muted">
+              Telemedicine with
+              <span class="text-dark">
+               Dr. S. Chatterjee
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-info">
+             <i class="fa-solid fa-video">
+             </i>
+             Telemedicine
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Wed, 30 Jul 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             05:30 PM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="uc-btn uc-btn-outline uc-btn-sm view-presc">
+             <i class="fa-regular fa-file-pdf">
+             </i>
+             View Prescription
+            </button>
+            <a class="uc-btn uc-btn-success uc-btn-sm" href="./feedback_form.html">
+             <i class="fa-regular fa-star">
+             </i>
+             Leave Feedback
+            </a>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- Past Card 5 -->
+        <div class="col-12 col-md-6 col-lg-4">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <div class="d-flex justify-content-between align-items-start">
+            <div>
+             <div class="fw-semibold">
+              Narayana Health
+             </div>
+             <div class="uc-text-muted">
+              In-person with
+              <span class="text-dark">
+               Dr. K. Mitra
+              </span>
+             </div>
+            </div>
+            <span class="uc-badge uc-badge-success">
+             <i class="fa-solid fa-user-doctor">
+             </i>
+             In-person
+            </span>
+           </div>
+           <div class="d-flex align-items-center gap-2 mt-2">
+            <i class="fa-regular fa-calendar">
+            </i>
+            <span>
+             Tue, 22 Jul 2025
+            </span>
+            <span class="text-muted">
+             •
+            </span>
+            <i class="fa-regular fa-clock">
+            </i>
+            <span>
+             12:15 PM IST
+            </span>
+           </div>
+           <div class="d-flex flex-wrap gap-2 mt-3">
+            <button aria-disabled="true" class="uc-btn uc-btn-outline uc-btn-sm" disabled="">
+             <i class="fa-regular fa-file-pdf">
+             </i>
+             No Prescription
+            </button>
+            <a class="uc-btn uc-btn-success uc-btn-sm" href="./feedback_form.html">
+             <i class="fa-regular fa-star">
+             </i>
+             Leave Feedback
+            </a>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-between mt-1">
+         <div class="uc-text-sm uc-text-muted">
+          Showing 1–5 of 18 past appointments
+         </div>
+         <nav aria-label="Past pagination" class="uc-pagination">
+          <a aria-label="Previous page" class="uc-page-btn" href="#">
+           <i class="fa-solid fa-chevron-left">
+           </i>
+          </a>
+          <a aria-current="true" class="uc-page-btn" href="#">
+           1
+          </a>
+          <a class="uc-page-btn" href="#">
+           2
+          </a>
+          <a class="uc-page-btn" href="#">
+           3
+          </a>
+          <a aria-label="Next page" class="uc-page-btn" href="#">
+           <i class="fa-solid fa-chevron-right">
+           </i>
+          </a>
+         </nav>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Records + Campaigns -->
+    <section class="uc-section">
+     <div class="row g-3">
+      <!-- My Records -->
+      <div class="col-12 col-lg-6">
+       <div class="uc-card h-100" id="records">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title">
+           My Records
+          </div>
+          <div class="uc-card-subtitle">
+           Recent e-prescriptions
+          </div>
+         </div>
+         <a class="uc-btn uc-btn-link uc-text-sm" href="#" id="viewAllRecordsBtn">
+          <i class="fa-regular fa-folder-open">
+          </i>
+          View All
+         </a>
+        </div>
+        <div class="uc-card-body">
+         <ul class="uc-list">
+          <li class="uc-list-item">
+           <div>
+            <div class="fw-semibold">
+             Prescription • Dr. Priya Sen
+            </div>
+            <div class="uc-text-muted uc-text-sm">
+             Issued: 15 Aug 2025 • Telemedicine
+            </div>
+           </div>
+           <button class="uc-btn uc-btn-outline uc-btn-sm view-presc">
+            <i class="fa-regular fa-file-pdf">
+            </i>
+            Download
+           </button>
+          </li>
+          <li class="uc-list-item">
+           <div>
+            <div class="fw-semibold">
+             Prescription • Dr. R. Gupta
+            </div>
+            <div class="uc-text-muted uc-text-sm">
+             Issued: 12 Aug 2025 • In-person
+            </div>
+           </div>
+           <button class="uc-btn uc-btn-outline uc-btn-sm view-presc">
+            <i class="fa-regular fa-file-pdf">
+            </i>
+            Download
+           </button>
+          </li>
+          <li class="uc-list-item">
+           <div>
+            <div class="fw-semibold">
+             Prescription • Dr. A. Bose
+            </div>
+            <div class="uc-text-muted uc-text-sm">
+             Issued: 05 Aug 2025 • In-person
+            </div>
+           </div>
+           <button class="uc-btn uc-btn-outline uc-btn-sm view-presc">
+            <i class="fa-regular fa-file-pdf">
+            </i>
+            Download
+           </button>
+          </li>
+         </ul>
+        </div>
+       </div>
+      </div>
+      <!-- Registered Campaigns -->
+      <div class="col-12 col-lg-6">
+       <div class="uc-card h-100">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title">
+           Registered Campaigns
+          </div>
+          <div class="uc-card-subtitle">
+           Upcoming community events
+          </div>
+         </div>
+         <a class="uc-btn uc-btn-link uc-text-sm" href="./campaigns_list.html">
+          <i class="fa-regular fa-calendar">
+          </i>
+          Browse All
+         </a>
+        </div>
+        <div class="uc-card-body">
+         <div class="row g-3">
+          <div class="col-12 col-md-6">
+           <a class="text-decoration-none" href="./campaign_details.html">
+            <div class="card h-100 uc-hover-raise">
+             <img alt="Vaccination Camp" class="card-img-top" onerror="this.onerror=null;this.src='https://picsum.photos/seed/vax1/640/360';" src="assets/default_image_for_vaccination__1_02fcfcf9.jpg"/>
+             <div class="card-body">
+              <h6 class="card-title mb-1">
+               Vaccination Camp - Ward 12
+              </h6>
+              <div class="uc-text-sm uc-text-muted">
+               24 Aug 2025 • Ultadanga
+              </div>
+             </div>
+            </div>
+           </a>
+          </div>
+          <div class="col-12 col-md-6">
+           <a class="text-decoration-none" href="./campaign_details.html">
+            <div class="card h-100 uc-hover-raise">
+             <img alt="Blood Donation Drive" class="card-img-top" onerror="this.onerror=null;this.src='https://picsum.photos/seed/blood2/640/360';" src="assets/default_image_for_blood_drive__2_f1ffbd3c.jpg"/>
+             <div class="card-body">
+              <h6 class="card-title mb-1">
+               Blood Donation Drive - EM Bypass
+              </h6>
+              <div class="uc-text-sm uc-text-muted">
+               29 Aug 2025 • Ruby Crossing
+              </div>
+             </div>
+            </div>
+           </a>
+          </div>
+          <div class="col-12 col-md-6">
+           <a class="text-decoration-none" href="./campaign_details.html">
+            <div class="card h-100 uc-hover-raise">
+             <img alt="Blood Donation Drive" class="card-img-top" onerror="this.onerror=null;this.src='https://picsum.photos/seed/blood5/640/360';" src="assets/default_image_for_blood_drive__5_c5500fd4.jpg"/>
+             <div class="card-body">
+              <h6 class="card-title mb-1">
+               Blood Drive - Park Street
+              </h6>
+              <div class="uc-text-sm uc-text-muted">
+               02 Sep 2025 • Park Street
+              </div>
+             </div>
+            </div>
+           </a>
+          </div>
+         </div>
+         <div class="uc-text-muted uc-text-sm mt-2">
+          Tap a card to view details and directions.
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">© UnityCure</span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="./support.html">Support</a>
+     <a class="text-decoration-none" href="./contact.html">Contact</a>
+     <a class="text-decoration-none" href="#">Terms</a>
+     <a class="text-decoration-none" href="#">Privacy</a>
+     <a class="btn btn-sm btn-warning d-lg-none" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1"></i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast / Notification Area -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.all.min.js">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <!-- Bootstrap 5 JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Personalization mock
+const userName = 'Ananya';
+document.getElementById('dashboardUserName').textContent = userName;
+document.getElementById('sidebarUserName').textContent = userName;
+
+// Simulate loading for lists
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        document.getElementById('upcomingLoading').classList.add('d-none');
+        document.getElementById('upcomingList').classList.remove('d-none');
+        document.getElementById('pastLoading').classList.add('d-none');
+        document.getElementById('pastList').classList.remove('d-none');
+    }, 600);
+});
+
+// Chart.js: Care Overview
+const careCtx = document.getElementById('careChart');
+if (careCtx) {
+    new Chart(careCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [{
+                label: 'In-person',
+                data: [2, 3, 2, 4, 3, 2],
+                backgroundColor: '#008000'
+            }, {
+                label: 'Telemedicine',
+                data: [1, 2, 3, 2, 4, 3],
+                backgroundColor: '#0099D2'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Appointment Filtering & Sorting
+const searchInput = document.getElementById('apptSearch');
+const typeFilter = document.getElementById('apptTypeFilter');
+const sortSelect = document.getElementById('apptSort');
+const upcomingList = document.getElementById('upcomingList');
+
+function getCards() {
+    return Array.from(upcomingList.querySelectorAll('.appointment-card'));
+}
+
+function applyFilters() {
+    const q = (searchInput.value || '').toLowerCase();
+    const type = (typeFilter.value || '').toLowerCase();
+    getCards().forEach(card => {
+        const t = card.getAttribute('data-type');
+        const hospital = (card.getAttribute('data-hospital') || '').toLowerCase();
+        const doctor = (card.getAttribute('data-doctor') || '').toLowerCase();
+        const matchesType = !type || t === type;
+        const matchesQuery = !q || hospital.includes(q) || doctor.includes(q);
+        card.parentElement.classList.toggle('d-none', !(matchesType && matchesQuery));
+    });
+}
+
+function applySort() {
+    const cards = getCards();
+    const byDesc = sortSelect.value === 'dateDesc';
+    const sorted = cards.sort((a, b) => {
+        const da = new Date(a.getAttribute('data-date')).getTime();
+        const db = new Date(b.getAttribute('data-date')).getTime();
+        return byDesc ? (db - da) : (da - db);
+    });
+    // Re-append in new order
+    sorted.forEach(card => upcomingList.appendChild(card.parentElement));
+}
+
+[searchInput, typeFilter].forEach(el => el.addEventListener('input', applyFilters));
+sortSelect.addEventListener('change', () => {
+    applySort();
+    applyFilters();
+});
+
+// Initialize
+window.addEventListener('DOMContentLoaded', () => {
+    applySort();
+    applyFilters();
+});
+
+// SweetAlert2: Cancel appointment flow
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.cancel-btn')) {
+        const btn = e.target.closest('.cancel-btn');
+        const apptId = btn.getAttribute('data-appt-id');
+        Swal.fire({
+            title: 'Cancel appointment?',
+            text: `Are you sure you want to cancel ${apptId}? This action cannot be undone.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, cancel it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Simulate cancel: remove card
+                const cardCol = btn.closest('.col-12');
+                if (cardCol) cardCol.remove();
+                showToast('Appointment cancelled', 'The appointment has been cancelled successfully.', 'warning');
+            }
+        });
+    }
+});
+
+// SweetAlert2: View prescription
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.view-presc')) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Prescription',
+            html: `
+            <div class="text-start">
+              <p class="mb-1"><strong>Patient:</strong> ${userName} S.</p>
+              <p class="mb-1"><strong>Doctor:</strong> Dr. Priya Sen</p>
+              <p class="mb-1"><strong>Date:</strong> 15 Aug 2025</p>
+              <hr/>
+              <p class="mb-1">Rx: Paracetamol 650mg, SOS fever; ORS as needed</p>
+              <p class="mb-0 uc-text-sm uc-text-muted">Telemedicine Practice Guidelines compliant (No Schedule X).</p>
+            </div>
+          `,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Download PDF',
+            cancelButtonText: 'Close'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                showToast('Download started', 'Your e-prescription is downloading...', 'info');
+            }
+        });
+    }
+});
+
+// Toast helper
+function showToast(title, message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `
+        <i class="fa-regular ${variant === 'warning' ? 'fa-circle-xmark' : 'fa-bell'}"></i>
+        <div>
+          <div class="fw-semibold">${title}</div>
+          <div class="uc-text-sm uc-text-muted">${message}</div>
+        </div>
+        <button class="uc-btn uc-btn-ghost uc-btn-sm ms-auto close-toast"><i class="fa-solid fa-xmark"></i></button>
+      `;
+    container.appendChild(toast);
+    const timer = setTimeout(() => toast.remove(), 4000);
+    toast.querySelector('.close-toast').addEventListener('click', () => {
+        clearTimeout(timer);
+        toast.remove();
+    });
+}
+  </script>
+ </body>
+</html>

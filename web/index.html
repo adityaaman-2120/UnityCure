@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnityCure - Healthcare Platform</title>
+    <meta http-equiv="refresh" content="0; url=./login_page.html">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .redirect-link {
+            margin-top: 20px;
+        }
+        .redirect-link a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h1>🏥 UnityCure</h1>
+    <p>Healthcare Platform</p>
+    <p>Redirecting to login page...</p>
+    <div class="redirect-link">
+        <a href="./login_page.html">Click here if not redirected automatically</a>
+    </div>
+</body>
+</html>

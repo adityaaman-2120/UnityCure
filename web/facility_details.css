@@ -1,0 +1,53 @@
+/* facility_details.css — page-specific styles for Facility Details page */
+/* Hero image and overlay card */
+.facility-hero {
+    background: #E6F4F1
+    }
+.hero-card {
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto
+    }
+/* Make the hero card float over the image on larger screens */
+@media (min-width: 768px) {
+    .hero-card {
+        margin-top: -48px
+        }
+    }
+/* Primary Action Bar (sticky on mobile, static on desktop) */
+.primary-action-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 40;
+    -webkit-backdrop-filter: saturate(1.1) blur(6px);
+    backdrop-filter: saturate(1.1) blur(6px)
+    }
+@media (min-width: 992px) {
+    .primary-action-bar {
+        position: static;
+        background: #fff
+        }
+    }
+/* Services background with subtle image */
+.services-bg {
+    background: #fff url(assets/medical_services_background_2_a7b1adb2.jpg) right bottom/cover no-repeat;
+    border: 1px solid var(--uc-color-border)
+    }
+/* Minor tweaks */
+#facilityTabs .nav-link {
+    font-weight: 600
+    }
+#facilityTabsContent {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+    }
+/* Make list items breathe */
+#reviewsList .uc-list-item {
+    gap: 12px
+    }
+/* Adjust cards in resources for tighter spacing on small screens */
+@media (max-width: 576px) {
+    #resourceGrid .uc-stat-card {
+        padding: 12px
+        }
+    }

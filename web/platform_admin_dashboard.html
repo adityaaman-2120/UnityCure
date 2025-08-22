@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice — Platform Admin Dashboard
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" referrerpolicy="no-referrer" rel="stylesheet">
+   <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+   <link href="style.css" rel="stylesheet"/>
+   <link href="platform_admin_dashboard.html.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body class="platform-admin uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Backoffice Header with Global Search) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/32/32';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="#" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" data-bs-placement="bottom" data-bs-toggle="tooltip" href="#" title="Messages">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Backoffice Sidebar) -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/36/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./admin_dashboard.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="py-3" id="mainContent">
+   <div class="container-fluid px-3 px-lg-4">
+    <!-- Page Header/Greeting and Quick Actions -->
+    <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between mb-3">
+     <div class="mb-2 mb-lg-0">
+      <h1 class="uc-page-title m-0">
+       Platform Admin Dashboard
+      </h1>
+      <div class="uc-text-muted">
+       Welcome,
+       <span class="fw-semibold" id="currentAdminName">
+        Meera (Platform Admin)
+       </span>
+       •
+       <span class="uc-freshness" id="lastSynced">
+        Last synced just now
+       </span>
+      </div>
+     </div>
+     <div class="d-flex gap-2">
+      <a class="btn btn-success" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-1">
+       </i>
+       Verification Queue
+      </a>
+      <a class="btn btn-outline-success" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-1">
+       </i>
+       Moderate Reports
+      </a>
+      <a class="btn btn-outline-success" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-1">
+       </i>
+       Review Campaigns
+      </a>
+     </div>
+    </div>
+    <!-- Stat Cards Grid -->
+    <div class="row g-3 mb-3">
+     <div class="col-12 col-sm-6 col-lg-3">
+      <div class="uc-stat-card h-100 uc-hover-raise cursor-pointer p-3 bg-white" data-link="./provider_verification.html" role="button" title="Go to Provider Verification">
+       <div class="uc-stat-icon">
+        <i class="fa-solid fa-user-check">
+        </i>
+       </div>
+       <div>
+        <div class="uc-stat-title">
+         Pending Verifications
+        </div>
+        <div class="uc-stat-value" id="metricVerifications">
+         28
+        </div>
+        <div class="small text-muted">
+         Today:
+         <span class="text-success">
+          +6
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-sm-6 col-lg-3">
+      <div class="uc-stat-card h-100 uc-hover-raise cursor-pointer p-3 bg-white" data-link="./report_moderation.html" role="button" title="Go to Report Moderation">
+       <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-error) 18%, white); color: var(--uc-color-error)">
+        <i class="fa-solid fa-triangle-exclamation">
+        </i>
+       </div>
+       <div>
+        <div class="uc-stat-title">
+         High-Severity Reports
+        </div>
+        <div class="uc-stat-value" id="metricHighReports">
+         12
+        </div>
+        <div class="small text-muted">
+         In last hour:
+         <span class="text-danger">
+          +3
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-sm-6 col-lg-3">
+      <div class="uc-stat-card h-100 uc-hover-raise cursor-pointer p-3 bg-white" data-link="./campaign_moderation.html" role="button" title="Go to Campaign Moderation">
+       <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-warning) 18%, white); color: var(--uc-color-warning-700)">
+        <i class="fa-solid fa-bullhorn">
+        </i>
+       </div>
+       <div>
+        <div class="uc-stat-title">
+         Pending Campaigns
+        </div>
+        <div class="uc-stat-value" id="metricCampaigns">
+         7
+        </div>
+        <div class="small text-muted">
+         Awaiting review
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-sm-6 col-lg-3">
+      <div class="uc-stat-card h-100 uc-hover-raise cursor-pointer p-3 bg-white" data-link="./user_management.html" role="button" title="View Users">
+       <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-success) 18%, white); color: var(--uc-color-success)">
+        <i class="fa-solid fa-users">
+        </i>
+       </div>
+       <div>
+        <div class="uc-stat-title">
+         Active Users
+        </div>
+        <div class="uc-stat-value" id="metricUsers">
+         15,842
+        </div>
+        <div class="small text-muted">
+         7d growth
+         <span class="text-success">
+          +4.3%
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Chart & Quick Health -->
+    <div class="row g-3 mb-4">
+     <div class="col-12 col-lg-7">
+      <div class="uc-card uc-shadow-md h-100">
+       <div class="uc-card-header">
+        <div class="uc-card-title">
+         Incident Reports (7 days)
+        </div>
+        <div class="uc-card-subtitle">
+         By severity
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <canvas aria-label="Incident reports by severity" height="140" id="severityChart" role="img">
+        </canvas>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-lg-5">
+      <div class="uc-card uc-shadow-md h-100">
+       <div class="uc-card-header">
+        <div class="uc-card-title">
+         System Snapshot
+        </div>
+        <div class="uc-card-subtitle">
+         Real-time
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+         <div class="me-3">
+          <div class="fw-semibold">
+           API Uptime
+          </div>
+          <div class="small text-muted">
+           Last 24h
+          </div>
+         </div>
+         <span class="badge text-bg-success">
+          99.98%
+         </span>
+        </div>
+        <div class="mb-2 fw-semibold">
+         Data Freshness SLA
+        </div>
+        <div class="uc-progress mb-1" title="Freshness: 92% providers within SLA">
+         <div class="uc-progress-bar" style="width: 92%">
+         </div>
+        </div>
+        <div class="small text-muted">
+         Within 60 min update window
+        </div>
+        <div class="mt-3 d-flex gap-2">
+         <button class="btn btn-sm btn-outline-success" id="btnRefreshSnapshot">
+          <i class="fa-solid fa-rotate me-1">
+          </i>
+          Refresh
+         </button>
+         <button class="btn btn-sm btn-success" id="btnOpenSidebar">
+          <i class="fa-solid fa-bars me-1">
+          </i>
+          Menu
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Moderation Queues (Tabbed) -->
+    <section class="mb-4" id="queues">
+     <div class="uc-section-header">
+      <h2 class="uc-h2 m-0">
+       Moderation &amp; Verification Queues
+      </h2>
+      <span class="uc-text-muted">
+       Sort, filter and action items
+      </span>
+     </div>
+     <ul class="nav nav-tabs" id="queuesTab" role="tablist">
+      <li class="nav-item" role="presentation">
+       <button aria-controls="verifPane" aria-selected="true" class="nav-link active" data-bs-target="#verifPane" data-bs-toggle="tab" id="verif-tab" role="tab" type="button">
+        <i class="fa-solid fa-user-check me-1">
+        </i>
+        Verification
+       </button>
+      </li>
+      <li class="nav-item" role="presentation">
+       <button aria-controls="reportsPane" aria-selected="false" class="nav-link" data-bs-target="#reportsPane" data-bs-toggle="tab" id="reports-tab" role="tab" type="button">
+        <i class="fa-solid fa-shield-heart me-1">
+        </i>
+        Reports
+       </button>
+      </li>
+      <li class="nav-item" role="presentation">
+       <button aria-controls="campaignsPane" aria-selected="false" class="nav-link" data-bs-target="#campaignsPane" data-bs-toggle="tab" id="campaigns-tab" role="tab" type="button">
+        <i class="fa-solid fa-bullhorn me-1">
+        </i>
+        Campaigns
+       </button>
+      </li>
+     </ul>
+     <div class="tab-content uc-card uc-shadow-md p-3 rounded-bottom" id="queuesTabContent">
+      <!-- Verification Queue -->
+      <div aria-labelledby="verif-tab" class="tab-pane fade show active" id="verifPane" role="tabpanel">
+       <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width:320px;">
+         <span class="input-group-text">
+          <i class="fa-solid fa-magnifying-glass">
+          </i>
+         </span>
+         <input class="form-control" id="searchVerif" placeholder="Search providers..." type="text"/>
+        </div>
+        <select class="form-select" id="filterVerifType" style="max-width:220px;">
+         <option value="">
+          All Types
+         </option>
+         <option>
+          Hospital
+         </option>
+         <option>
+          Doctor
+         </option>
+         <option>
+          NGO
+         </option>
+         <option>
+          Ambulance
+         </option>
+        </select>
+        <button class="btn btn-outline-success" id="sortVerifDate">
+         <i class="fa-solid fa-sort me-1">
+         </i>
+         Sort by Date
+        </button>
+       </div>
+       <div class="uc-table-responsive">
+        <table class="table uc-table align-middle" id="tableVerif">
+         <thead>
+          <tr>
+           <th>
+            Provider
+           </th>
+           <th>
+            Type
+           </th>
+           <th>
+            Submission Date
+           </th>
+           <th>
+            ID
+           </th>
+           <th class="text-end">
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr data-type="Hospital">
+           <td>
+            Apollo Gleneagles Hospital
+           </td>
+           <td>
+            <span class="badge text-bg-primary">
+             Hospital
+            </span>
+           </td>
+           <td data-date="2025-08-19T14:32:00">
+            19 Aug 2025, 14:32
+           </td>
+           <td>
+            HOS-23011
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-success" href="./provider_verification.html?id=HOS-23011">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr data-type="Doctor">
+           <td>
+            Dr. Ananya Sen
+           </td>
+           <td>
+            <span class="badge text-bg-info">
+             Doctor
+            </span>
+           </td>
+           <td data-date="2025-08-20T08:15:00">
+            20 Aug 2025, 08:15
+           </td>
+           <td>
+            DOC-84219
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-success" href="./provider_verification.html?id=DOC-84219">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr data-type="NGO">
+           <td>
+            CareBridge Foundation
+           </td>
+           <td>
+            <span class="badge text-bg-secondary">
+             NGO
+            </span>
+           </td>
+           <td data-date="2025-08-18T17:48:00">
+            18 Aug 2025, 17:48
+           </td>
+           <td>
+            NGO-44102
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-success" href="./provider_verification.html?id=NGO-44102">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr data-type="Hospital">
+           <td>
+            Fortis Hospital Anandapur
+           </td>
+           <td>
+            <span class="badge text-bg-primary">
+             Hospital
+            </span>
+           </td>
+           <td data-date="2025-08-20T10:05:00">
+            20 Aug 2025, 10:05
+           </td>
+           <td>
+            HOS-24571
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-success" href="./provider_verification.html?id=HOS-24571">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr data-type="Ambulance">
+           <td>
+            SwiftAid Ambulance Services
+           </td>
+           <td>
+            <span class="badge text-bg-warning text-dark">
+             Ambulance
+            </span>
+           </td>
+           <td data-date="2025-08-19T20:22:00">
+            19 Aug 2025, 20:22
+           </td>
+           <td>
+            AMB-11032
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-success" href="./provider_verification.html?id=AMB-11032">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr data-type="Doctor">
+           <td>
+            Dr. Souvik Mukherjee
+           </td>
+           <td>
+            <span class="badge text-bg-info">
+             Doctor
+            </span>
+           </td>
+           <td data-date="2025-08-17T09:05:00">
+            17 Aug 2025, 09:05
+           </td>
+           <td>
+            DOC-77290
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-success" href="./provider_verification.html?id=DOC-77290">
+             Review
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="small text-muted">
+         Showing 1–6 of 18
+        </div>
+        <nav aria-label="Verification pagination">
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <a class="page-link" href="#">
+            Prev
+           </a>
+          </li>
+          <li aria-current="page" class="page-item active">
+           <a class="page-link" href="#">
+            1
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            3
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+      <!-- Report Moderation Queue -->
+      <div aria-labelledby="reports-tab" class="tab-pane fade" id="reportsPane" role="tabpanel">
+       <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width:320px;">
+         <span class="input-group-text">
+          <i class="fa-solid fa-magnifying-glass">
+          </i>
+         </span>
+         <input class="form-control" id="searchReports" placeholder="Search reports..." type="text"/>
+        </div>
+        <select class="form-select" id="filterSeverity" style="max-width:220px;">
+         <option value="">
+          All Severities
+         </option>
+         <option>
+          High
+         </option>
+         <option>
+          Medium
+         </option>
+         <option>
+          Low
+         </option>
+        </select>
+        <button class="btn btn-outline-success" id="sortReportsTime">
+         <i class="fa-solid fa-sort me-1">
+         </i>
+         Sort by Time
+        </button>
+       </div>
+       <div class="uc-table-responsive">
+        <table class="table uc-table align-middle" id="tableReports">
+         <thead>
+          <tr>
+           <th>
+            Report ID
+           </th>
+           <th>
+            Severity
+           </th>
+           <th>
+            Location
+           </th>
+           <th>
+            Time
+           </th>
+           <th>
+            Summary
+           </th>
+           <th class="text-end">
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr data-severity="High">
+           <td>
+            REP-90231
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-high">
+             High
+            </span>
+           </td>
+           <td>
+            Salt Lake, Kolkata
+           </td>
+           <td data-time="2025-08-20T10:35:00">
+            10:35 AM
+           </td>
+           <td>
+            Multiple people with breathing issues in market.
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-danger" href="./report_moderation.html?id=REP-90231">
+             Moderate
+            </a>
+           </td>
+          </tr>
+          <tr data-severity="Medium">
+           <td>
+            REP-90218
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-medium">
+             Medium
+            </span>
+           </td>
+           <td>
+            Howrah Station
+           </td>
+           <td data-time="2025-08-20T09:55:00">
+            9:55 AM
+           </td>
+           <td>
+            Injury reported on platform 3.
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-danger" href="./report_moderation.html?id=REP-90218">
+             Moderate
+            </a>
+           </td>
+          </tr>
+          <tr data-severity="Low">
+           <td>
+            REP-90199
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-low">
+             Low
+            </span>
+           </td>
+           <td>
+            Jadavpur
+           </td>
+           <td data-time="2025-08-20T09:12:00">
+            9:12 AM
+           </td>
+           <td>
+            Fever complaints in neighborhood.
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-danger" href="./report_moderation.html?id=REP-90199">
+             Moderate
+            </a>
+           </td>
+          </tr>
+          <tr class="table-danger-subtle" data-severity="High">
+           <td>
+            REP-90170
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-high">
+             High
+            </span>
+           </td>
+           <td>
+            Bidhannagar
+           </td>
+           <td data-time="2025-08-20T08:40:00">
+            8:40 AM
+           </td>
+           <td>
+            Road accident involving bus.
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-danger" href="./report_moderation.html?id=REP-90170">
+             Moderate
+            </a>
+           </td>
+          </tr>
+          <tr data-severity="Medium">
+           <td>
+            REP-90145
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-medium">
+             Medium
+            </span>
+           </td>
+           <td>
+            Park Circus
+           </td>
+           <td data-time="2025-08-20T08:05:00">
+            8:05 AM
+           </td>
+           <td>
+            Food poisoning cases after event.
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-danger" href="./report_moderation.html?id=REP-90145">
+             Moderate
+            </a>
+           </td>
+          </tr>
+          <tr class="table-danger-subtle" data-severity="High">
+           <td>
+            REP-90130
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-high">
+             High
+            </span>
+           </td>
+           <td>
+            Burrabazar
+           </td>
+           <td data-time="2025-08-20T07:52:00">
+            7:52 AM
+           </td>
+           <td>
+            Fire at warehouse; multiple injuries.
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-danger" href="./report_moderation.html?id=REP-90130">
+             Moderate
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="small text-muted">
+         Showing 1–6 of 24
+        </div>
+        <nav aria-label="Reports pagination">
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <a class="page-link" href="#">
+            Prev
+           </a>
+          </li>
+          <li aria-current="page" class="page-item active">
+           <a class="page-link" href="#">
+            1
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            3
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+      <!-- Campaign Moderation Queue -->
+      <div aria-labelledby="campaigns-tab" class="tab-pane fade" id="campaignsPane" role="tabpanel">
+       <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <div class="input-group" style="max-width:320px;">
+         <span class="input-group-text">
+          <i class="fa-solid fa-magnifying-glass">
+          </i>
+         </span>
+         <input class="form-control" id="searchCampaigns" placeholder="Search campaigns..." type="text"/>
+        </div>
+        <button class="btn btn-outline-success" id="sortCampaignDate">
+         <i class="fa-solid fa-calendar-day me-1">
+         </i>
+         Sort by Event Date
+        </button>
+       </div>
+       <div class="uc-table-responsive">
+        <table class="table uc-table align-middle" id="tableCampaigns">
+         <thead>
+          <tr>
+           <th>
+            Campaign Title
+           </th>
+           <th>
+            Organizer
+           </th>
+           <th>
+            Event Date
+           </th>
+           <th>
+            Submitted
+           </th>
+           <th class="text-end">
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            Monsoon Vaccination Drive
+           </td>
+           <td>
+            CareBridge Foundation
+           </td>
+           <td data-event="2025-09-05">
+            05 Sep 2025
+           </td>
+           <td>
+            20 Aug 2025
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-warning text-dark" href="./campaign_moderation.html?id=CAM-55021">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Blood Donation Camp - Sector V
+           </td>
+           <td>
+            Rotary Club Kolkata
+           </td>
+           <td data-event="2025-08-28">
+            28 Aug 2025
+           </td>
+           <td>
+            19 Aug 2025
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-warning text-dark" href="./campaign_moderation.html?id=CAM-55040">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Diabetes Screening Week
+           </td>
+           <td>
+            City Health Mission
+           </td>
+           <td data-event="2025-09-12">
+            12 Sep 2025
+           </td>
+           <td>
+            18 Aug 2025
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-warning text-dark" href="./campaign_moderation.html?id=CAM-55100">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            First Aid Workshop — Schools
+           </td>
+           <td>
+            HelpHands NGO
+           </td>
+           <td data-event="2025-09-01">
+            01 Sep 2025
+           </td>
+           <td>
+            20 Aug 2025
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-warning text-dark" href="./campaign_moderation.html?id=CAM-55121">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Women Health Awareness Camp
+           </td>
+           <td>
+            BetterLife Trust
+           </td>
+           <td data-event="2025-09-20">
+            20 Sep 2025
+           </td>
+           <td>
+            17 Aug 2025
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-warning text-dark" href="./campaign_moderation.html?id=CAM-55145">
+             Review
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Post-Flood Health Checkup
+           </td>
+           <td>
+            ReliefNet
+           </td>
+           <td data-event="2025-08-30">
+            30 Aug 2025
+           </td>
+           <td>
+            19 Aug 2025
+           </td>
+           <td class="text-end">
+            <a class="btn btn-sm btn-warning text-dark" href="./campaign_moderation.html?id=CAM-55170">
+             Review
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="small text-muted">
+         Showing 1–6 of 12
+        </div>
+        <nav aria-label="Campaigns pagination">
+         <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+           <a class="page-link" href="#">
+            Prev
+           </a>
+          </li>
+          <li aria-current="page" class="page-item active">
+           <a class="page-link" href="#">
+            1
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            2
+           </a>
+          </li>
+          <li class="page-item">
+           <a class="page-link" href="#">
+            Next
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- System Health Monitor -->
+    <section class="mb-5">
+     <div class="uc-section-header">
+      <h2 class="uc-h2 m-0">
+       System Health Monitor
+      </h2>
+      <span class="uc-text-muted">
+       Data integrity &amp; freshness
+      </span>
+     </div>
+     <div class="uc-card uc-shadow-md">
+      <div class="uc-card-header">
+       <div>
+        <div class="uc-card-title">
+         Data Freshness Alerts
+        </div>
+        <div class="uc-card-subtitle">
+         Providers with stale updates (SLA 60 min)
+        </div>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <span class="uc-badge uc-badge-warning">
+         <i class="fa-regular fa-clock">
+         </i>
+         SLA: 60m
+        </span>
+        <button class="btn btn-sm btn-outline-success" id="btnRefreshFreshness">
+         <i class="fa-solid fa-rotate me-1">
+         </i>
+         Refresh
+        </button>
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="uc-table-responsive">
+        <table class="table uc-table align-middle" id="tableFreshness">
+         <thead>
+          <tr>
+           <th>
+            Hospital
+           </th>
+           <th>
+            Stale Resource
+           </th>
+           <th>
+            Last Updated
+           </th>
+           <th class="text-end">
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            AMRI Hospital, Dhakuria
+           </td>
+           <td>
+            ICU Beds
+           </td>
+           <td>
+            2 hours ago
+           </td>
+           <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger btn-reminder" data-target="AMRI Hospital, Dhakuria">
+             <i class="fa-regular fa-bell me-1">
+             </i>
+             Send Reminder
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Peerless Hospital
+           </td>
+           <td>
+            Ambulance Status
+           </td>
+           <td>
+            1 hour 35 min ago
+           </td>
+           <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger btn-reminder" data-target="Peerless Hospital">
+             <i class="fa-regular fa-bell me-1">
+             </i>
+             Send Reminder
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Medica Superspecialty
+           </td>
+           <td>
+            General Beds
+           </td>
+           <td>
+            3 hours 10 min ago
+           </td>
+           <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger btn-reminder" data-target="Medica Superspecialty">
+             <i class="fa-regular fa-bell me-1">
+             </i>
+             Send Reminder
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            R G Kar Medical College
+           </td>
+           <td>
+            On-call Doctors
+           </td>
+           <td>
+            1 hour 5 min ago
+           </td>
+           <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger btn-reminder" data-target="R G Kar Medical College">
+             <i class="fa-regular fa-bell me-1">
+             </i>
+             Send Reminder
+            </button>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            SSKM Hospital
+           </td>
+           <td>
+            ICU Beds
+           </td>
+           <td>
+            2 hours 25 min ago
+           </td>
+           <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger btn-reminder" data-target="SSKM Hospital">
+             <i class="fa-regular fa-bell me-1">
+             </i>
+             Send Reminder
+            </button>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+  </main>
+  <!-- Footer (Backoffice Footer) -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/20/20';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Backoffice
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast/Notification area -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Scripts -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Enable tooltips
+document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+
+// Sidebar open button
+document.getElementById('btnOpenSidebar')?.addEventListener('click', () => {
+    const offcanvasEl = document.getElementById('ucSidebarBackoffice');
+    const oc = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+    oc.show();
+});
+
+// Clickable Stat Cards navigation
+document.querySelectorAll('.uc-stat-card[role="button"]').forEach(card => {
+    card.addEventListener('click', () => {
+        const link = card.getAttribute('data-link');
+        if (link) window.location.href = link;
+    });
+});
+
+// Chart.js - Incident Reports by Severity (mock data)
+const ctx = document.getElementById('severityChart');
+if (ctx) {
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'High',
+                data: [9, 12, 7, 11, 14, 10, 12],
+                borderColor: '#CD2026',
+                backgroundColor: 'rgba(205,32,38,0.1)',
+                tension: 0.3,
+                fill: true,
+                pointRadius: 3
+            }, {
+                label: 'Medium',
+                data: [18, 16, 20, 22, 19, 17, 21],
+                borderColor: '#FFA500',
+                backgroundColor: 'rgba(255,165,0,0.12)',
+                tension: 0.3,
+                fill: true,
+                pointRadius: 3
+            }, {
+                label: 'Low',
+                data: [25, 28, 26, 24, 30, 27, 29],
+                borderColor: '#00774E',
+                backgroundColor: 'rgba(0,119,78,0.1)',
+                tension: 0.3,
+                fill: true,
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    });
+}
+
+// Simple client-side filters & sorting (mock behavior)
+function filterTableByAttr(tableId, rowAttr, value) {
+    const rows = document.querySelectorAll(`#${tableId} tbody tr`);
+    rows.forEach(r => {
+        const attrVal = r.getAttribute(rowAttr) || '';
+        r.style.display = (!value || attrVal === value) ? '' : 'none';
+    });
+}
+
+// Verification: filter by type
+document.getElementById('filterVerifType')?.addEventListener('change', (e) => {
+    filterTableByAttr('tableVerif', 'data-type', e.target.value);
+});
+
+// Verification: search
+document.getElementById('searchVerif')?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll('#tableVerif tbody tr').forEach(tr => {
+        tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+
+// Verification: sort by date (toggle)
+let verifAsc = false;
+document.getElementById('sortVerifDate')?.addEventListener('click', () => {
+    const tbody = document.querySelector('#tableVerif tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a, b) => {
+        const da = new Date(a.querySelector('[data-date]').getAttribute('data-date'));
+        const db = new Date(b.querySelector('[data-date]').getAttribute('data-date'));
+        return verifAsc ? da - db : db - da;
+    });
+    verifAsc = !verifAsc;
+    rows.forEach(r => tbody.appendChild(r));
+});
+
+// Reports: filter by severity
+document.getElementById('filterSeverity')?.addEventListener('change', (e) => {
+    filterTableByAttr('tableReports', 'data-severity', e.target.value);
+});
+
+// Reports: search
+document.getElementById('searchReports')?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll('#tableReports tbody tr').forEach(tr => {
+        tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+
+// Reports: sort by time (toggle)
+let reportsAsc = false;
+document.getElementById('sortReportsTime')?.addEventListener('click', () => {
+    const tbody = document.querySelector('#tableReports tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a, b) => {
+        const ta = new Date(a.querySelector('[data-time]').getAttribute('data-time'));
+        const tb = new Date(b.querySelector('[data-time]').getAttribute('data-time'));
+        return reportsAsc ? ta - tb : tb - ta;
+    });
+    reportsAsc = !reportsAsc;
+    rows.forEach(r => tbody.appendChild(r));
+});
+
+// Campaigns: search
+document.getElementById('searchCampaigns')?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll('#tableCampaigns tbody tr').forEach(tr => {
+        tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+
+// Campaigns: sort by event date
+let campAsc = true;
+document.getElementById('sortCampaignDate')?.addEventListener('click', () => {
+    const tbody = document.querySelector('#tableCampaigns tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.sort((a, b) => {
+        const da = new Date(a.querySelector('[data-event]').getAttribute('data-event'));
+        const db = new Date(b.querySelector('[data-event]').getAttribute('data-event'));
+        return campAsc ? da - db : db - da;
+    });
+    campAsc = !campAsc;
+    rows.forEach(r => tbody.appendChild(r));
+});
+
+// System Snapshot refresh (mock)
+document.getElementById('btnRefreshSnapshot')?.addEventListener('click', async () => {
+    const btn = document.getElementById('btnRefreshSnapshot');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Refreshing';
+    await new Promise(r => setTimeout(r, 1000));
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh';
+    showToast('System snapshot updated');
+});
+
+// Freshness table refresh
+document.getElementById('btnRefreshFreshness')?.addEventListener('click', async () => {
+    const btn = document.getElementById('btnRefreshFreshness');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Refreshing';
+    await new Promise(r => setTimeout(r, 1200));
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-rotate me-1"></i> Refresh';
+    showToast('Freshness list refreshed');
+});
+
+// Send reminder actions
+document.querySelectorAll('.btn-reminder').forEach(b => {
+    b.addEventListener('click', () => {
+        const target = b.getAttribute('data-target');
+        Swal.fire({
+            icon: 'question',
+            title: 'Send Reminder?',
+            text: `Notify ${target} to update their resource availability.`,
+            showCancelButton: true,
+            confirmButtonText: 'Send',
+            confirmButtonColor: '#008000'
+        }).then(res => {
+            if (res.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Reminder sent',
+                    timer: 1400,
+                    showConfirmButton: false
+                });
+            }
+        });
+    });
+});
+
+// Initial welcome toast
+function showToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class="fa-regular fa-bell"></i><div>${message}</div><button class="btn btn-sm btn-link ms-auto" aria-label="Close">Dismiss</button>`;
+    container.appendChild(toast);
+    const btn = toast.querySelector('button');
+    btn.addEventListener('click', () => toast.remove());
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+window.addEventListener('load', () => {
+    showToast('3 new reports awaiting review', 'warning');
+});
+  </script>
+ </body>
+</html>

@@ -1,0 +1,41 @@
+/* resource_management.css - Page specific styles for Resource Management */
+/* Layout spacing tweaks */
+main .uc-section-header .uc-page-title {
+    letter-spacing: 0.2px
+    }
+/* Make card bodies flexible in height on equal columns */
+@media (min-width: 992px) {
+    .uc-card.h-100 {
+        height: 100%
+        }
+    }
+/* Sortable table headers */
+#logTable thead th.sortable {
+    cursor: pointer;
+    user-select: none
+    }
+#logTable thead th.sortable:hover {
+    color: var(--uc-color-info)
+    }
+/* Chart container height handled via JS; ensure minimum height */
+#resourceChart {
+    min-height: 280px
+    }
+/* Buttons responsiveness */
+@media (max-width: 576px) {
+    #btnUpdateBeds, #btnUpdateAmb {
+        width: 100%
+        }
+    }
+/* Adjust offcanvas body scroll on smaller devices */
+.offcanvas-body {
+    overflow-y: auto
+    }
+/* Validation highlight aligns with theme */
+.uc-input[aria-invalid="true"] {
+    border-color: var(--uc-color-error)
+    }
+/* Breadcrumbs spacing */
+.uc-breadcrumbs {
+    margin-top: 4px
+    }

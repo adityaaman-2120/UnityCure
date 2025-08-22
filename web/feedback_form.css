@@ -1,0 +1,57 @@
+/* feedback_form.css - Page-specific styles for Provide Feedback page */
+/* Typography enhancements for page headings */
+.uc-page-title {
+    letter-spacing: 0.2px
+    }
+/* Rating stars */
+.rating-stars .star i {
+    font-size: 28px;
+    transition: transform 0.15s ease, color 0.15s ease
+    }
+.rating-stars .star:hover i, .rating-stars .star:focus i {
+    transform: translatey(-2px) scale(1.05);
+    color: #FFA500
+    }
+.rating-stars .star {
+    outline: none
+    }
+/* Ensure card spacing on mobile */
+@media (max-width: 575.98px) {
+    .uc-card-body {
+        padding: 16px
+        }
+    }
+/* Table stars compact size */
+.table-stars i {
+    font-size: 14px;
+    margin-right: 2px
+    }
+/* Align badges and controls */
+.uc-section-header .badge {
+    height: fit-content
+    }
+/* Improve toast appearance stacking */
+.uc-toast {
+    border-left-width: 4px
+    }
+/* Illustration image radius consistency */
+img.rounded {
+    border-radius: 10px !important
+    }
+/* Buttons */
+#submitBtn.btn-success {
+    background-color: var(--uc-color-success);
+    border-color: var(--uc-color-success)
+    }
+#submitBtn.btn-success:hover {
+    background-color: var(--uc-color-success-600);
+    border-color: var(--uc-color-success-600)
+    }
+/* Breadcrumbs spacing tweak */
+.uc-breadcrumbs {
+    gap: 8px
+    }
+/* Form validation message spacing */
+#ratingError {
+    margin-top: 6px
+    }

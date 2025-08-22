@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice — Create Campaign
+  </title>
+  <!-- Brand font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf4VNorm1Z7G1Gd6M36c8EmMdZr8Hhn6JpN96V2s7C2Qxw7Xyu7Gshlw==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- SweetAlert2 -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Flatpickr -->
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+    <!-- Leaflet CSS -->
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet">
+     <!-- Global site theme -->
+     <link href="style.css" rel="stylesheet"/>
+     <!-- Page-specific CSS -->
+     <link href="campaign_form.css" rel="stylesheet"/>
+    </link>
+   </link>
+  </link>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Backoffice Header with Global Search) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/64/64';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" onsubmit="event.preventDefault();" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a class="nav-link" href="./platform_admin_dashboard.html" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="./platform_admin_dashboard.html" title="Messages">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar Offcanvas (Backoffice Sidebar) -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitylogo/72/72';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1 uc-sidebar-link-active" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./user_dashboard.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="./platform_admin_dashboard.html">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="./platform_admin_dashboard.html">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   /* keep provided sidebar hover styles consistent across pages */
+    #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <!-- Main Layout: Sidebar (static on lg+) + Content -->
+  <div class="container-fluid">
+   <div class="row g-0">
+    <!-- Static sidebar holder on lg+ -->
+    <div class="d-none d-lg-block col-lg-3 border-end bg-white" id="staticSidebarCol">
+     <!-- Render the same offcanvas as static on desktop via CSS overrides -->
+     <!-- placeholder: the offcanvas element above will be visually static here due to CSS in page file -->
+    </div>
+    <!-- Main content -->
+    <main class="col-12 col-lg-9 px-3 px-lg-4 py-3" id="mainContent">
+     <!-- Breadcrumbs -->
+     <nav aria-label="breadcrumb" class="uc-breadcrumbs small mb-2">
+      <a href="./organizer_dashboard.html">
+       Organizer
+      </a>
+      <span>
+       /
+      </span>
+      <a href="./campaigns_list.html">
+       Campaigns
+      </a>
+      <span>
+       /
+      </span>
+      <span aria-current="page">
+       Create
+      </span>
+     </nav>
+     <!-- Page Header -->
+     <div class="d-flex align-items-end justify-content-between mb-3 flex-wrap gap-2">
+      <div>
+       <h1 class="uc-page-title m-0">
+        Create a Health Campaign
+       </h1>
+       <div class="uc-text-muted">
+        Provide details for your public health event. Submissions go to admin review before publishing.
+       </div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <span class="badge rounded-pill text-bg-success">
+        <i class="fa-solid fa-pen-to-square me-1">
+        </i>
+        Create Mode
+       </span>
+       <a class="btn btn-sm btn-outline-success" href="./campaigns_list.html">
+        <i class="fa-solid fa-list me-1">
+        </i>
+        View All
+       </a>
+      </div>
+     </div>
+     <!-- Form + Right rail (map/media) -->
+     <div class="row g-3">
+      <!-- Left: primary fields -->
+      <div class="col-12 col-lg-8">
+       <div class="uc-card mb-3">
+        <div class="uc-card-header">
+         <div class="uc-card-title">
+          Campaign Details
+         </div>
+         <div class="uc-card-subtitle">
+          Fundamentals about your event
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <form id="campaignForm" novalidate="">
+          <!-- Title -->
+          <div class="uc-form-group">
+           <label class="uc-label" for="title">
+            Campaign Title
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <input class="uc-input" id="title" maxlength="100" name="title" placeholder="e.g., Annual Blood Donation Drive" required="" type="text">
+            <div class="uc-help-text">
+             5–100 characters. Make it clear and impactful.
+            </div>
+            <div class="uc-error-text d-none" id="errTitle">
+             Please enter a title between 5 and 100 characters.
+            </div>
+           </input>
+          </div>
+          <!-- Description -->
+          <div class="uc-form-group">
+           <label class="uc-label" for="description">
+            Description
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <textarea class="uc-textarea" id="description" name="description" placeholder="Describe the goals and activities of your campaign." required="" rows="5"></textarea>
+           <div class="uc-error-text d-none" id="errDescription">
+            Description is required.
+           </div>
+          </div>
+          <!-- Type -->
+          <div class="uc-form-group">
+           <label class="uc-label" for="type">
+            Campaign Type
+            <span class="text-danger">
+             *
+            </span>
+           </label>
+           <select class="uc-select" id="type" name="type" required="">
+            <option value="">
+             Select a type...
+            </option>
+            <option>
+             Blood Drive
+            </option>
+            <option>
+             Vaccination Camp
+            </option>
+            <option>
+             Health Check-up
+            </option>
+            <option>
+             Awareness Session
+            </option>
+           </select>
+           <div class="uc-error-text d-none" id="errType">
+            Please choose a campaign type.
+           </div>
+          </div>
+          <div class="uc-divider">
+          </div>
+          <!-- Scheduling -->
+          <div class="row g-3">
+           <div class="col-12 col-md-6">
+            <div class="uc-form-group">
+             <label class="uc-label" for="startDate">
+              Start Date
+              <span class="text-danger">
+               *
+              </span>
+             </label>
+             <input class="uc-input" id="startDate" name="startDate" placeholder="Select date" required="" type="text"/>
+             <div class="uc-error-text d-none" id="errStartDate">
+              Please select a future date.
+             </div>
+            </div>
+           </div>
+           <div class="col-12 col-md-6">
+            <div class="uc-form-group">
+             <label class="uc-label" for="startTime">
+              Start Time
+              <span class="text-danger">
+               *
+              </span>
+             </label>
+             <input class="uc-input" id="startTime" name="startTime" placeholder="Select time" required="" type="text"/>
+             <div class="uc-error-text d-none" id="errStartTime">
+              Please select a valid time.
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="uc-divider">
+          </div>
+          <!-- Logistics -->
+          <div class="uc-form-group">
+           <label class="uc-label" for="capacity">
+            Participant Capacity
+           </label>
+           <input class="uc-input" id="capacity" min="1" name="capacity" placeholder="e.g., 100" type="number"/>
+           <div class="uc-help-text">
+            Leave blank for unlimited participants.
+           </div>
+           <div class="uc-error-text d-none" id="errCapacity">
+            Please enter a positive whole number.
+           </div>
+          </div>
+          <!-- Hidden fields for location -->
+          <input id="locLat" name="locLat" type="hidden"/>
+          <input id="locLng" name="locLng" type="hidden"/>
+          <input id="locAddress" name="locAddress" type="hidden"/>
+          <!-- Sticky Actions -->
+          <div class="uc-card-footer sticky-actions d-flex align-items-center justify-content-between flex-wrap gap-2">
+           <div class="small text-muted d-flex align-items-center gap-2">
+            <span class="uc-freshness" id="autosaveIndicator">
+             Draft not saved
+            </span>
+           </div>
+           <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary" id="btnCancel" type="button">
+             <i class="fa-regular fa-circle-xmark me-1">
+             </i>
+             Cancel
+            </button>
+            <button class="btn btn-outline-success" id="btnSaveDraft" type="button">
+             <i class="fa-regular fa-floppy-disk me-1">
+             </i>
+             Save as Draft
+            </button>
+            <button class="btn btn-success" id="btnSubmit" type="submit">
+             <i class="fa-solid fa-paper-plane me-1">
+             </i>
+             Submit for Approval
+            </button>
+           </div>
+          </div>
+         </form>
+        </div>
+       </div>
+      </div>
+      <!-- Right: location and media -->
+      <div class="col-12 col-lg-4">
+       <!-- Location Section -->
+       <div class="uc-card mb-3">
+        <div class="uc-card-header">
+         <div class="uc-card-title">
+          Location
+         </div>
+         <div class="uc-card-subtitle">
+          Pin the event venue
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <div class="uc-form-group position-relative">
+          <label class="uc-label" for="locationSearch">
+           Search Address
+           <span class="text-danger">
+            *
+           </span>
+          </label>
+          <div class="uc-input-group">
+           <input autocomplete="off" class="uc-input" id="locationSearch" placeholder="Search for an address or place..." type="text"/>
+           <button class="uc-btn uc-btn-outline" id="btnUseMyLoc" type="button">
+            <span class="uc-btn-icon">
+             <i class="fa-solid fa-location-crosshairs">
+             </i>
+            </span>
+            Use my location
+           </button>
+          </div>
+          <div class="list-group position-absolute w-100 d-none" id="searchResults">
+          </div>
+          <div class="uc-error-text d-none" id="errLocation">
+           Please select a valid location.
+          </div>
+         </div>
+         <div class="uc-map-container rounded" id="map">
+         </div>
+         <div class="small text-muted mt-2">
+          <i class="fa-regular fa-hand-pointer me-1">
+          </i>
+          Tip: Click on the map to move the pin. We'll reverse-geocode the address.
+         </div>
+        </div>
+       </div>
+       <!-- Media Uploader -->
+       <div class="uc-card mb-3">
+        <div class="uc-card-header">
+         <div class="uc-card-title">
+          Promotional Banner
+         </div>
+         <div class="uc-card-subtitle">
+          JPEG or PNG up to 5 MB
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <div class="uc-form-group">
+          <label class="uc-label" for="bannerImage">
+           Upload Image
+          </label>
+          <input accept="image/jpeg,image/png" class="form-control" id="bannerImage" type="file"/>
+          <div class="uc-error-text d-none" id="errImage">
+           Invalid file type or size. Please upload JPEG/PNG up to 5MB.
+          </div>
+         </div>
+         <div class="ratio ratio-16x9 border rounded uc-shadow-sm overflow-hidden" id="imagePreviewWrapper">
+          <img alt="Banner Preview" class="w-100 h-100 object-fit-cover" id="imagePreview" onerror="this.onerror=null;this.src='https://picsum.photos/seed/previewfallback/800/450';" src="https://picsum.photos/seed/campaignbanner/800/450"/>
+         </div>
+        </div>
+       </div>
+       <!-- Small chart: optional insights -->
+       <div class="uc-card">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title">
+           Recent Campaign Registrations
+          </div>
+          <div class="uc-card-subtitle">
+           Last 6 months
+          </div>
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <canvas aria-label="Registrations trend" height="160" id="registrationsChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Drafts table -->
+     <div class="uc-card my-3">
+      <div class="uc-card-header">
+       <div class="d-flex align-items-center gap-2">
+        <div class="uc-card-title">
+         Your Drafts
+        </div>
+        <span class="badge text-bg-info">
+         <i class="fa-regular fa-lightbulb me-1">
+         </i>
+         Click a draft to continue editing
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <div class="uc-search">
+         <i class="fa-solid fa-magnifying-glass text-muted">
+         </i>
+         <input id="draftFilter" placeholder="Filter drafts..." type="text"/>
+        </div>
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="uc-table-responsive">
+        <table class="uc-table uc-table-striped" id="draftsTable">
+         <thead>
+          <tr>
+           <th class="sortable" data-key="title">
+            Title
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-key="type">
+            Type
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-key="date">
+            Created
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th>
+            Status
+           </th>
+           <th>
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <!-- rows injected by JS -->
+         </tbody>
+        </table>
+       </div>
+       <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="small text-muted" id="paginationInfo">
+         Showing 1–6 of 6
+        </div>
+        <nav aria-label="Drafts pagination" class="uc-pagination">
+         <button class="uc-page-btn btn btn-sm btn-light" disabled="" id="prevPage">
+          <i class="fa-solid fa-chevron-left">
+          </i>
+         </button>
+         <span aria-current="true" class="uc-page-btn" id="currentPage">
+          1
+         </span>
+         <button class="uc-page-btn btn btn-sm btn-light" disabled="" id="nextPage">
+          <i class="fa-solid fa-chevron-right">
+          </i>
+         </button>
+        </nav>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unityfooter/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Backoffice
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="./platform_admin_dashboard.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./platform_admin_dashboard.html">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Scripts: Bootstrap, SweetAlert2, Flatpickr, Leaflet, Chart.js -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+  </script>
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Utility: simple debounce
+function debounce(fn, delay = 300) {
+    let t;
+    return function(...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// Toast helper
+function showToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class="fa-solid ${variant==='success'?'fa-circle-check':variant==='warning'?'fa-triangle-exclamation':variant==='danger'?'fa-circle-exclamation':'fa-circle-info'}"></i><div>${message}</div>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(18px)';
+    }, 2500);
+    setTimeout(() => {
+        container.removeChild(toast);
+    }, 3000);
+}
+
+// Flatpickr init
+const now = new Date();
+const datePicker = flatpickr('#startDate', {
+    altInput: true,
+    altFormat: 'd M Y',
+    dateFormat: 'Y-m-d',
+    minDate: 'today'
+});
+const timePicker = flatpickr('#startTime', {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: 'H:i',
+    time_24hr: true,
+    minuteIncrement: 5
+});
+
+// Leaflet map init (default center: Kolkata)
+const map = L.map('map').setView([22.5726, 88.3639], 12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
+}).addTo(map);
+let marker = L.marker([22.5726, 88.3639], {
+    draggable: false
+}).addTo(map);
+
+function setLocation(lat, lng, address) {
+    document.getElementById('locLat').value = lat;
+    document.getElementById('locLng').value = lng;
+    document.getElementById('locAddress').value = address || '';
+    marker.setLatLng([lat, lng]);
+}
+
+// Reverse geocode on map click
+map.on('click', async (e) => {
+    const {
+        lat,
+        lng
+    } = e.latlng;
+    try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
+        const data = await res.json();
+        setLocation(lat, lng, data.display_name || '');
+        document.getElementById('locationSearch').value = data.display_name || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+    } catch (err) {
+        setLocation(lat, lng, '');
+    }
+});
+
+// Geocoding Autocomplete (Nominatim)
+const searchBox = document.getElementById('locationSearch');
+const resultsEl = document.getElementById('searchResults');
+async function geocodeQuery(q) {
+    if (!q || q.length < 3) {
+        resultsEl.classList.add('d-none');
+        resultsEl.innerHTML = '';
+        return;
+    }
+    try {
+        const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(q)}&addressdetails=1&limit=5`;
+        const res = await fetch(url);
+        const items = await res.json();
+        if (!Array.isArray(items) || items.length === 0) {
+            resultsEl.classList.add('d-none');
+            resultsEl.innerHTML = '';
+            return;
+        }
+        resultsEl.innerHTML = items.map((it, idx) => `<button type="button" class="list-group-item list-group-item-action" data-lat="${it.lat}" data-lng="${it.lon}" data-label="${it.display_name.replace(/\"/g,'')}"><i class="fa-solid fa-location-dot me-2 text-success"></i>${it.display_name}</button>`).join('');
+        resultsEl.classList.remove('d-none');
+    } catch (e) {
+        resultsEl.classList.add('d-none');
+    }
+}
+const debouncedGeocode = debounce(geocodeQuery, 400);
+searchBox.addEventListener('input', () => debouncedGeocode(searchBox.value.trim()));
+resultsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-lat]');
+    if (!btn) return;
+    const lat = parseFloat(btn.getAttribute('data-lat'));
+    const lng = parseFloat(btn.getAttribute('data-lng'));
+    const label = btn.getAttribute('data-label');
+    setLocation(lat, lng, label);
+    map.setView([lat, lng], 15);
+    searchBox.value = label;
+    resultsEl.classList.add('d-none');
+});
+document.addEventListener('click', (e) => {
+    if (!resultsEl.contains(e.target) && e.target !== searchBox) resultsEl.classList.add('d-none');
+});
+
+// Use My Location
+document.getElementById('btnUseMyLoc').addEventListener('click', () => {
+    if (!navigator.geolocation) {
+        showToast('Geolocation not supported on this device', 'warning');
+        return;
+    }
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+        const lat = pos.coords.latitude,
+            lng = pos.coords.longitude;
+        map.setView([lat, lng], 15);
+        try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
+            const data = await res.json();
+            setLocation(lat, lng, data.display_name || '');
+            searchBox.value = data.display_name || `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+        } catch (e) {
+            setLocation(lat, lng, '');
+        }
+    }, () => showToast('Unable to retrieve location', 'danger'));
+});
+
+// Image uploader validation + preview
+const bannerInput = document.getElementById('bannerImage');
+const imgErr = document.getElementById('errImage');
+const imgPrev = document.getElementById('imagePreview');
+bannerInput.addEventListener('change', () => {
+    imgErr.classList.add('d-none');
+    const file = bannerInput.files && bannerInput.files[0];
+    if (!file) return;
+    const validTypes = ['image/jpeg', 'image/png'];
+    const maxBytes = 5 * 1024 * 1024; // 5MB
+    if (!validTypes.includes(file.type) || file.size > maxBytes) {
+        imgErr.classList.remove('d-none');
+        bannerInput.value = '';
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        imgPrev.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+// Auto-save indicator simulation
+const autosaveEl = document.getElementById('autosaveIndicator');
+let dirty = false;
+let autosaveTimer;
+['title', 'description', 'type', 'startDate', 'startTime', 'capacity', 'locationSearch'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+        dirty = true;
+        autosaveEl.textContent = 'Unsaved changes';
+    });
+});
+
+function validateForm() {
+    let valid = true;
+    // Title
+    const title = document.getElementById('title').value.trim();
+    const errTitle = document.getElementById('errTitle');
+    if (title.length < 5 || title.length > 100) {
+        errTitle.classList.remove('d-none');
+        valid = false;
+    } else {
+        errTitle.classList.add('d-none');
+    }
+    // Description
+    const desc = document.getElementById('description').value.trim();
+    const errDesc = document.getElementById('errDescription');
+    if (!desc) {
+        errDesc.classList.remove('d-none');
+        valid = false;
+    } else {
+        errDesc.classList.add('d-none');
+    }
+    // Type
+    const type = document.getElementById('type').value;
+    const errType = document.getElementById('errType');
+    if (!type) {
+        errType.classList.remove('d-none');
+        valid = false;
+    } else {
+        errType.classList.add('d-none');
+    }
+    // Date
+    const sd = document.getElementById('startDate').value;
+    const errSD = document.getElementById('errStartDate');
+    const sdDate = sd ? new Date(sd) : null;
+    if (!sdDate || (sdDate.setHours(0, 0, 0, 0) < (new Date()).setHours(0, 0, 0, 0))) {
+        errSD.classList.remove('d-none');
+        valid = false;
+    } else {
+        errSD.classList.add('d-none');
+    }
+    // Time
+    const st = document.getElementById('startTime').value;
+    const errST = document.getElementById('errStartTime');
+    if (!st || !/^\d{2}:\d{2}$/.test(st)) {
+        errST.classList.remove('d-none');
+        valid = false;
+    } else {
+        errST.classList.add('d-none');
+    }
+    // Capacity
+    const capVal = document.getElementById('capacity').value.trim();
+    const errCap = document.getElementById('errCapacity');
+    if (capVal && (!/^\d+$/.test(capVal) || parseInt(capVal) <= 0)) {
+        errCap.classList.remove('d-none');
+        valid = false;
+    } else {
+        errCap.classList.add('d-none');
+    }
+    // Location
+    const lat = document.getElementById('locLat').value;
+    const lng = document.getElementById('locLng').value;
+    const errLoc = document.getElementById('errLocation');
+    if (!lat || !lng) {
+        errLoc.classList.remove('d-none');
+        valid = false;
+    } else {
+        errLoc.classList.add('d-none');
+    }
+    return valid;
+}
+
+// Save Draft handler (requires at least title)
+document.getElementById('btnSaveDraft').addEventListener('click', async () => {
+    const title = document.getElementById('title').value.trim();
+    if (title.length < 1) {
+        showToast('Please add a title before saving a draft.', 'warning');
+        return;
+    }
+    autosaveEl.textContent = 'Saving draft...';
+    document.getElementById('btnSaveDraft').disabled = true;
+    await new Promise(r => setTimeout(r, 900)); // simulate API
+    document.getElementById('btnSaveDraft').disabled = false;
+    dirty = false;
+    autosaveEl.textContent = 'Draft saved moments ago';
+    showToast('Draft saved successfully', 'success');
+    // Optional: redirect back to organizer dashboard
+    // location.href = './organizer_dashboard.html';
+});
+
+// Cancel handler with confirmation
+document.getElementById('btnCancel').addEventListener('click', () => {
+    if (!dirty) {
+        location.href = './organizer_dashboard.html';
+        return;
+    }
+    Swal.fire({
+        title: 'Discard changes?',
+        text: 'Your unsaved edits will be lost.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Discard',
+        confirmButtonColor: '#CD2026',
+        cancelButtonText: 'Keep Editing'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.href = './organizer_dashboard.html';
+        }
+    });
+});
+
+// Submit handler
+document.getElementById('campaignForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+        showToast('Please fix validation errors before submitting.', 'danger');
+        return;
+    }
+    const submitBtn = document.getElementById('btnSubmit');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+    await new Promise(r => setTimeout(r, 1200)); // simulate API
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> Submit for Approval';
+    Swal.fire({
+        icon: 'success',
+        title: 'Submitted for Review',
+        text: 'Your campaign was sent to the admin team.',
+        timer: 1300,
+        showConfirmButton: false
+    });
+    setTimeout(() => {
+        location.href = './organizer_dashboard.html';
+    }, 1300);
+});
+
+// Sample drafts data + simple table interactions
+const drafts = [{
+    id: 101,
+    title: 'Ward 5 Vaccination Camp',
+    type: 'Vaccination Camp',
+    date: '2025-08-01',
+    status: 'Draft'
+}, {
+    id: 102,
+    title: 'Monsoon Dengue Awareness',
+    type: 'Awareness Session',
+    date: '2025-07-28',
+    status: 'Draft'
+}, {
+    id: 103,
+    title: 'Park Street Blood Drive',
+    type: 'Blood Drive',
+    date: '2025-07-20',
+    status: 'Draft'
+}, {
+    id: 104,
+    title: 'Free Health Check-up - Ward 12',
+    type: 'Health Check-up',
+    date: '2025-07-15',
+    status: 'Draft'
+}, {
+    id: 105,
+    title: 'Community TB Screening',
+    type: 'Health Check-up',
+    date: '2025-07-10',
+    status: 'Draft'
+}, {
+    id: 106,
+    title: 'Rabies Prevention Awareness',
+    type: 'Awareness Session',
+    date: '2025-06-30',
+    status: 'Draft'
+}];
+let sortKey = 'date';
+let sortAsc = false;
+let page = 1;
+const pageSize = 6;
+let filterQ = '';
+
+function renderDrafts() {
+    const tbody = document.querySelector('#draftsTable tbody');
+    let filtered = drafts.filter(d => d.title.toLowerCase().includes(filterQ) || d.type.toLowerCase().includes(filterQ));
+    filtered.sort((a, b) => {
+        const A = a[sortKey],
+            B = b[sortKey];
+        if (A < B) return sortAsc ? -1 : 1;
+        if (A > B) return sortAsc ? 1 : -1;
+        return 0;
+    });
+    const total = filtered.length;
+    const start = (page - 1) * pageSize;
+    const view = filtered.slice(start, start + pageSize);
+    tbody.innerHTML = view.map(row => `
+        <tr>
+          <td class="fw-semibold">${row.title}</td>
+          <td>${row.type}</td>
+          <td>${new Date(row.date).toLocaleDateString()}</td>
+          <td><span class="uc-badge uc-badge-info"><i class="fa-regular fa-file-lines"></i> ${row.status}</span></td>
+          <td>
+            <a class="btn btn-sm btn-outline-success" href="./campaign_form.html?campaignId=${row.id}"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+          </td>
+        </tr>
+      `).join('');
+    document.getElementById('paginationInfo').textContent = `Showing ${Math.min(total, start+1)}–${Math.min(total, start+view.length)} of ${total}`;
+    document.getElementById('prevPage').disabled = page === 1;
+    document.getElementById('nextPage').disabled = start + pageSize >= total;
+    document.getElementById('currentPage').textContent = page;
+}
+renderDrafts();
+
+document.getElementById('draftFilter').addEventListener('input', debounce((e) => {
+    filterQ = e.target.value.trim().toLowerCase();
+    page = 1;
+    renderDrafts();
+}, 200));
+
+document.getElementById('prevPage').addEventListener('click', () => {
+    if (page > 1) {
+        page--;
+        renderDrafts();
+    }
+});
+document.getElementById('nextPage').addEventListener('click', () => {
+    page++;
+    renderDrafts();
+});
+
+document.querySelectorAll('#draftsTable th.sortable').forEach(th => {
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => {
+        const key = th.getAttribute('data-key');
+        if (sortKey === key) {
+            sortAsc = !sortAsc;
+        } else {
+            sortKey = key;
+            sortAsc = true;
+        }
+        renderDrafts();
+    });
+});
+
+// Chart.js line chart
+const ctx = document.getElementById('registrationsChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        datasets: [{
+            label: 'Registrations',
+            data: [120, 160, 140, 220, 260, 310],
+            borderColor: '#0099D2',
+            backgroundColor: 'rgba(0,153,210,0.12)',
+            fill: true,
+            tension: 0.25,
+            pointRadius: 3,
+            pointBackgroundColor: '#0099D2'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: true
+            }
+        }
+    }
+});
+
+// Initialize default marker values into hidden location fields
+setLocation(22.5726, 88.3639, 'Kolkata');
+  </script>
+ </body>
+</html>

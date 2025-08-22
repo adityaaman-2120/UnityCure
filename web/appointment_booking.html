@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure • Book Appointment
+  </title>
+  <!-- Brand font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfLl5DM9N5e5pS4R2H8G2J2V78C6VQK7E3R0jZq3LrjX1C1ZrjXhYv3g==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Flatpickr (Calendar) -->
+   <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+   <!-- Global theme -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page specific CSS -->
+   <link href="appointment_booking.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to content
+  </a>
+  <!-- Header (Citizen/Community) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (offcanvas) -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="container-fluid py-3" id="mainContent">
+   <div class="uc-container">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="uc-breadcrumbs mb-3">
+     <a href="./map_view.html">
+      Home
+     </a>
+     <span aria-hidden="true">
+      /
+     </span>
+     <a href="./facility_details.html">
+      Facility
+     </a>
+     <span aria-hidden="true">
+      /
+     </span>
+     <span class="text-muted">
+      Book Appointment
+     </span>
+    </nav>
+    <!-- Page Header -->
+    <div class="uc-section-header">
+     <div>
+      <h1 class="uc-page-title">
+       Book Appointment
+      </h1>
+      <p class="uc-subtitle m-0">
+       Select a time, enter patient details, and confirm your booking.
+      </p>
+     </div>
+     <div class="d-none d-md-flex align-items-center gap-2">
+      <a class="uc-btn uc-btn-outline" href="./user_dashboard.html">
+       <i class="fa-solid fa-calendar-check me-1">
+       </i>
+       My Appointments
+      </a>
+      <a class="uc-btn uc-btn-info" href="./teleconsult_session.html">
+       <i class="fa-solid fa-video me-1">
+       </i>
+       Join Teleconsult
+      </a>
+     </div>
+    </div>
+    <!-- Provider Header -->
+    <section class="uc-card mb-4">
+     <div class="uc-card-body d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3">
+       <div class="uc-avatar uc-avatar-lg">
+        <img alt="Doctor Avatar" id="doctorAvatar" onerror="this.onerror=null;this.src='https://picsum.photos/seed/doctor/96/96'" src="assets/illustration_for_telemedicine__1_99625143.png"/>
+       </div>
+       <div>
+        <div class="fw-bold h5 mb-1" id="doctorName">
+         Dr. Ananya Sen
+        </div>
+        <div class="text-muted" id="doctorSpec">
+         Cardiologist •
+         <span id="hospitalName">
+          Kolkata Heart Institute
+         </span>
+        </div>
+        <div class="uc-freshness mt-2" id="providerFreshness">
+         Profile verified • updated 5 mins ago
+        </div>
+       </div>
+      </div>
+      <div class="d-flex gap-2">
+       <a class="uc-btn uc-btn-outline" href="./facility_details.html">
+        <i class="fa-solid fa-circle-info me-1">
+        </i>
+        Facility Details
+       </a>
+       <a class="uc-btn uc-btn-link uc-text-info" href="./map_view.html">
+        <i class="fa-solid fa-arrows-rotate me-1">
+        </i>
+        Change Doctor
+       </a>
+      </div>
+     </div>
+    </section>
+    <!-- Stepper -->
+    <section class="mb-3">
+     <ol aria-label="Booking Steps" class="uc-stepper" id="bookingStepper">
+      <li class="uc-step active" data-step="1">
+       <span class="uc-step-index">
+        1
+       </span>
+       <span class="uc-step-label">
+        Schedule
+       </span>
+      </li>
+      <li class="uc-step" data-step="2">
+       <span class="uc-step-index">
+        2
+       </span>
+       <span class="uc-step-label">
+        Details
+       </span>
+      </li>
+      <li class="uc-step" data-step="3">
+       <span class="uc-step-index">
+        3
+       </span>
+       <span class="uc-step-label">
+        Confirm
+       </span>
+      </li>
+     </ol>
+    </section>
+    <!-- Wizard Panels -->
+    <section id="stepPanels">
+     <!-- Step 1: Scheduler -->
+     <div class="uc-card mb-4" id="step1">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Select schedule
+       </div>
+       <div class="uc-card-subtitle">
+        Choose appointment type, date, and time
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="row g-4">
+        <div class="col-lg-8">
+         <!-- Appointment Type Toggle -->
+         <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div aria-label="Appointment Type" class="uc-segmented" role="group">
+           <button aria-pressed="true" class="uc-seg" data-type="telemedicine" id="typeTele" type="button">
+            <i class="fa-solid fa-video me-1">
+            </i>
+            Telemedicine
+           </button>
+           <button aria-pressed="false" class="uc-seg" data-type="in-person" id="typeInPerson" type="button">
+            <i class="fa-solid fa-stethoscope me-1">
+            </i>
+            In-Person
+           </button>
+          </div>
+          <div class="small text-muted">
+           Need help?
+           <a class="text-decoration-none" href="#">
+            Ask our assistant
+           </a>
+          </div>
+         </div>
+         <!-- Calendar and Slots -->
+         <div class="row g-3">
+          <div class="col-md-6">
+           <label class="uc-label">
+            Select Date
+           </label>
+           <div class="uc-calendar" id="datePicker">
+           </div>
+           <div class="small text-muted mt-2">
+            Past dates are disabled. Only dates with available slots are highlighted.
+           </div>
+          </div>
+          <div class="col-md-6">
+           <div class="d-flex align-items-center justify-content-between">
+            <label class="uc-label m-0">
+             Available Time Slots
+            </label>
+            <span class="uc-freshness" id="slotsFreshness">
+             updated just now
+            </span>
+           </div>
+           <div class="uc-skeleton mt-2" id="slotsLoading" style="height:44px;display:none;">
+           </div>
+           <div class="uc-alert uc-alert-warning mt-2 d-none" id="noSlots">
+            <i class="fa-solid fa-circle-exclamation text-warning">
+            </i>
+            <div>
+             No available slots for the selected date. Try another date or switch appointment type.
+            </div>
+            <div>
+            </div>
+           </div>
+           <div class="uc-time-grid mt-2" id="timeSlotGrid">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="col-lg-4">
+         <div class="uc-card h-100">
+          <div class="uc-card-body">
+           <img alt="Telemedicine Illustration" class="appointment-illustration" id="typeIllustration" onerror="this.onerror=null;this.src='https://picsum.photos/seed/telemed/800/600'" src="assets/illustration_for_telemedicine__1_99625143.png"/>
+           <div class="mt-3 uc-text-muted small">
+            Tip: Telemedicine helps you consult from home. In-person visits are best when a physical examination is required.
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="d-flex justify-content-end mt-4">
+        <button class="uc-btn uc-btn-primary" disabled="" id="toStep2">
+         Continue
+         <i class="fa-solid fa-arrow-right ms-2">
+         </i>
+        </button>
+       </div>
+      </div>
+     </div>
+     <!-- Step 2: Patient Details -->
+     <div class="uc-card mb-4 d-none" id="step2">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Patient details
+       </div>
+       <div class="uc-card-subtitle">
+        Tell us who this appointment is for
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <form id="patientForm" novalidate="">
+        <div class="row g-3">
+         <div class="col-md-6">
+          <div class="uc-form-group">
+           <label class="uc-label" for="patientName">
+            Full Name
+           </label>
+           <input class="uc-input" id="patientName" name="patientName" placeholder="Enter full name" required="" type="text"/>
+           <div class="uc-error-text d-none" id="errName">
+            Name is required.
+           </div>
+          </div>
+         </div>
+         <div class="col-md-3">
+          <div class="uc-form-group">
+           <label class="uc-label" for="patientAge">
+            Age
+           </label>
+           <input class="uc-input" id="patientAge" max="120" min="0" name="patientAge" placeholder="e.g., 42" required="" type="number"/>
+           <div class="uc-error-text d-none" id="errAge">
+            Enter a valid age.
+           </div>
+          </div>
+         </div>
+         <div class="col-md-3">
+          <div class="uc-form-group">
+           <label class="uc-label" for="patientContact">
+            Contact Number
+           </label>
+           <input class="uc-input" id="patientContact" name="patientContact" placeholder="10-digit mobile" required="" type="tel"/>
+           <div class="uc-error-text d-none" id="errContact">
+            Enter a valid mobile number.
+           </div>
+          </div>
+         </div>
+         <div class="col-12">
+          <div class="uc-form-group">
+           <label class="uc-label" for="reason">
+            Reason for Visit
+           </label>
+           <textarea class="uc-textarea" id="reason" maxlength="500" name="reason" placeholder="Briefly describe symptoms or purpose" required="" rows="4"></textarea>
+           <div class="d-flex justify-content-between">
+            <div class="uc-error-text d-none" id="errReason">
+             Reason is required.
+            </div>
+            <div class="uc-help-text" id="reasonCount">
+             0/500
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </form>
+       <div class="d-flex justify-content-between mt-3">
+        <button class="uc-btn uc-btn-outline" id="backToStep1">
+         <i class="fa-solid fa-arrow-left me-2">
+         </i>
+         Back
+        </button>
+        <button class="uc-btn uc-btn-primary" id="toStep3">
+         Review &amp; Continue
+         <i class="fa-solid fa-arrow-right ms-2">
+         </i>
+        </button>
+       </div>
+      </div>
+     </div>
+     <!-- Step 3: Summary & Confirmation -->
+     <div class="uc-card mb-4 d-none" id="step3">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Review &amp; confirm
+       </div>
+       <div class="uc-card-subtitle">
+        Verify details before booking
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="row g-3">
+        <div class="col-lg-8">
+         <div class="uc-list-item mb-3">
+          <div>
+           <div class="fw-semibold">
+            Appointment
+           </div>
+           <div class="text-muted" id="summaryAppt">
+            Doctor, date, time, type
+           </div>
+          </div>
+          <span class="uc-badge uc-badge-info" id="summaryType">
+           Telemedicine
+          </span>
+         </div>
+         <div class="uc-list-item mb-3">
+          <div>
+           <div class="fw-semibold">
+            Patient
+           </div>
+           <div class="text-muted" id="summaryPatient">
+            Name, age, contact
+           </div>
+          </div>
+          <a class="uc-btn uc-btn-link" href="#" id="editPatient">
+           Edit
+          </a>
+         </div>
+         <div class="uc-alert uc-alert-info mb-3">
+          <i class="fa-solid fa-shield-halved text-info">
+          </i>
+          <div>
+           We respect your privacy. Data is stored in India and protected under DPDP Act 2023.
+          </div>
+          <div>
+          </div>
+         </div>
+         <div class="d-flex justify-content-between mt-3">
+          <button class="uc-btn uc-btn-outline" id="backToStep2">
+           <i class="fa-solid fa-arrow-left me-2">
+           </i>
+           Back
+          </button>
+          <button class="uc-btn uc-btn-success" id="confirmBooking">
+           <span class="me-2" id="confirmIcon">
+            <i class="fa-solid fa-check">
+            </i>
+           </span>
+           Confirm Booking
+          </button>
+         </div>
+        </div>
+        <div class="col-lg-4">
+         <div class="uc-card">
+          <div class="uc-card-header">
+           <div class="uc-card-title">
+            Quick Summary
+           </div>
+          </div>
+          <div class="uc-card-body">
+           <ul class="uc-list">
+            <li class="d-flex justify-content-between">
+             <span>
+              Doctor
+             </span>
+             <span id="sumDoctor">
+              Dr. Ananya Sen
+             </span>
+            </li>
+            <li class="d-flex justify-content-between">
+             <span>
+              Hospital
+             </span>
+             <span id="sumHospital">
+              Kolkata Heart Institute
+             </span>
+            </li>
+            <li class="d-flex justify-content-between">
+             <span>
+              Date
+             </span>
+             <span id="sumDate">
+              —
+             </span>
+            </li>
+            <li class="d-flex justify-content-between">
+             <span>
+              Time
+             </span>
+             <span id="sumTime">
+              —
+             </span>
+            </li>
+            <li class="d-flex justify-content-between">
+             <span>
+              Type
+             </span>
+             <span id="sumType">
+              Telemedicine
+             </span>
+            </li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Additional Insights: Weekly Availability (Table) -->
+    <section class="uc-card mb-4">
+     <div class="uc-card-header">
+      <div>
+       <div class="uc-card-title">
+        Doctor's Weekly Availability
+       </div>
+       <div class="uc-card-subtitle">
+        Sample data for demo purposes
+       </div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <select class="form-select form-select-sm" id="filterType" style="width:auto">
+        <option selected="" value="all">
+         All Types
+        </option>
+        <option value="Telemedicine">
+         Telemedicine
+        </option>
+        <option value="In-Person">
+         In-Person
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="uc-card-body">
+      <div class="uc-table-responsive">
+       <table class="uc-table" id="availabilityTable">
+        <thead>
+         <tr>
+          <th data-sort="date" role="button">
+           Date
+           <i class="fa-solid fa-sort ms-1">
+           </i>
+          </th>
+          <th>
+           Day
+          </th>
+          <th data-sort="type" role="button">
+           Type
+           <i class="fa-solid fa-sort ms-1">
+           </i>
+          </th>
+          <th class="text-end" data-sort="slots" role="button">
+           Slots
+           <i class="fa-solid fa-sort ms-1">
+           </i>
+          </th>
+          <th>
+           First Slot
+          </th>
+          <th class="text-end">
+           Action
+          </th>
+         </tr>
+        </thead>
+        <tbody id="availabilityBody">
+         <!-- Populated via JS -->
+        </tbody>
+       </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-2 small text-muted">
+       <div id="paginationInfo">
+        Showing 1–6 of 6
+       </div>
+       <div class="uc-pagination">
+        <button class="uc-page-btn" disabled="" id="prevPage">
+         <i class="fa-solid fa-chevron-left">
+         </i>
+        </button>
+        <span aria-current="true" class="uc-page-btn" id="currentPage">
+         1
+        </span>
+        <button class="uc-page-btn" disabled="" id="nextPage">
+         <i class="fa-solid fa-chevron-right">
+         </i>
+        </button>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Small Chart: Wait Time Trend -->
+    <section class="uc-card mb-4">
+     <div class="uc-card-header">
+      <div class="uc-card-title">
+       Estimated Wait Time Trend
+      </div>
+      <div class="uc-card-subtitle">
+       Based on recent averages
+      </div>
+     </div>
+     <div class="uc-card-body">
+      <canvas aria-label="Wait time trend" height="120" id="waitTimeChart" role="img">
+      </canvas>
+     </div>
+    </section>
+   </div>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">© UnityCure</span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="./support.html">Support</a>
+     <a class="text-decoration-none" href="./contact.html">Contact</a>
+     <a class="text-decoration-none" href="#">Terms</a>
+     <a class="text-decoration-none" href="#">Privacy</a>
+     <a class="btn btn-sm btn-warning d-lg-none" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1"></i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container -->
+  <div class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Libraries -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Simple toast helper
+function showToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class="fa-solid ${variant === 'success' ? 'fa-check-circle' : variant === 'warning' ? 'fa-triangle-exclamation' : variant === 'danger' ? 'fa-circle-exclamation' : 'fa-circle-info'}"></i><div>${message}</div>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 3500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // State
+    const state = {
+        currentStep: 1,
+        selectedAppointmentType: 'telemedicine',
+        selectedDate: null,
+        selectedTimeSlot: null,
+        patientDetails: {},
+        isLoading: false
+    };
+
+    // Elements
+    const stepper = document.getElementById('bookingStepper');
+    const stepPanels = {
+        1: document.getElementById('step1'),
+        2: document.getElementById('step2'),
+        3: document.getElementById('step3')
+    };
+    const toStep2Btn = document.getElementById('toStep2');
+    const backToStep1Btn = document.getElementById('backToStep1');
+    const toStep3Btn = document.getElementById('toStep3');
+    const backToStep2Btn = document.getElementById('backToStep2');
+    const confirmBookingBtn = document.getElementById('confirmBooking');
+    const editPatientBtn = document.getElementById('editPatient');
+    const typeTele = document.getElementById('typeTele');
+    const typeInPerson = document.getElementById('typeInPerson');
+    const typeIllustration = document.getElementById('typeIllustration');
+    const slotGrid = document.getElementById('timeSlotGrid');
+    const noSlots = document.getElementById('noSlots');
+    const slotsLoading = document.getElementById('slotsLoading');
+
+    // Summary fields
+    const sumDoctor = document.getElementById('sumDoctor');
+    const sumHospital = document.getElementById('sumHospital');
+    const sumDate = document.getElementById('sumDate');
+    const sumTime = document.getElementById('sumTime');
+    const sumType = document.getElementById('sumType');
+    const summaryAppt = document.getElementById('summaryAppt');
+    const summaryType = document.getElementById('summaryType');
+
+    // Patient form elements
+    const patientForm = document.getElementById('patientForm');
+    const patientName = document.getElementById('patientName');
+    const patientAge = document.getElementById('patientAge');
+    const patientContact = document.getElementById('patientContact');
+    const reason = document.getElementById('reason');
+    const reasonCount = document.getElementById('reasonCount');
+    const errName = document.getElementById('errName');
+    const errAge = document.getElementById('errAge');
+    const errContact = document.getElementById('errContact');
+    const errReason = document.getElementById('errReason');
+
+    // Fake provider info (would be fetched via doctorId)
+    const doctor = {
+        id: 'DR-1001',
+        name: 'Dr. Ananya Sen',
+        specialty: 'Cardiologist',
+        hospital: 'Kolkata Heart Institute',
+    };
+    document.getElementById('doctorName').textContent = doctor.name;
+    document.getElementById('doctorSpec').innerHTML = `${doctor.specialty} • <span id="hospitalName">${doctor.hospital}</span>`;
+    sumDoctor.textContent = doctor.name;
+    sumHospital.textContent = doctor.hospital;
+
+    // Initialize Flatpickr
+    const today = new Date();
+    const fp = flatpickr('#datePicker', {
+        inline: true,
+        minDate: 'today',
+        defaultDate: today,
+        onChange: (selectedDates) => {
+            state.selectedDate = selectedDates[0];
+            state.selectedTimeSlot = null;
+            toStep2Btn.disabled = true;
+            fetchSlots();
+        },
+        // Highlight next 14 days except Sundays as available
+        enable: [function(date) {
+            const dayDiff = Math.ceil((date - new Date(new Date().toDateString())) / (1000 * 60 * 60 * 24));
+            const isNext14 = dayDiff >= 0 && dayDiff <= 14;
+            const isSunday = date.getDay() === 0;
+            return isNext14 && !isSunday;
+        }]
+    });
+    state.selectedDate = fp.selectedDates[0];
+
+    // Appointment type toggle
+    function setType(type) {
+        state.selectedAppointmentType = type;
+        typeTele.setAttribute('aria-pressed', type === 'telemedicine');
+        typeInPerson.setAttribute('aria-pressed', type === 'in-person');
+        if (type === 'telemedicine') {
+            typeIllustration.src = 'assets/illustration_for_telemedicine__1_99625143.png';
+            typeIllustration.alt = 'Telemedicine Illustration';
+        } else {
+            typeIllustration.src = 'assets/illustration_for_in-person_app_1_7332e8a5.png';
+            typeIllustration.alt = 'In-Person Illustration';
+        }
+        // Refetch slots
+        fetchSlots();
+    }
+    typeTele.addEventListener('click', () => setType('telemedicine'));
+    typeInPerson.addEventListener('click', () => setType('in-person'));
+
+    // Slots data generator (mock API)
+    function mockFetchSlots({
+        doctorId,
+        type,
+        date
+    }) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // For demo, generate fewer slots for in-person and none on certain days
+                const day = date.getDay(); // 0 Sun ... 6 Sat
+                const baseHours = type === 'telemedicine' ? [9, 9.5, 10, 10.5, 11, 11.5, 14, 14.5, 15, 15.5, 16] : [10, 10.5, 11.5, 15, 15.5];
+                let slots = baseHours.map(h => {
+                    const hh = Math.floor(h);
+                    const mm = (h % 1) ? '30' : '00';
+                    return {
+                        id: `${doctorId}-${type}-${date.toISOString().slice(0,10)}-${hh}${mm}`,
+                        label: `${String(hh).padStart(2,'0')}:${mm}`,
+                    };
+                });
+                // No slots on Fridays (for demo)
+                if (day === 5 && type === 'in-person') slots = [];
+                if (day === 2 && type === 'telemedicine') slots = slots.slice(0, 3);
+                resolve({
+                    slots
+                });
+            }, 600);
+        });
+    }
+
+    async function fetchSlots() {
+        if (!state.selectedDate) return;
+        state.isLoading = true;
+        slotsLoading.style.display = 'block';
+        noSlots.classList.add('d-none');
+        slotGrid.innerHTML = '';
+        try {
+            const {
+                slots
+            } = await mockFetchSlots({
+                doctorId: doctor.id,
+                type: state.selectedAppointmentType,
+                date: state.selectedDate
+            });
+            state.isLoading = false;
+            slotsLoading.style.display = 'none';
+            if (!slots || slots.length === 0) {
+                noSlots.classList.remove('d-none');
+                toStep2Btn.disabled = true;
+                return;
+            }
+            slots.forEach(s => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'slot-btn';
+                btn.textContent = s.label;
+                btn.dataset.slotId = s.id;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.slot-btn.active').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.selectedTimeSlot = s;
+                    toStep2Btn.disabled = false;
+                });
+                slotGrid.appendChild(btn);
+            });
+            showToast('Slots updated', 'info');
+        } catch (e) {
+            state.isLoading = false;
+            slotsLoading.style.display = 'none';
+            showToast('Failed to load slots. Please try again.', 'danger');
+            noSlots.classList.remove('d-none');
+        }
+    }
+
+    // Initial load
+    setType('telemedicine');
+
+    // Step navigation helpers
+    function goToStep(step) {
+        state.currentStep = step;
+        Object.values(stepPanels).forEach(el => el.classList.add('d-none'));
+        stepPanels[step].classList.remove('d-none');
+        stepper.querySelectorAll('.uc-step').forEach(li => {
+            const s = Number(li.dataset.step);
+            li.classList.toggle('active', s === step);
+            li.classList.toggle('complete', s < step);
+        });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    toStep2Btn.addEventListener('click', () => {
+        goToStep(2);
+    });
+    backToStep1Btn.addEventListener('click', () => goToStep(1));
+
+    // Form validation
+    function validateForm() {
+        let valid = true;
+        // Name
+        if (!patientName.value.trim()) {
+            errName.classList.remove('d-none');
+            valid = false;
+        } else {
+            errName.classList.add('d-none');
+        }
+        // Age
+        const ageVal = Number(patientAge.value);
+        if (!patientAge.value || isNaN(ageVal) || ageVal < 0 || ageVal > 120) {
+            errAge.classList.remove('d-none');
+            valid = false;
+        } else {
+            errAge.classList.add('d-none');
+        }
+        // Contact (basic 10-digit)
+        const contact = patientContact.value.trim();
+        if (!/^\d{10}$/.test(contact)) {
+            errContact.classList.remove('d-none');
+            valid = false;
+        } else {
+            errContact.classList.add('d-none');
+        }
+        // Reason
+        if (!reason.value.trim()) {
+            errReason.classList.remove('d-none');
+            valid = false;
+        } else {
+            errReason.classList.add('d-none');
+        }
+        return valid;
+    }
+    reason.addEventListener('input', () => {
+        reasonCount.textContent = `${reason.value.length}/500`;
+    });
+
+    toStep3Btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!validateForm()) {
+            showToast('Please correct the highlighted fields.', 'warning');
+            return;
+        }
+        // Save
+        state.patientDetails = {
+            name: patientName.value.trim(),
+            age: Number(patientAge.value),
+            contact: patientContact.value.trim(),
+            reason: reason.value.trim()
+        };
+        // Populate summary
+        const dateStr = state.selectedDate ? state.selectedDate.toLocaleDateString() : '—';
+        const timeStr = state.selectedTimeSlot ? state.selectedTimeSlot.label : '—';
+        sumDate.textContent = dateStr;
+        sumTime.textContent = timeStr;
+        sumType.textContent = state.selectedAppointmentType === 'telemedicine' ? 'Telemedicine' : 'In-Person';
+        document.getElementById('summaryPatient').textContent = `${state.patientDetails.name}, ${state.patientDetails.age} • ${state.patientDetails.contact}`;
+        summaryAppt.textContent = `${doctor.name} at ${doctor.hospital} • ${dateStr} ${timeStr} • ${sumType.textContent}`;
+        summaryType.textContent = sumType.textContent;
+        goToStep(3);
+    });
+
+    editPatientBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToStep(2);
+    });
+    backToStep2Btn && backToStep2Btn.addEventListener('click', () => goToStep(2));
+
+    confirmBookingBtn.addEventListener('click', async () => {
+        confirmBookingBtn.disabled = true;
+        document.getElementById('confirmIcon').innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        try {
+            const payload = {
+                doctorName: doctor.name,
+                hospital: doctor.hospital,
+                type: state.selectedAppointmentType === 'telemedicine' ? 'Telemedicine' : 'In-Person',
+                date: sumDate.textContent,
+                time: sumTime.textContent,
+                patient: state.patientDetails
+            };
+            const resp = await fetch('/api/appointments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await resp.json();
+            if (!data.ok) throw new Error('Failed');
+            Swal.fire({
+                icon: 'success',
+                title: 'Appointment Confirmed',
+                html: `<div class="text-start">\
+              <div><strong>${doctor.name}</strong> • ${doctor.hospital}</div>\
+              <div>${sumDate.textContent} at ${sumTime.textContent} • ${sumType.textContent}</div>\
+            </div>`,
+                confirmButtonColor: '#008000',
+                confirmButtonText: 'View Confirmation'
+            }).then(() => {
+                window.location.href = './confirmation_page.html';
+            });
+        } catch (e) {
+            showToast('Failed to confirm booking. Please try again.', 'danger');
+            confirmBookingBtn.disabled = false;
+            document.getElementById('confirmIcon').innerHTML = '<i class="fa-solid fa-check"></i>';
+        }
+    });
+
+    // Weekly Availability Table (mock data, sortable, filterable)
+    const availabilityData = [{
+        date: daysFromNow(0),
+        type: 'Telemedicine',
+        slots: 8,
+        first: '09:00'
+    }, {
+        date: daysFromNow(1),
+        type: 'In-Person',
+        slots: 5,
+        first: '10:00'
+    }, {
+        date: daysFromNow(2),
+        type: 'Telemedicine',
+        slots: 3,
+        first: '09:30'
+    }, {
+        date: daysFromNow(3),
+        type: 'In-Person',
+        slots: 6,
+        first: '10:30'
+    }, {
+        date: daysFromNow(4),
+        type: 'Telemedicine',
+        slots: 7,
+        first: '11:00'
+    }, {
+        date: daysFromNow(5),
+        type: 'In-Person',
+        slots: 0,
+        first: '—'
+    }, ];
+    const rowsPerPage = 6;
+    let currentPage = 1;
+    let sortKey = 'date';
+    let sortAsc = true;
+
+    function daysFromNow(n) {
+        const d = new Date();
+        d.setDate(d.getDate() + n);
+        return d;
+    }
+
+    function formatDate(d) {
+        return d.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+
+    function dayName(d) {
+        return d.toLocaleDateString(undefined, {
+            weekday: 'short'
+        });
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('availabilityBody');
+        const filterVal = document.getElementById('filterType').value;
+        let filtered = availabilityData.filter(r => filterVal === 'all' ? true : r.type === filterVal);
+        filtered.sort((a, b) => {
+            let av = a[sortKey],
+                bv = b[sortKey];
+            if (sortKey === 'date') {
+                av = a.date.getTime();
+                bv = b.date.getTime();
+            }
+            if (av < bv) return sortAsc ? -1 : 1;
+            if (av > bv) return sortAsc ? 1 : -1;
+            return 0;
+        });
+        const start = (currentPage - 1) * rowsPerPage;
+        const pageRows = filtered.slice(start, start + rowsPerPage);
+        tbody.innerHTML = '';
+        pageRows.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${formatDate(r.date)}</td>
+            <td>${dayName(r.date)}</td>
+            <td><span class="uc-badge ${r.type === 'Telemedicine' ? 'uc-badge-info' : 'uc-badge-success'}">${r.type}</span></td>
+            <td class="text-end">${r.slots}</td>
+            <td>${r.first}</td>
+            <td class="text-end"><a href="#" class="uc-btn uc-btn-link" onclick="event.preventDefault(); document.getElementById('ucSidebarCitizen') && new bootstrap.Offcanvas(document.getElementById('ucSidebarCitizen')).hide(); window.scrollTo({top:0,behavior:'smooth'});">View</a></td>
+          `;
+            tbody.appendChild(tr);
+        });
+        document.getElementById('paginationInfo').textContent = `Showing ${filtered.length === 0 ? 0 : start + 1}\u2013${Math.min(start + rowsPerPage, filtered.length)} of ${filtered.length}`;
+        document.getElementById('currentPage').textContent = currentPage;
+        document.getElementById('prevPage').disabled = currentPage === 1;
+        document.getElementById('nextPage').disabled = start + rowsPerPage >= filtered.length;
+    }
+
+    document.getElementById('filterType').addEventListener('change', () => {
+        currentPage = 1;
+        renderTable();
+    });
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable();
+        }
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage++;
+        renderTable();
+    });
+    document.querySelectorAll('#availabilityTable thead th[role="button"]').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.dataset.sort;
+            if (sortKey === key) {
+                sortAsc = !sortAsc;
+            } else {
+                sortKey = key;
+                sortAsc = true;
+            }
+            renderTable();
+        });
+    });
+    renderTable();
+
+    // Chart.js - Wait time trend
+    const ctx = document.getElementById('waitTimeChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Estimated wait (min)',
+                    data: [15, 18, 12, 14, 20, 10, 8],
+                    borderColor: '#0099D2',
+                    backgroundColor: 'rgba(0,153,210,0.12)',
+                    tension: 0.35,
+                    fill: true,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#0099D2'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 5
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+});
+  </script>
+ </body>
+</html>

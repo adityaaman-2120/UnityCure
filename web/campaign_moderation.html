@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice — Campaign Moderation
+  </title>
+  <!-- Poppins font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6l8i8HSoSm3Wj9jQbhmVYZ9Gd0Xc8Jt0S9XH2xS9f3H0Z7k8fjQBag==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Global site theme -->
+   <link href="style.css" rel="stylesheet">
+    <!-- Page-specific CSS -->
+    <link href="campaign_moderation.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Backoffice Header with Global Search (links converted to relative) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/64/64'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" onsubmit="event.preventDefault();" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a class="nav-link" href="./platform_admin_dashboard.html" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="./user_management.html" title="Messages">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Offcanvas Sidebar (mobile) -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/72/72'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1 active" href="./campaign_moderation.html" style="background:rgba(0,128,0,0.08);font-weight:600;">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="./confirmation_page.html">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="./confirmation_page.html">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <div class="container-fluid">
+   <div class="row g-0">
+    <!-- Static Sidebar for desktop -->
+    <aside aria-label="Sidebar" class="d-none d-lg-block col-lg-3 border-end">
+     <div class="p-3 border-bottom d-flex align-items-center" style="background:#fff;">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+     <nav class="nav flex-column p-2" id="ucBackofficeNavDesktop">
+      <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroupDesktop" data-bs-toggle="collapse">
+       <i class="fa-solid fa-chart-line me-2 text-success">
+       </i>
+       Platform Admin
+      </button>
+      <div class="collapse show" id="platformGroupDesktop">
+       <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+        <i class="fa-solid fa-chart-line me-2">
+        </i>
+        Admin Dashboard
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+        <i class="fa-solid fa-user-check me-2">
+        </i>
+        Provider Verification
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+        <i class="fa-solid fa-shield-heart me-2">
+        </i>
+        Report Moderation
+       </a>
+       <a class="nav-link ms-4 px-3 py-1 active" href="./campaign_moderation.html" style="background:rgba(0,128,0,0.08);font-weight:600;">
+        <i class="fa-solid fa-bullhorn me-2">
+        </i>
+        Campaign Moderation
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+        <i class="fa-solid fa-users-gear me-2">
+        </i>
+        User Management
+       </a>
+      </div>
+      <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroupDesktop" data-bs-toggle="collapse">
+       <i class="fa-solid fa-clipboard-list me-2 text-success">
+       </i>
+       Organizer Tools
+      </button>
+      <div class="collapse show" id="organizerGroupDesktop">
+       <a class="nav-link ms-4 px-3 py-1" href="./organizer_dashboard.html">
+        <i class="fa-solid fa-clipboard-list me-2">
+        </i>
+        Organizer Dashboard
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./campaign_form.html">
+        <i class="fa-solid fa-plus me-2">
+        </i>
+        Create Campaign
+       </a>
+      </div>
+      <hr class="my-2"/>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </nav>
+    </aside>
+    <!-- Main content -->
+    <main class="col-12 col-lg-9 p-3 p-lg-4" id="mainContent">
+     <div class="uc-section">
+      <div class="uc-section-header">
+       <div>
+        <div class="uc-breadcrumbs mb-1">
+         <a href="./platform_admin_dashboard.html">
+          Admin
+         </a>
+         <span>
+          /
+         </span>
+         <span>
+          Campaign Moderation
+         </span>
+        </div>
+        <h1 class="uc-page-title">
+         Campaign Moderation
+        </h1>
+        <p class="uc-text-muted m-0">
+         Review, approve, or reject public health campaigns submitted by organizers. Only pending/revision campaigns are shown in the queue.
+        </p>
+       </div>
+       <div class="text-end">
+        <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+         <i class="fa-solid fa-plus me-1">
+         </i>
+         New Campaign
+        </a>
+       </div>
+      </div>
+      <!-- System Info Alert -->
+      <div class="uc-alert uc-alert-info mb-3">
+       <i class="fa-solid fa-circle-info text-info mt-1">
+       </i>
+       <div>
+        <div class="fw-semibold">
+         Guideline
+        </div>
+        <div class="small">
+         Verify authenticity, location accuracy, and ensure description does not contain restricted claims. Telemedicine links must comply with Telemedicine Practice Guidelines 2020.
+        </div>
+       </div>
+       <button class="btn btn-sm uc-btn uc-btn-ghost" onclick="document.querySelector('.uc-alert').classList.add('d-none')">
+        <i class="fa-solid fa-xmark">
+        </i>
+       </button>
+      </div>
+      <!-- Top Row: Filters and Status Chart -->
+      <div class="row g-3 align-items-stretch mb-3">
+       <div class="col-12 col-xl-7">
+        <div class="uc-filter-bar">
+         <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-filter text-success">
+          </i>
+          <span class="fw-semibold">
+           Filters
+          </span>
+         </div>
+         <div class="vr d-none d-sm-block">
+         </div>
+         <div class="d-flex align-items-center gap-2">
+          <label class="form-label m-0 small text-muted" for="statusFilter">
+           Status
+          </label>
+          <select class="form-select form-select-sm" id="statusFilter" style="min-width:200px;">
+           <option value="all">
+            All
+           </option>
+           <option selected="" value="Pending Approval">
+            Pending Approval
+           </option>
+           <option value="Needs Revision">
+            Needs Revision
+           </option>
+          </select>
+         </div>
+         <div class="d-flex align-items-center gap-2">
+          <label class="form-label m-0 small text-muted" for="searchInput">
+           Search
+          </label>
+          <div class="uc-search" style="min-width:240px;">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+           <input id="searchInput" placeholder="Title, organizer, location" type="text">
+           </input>
+          </div>
+         </div>
+         <div class="ms-auto d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-outline-secondary" id="refreshBtn">
+           <i class="fa-solid fa-rotate">
+           </i>
+           Refresh
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-xl-5">
+        <div class="uc-card h-100">
+         <div class="uc-card-header">
+          <div class="uc-card-title">
+           Queue Snapshot
+          </div>
+          <div class="uc-card-subtitle">
+           Today
+          </div>
+         </div>
+         <div class="uc-card-body">
+          <canvas aria-label="Queue status chart" height="120" id="statusChart" role="img">
+          </canvas>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Queue and Detail -->
+      <div class="row g-3">
+       <!-- Queue Table -->
+       <div class="col-12 col-lg-6">
+        <div class="uc-card h-100">
+         <div class="uc-card-header">
+          <div>
+           <div class="uc-card-title">
+            Moderation Queue
+           </div>
+           <div class="uc-card-subtitle">
+            Pending submissions from organizers
+           </div>
+          </div>
+          <div class="d-none d-md-flex align-items-center gap-2">
+           <span class="small text-muted">
+            Sort by:
+           </span>
+           <select class="form-select form-select-sm" id="sortBy">
+            <option selected="" value="submittedAt_desc">
+             Newest
+            </option>
+            <option value="submittedAt_asc">
+             Oldest
+            </option>
+            <option value="title_asc">
+             Title A–Z
+            </option>
+            <option value="title_desc">
+             Title Z–A
+            </option>
+           </select>
+          </div>
+         </div>
+         <div class="uc-card-body">
+          <div class="uc-table-responsive">
+           <table aria-describedby="queueTableDesc" class="table uc-table mb-2">
+            <caption class="visually-hidden" id="queueTableDesc">
+             List of campaigns pending moderation
+            </caption>
+            <thead>
+             <tr>
+              <th scope="col">
+               Campaign
+              </th>
+              <th scope="col">
+               Organizer
+              </th>
+              <th scope="col">
+               Submitted
+              </th>
+              <th scope="col">
+               Status
+              </th>
+              <th class="text-end" scope="col">
+               Action
+              </th>
+             </tr>
+            </thead>
+            <tbody id="queueTbody">
+             <!-- Rows injected by JS -->
+            </tbody>
+           </table>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+           <div class="small text-muted" id="paginationInfo">
+            Showing 0–0 of 0
+           </div>
+           <nav aria-label="Queue pagination" class="uc-pagination">
+            <button class="btn uc-page-btn" id="prevPage" type="button">
+             Prev
+            </button>
+            <span class="d-inline-flex align-items-center gap-1" id="pageIndicators">
+            </span>
+            <button class="btn uc-page-btn" id="nextPage" type="button">
+             Next
+            </button>
+           </nav>
+          </div>
+         </div>
+        </div>
+       </div>
+       <!-- Detail panel -->
+       <div class="col-12 col-lg-6">
+        <div class="uc-card h-100">
+         <div class="uc-card-header">
+          <div class="uc-card-title">
+           Campaign Details
+          </div>
+          <div class="uc-card-subtitle" id="detailSubtitle">
+           Select a campaign to review
+          </div>
+         </div>
+         <div class="uc-card-body" id="detailBody">
+          <div class="cm-empty-state text-center text-muted p-4">
+           <i class="fa-solid fa-bullhorn fa-2x mb-2 text-success">
+           </i>
+           <div class="fw-semibold">
+            No campaign selected
+           </div>
+           <div class="small">
+            Choose a campaign from the queue to view details and moderate.
+           </div>
+          </div>
+         </div>
+         <div class="uc-card-footer" id="actionFooter">
+          <div class="d-flex flex-column gap-2 w-100">
+           <textarea class="form-control" id="rejectionReason" placeholder="Provide a reason for rejection (required)" rows="2"></textarea>
+           <div class="d-flex gap-2 justify-content-end">
+            <button class="btn btn-success" id="approveBtn">
+             <i class="fa-solid fa-check me-1">
+             </i>
+             Approve
+            </button>
+            <button class="btn btn-danger" disabled="" id="rejectBtn">
+             <i class="fa-solid fa-xmark me-1">
+             </i>
+             Reject
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div>
+  <!-- Backoffice Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/40/40'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Backoffice
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="./confirmation_page.html">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="./confirmation_page.html">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Libraries -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Mock data for campaigns
+const campaigns = [{
+    id: 'CMP-2025-0001',
+    title: 'Pulse Polio Drive — Ward 12',
+    status: 'Pending Approval',
+    submittedAt: '2025-08-18T09:15:00Z',
+    date: '2025-08-25',
+    time: '10:00 AM – 4:00 PM',
+    location: 'Ward 12 Clinic, Salt Lake Sector V, Kolkata',
+    organizer: {
+        name: 'Kolkata Health Dept',
+        contactInfo: '+91 33 2222 2222 | healthdept@kol.gov.in'
+    },
+    description: 'Immunization drive for children under 5. Please carry birth certificate and prior records.',
+    image: 'https://picsum.photos/seed/polio/640/360'
+}, {
+    id: 'CMP-2025-0002',
+    title: 'Monsoon Dengue Awareness Walk',
+    status: 'Pending Approval',
+    submittedAt: '2025-08-19T07:40:00Z',
+    date: '2025-08-28',
+    time: '7:00 AM – 9:00 AM',
+    location: 'Victoria Memorial to Maidan, Kolkata',
+    organizer: {
+        name: 'Green City NGO',
+        contactInfo: '+91 90070 12345 | contact@greencity.org'
+    },
+    description: 'Community walk to spread awareness about dengue prevention. Free pamphlets and repellents.',
+    image: 'https://picsum.photos/seed/dengue/640/360'
+}, {
+    id: 'CMP-2025-0003',
+    title: 'Blood Donation Camp — Park Street',
+    status: 'Needs Revision',
+    submittedAt: '2025-08-17T13:05:00Z',
+    date: '2025-08-26',
+    time: '9:00 AM – 3:00 PM',
+    location: 'Community Hall, Park Street, Kolkata',
+    organizer: {
+        name: 'Lifeline Volunteers',
+        contactInfo: '+91 98300 11122 | info@lifeline.org'
+    },
+    description: 'Voluntary blood donation camp in collaboration with eRaktKosh. Bring government ID.',
+    image: 'https://picsum.photos/seed/blood/640/360'
+}, {
+    id: 'CMP-2025-0004',
+    title: 'Free Eye Check-up Camp',
+    status: 'Pending Approval',
+    submittedAt: '2025-08-20T05:25:00Z',
+    date: '2025-08-30',
+    time: '10:00 AM – 5:00 PM',
+    location: 'Behala Health Center, Kolkata',
+    organizer: {
+        name: 'Vision for All',
+        contactInfo: '+91 79800 45678 | hello@visionforall.org'
+    },
+    description: 'Eye screening by certified optometrists; subsidized spectacles available.',
+    image: 'https://picsum.photos/seed/eye/640/360'
+}, {
+    id: 'CMP-2025-0005',
+    title: 'Senior Citizen Health Screening Day',
+    status: 'Pending Approval',
+    submittedAt: '2025-08-16T16:50:00Z',
+    date: '2025-09-01',
+    time: '9:00 AM – 1:00 PM',
+    location: 'Salt Lake Community Center, Kolkata',
+    organizer: {
+        name: 'Silver Care Kolkata',
+        contactInfo: '+91 70030 55566 | care@silvercare.in'
+    },
+    description: 'Free BP, sugar, ECG screening for seniors. Counselors on-site for diet and exercise.',
+    image: 'https://picsum.photos/seed/seniors/640/360'
+}, {
+    id: 'CMP-2025-0006',
+    title: 'Vaccination Drive — Ward 33',
+    status: 'Needs Revision',
+    submittedAt: '2025-08-18T12:20:00Z',
+    date: '2025-08-29',
+    time: '11:00 AM – 4:00 PM',
+    location: 'Ward 33 PHC, Tollygunge, Kolkata',
+    organizer: {
+        name: 'Ward 33 PHC',
+        contactInfo: '+91 33 2333 4455'
+    },
+    description: 'Routine immunizations. Please bring previous vaccination card.',
+    image: 'https://picsum.photos/seed/vax/640/360'
+}, {
+    id: 'CMP-2025-0007',
+    title: 'Mental Health Awareness Talk',
+    status: 'Pending Approval',
+    submittedAt: '2025-08-20T08:10:00Z',
+    date: '2025-09-02',
+    time: '5:00 PM – 6:30 PM',
+    location: 'Jadavpur University Auditorium, Kolkata',
+    organizer: {
+        name: 'MindMatters Foundation',
+        contactInfo: '+91 91230 45671 | support@mindmatters.org'
+    },
+    description: 'Talk by licensed psychologists on stress, anxiety management. Free counseling slots.',
+    image: 'https://picsum.photos/seed/mind/640/360'
+}, {
+    id: 'CMP-2025-0008',
+    title: 'Diabetes Screening & Diet Counseling',
+    status: 'Pending Approval',
+    submittedAt: '2025-08-15T10:30:00Z',
+    date: '2025-08-27',
+    time: '8:30 AM – 12:00 PM',
+    location: 'Howrah Clinic (Partner), Kolkata',
+    organizer: {
+        name: 'Healthy Kolkata',
+        contactInfo: '+91 76050 11199 | hi@healthykolkata.in'
+    },
+    description: 'Random blood sugar tests and diet plans by certified nutritionists.',
+    image: 'https://picsum.photos/seed/diabetes/640/360'
+}];
+
+// State
+let state = {
+    filterStatus: 'Pending Approval',
+    search: '',
+    sortBy: 'submittedAt_desc',
+    selectedCampaignId: null,
+    currentPage: 1,
+    pageSize: 6
+};
+
+// Elements
+const tbody = document.getElementById('queueTbody');
+const statusFilter = document.getElementById('statusFilter');
+const sortBySelect = document.getElementById('sortBy');
+const searchInput = document.getElementById('searchInput');
+const paginationInfo = document.getElementById('paginationInfo');
+const pageIndicators = document.getElementById('pageIndicators');
+const prevBtn = document.getElementById('prevPage');
+const nextBtn = document.getElementById('nextPage');
+const detailBody = document.getElementById('detailBody');
+const detailSubtitle = document.getElementById('detailSubtitle');
+const approveBtn = document.getElementById('approveBtn');
+const rejectBtn = document.getElementById('rejectBtn');
+const rejectionReason = document.getElementById('rejectionReason');
+
+// Utilities
+const formatDateTime = (iso) => new Date(iso).toLocaleString('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+});
+
+function getFilteredSortedData() {
+    let data = campaigns.filter(c => ['Pending Approval', 'Needs Revision'].includes(c.status));
+    if (state.filterStatus !== 'all') {
+        data = data.filter(c => c.status === state.filterStatus);
+    }
+    if (state.search) {
+        const q = state.search.toLowerCase();
+        data = data.filter(c => (
+            c.title.toLowerCase().includes(q) ||
+            c.organizer.name.toLowerCase().includes(q) ||
+            c.location.toLowerCase().includes(q)
+        ));
+    }
+    switch (state.sortBy) {
+        case 'submittedAt_asc':
+            data.sort((a, b) => new Date(a.submittedAt) - new Date(b.submittedAt));
+            break;
+        case 'submittedAt_desc':
+            data.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+            break;
+        case 'title_asc':
+            data.sort((a, b) => a.title.localeCompare(b.title));
+            break;
+        case 'title_desc':
+            data.sort((a, b) => b.title.localeCompare(a.title));
+            break;
+    }
+    return data;
+}
+
+function renderQueue() {
+    const data = getFilteredSortedData();
+    const total = data.length;
+    const totalPages = Math.max(1, Math.ceil(total / state.pageSize));
+    if (state.currentPage > totalPages) state.currentPage = totalPages;
+    const startIdx = (state.currentPage - 1) * state.pageSize;
+    const endIdx = Math.min(startIdx + state.pageSize, total);
+    const pageData = data.slice(startIdx, endIdx);
+
+    tbody.innerHTML = pageData.map(c => `
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img src="${c.image}" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${encodeURIComponent(c.id)}/64/64'" alt="${c.title}" class="rounded me-2" width="48" height="48" style="object-fit:cover;"/>
+              <div>
+                <div class="fw-semibold">${c.title}</div>
+                <div class="small text-muted">${c.location}</div>
+              </div>
+            </div>
+          </td>
+          <td>${c.organizer.name}</td>
+          <td>${formatDateTime(c.submittedAt)}</td>
+          <td>${renderStatusBadge(c.status)}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary" onclick="selectCampaign('${c.id}')"><i class="fa-regular fa-eye me-1"></i> Review</button>
+          </td>
+        </tr>
+      `).join('');
+
+    paginationInfo.textContent = total === 0 ? 'No records' : `Showing ${total===0?0:startIdx+1}
+
+–${endIdx} of ${total}`;
+    renderPaginationIndicators(totalPages);
+    prevBtn.disabled = state.currentPage <= 1;
+    nextBtn.disabled = state.currentPage >= totalPages;
+    updateChart();
+}
+
+function renderStatusBadge(status) {
+    if (status === 'Pending Approval') return '<span class="uc-badge uc-badge-warning"><i class="fa-solid fa-clock"></i> Pending</span>';
+    if (status === 'Needs Revision') return '<span class="uc-badge uc-badge-info"><i class="fa-solid fa-pen"></i> Needs Revision</span>';
+    if (status === 'Approved') return '<span class="uc-badge uc-badge-success"><i class="fa-solid fa-check"></i> Approved</span>';
+    if (status === 'Rejected') return '<span class="uc-badge uc-badge-danger"><i class="fa-solid fa-xmark"></i> Rejected</span>';
+    return `<span class="uc-badge">${status}</span>`;
+}
+
+function renderPaginationIndicators(totalPages) {
+    pageIndicators.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'btn uc-page-btn';
+        btn.textContent = i;
+        if (i === state.currentPage) btn.setAttribute('aria-current', 'true');
+        btn.onclick = () => {
+            state.currentPage = i;
+            renderQueue();
+        };
+        pageIndicators.appendChild(btn);
+    }
+}
+
+function selectCampaign(id) {
+    state.selectedCampaignId = id;
+    rejectionReason.value = '';
+    rejectBtn.disabled = true;
+    detailSubtitle.textContent = 'Loading details…';
+    detailBody.innerHTML = `
+        <div class="cm-loading">
+          <div class="uc-skeleton" style="height:180px;margin-bottom:12px;"></div>
+          <div class="uc-skeleton" style="height:18px;width:70%;margin-bottom:8px;"></div>
+          <div class="uc-skeleton" style="height:14px;width:90%;margin-bottom:6px;"></div>
+          <div class="uc-skeleton" style="height:14px;width:80%;margin-bottom:6px;"></div>
+        </div>`;
+
+    setTimeout(() => {
+        const c = campaigns.find(x => x.id === id);
+        if (!c) {
+            detailSubtitle.textContent = 'Not found';
+            return;
+        }
+        detailSubtitle.textContent = `${c.id}`;
+        detailBody.innerHTML = `
+          <div class="mb-3">
+            <img src="${c.image}" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${encodeURIComponent(c.title)}/640/360'" alt="${c.title}" class="img-fluid rounded cm-detail-cover"/>
+          </div>
+          <h3 class="uc-h3">${c.title}</h3>
+          <p class="mb-2"><span class="me-2">${renderStatusBadge(c.status)}</span> <span class="small text-muted">Submitted ${formatDateTime(c.submittedAt)}</span></p>
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="uc-card uc-shadow-sm">
+                <div class="uc-card-header"><div class="uc-card-title"><i class="fa-solid fa-circle-info me-2 text-info"></i> Campaign Information</div></div>
+                <div class="uc-card-body">
+                  <p class="mb-0">${c.description}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="uc-card uc-shadow-sm">
+                <div class="uc-card-header"><div class="uc-card-title"><i class="fa-solid fa-calendar-days me-2 text-success"></i> Event Details</div></div>
+                <div class="uc-card-body">
+                  <div class="mb-1"><span class="uc-text-muted">Date:</span> <span class="uc-text-strong">${new Date(c.date).toLocaleDateString('en-IN',{dateStyle:'medium'})}</span></div>
+                  <div class="mb-1"><span class="uc-text-muted">Time:</span> <span class="uc-text-strong">${c.time}</span></div>
+                  <div class="mb-1"><span class="uc-text-muted">Location:</span> <span class="uc-text-strong">${c.location}</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="uc-card uc-shadow-sm">
+                <div class="uc-card-header"><div class="uc-card-title"><i class="fa-solid fa-handshake-angle me-2 text-success"></i> Organizer</div></div>
+                <div class="uc-card-body">
+                  <div class="mb-1"><span class="uc-text-muted">Name:</span> <span class="uc-text-strong">${c.organizer.name}</span></div>
+                  <div class="mb-1"><span class="uc-text-muted">Contact:</span> <span class="uc-text-strong">${c.organizer.contactInfo}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+    }, 450);
+}
+
+// Approve / Reject actions
+approveBtn.addEventListener('click', async () => {
+    if (!state.selectedCampaignId) {
+        Swal.fire({
+            icon: 'info',
+            title: 'No selection',
+            text: 'Please select a campaign to approve.'
+        });
+        return;
+    }
+    const c = campaigns.find(x => x.id === state.selectedCampaignId);
+    const result = await Swal.fire({
+        icon: 'question',
+        title: 'Approve this campaign?',
+        html: `<strong>${c.title}</strong><br/><span class='text-muted small'>${c.organizer.name}</span>`,
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve',
+        cancelButtonText: 'Cancel'
+    });
+    if (result.isConfirmed) {
+        // simulate API
+        await new Promise(r => setTimeout(r, 500));
+        c.status = 'Approved';
+        if (state.selectedCampaignId === c.id) {
+            state.selectedCampaignId = null;
+            detailSubtitle.textContent = 'Select a campaign to review';
+            detailBody.innerHTML = `<div class="cm-empty-state text-center text-muted p-4"><i class="fa-solid fa-bullhorn fa-2x mb-2 text-success"></i><div class="fw-semibold">No campaign selected</div><div class="small">Choose a campaign from the queue to view details and moderate.</div></div>`;
+            rejectionReason.value = '';
+            rejectBtn.disabled = true;
+        }
+        renderQueue();
+        pushToast('Campaign approved and removed from queue.', 'success');
+    }
+});
+
+rejectBtn.addEventListener('click', async () => {
+    if (!state.selectedCampaignId) {
+        Swal.fire({
+            icon: 'info',
+            title: 'No selection',
+            text: 'Please select a campaign to reject.'
+        });
+        return;
+    }
+    const reason = rejectionReason.value.trim();
+    if (!reason) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Reason required',
+            text: 'Please provide a reason for rejection.'
+        });
+        return;
+    }
+    const c = campaigns.find(x => x.id === state.selectedCampaignId);
+    const result = await Swal.fire({
+        icon: 'warning',
+        title: 'Reject this campaign?',
+        html: `<strong>${c.title}</strong><br/><span class='text-muted small'>${c.organizer.name}</span><div class='mt-2 small text-start'><span class='text-muted'>Reason:</span> ${reason}</div>`,
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Yes, reject',
+        cancelButtonText: 'Cancel'
+    });
+    if (result.isConfirmed) {
+        await new Promise(r => setTimeout(r, 500));
+        c.status = 'Rejected';
+        if (state.selectedCampaignId === c.id) {
+            state.selectedCampaignId = null;
+            detailSubtitle.textContent = 'Select a campaign to review';
+            detailBody.innerHTML = `<div class="cm-empty-state text-center text-muted p-4"><i class="fa-solid fa-bullhorn fa-2x mb-2 text-success"></i><div class="fw-semibold">No campaign selected</div><div class="small">Choose a campaign from the queue to view details and moderate.</div></div>`;
+            rejectionReason.value = '';
+            rejectBtn.disabled = true;
+        }
+        renderQueue();
+        pushToast('Campaign rejected and removed from queue.', 'danger');
+    }
+});
+
+rejectionReason.addEventListener('input', () => {
+    rejectBtn.disabled = rejectionReason.value.trim().length === 0;
+});
+
+// Filters and sorting
+statusFilter.addEventListener('change', () => {
+    state.filterStatus = statusFilter.value;
+    state.currentPage = 1;
+    renderQueue();
+});
+sortBySelect.addEventListener('change', () => {
+    state.sortBy = sortBySelect.value;
+    state.currentPage = 1;
+    renderQueue();
+});
+document.getElementById('refreshBtn').addEventListener('click', () => {
+    pushToast('Queue refreshed.', 'info');
+    renderQueue();
+});
+let searchDebounce;
+searchInput.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => {
+        state.search = searchInput.value.trim();
+        state.currentPage = 1;
+        renderQueue();
+    }, 200);
+});
+
+// Pagination controls
+prevBtn.addEventListener('click', () => {
+    if (state.currentPage > 1) {
+        state.currentPage--;
+        renderQueue();
+    }
+});
+nextBtn.addEventListener('click', () => {
+    state.currentPage++;
+    renderQueue();
+});
+
+// Toast helper
+function pushToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = `uc-toast uc-toast-${variant}`;
+    el.innerHTML = `<i class="fa-solid ${variant==='success'?'fa-circle-check':variant==='danger'?'fa-circle-xmark':'fa-circle-info'}"></i><div>${message}</div>`;
+    container.appendChild(el);
+    setTimeout(() => {
+        el.remove();
+    }, 3500);
+}
+
+// Chart.js - status snapshot
+let statusChart;
+
+function buildChart() {
+    const ctx = document.getElementById('statusChart');
+    statusChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending Approval', 'Needs Revision'],
+            datasets: [{
+                label: 'Count',
+                data: [0, 0],
+                backgroundColor: ['#FFA500', '#0099D2'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            cutout: '60%'
+        }
+    });
+    updateChart();
+}
+
+function updateChart() {
+    if (!statusChart) return;
+    const data = getFilteredSortedData();
+    const pending = data.filter(c => c.status === 'Pending Approval').length;
+    const revision = data.filter(c => c.status === 'Needs Revision').length;
+    statusChart.data.datasets[0].data = [pending, revision];
+    statusChart.update();
+}
+
+// Init
+window.addEventListener('DOMContentLoaded', () => {
+    // default filter is Pending Approval as per BRD focus
+    renderQueue();
+    buildChart();
+});
+  </script>
+ </body>
+</html>

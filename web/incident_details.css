@@ -1,0 +1,75 @@
+/* Incident Details - Page specific styles (incident_details.css) */
+/* Font smoothing for Poppins */
+html, body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+    }
+/* Sticky right panel */
+.sticky-side {
+    position: sticky;
+    top: 12px
+    }
+/* Map legend */
+.map-legend {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 10;
+    border-radius: 10px
+    }
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block
+    }
+/* Media thumbnails */
+.media-thumb {
+    cursor: pointer;
+    object-fit: cover;
+    height: 90px;
+    width: 100%
+    }
+.media-thumb:hover {
+    filter: brightness(0.95)
+    }
+/* Selected ambulance panel */
+.selected-amb {
+    background: #FAFBFC
+    }
+/* Sort header cue */
+#ambTable thead th[role="button"], #hospTable thead th[role="button"] {
+    cursor: pointer
+    }
+#ambTable thead th[role="button"]:hover i, #hospTable thead th[role="button"]:hover i {
+    color: var(--uc-color-info)
+    }
+/* Chart containment */
+#timelineChart {
+    width: 100%
+    }
+/* Adjust card header title sizing for small screens */
+@media (max-width: 480px) {
+    .uc-page-title {
+        font-size: 22px
+        }
+    .media-thumb {
+        height: 72px
+        }
+    }
+/* Ensure map height adjusts nicely on smaller devices */
+#incidentMap.uc-real-time-map {
+    min-height: 360px;
+    height: 440px
+    }
+@media (min-width: 992px) {
+    #incidentMap.uc-real-time-map {
+        height: 520px
+        }
+    }
+/* Offcanvas width tweak on desktop for breathing room */
+@media (min-width: 992px) {
+    .offcanvas-start {
+        width: 300px
+        }
+    }

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure - Community Health Campaigns
+  </title>
+  <!-- Brand Typography: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+   <!-- SweetAlert2 -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" rel="stylesheet"/>
+   <!-- Leaflet (Map) -->
+   <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet">
+    <!-- Global Theme CSS -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="campaigns_list.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to content
+  </a>
+  <!-- Header (Citizen/Community) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" data-page="map_view" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" role="search">
+      <input aria-label="Search" class="form-control me-2" id="globalSearchBox" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" data-page="sos_form" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Notifications" class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Messages" class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="user_dashboard" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="login_page" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Offcanvas Left) -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="map_view" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" data-page="user_dashboard" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="appointment_booking" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="teleconsult_session" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="sos_form" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaigns_list" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaign_details" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="feedback_form" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="login_page" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="container-fluid py-3" id="mainContent">
+   <!-- Breadcrumbs -->
+   <nav aria-label="breadcrumb" class="mb-3 uc-breadcrumbs">
+    <ol class="breadcrumb mb-0">
+     <li class="breadcrumb-item">
+      <a href="./map_view.html">
+       Home
+      </a>
+     </li>
+     <li aria-current="page" class="breadcrumb-item active">
+      Community Campaigns
+     </li>
+    </ol>
+   </nav>
+   <!-- Page Header -->
+   <div class="uc-section-header">
+    <div>
+     <h1 class="uc-page-title mb-1">
+      Community Health Campaigns
+     </h1>
+     <p class="uc-text-muted mb-0">
+      Discover upcoming Blood Drives, Vaccination Camps, and Health Check-ups near you.
+     </p>
+    </div>
+    <div class="d-none d-md-flex align-items-center gap-2">
+     <span class="uc-badge uc-badge-info">
+      <i class="fa-solid fa-location-dot">
+      </i>
+      Kolkata
+     </span>
+     <a class="btn btn-sm btn-outline-secondary" href="./user_dashboard.html">
+      <i class="fa-regular fa-user me-1">
+      </i>
+      My Registrations
+     </a>
+    </div>
+   </div>
+   <!-- Sticky Filter Bar -->
+   <div class="uc-filter-sticky">
+    <div aria-label="Campaign Filters" class="uc-filter-bar" role="region">
+     <div class="input-group flex-grow-1" style="min-width:220px">
+      <span class="input-group-text bg-white">
+       <i class="fa-solid fa-magnifying-glass text-muted">
+       </i>
+      </span>
+      <input aria-label="Search campaigns" class="form-control" id="searchInput" placeholder="Search campaigns..." type="text">
+      </input>
+     </div>
+     <div class="ms-0 ms-md-2" style="min-width:200px">
+      <select aria-label="Filter by campaign type" class="form-select" id="typeFilter">
+       <option selected="" value="All">
+        All Types
+       </option>
+       <option>
+        Blood Drive
+       </option>
+       <option>
+        Vaccination Camp
+       </option>
+       <option>
+        Health Check-up
+       </option>
+      </select>
+     </div>
+     <div class="d-flex gap-2 ms-md-2 flex-wrap">
+      <input aria-label="Start date" class="form-control" id="dateFrom" type="date"/>
+      <input aria-label="End date" class="form-control" id="dateTo" type="date"/>
+     </div>
+     <div class="ms-0 ms-md-2" style="min-width:160px">
+      <select aria-label="Distance" class="form-select" id="distanceFilter">
+       <option selected="" value="any">
+        Any distance
+       </option>
+       <option value="2">
+        Within 2 km
+       </option>
+       <option value="5">
+        Within 5 km
+       </option>
+       <option value="10">
+        Within 10 km
+       </option>
+       <option value="20">
+        Within 20 km
+       </option>
+      </select>
+     </div>
+     <div class="ms-0 ms-md-2" style="min-width:180px">
+      <select aria-label="Sort by" class="form-select" id="sortBy">
+       <option selected="" value="dateSoonest">
+        Sort: Date (soonest)
+       </option>
+       <option value="distance">
+        Sort: Distance
+       </option>
+       <option value="popularity">
+        Sort: Popularity
+       </option>
+      </select>
+     </div>
+     <div class="ms-auto">
+      <div aria-label="View toggle" class="btn-group" role="group">
+       <button aria-pressed="true" class="btn btn-outline-success active" id="btnListView" type="button">
+        <i class="fa-solid fa-list">
+        </i>
+        List
+       </button>
+       <button aria-pressed="false" class="btn btn-outline-success" id="btnMapView" type="button">
+        <i class="fa-solid fa-map">
+        </i>
+        Map
+       </button>
+      </div>
+     </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between small text-muted mt-1 px-1">
+     <div id="resultSummary">
+      Loading campaigns...
+     </div>
+     <div class="d-none d-sm-block">
+      <span class="uc-freshness" id="freshnessLabel">
+       updated just now
+      </span>
+     </div>
+    </div>
+   </div>
+   <!-- Content Area -->
+   <div class="mt-3" id="contentArea">
+    <!-- Loading State -->
+    <div class="text-center py-5" id="loadingState">
+     <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">
+       Loading...
+      </span>
+     </div>
+     <div class="mt-2 uc-text-muted">
+      Fetching campaigns near you...
+     </div>
+    </div>
+    <!-- List View -->
+    <div class="d-none" id="listView">
+     <div class="row g-3" id="campaignCardsRow">
+      <!-- Cards injected here -->
+     </div>
+     <div class="d-flex align-items-center justify-content-between mt-3">
+      <div class="small text-muted" id="paginationInfo">
+       Showing 0 of 0
+      </div>
+      <nav aria-label="Campaign pagination">
+       <ul class="pagination mb-0" id="paginationControls">
+        <!-- Pagination injected -->
+       </ul>
+      </nav>
+     </div>
+    </div>
+    <!-- Map View -->
+    <div class="d-none" id="mapView">
+     <div class="uc-real-time-map" id="campaignMap">
+     </div>
+    </div>
+    <!-- Empty State -->
+    <div class="d-none text-center py-5" id="emptyState">
+     <img alt="No campaigns" class="mx-auto mb-3" onerror="this.onerror=null;this.src='https://picsum.photos/seed/empty-campaigns/360/240';" src="assets/illustration_for_empty_state_1_b8c3f6f5.png" style="max-width:360px"/>
+     <h3 class="uc-h3">
+      No campaigns match your filters
+     </h3>
+     <p class="uc-text-muted mb-3">
+      Try adjusting your search, changing the date range, or expanding the distance.
+     </p>
+     <button class="btn btn-outline-success" id="resetFiltersBtn">
+      <i class="fa-solid fa-rotate-left me-1">
+      </i>
+      Reset Filters
+     </button>
+    </div>
+   </div>
+   <!-- Notifications / Toasts -->
+   <div class="uc-toast-container" id="toastContainer">
+   </div>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-warning d-lg-none" data-page="sos_form" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1">
+      </i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js">
+  </script>
+  <!-- Leaflet JS -->
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script>
+   // Page State
+const state = {
+    campaigns: [],
+    filtered: [],
+    viewMode: 'list', // 'list' | 'map'
+    search: '',
+    type: 'All',
+    dateFrom: '',
+    dateTo: '',
+    distanceKm: 'any',
+    sortBy: 'dateSoonest',
+    page: 1,
+    pageSize: 6,
+    userLocation: {
+        lat: 22.5726,
+        lng: 88.3639
+    }, // Kolkata default
+    map: null,
+    markers: []
+};
+
+// Utils
+const debounce = (fn, delay = 300) => {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
+    };
+};
+const formatDateRange = (isoStart) => {
+    const d = new Date(isoStart);
+    const fmt = new Intl.DateTimeFormat('en-IN', {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+    });
+    return fmt.format(d);
+};
+const haversineKm = (a, b) => {
+    const R = 6371;
+    const dLat = (b.lat - a.lat) * Math.PI / 180;
+    const dLng = (b.lng - a.lng) * Math.PI / 180;
+    const s1 = Math.sin(dLat / 2),
+        s2 = Math.sin(dLng / 2);
+    const aa = s1 * s1 + Math.cos(a.lat * Math.PI / 180) * Math.cos(b.lat * Math.PI / 180) * s2 * s2;
+    return 2 * R * Math.asin(Math.sqrt(aa));
+};
+const imageFallback = (el, seed = 'campaign') => {
+    el.onerror = null;
+    el.src = `https://picsum.photos/seed/${seed}/600/400`;
+};
+const showToast = (msg, variant = 'info') => {
+    const id = 't' + Date.now();
+    const el = document.createElement('div');
+    el.className = `uc-toast uc-toast-${variant}`;
+    el.id = id;
+    el.innerHTML = `<i class="fa-solid fa-circle-info text-${variant==='danger'?'danger':'info'}"></i><div>${msg}</div>`;
+    document.getElementById('toastContainer').appendChild(el);
+    setTimeout(() => {
+        el.remove();
+    }, 3500);
+};
+
+// Mock Data (Kolkata area)
+function mockCampaigns() {
+    const data = [{
+        id: 1,
+        title: 'Salt Lake Blood Donation Drive',
+        type: 'Blood Drive',
+        date: '2025-10-25T09:00:00+05:30',
+        end: '2025-10-25T15:00:00+05:30',
+        locationName: 'Bidhannagar Community Hall',
+        address: 'Sector 1, Salt Lake, Kolkata',
+        lat: 22.5861,
+        lng: 88.4173,
+        organizer: 'Red Cross Kolkata',
+        banner: 'assets/banner_image_for_blood_drive_c_1_4899dabe.jpg',
+        registrations: 128,
+        capacity: 200,
+        rating: 4.7
+    }, {
+        id: 2,
+        title: 'Free Vaccination Camp - New Alipore',
+        type: 'Vaccination Camp',
+        date: '2025-10-20T10:00:00+05:30',
+        end: '2025-10-20T17:00:00+05:30',
+        locationName: 'New Alipore Health Center',
+        address: 'Block A, New Alipore',
+        lat: 22.5120,
+        lng: 88.3370,
+        organizer: 'KMC Health Dept',
+        banner: 'assets/banner_image_for_vaccination_c_1_cd2a0420.jpg',
+        registrations: 220,
+        capacity: 300,
+        rating: 4.6
+    }, {
+        id: 3,
+        title: 'Community Health Check-up Fair',
+        type: 'Health Check-up',
+        date: '2025-11-05T08:30:00+05:30',
+        end: '2025-11-05T14:00:00+05:30',
+        locationName: 'Howrah Maidan',
+        address: 'Howrah, Kolkata',
+        lat: 22.5892,
+        lng: 88.3103,
+        organizer: 'UnityCare NGO',
+        banner: 'assets/banner_image_for_health_check-_3_692b158a.jpg',
+        registrations: 95,
+        capacity: 250,
+        rating: 4.4
+    }, {
+        id: 4,
+        title: 'Emergency Blood Drive - Tollygunge',
+        type: 'Blood Drive',
+        date: '2025-10-22T09:30:00+05:30',
+        end: '2025-10-22T13:30:00+05:30',
+        locationName: 'Tollygunge Club Grounds',
+        address: 'Tollygunge, Kolkata',
+        lat: 22.5013,
+        lng: 88.3468,
+        organizer: 'Lions Club',
+        banner: 'assets/banner_image_for_blood_drive_c_3_6769e7ae.jpg',
+        registrations: 70,
+        capacity: 180,
+        rating: 4.5
+    }, {
+        id: 5,
+        title: 'Pediatric Vaccination Camp',
+        type: 'Vaccination Camp',
+        date: '2025-10-28T09:00:00+05:30',
+        end: '2025-10-28T16:00:00+05:30',
+        locationName: 'Dum Dum Municipal Hall',
+        address: 'Dum Dum, Kolkata',
+        lat: 22.6229,
+        lng: 88.4016,
+        organizer: 'ChildCare Kolkata',
+        banner: 'assets/banner_image_for_vaccination_c_3_5ddaf4ff.jpg',
+        registrations: 160,
+        capacity: 220,
+        rating: 4.8
+    }, {
+        id: 6,
+        title: 'Senior Citizens Health Screening',
+        type: 'Health Check-up',
+        date: '2025-11-12T09:00:00+05:30',
+        end: '2025-11-12T13:00:00+05:30',
+        locationName: 'Park Street Clinic',
+        address: 'Park Street, Kolkata',
+        lat: 22.5535,
+        lng: 88.3507,
+        organizer: 'SilverLine Trust',
+        banner: 'assets/banner_image_for_health_check-_4_d2c3d4f0.jpg',
+        registrations: 54,
+        capacity: 120,
+        rating: 4.2
+    }, {
+        id: 7,
+        title: 'Weekend Blood Donation Marathon',
+        type: 'Blood Drive',
+        date: '2025-10-26T08:00:00+05:30',
+        end: '2025-10-26T18:00:00+05:30',
+        locationName: 'Eco Park Gate 2',
+        address: 'New Town, Kolkata',
+        lat: 22.6207,
+        lng: 88.4656,
+        organizer: 'HealthFirst',
+        banner: 'assets/banner_image_for_blood_drive_c_5_a89a4830.jpg',
+        registrations: 310,
+        capacity: 500,
+        rating: 4.9
+    }, {
+        id: 8,
+        title: 'Flu Shot Pop-up - Esplanade',
+        type: 'Vaccination Camp',
+        date: '2025-10-19T11:00:00+05:30',
+        end: '2025-10-19T15:00:00+05:30',
+        locationName: 'Esplanade Metro Plaza',
+        address: 'Esplanade, Kolkata',
+        lat: 22.5646,
+        lng: 88.3510,
+        organizer: 'City Health Alliance',
+        banner: 'assets/banner_image_for_vaccination_c_4_d59a4213.jpg',
+        registrations: 140,
+        capacity: 180,
+        rating: 4.3
+    }, {
+        id: 9,
+        title: 'Women Health Check-up Day',
+        type: 'Health Check-up',
+        date: '2025-11-03T09:30:00+05:30',
+        end: '2025-11-03T15:30:00+05:30',
+        locationName: 'Gariahat Community Center',
+        address: 'Gariahat, Kolkata',
+        lat: 22.5203,
+        lng: 88.3659,
+        organizer: 'HealHer Foundation',
+        banner: 'assets/default_banner_for_general_hea_1_9c9a8c0d.jpg',
+        registrations: 210,
+        capacity: 260,
+        rating: 4.6
+    }];
+    // Compute distance from userLocation
+    data.forEach(c => c.distanceKm = Math.round(haversineKm(state.userLocation, {
+        lat: c.lat,
+        lng: c.lng
+    }) * 10) / 10);
+    return data;
+}
+
+// Rendering
+function renderList() {
+    const row = document.getElementById('campaignCardsRow');
+    row.innerHTML = '';
+    const start = (state.page - 1) * state.pageSize;
+    const end = Math.min(start + state.pageSize, state.filtered.length);
+    const slice = state.filtered.slice(start, end);
+    slice.forEach(c => {
+        const seatsLeft = Math.max(c.capacity - c.registrations, 0);
+        const badgeClass = c.type === 'Blood Drive' ? 'uc-badge-danger' : (c.type === 'Vaccination Camp' ? 'uc-badge-info' : 'uc-badge-success');
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6 col-lg-4';
+        col.innerHTML = `
+          <div class="card h-100 uc-hover-raise uc-transition campaign-card" role="article" data-id="${c.id}">
+            <div class="ratio ratio-16x9">
+              <img src="${c.banner}" class="card-img-top object-fit-cover" alt="${c.title}" onerror="imageFallback(this,'c-${c.id}')"/>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex align-items-start justify-content-between">
+                <h5 class="card-title me-2">${c.title}</h5>
+                <span class="uc-badge ${badgeClass}"><i class="fa-solid fa-tag"></i> ${c.type}</span>
+              </div>
+              <div class="text-muted small mt-1"><i class="fa-regular fa-calendar me-1"></i> ${formatDateRange(c.date)}</div>
+              <div class="text-muted small"><i class="fa-solid fa-location-dot me-1"></i> ${c.locationName}</div>
+              <div class="text-muted small"><i class="fa-regular fa-building me-1"></i> ${c.organizer}</div>
+              <div class="mt-2 d-flex flex-wrap gap-2">
+                <span class="badge bg-light text-dark"><i class="fa-solid fa-route me-1 text-success"></i> ${c.distanceKm} km</span>
+                <span class="badge bg-light text-dark"><i class="fa-solid fa-users me-1 text-info"></i> ${c.registrations}/${c.capacity}</span>
+                <span class="badge bg-light text-dark"><i class="fa-regular fa-star me-1 text-warning"></i> ${c.rating}</span>
+              </div>
+              <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                <span class="small ${seatsLeft>0?'text-success':'text-danger'}">${seatsLeft>0?seatsLeft+' seats left':'Full'}</span>
+                <a href="./campaign_details.html?id=${c.id}" class="btn btn-sm btn-outline-success">View Details <i class="fa-solid fa-chevron-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>`;
+        row.appendChild(col);
+    });
+    document.getElementById('paginationInfo').textContent = `Showing ${state.filtered.length? (start+1):0}-${end} of ${state.filtered.length}`;
+    renderPagination();
+    // card click anywhere navigates
+    row.querySelectorAll('.campaign-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return; // let link work
+            const id = card.getAttribute('data-id');
+            window.location.href = `./campaign_details.html?id=${id}`;
+        })
+    });
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(state.filtered.length / state.pageSize) || 1;
+    const ul = document.getElementById('paginationControls');
+    ul.innerHTML = '';
+    const makeItem = (label, page, disabled = false, active = false) => {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled?'disabled':''} ${active?'active':''}`;
+        li.innerHTML = `<a class="page-link" href="#" aria-label="${label}">${label}</a>`;
+        li.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (disabled) return;
+            state.page = page;
+            renderList();
+        });
+        return li;
+    };
+    ul.appendChild(makeItem('Prev', Math.max(1, state.page - 1), state.page === 1));
+    const maxBtns = 5;
+    let start = Math.max(1, state.page - Math.floor(maxBtns / 2));
+    let end = Math.min(totalPages, start + maxBtns - 1);
+    if (end - start < maxBtns - 1) {
+        start = Math.max(1, end - maxBtns + 1);
+    }
+    for (let p = start; p <= end; p++) {
+        ul.appendChild(makeItem(String(p), p, false, p === state.page));
+    }
+    ul.appendChild(makeItem('Next', Math.min(totalPages, state.page + 1), state.page === totalPages));
+}
+
+function renderMap() {
+    const mapEl = document.getElementById('campaignMap');
+    if (!state.map) {
+        state.map = L.map(mapEl).setView([state.userLocation.lat, state.userLocation.lng], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(state.map);
+    }
+    // clear markers
+    state.markers.forEach(m => m.remove());
+    state.markers = [];
+    const group = [];
+    state.filtered.forEach(c => {
+        const marker = L.marker([c.lat, c.lng]).addTo(state.map);
+        const html = `<div style='min-width:180px'><strong>${c.title}</strong><br/><span class='text-muted small'>${formatDateRange(c.date)}</span><br/><a href='./campaign_details.html?id=${c.id}' class='btn btn-sm btn-success mt-1'>View Details</a></div>`;
+        marker.bindPopup(html);
+        state.markers.push(marker);
+        group.push(marker);
+    });
+    if (group.length) {
+        const fg = L.featureGroup(group);
+        state.map.fitBounds(fg.getBounds().pad(0.2));
+    } else {
+        state.map.setView([state.userLocation.lat, state.userLocation.lng], 12);
+    }
+}
+
+function applyFilters() {
+    const kw = state.search.trim().toLowerCase();
+    const type = state.type;
+    const from = state.dateFrom ? new Date(state.dateFrom) : null;
+    const to = state.dateTo ? new Date(state.dateTo) : null;
+    const dist = state.distanceKm;
+    state.filtered = state.campaigns.filter(c => {
+        const matchKw = !kw || [c.title, c.locationName, c.organizer, c.type].some(v => String(v).toLowerCase().includes(kw));
+        const matchType = type === 'All' || c.type === type;
+        const d = new Date(c.date);
+        const matchFrom = !from || d >= from;
+        const matchTo = !to || d <= new Date(to.getTime() + 24 * 60 * 60 * 1000 - 1);
+        const matchDist = dist === 'any' || c.distanceKm <= Number(dist);
+        return matchKw && matchType && matchFrom && matchTo && matchDist;
+    });
+    // sorting
+    if (state.sortBy === 'dateSoonest') state.filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+    if (state.sortBy === 'distance') state.filtered.sort((a, b) => a.distanceKm - b.distanceKm);
+    if (state.sortBy === 'popularity') state.filtered.sort((a, b) => b.registrations - a.registrations);
+    state.page = 1;
+    updateSummary();
+    const has = state.filtered.length > 0;
+    document.getElementById('emptyState').classList.toggle('d-none', has);
+    if (state.viewMode === 'list') {
+        document.getElementById('listView').classList.toggle('d-none', !has);
+        if (has) renderList();
+    }
+    if (state.viewMode === 'map') {
+        document.getElementById('mapView').classList.toggle('d-none', !has);
+        if (has) renderMap();
+    }
+}
+
+function updateSummary() {
+    const total = state.filtered.length;
+    const all = state.campaigns.length;
+    document.getElementById('resultSummary').textContent = `${total} campaign${total===1?'':'s'} found · from ${all} total`;
+    const label = document.getElementById('freshnessLabel');
+    if (label) {
+        label.textContent = 'updated just now';
+    }
+}
+
+function initGeolocation() {
+    if (!navigator.geolocation) return Promise.resolve();
+    return new Promise(res => {
+        navigator.geolocation.getCurrentPosition(pos => {
+            state.userLocation = {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude
+            };
+            state.campaigns = mockCampaigns();
+            applyFilters();
+            res();
+        }, () => {
+            state.campaigns = mockCampaigns();
+            applyFilters();
+            res();
+        }, {
+            enableHighAccuracy: true,
+            timeout: 5000
+        });
+    });
+}
+
+// Event bindings
+function bindEvents() {
+    const searchInput = document.getElementById('searchInput');
+    const typeFilter = document.getElementById('typeFilter');
+    const dateFrom = document.getElementById('dateFrom');
+    const dateTo = document.getElementById('dateTo');
+    const distanceFilter = document.getElementById('distanceFilter');
+    const sortBy = document.getElementById('sortBy');
+    const resetBtn = document.getElementById('resetFiltersBtn');
+    const debouncedSearch = debounce((v) => {
+        state.search = v;
+        applyFilters();
+    }, 300);
+
+    searchInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
+    typeFilter.addEventListener('change', (e) => {
+        state.type = e.target.value;
+        applyFilters();
+    });
+    dateFrom.addEventListener('change', (e) => {
+        state.dateFrom = e.target.value;
+        applyFilters();
+    });
+    dateTo.addEventListener('change', (e) => {
+        state.dateTo = e.target.value;
+        applyFilters();
+    });
+    distanceFilter.addEventListener('change', (e) => {
+        state.distanceKm = e.target.value;
+        applyFilters();
+    });
+    sortBy.addEventListener('change', (e) => {
+        state.sortBy = e.target.value;
+        applyFilters();
+    });
+    resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        typeFilter.value = 'All';
+        dateFrom.value = '';
+        dateTo.value = '';
+        distanceFilter.value = 'any';
+        sortBy.value = 'dateSoonest';
+        state.search = '';
+        state.type = 'All';
+        state.dateFrom = '';
+        state.dateTo = '';
+        state.distanceKm = 'any';
+        state.sortBy = 'dateSoonest';
+        applyFilters();
+    });
+
+    document.getElementById('btnListView').addEventListener('click', () => {
+        state.viewMode = 'list';
+        document.getElementById('btnListView').classList.add('active');
+        document.getElementById('btnMapView').classList.remove('active');
+        document.getElementById('mapView').classList.add('d-none');
+        document.getElementById('listView').classList.remove('d-none');
+        renderList();
+    });
+    document.getElementById('btnMapView').addEventListener('click', () => {
+        state.viewMode = 'map';
+        document.getElementById('btnMapView').classList.add('active');
+        document.getElementById('btnListView').classList.remove('active');
+        document.getElementById('listView').classList.add('d-none');
+        document.getElementById('mapView').classList.remove('d-none');
+        setTimeout(renderMap, 0);
+    });
+
+    // Prevent header global search submission from reloading
+    document.querySelector('form[role="search"]').addEventListener('submit', (e) => e.preventDefault());
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Show loading
+        document.getElementById('loadingState').classList.remove('d-none');
+        document.getElementById('listView').classList.add('d-none');
+        document.getElementById('mapView').classList.add('d-none');
+        bindEvents();
+        await initGeolocation();
+        // Load mock campaigns
+        if (state.campaigns.length === 0) {
+            state.campaigns = mockCampaigns();
+        }
+        applyFilters();
+        // Hide loading, show list by default
+        document.getElementById('loadingState').classList.add('d-none');
+        if (state.filtered.length) {
+            document.getElementById('listView').classList.remove('d-none');
+        } else {
+            document.getElementById('emptyState').classList.remove('d-none');
+        }
+        showToast('Loaded campaigns near you', 'info');
+    } catch (err) {
+        console.error(err);
+        document.getElementById('loadingState').classList.add('d-none');
+        Swal.fire({
+            icon: 'error',
+            title: 'Unable to load campaigns',
+            text: 'Please try again later.'
+        });
+    }
+});
+  </script>
+ </body>
+</html>

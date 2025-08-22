@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice - Provider Verification
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+   <!-- SweetAlert2 CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Global Site Theme -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="provider_verification.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Backoffice) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" onsubmit="event.preventDefault();" role="search">
+      <input aria-label="Search" class="form-control me-2" id="globalSearch" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a class="nav-link" data-bs-toggle="tooltip" href="#" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" data-bs-toggle="tooltip" href="#" title="Messages">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Backoffice Offcanvas Left) -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="uc-app" id="mainContent">
+   <div class="container-fluid py-3">
+    <!-- Breadcrumbs and Title -->
+    <div class="uc-section">
+     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <div>
+       <nav aria-label="breadcrumb" class="uc-breadcrumbs">
+        <a href="./platform_admin_dashboard.html">
+         Backoffice
+        </a>
+        <span aria-hidden="true">
+         /
+        </span>
+        <span class="text-muted">
+         Provider Verification
+        </span>
+       </nav>
+       <h1 class="uc-page-title m-0">
+        Provider Verification
+       </h1>
+       <div class="uc-text-muted mt-1 small d-flex align-items-center gap-2">
+        <span class="uc-freshness" id="freshnessTag">
+         Last sync just now
+        </span>
+       </div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <button class="uc-btn uc-btn-outline" id="btnRefresh">
+        <i class="fa-solid fa-rotate">
+        </i>
+        Refresh
+       </button>
+       <a class="uc-btn uc-btn-info" href="./provider_registration.html">
+        <i class="fa-solid fa-user-plus">
+        </i>
+        New Provider
+       </a>
+      </div>
+     </div>
+    </div>
+    <div class="row g-3">
+     <!-- Left Column: Filters, Summary, Queue -->
+     <div class="col-12 col-lg-5">
+      <!-- Filter Bar -->
+      <div class="uc-filter-bar mb-3">
+       <div class="uc-search flex-grow-1">
+        <i class="fa-solid fa-magnifying-glass">
+        </i>
+        <input aria-label="Search providers" id="filterSearch" placeholder="Search by provider name or address" type="text">
+        </input>
+       </div>
+       <select class="form-select form-select-sm" id="filterType" style="max-width: 180px;">
+        <option value="">
+         All Types
+        </option>
+        <option value="Hospital">
+         Hospital
+        </option>
+        <option value="Doctor">
+         Doctor
+        </option>
+        <option value="Ambulance Service">
+         Ambulance Service
+        </option>
+       </select>
+       <div aria-label="Sort order" class="uc-segmented" role="group">
+        <button aria-pressed="true" class="uc-seg" data-sort="newest" type="button">
+         Newest
+        </button>
+        <button aria-pressed="false" class="uc-seg" data-sort="oldest" type="button">
+         Oldest
+        </button>
+        <button aria-pressed="false" class="uc-seg" data-sort="name" type="button">
+         Name
+        </button>
+       </div>
+      </div>
+      <!-- Summary Chart Card -->
+      <div class="uc-card mb-3">
+       <div class="uc-card-header">
+        <div>
+         <div class="uc-card-title">
+          Pending by Type
+         </div>
+         <div class="uc-card-subtitle">
+          Distribution of applications
+         </div>
+        </div>
+        <div class="uc-badge uc-badge-info">
+         <i class="fa-regular fa-clock">
+         </i>
+         Live
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <canvas aria-label="Pending applications by type chart" height="160" id="pendingByTypeChart">
+        </canvas>
+       </div>
+      </div>
+      <!-- Pending Applications Queue -->
+      <div class="uc-card">
+       <div class="uc-card-header">
+        <div>
+         <div class="uc-card-title">
+          Pending Applications
+         </div>
+         <div class="uc-card-subtitle">
+          <span id="queueCount">
+           0
+          </span>
+          awaiting review
+         </div>
+        </div>
+        <div class="d-none d-lg-block small text-muted">
+         Click a row to review details
+        </div>
+       </div>
+       <div class="uc-card-body p-0">
+        <div class="table-responsive">
+         <table aria-describedby="queueCount" class="table uc-table m-0 pv-queue-table">
+          <thead>
+           <tr>
+            <th class="sortable" data-col="name" scope="col" style="min-width:220px;">
+             Provider
+            </th>
+            <th class="text-nowrap" scope="col">
+             Type
+            </th>
+            <th class="sortable" data-col="date" scope="col">
+             Submitted
+            </th>
+            <th class="text-center" scope="col">
+             Files
+            </th>
+            <th class="text-end" scope="col">
+            </th>
+           </tr>
+          </thead>
+          <tbody id="queueTbody">
+           <!-- Rows injected by JS -->
+          </tbody>
+         </table>
+        </div>
+       </div>
+       <div class="uc-card-footer d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div class="small text-muted" id="paginationInfo">
+         Showing 0–0 of 0
+        </div>
+        <nav aria-label="Pending pagination" class="uc-pagination">
+         <button class="uc-page-btn btn btn-sm" disabled="" id="prevPage">
+          <i class="fa-solid fa-chevron-left">
+          </i>
+          Prev
+         </button>
+         <span aria-current="true" class="uc-page-btn" id="currentPage">
+          1
+         </span>
+         <button class="uc-page-btn btn btn-sm" disabled="" id="nextPage">
+          Next
+          <i class="fa-solid fa-chevron-right">
+          </i>
+         </button>
+        </nav>
+       </div>
+      </div>
+     </div>
+     <!-- Right Column: Details Panel -->
+     <div class="col-12 col-lg-7">
+      <div class="uc-card h-100">
+       <div class="uc-card-header">
+        <div>
+         <div class="uc-card-title">
+          Application Details
+         </div>
+         <div class="uc-card-subtitle">
+          Review information and documents, then take action
+         </div>
+        </div>
+        <div class="small">
+         <span class="badge bg-secondary" id="detailStatus">
+          No selection
+         </span>
+        </div>
+       </div>
+       <div class="uc-card-body" id="detailsBody">
+        <!-- Empty state -->
+        <div class="text-center text-muted py-4" id="emptyState">
+         <img alt="Select an application" class="mx-auto mb-3" onerror="this.onerror=null;this.src='https://picsum.photos/seed/provider_details/600/400?grayscale';" src="assets/placeholder_illustration_for_d_1_a9096e12.png" style="max-width:280px;"/>
+         <p class="mb-1 fw-semibold">
+          Select an application from the queue
+         </p>
+         <p class="small">
+          Click a provider on the left to load full details and credentials.
+         </p>
+        </div>
+        <!-- Loading state -->
+        <div class="d-none text-center py-5" id="loadingState">
+         <div aria-hidden="true" class="spinner-border text-info" role="status">
+         </div>
+         <div class="mt-2 uc-text-muted">
+          Loading application...
+         </div>
+        </div>
+        <!-- Details content -->
+        <div class="d-none" id="detailContent">
+         <div class="mb-3">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+           <div>
+            <h2 class="uc-h3 mb-1" id="provName">
+             Provider Name
+            </h2>
+            <div class="d-flex align-items-center gap-2">
+             <span class="uc-badge uc-badge-primary" id="provTypeBadge">
+              Hospital
+             </span>
+             <span class="uc-text-muted small">
+              Submitted
+              <span id="provSubmitted">
+               —
+              </span>
+             </span>
+            </div>
+           </div>
+           <div class="text-end">
+            <div class="small">
+             <i class="fa-solid fa-id-badge me-1 text-success">
+             </i>
+             Application ID:
+             <span id="provAppId">
+              —
+             </span>
+            </div>
+           </div>
+          </div>
+         </div>
+         <!-- Provider Information -->
+         <div class="uc-card mb-3">
+          <div class="uc-card-header">
+           <div class="uc-card-title">
+            <i class="fa-solid fa-building me-2 text-success">
+            </i>
+            Provider Information
+           </div>
+          </div>
+          <div class="uc-card-body">
+           <div class="row g-3">
+            <div class="col-12 col-md-6">
+             <div class="uc-text-muted small">
+              Address
+             </div>
+             <div class="fw-medium" id="provAddress">
+              —
+             </div>
+            </div>
+            <div class="col-12 col-md-6">
+             <div class="uc-text-muted small">
+              Contact
+             </div>
+             <div class="fw-medium" id="provContact">
+              —
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+         <!-- Credentials Viewer -->
+         <div class="uc-card mb-3">
+          <div class="uc-card-header">
+           <div class="uc-card-title">
+            <i class="fa-solid fa-file-shield me-2 text-info">
+            </i>
+            Submitted Credentials
+           </div>
+           <div class="uc-card-subtitle">
+            Only accessible to authenticated administrators
+           </div>
+          </div>
+          <div class="uc-card-body">
+           <ul class="uc-list mb-0" id="provDocs">
+            <!-- Document links injected -->
+           </ul>
+          </div>
+         </div>
+         <!-- Verification Actions -->
+         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pv-sticky-actions">
+          <div class="d-flex flex-column small uc-text-muted">
+           <span>
+            <i class="fa-regular fa-circle-question me-1">
+            </i>
+            Approving will verify and publish the profile.
+           </span>
+           <span>
+            <i class="fa-regular fa-circle-question me-1">
+            </i>
+            Rejecting requires a reason. The provider will be notified.
+           </span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+           <button class="uc-btn uc-btn-danger" disabled="" id="btnReject">
+            <i class="fa-solid fa-xmark">
+            </i>
+            Reject
+           </button>
+           <button class="uc-btn uc-btn-success" disabled="" id="btnApprove">
+            <i class="fa-solid fa-check">
+            </i>
+            Approve
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Backoffice
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- JS: Bootstrap, SweetAlert2, Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script>
+  <script>
+   // Initialize tooltips
+document.addEventListener('DOMContentLoaded', () => {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(el => new bootstrap.Tooltip(el))
+});
+
+// Mock Data
+const applicationsList = [{
+    id: 'APP-1001',
+    providerName: 'Kolkata Medistra Hospital',
+    providerType: 'Hospital',
+    submissionTimestamp: '2025-08-19T14:25:00Z',
+    address: '12 Park Street, Kolkata 700016',
+    contact: {
+        email: 'admin@medistra.in',
+        phone: '+91 98300 11223'
+    },
+    uploadedDocuments: [{
+        fileName: 'Hospital_Registration_Certificate.pdf',
+        url: 'https://example.com/secure/doc?rid=1001-1'
+    }, {
+        fileName: 'Fire_Safety_Clearance.pdf',
+        url: 'https://example.com/secure/doc?rid=1001-2'
+    }, {
+        fileName: 'BioMedical_Waste_Authorization.pdf',
+        url: 'https://example.com/secure/doc?rid=1001-3'
+    }]
+}, {
+    id: 'APP-1002',
+    providerName: 'CarePulse Clinic',
+    providerType: 'Hospital',
+    submissionTimestamp: '2025-08-20T06:40:00Z',
+    address: '88A Elgin Road, Kolkata 700020',
+    contact: {
+        email: 'ops@carepulse.co',
+        phone: '+91 98740 99887'
+    },
+    uploadedDocuments: [{
+        fileName: 'Clinic_License.pdf',
+        url: 'https://example.com/secure/doc?rid=1002-1'
+    }, {
+        fileName: 'PAN_Card.pdf',
+        url: 'https://example.com/secure/doc?rid=1002-2'
+    }]
+}, {
+    id: 'APP-1003',
+    providerName: 'Dr. Ananya Sen',
+    providerType: 'Doctor',
+    submissionTimestamp: '2025-08-18T10:05:00Z',
+    address: 'Apartment 5B, Salt Lake Sector 1, 700064',
+    contact: {
+        email: 'ananya.sen@example.com',
+        phone: '+91 90070 12345'
+    },
+    uploadedDocuments: [{
+        fileName: 'MBBS_MD_Degree.pdf',
+        url: 'https://example.com/secure/doc?rid=1003-1'
+    }, {
+        fileName: 'State_Medical_Council_Registration.pdf',
+        url: 'https://example.com/secure/doc?rid=1003-2'
+    }]
+}, {
+    id: 'APP-1004',
+    providerName: 'RapidAid Ambulance Services',
+    providerType: 'Ambulance Service',
+    submissionTimestamp: '2025-08-20T08:55:00Z',
+    address: '35 MG Road, Dum Dum, 700028',
+    contact: {
+        email: 'dispatch@rapidaid.in',
+        phone: '+91 99030 44556'
+    },
+    uploadedDocuments: [{
+        fileName: 'Fleet_Registration_List.xlsx',
+        url: 'https://example.com/secure/doc?rid=1004-1'
+    }, {
+        fileName: 'ALS_BLS_Certifications.zip',
+        url: 'https://example.com/secure/doc?rid=1004-2'
+    }]
+}, {
+    id: 'APP-1005',
+    providerName: 'CityCare Hospital',
+    providerType: 'Hospital',
+    submissionTimestamp: '2025-08-17T16:42:00Z',
+    address: '210 Prince Anwar Shah Rd, 700033',
+    contact: {
+        email: 'contact@citycare.org',
+        phone: '+91 98362 11229'
+    },
+    uploadedDocuments: [{
+        fileName: 'NABH_Accreditation.pdf',
+        url: 'https://example.com/secure/doc?rid=1005-1'
+    }]
+}, {
+    id: 'APP-1006',
+    providerName: 'Fortis Kolkata',
+    providerType: 'Hospital',
+    submissionTimestamp: '2025-08-19T08:20:00Z',
+    address: '730 EM Bypass, Anandapur, 700107',
+    contact: {
+        email: 'ops@fortiskolkata.in',
+        phone: '+91 98300 45678'
+    },
+    uploadedDocuments: [{
+        fileName: 'Hospital_License.pdf',
+        url: 'https://example.com/secure/doc?rid=1006-1'
+    }, {
+        fileName: 'Fire_NOC.pdf',
+        url: 'https://example.com/secure/doc?rid=1006-2'
+    }]
+}, {
+    id: 'APP-1007',
+    providerName: 'Dr. Rohit Gupta',
+    providerType: 'Doctor',
+    submissionTimestamp: '2025-08-20T07:10:00Z',
+    address: 'Bhawanipur, Kolkata 700025',
+    contact: {
+        email: 'rohit.g@example.com',
+        phone: '+91 98110 22110'
+    },
+    uploadedDocuments: [{
+        fileName: 'MBBS_MS_Degree.pdf',
+        url: 'https://example.com/secure/doc?rid=1007-1'
+    }]
+}, {
+    id: 'APP-1008',
+    providerName: 'LifeLine Ambulance Network',
+    providerType: 'Ambulance Service',
+    submissionTimestamp: '2025-08-16T11:00:00Z',
+    address: 'Howrah Maidan, 711101',
+    contact: {
+        email: 'admin@lifeline-ambulance.in',
+        phone: '+91 99035 77889'
+    },
+    uploadedDocuments: [{
+        fileName: 'Fleet_Insurance_Policies.pdf',
+        url: 'https://example.com/secure/doc?rid=1008-1'
+    }]
+}];
+
+// State
+let selectedApplicationId = null;
+let sortOrder = 'newest';
+let filterCriteria = {
+    search: '',
+    type: ''
+};
+let currentPage = 1;
+const pageSize = 6;
+
+// DOM Refs
+const queueTbody = document.getElementById('queueTbody');
+const queueCount = document.getElementById('queueCount');
+const paginationInfo = document.getElementById('paginationInfo');
+const prevPageBtn = document.getElementById('prevPage');
+const nextPageBtn = document.getElementById('nextPage');
+const currentPageSpan = document.getElementById('currentPage');
+const detailsBody = document.getElementById('detailsBody');
+const emptyState = document.getElementById('emptyState');
+const loadingState = document.getElementById('loadingState');
+const detailContent = document.getElementById('detailContent');
+const detailStatus = document.getElementById('detailStatus');
+
+const provName = document.getElementById('provName');
+const provTypeBadge = document.getElementById('provTypeBadge');
+const provSubmitted = document.getElementById('provSubmitted');
+const provAppId = document.getElementById('provAppId');
+const provAddress = document.getElementById('provAddress');
+const provContact = document.getElementById('provContact');
+const provDocs = document.getElementById('provDocs');
+
+const btnApprove = document.getElementById('btnApprove');
+const btnReject = document.getElementById('btnReject');
+
+const filterSearch = document.getElementById('filterSearch');
+const filterType = document.getElementById('filterType');
+const freshnessTag = document.getElementById('freshnessTag');
+
+// Utilities
+function formatDate(ts) {
+    const d = new Date(ts);
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`;
+}
+
+function badgeClassForType(type) {
+    switch (type) {
+        case 'Doctor':
+            return 'uc-badge-info';
+        case 'Ambulance Service':
+            return 'uc-badge-danger';
+        case 'Hospital':
+        default:
+            return 'uc-badge-primary';
+    }
+}
+
+function applyFilters(data) {
+    const search = filterCriteria.search.trim().toLowerCase();
+    const type = filterCriteria.type;
+    let out = data.filter(item => {
+        const s = `${item.providerName} ${item.address}`.toLowerCase();
+        const okSearch = search ? s.includes(search) : true;
+        const okType = type ? item.providerType === type : true;
+        return okSearch && okType;
+    });
+    switch (sortOrder) {
+        case 'name':
+            out.sort((a, b) => a.providerName.localeCompare(b.providerName));
+            break;
+        case 'oldest':
+            out.sort((a, b) => new Date(a.submissionTimestamp) - new Date(b.submissionTimestamp));
+            break;
+        case 'newest':
+        default:
+            out.sort((a, b) => new Date(b.submissionTimestamp) - new Date(a.submissionTimestamp));
+    }
+    return out;
+}
+
+function paginate(data) {
+    const total = data.length;
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    if (currentPage > pages) currentPage = pages;
+    const start = (currentPage - 1) * pageSize;
+    const end = Math.min(start + pageSize, total);
+    const slice = data.slice(start, end);
+    return {
+        slice,
+        total,
+        start: start + 1,
+        end
+    };
+}
+
+function renderQueue() {
+    const filtered = applyFilters(applicationsList);
+    const {
+        slice,
+        total,
+        start,
+        end
+    } = paginate(filtered);
+    queueCount.textContent = String(total);
+    paginationInfo.textContent = total ? `Showing ${start}–${end} of ${total}` : 'No results';
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = (end >= total);
+    currentPageSpan.textContent = String(currentPage);
+
+    queueTbody.innerHTML = '';
+    slice.forEach(app => {
+        const tr = document.createElement('tr');
+        tr.className = 'align-middle';
+        tr.dataset.id = app.id;
+        tr.innerHTML = `
+          <td>
+            <div class="fw-semibold">${app.providerName}</div>
+            <div class="small text-muted">${app.address}</div>
+          </td>
+          <td class="text-nowrap"><span class="uc-badge ${badgeClassForType(app.providerType)}">${app.providerType}</span></td>
+          <td class="text-nowrap">${formatDate(app.submissionTimestamp)}</td>
+          <td class="text-center">${app.uploadedDocuments.length}</td>
+          <td class="text-end"><button class="btn btn-sm btn-outline-primary view-btn"><i class="fa-regular fa-eye"></i> View</button></td>
+        `;
+        tr.addEventListener('click', (e) => {
+            // Avoid double handling when clicking View button
+            if (e.target.closest('.view-btn')) {
+                loadDetails(app.id);
+            } else if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+                loadDetails(app.id);
+            }
+        });
+        if (app.id === selectedApplicationId) tr.classList.add('active');
+        queueTbody.appendChild(tr);
+    });
+
+    // Update chart
+    updateChart();
+    // Update freshness tag
+    updateFreshness(filtered);
+}
+
+function updateFreshness(list) {
+    if (!list.length) {
+        freshnessTag.classList.add('uc-freshness-stale');
+        freshnessTag.textContent = 'No data';
+        return;
+    }
+    const latest = list.reduce((acc, cur) => new Date(cur.submissionTimestamp) > new Date(acc.submissionTimestamp) ? cur : acc, list[0]);
+    const mins = Math.max(0, Math.round((Date.now() - new Date(latest.submissionTimestamp).getTime()) / 60000));
+    freshnessTag.classList.toggle('uc-freshness-stale', mins > 60);
+    freshnessTag.innerHTML = `Last updated ${mins === 0 ? 'just now' : mins + ' min ago'}`;
+}
+
+// Details loader
+function loadDetails(id) {
+    selectedApplicationId = id;
+    btnApprove.disabled = true;
+    btnReject.disabled = true;
+    detailStatus.textContent = 'Loading...';
+
+    // UI states
+    emptyState.classList.add('d-none');
+    detailContent.classList.add('d-none');
+    loadingState.classList.remove('d-none');
+
+    // Highlight row
+    document.querySelectorAll('.pv-queue-table tbody tr').forEach(tr => {
+        tr.classList.toggle('active', tr.dataset.id === id);
+    });
+
+    // Simulate network delay
+    setTimeout(() => {
+        const app = applicationsList.find(a => a.id === id);
+        if (!app) {
+            loadingState.classList.add('d-none');
+            emptyState.classList.remove('d-none');
+            detailStatus.textContent = 'Not found';
+            return;
+        }
+        provName.textContent = app.providerName;
+        provAppId.textContent = app.id;
+        provSubmitted.textContent = formatDate(app.submissionTimestamp);
+        provAddress.textContent = app.address;
+        provContact.textContent = `${app.contact.email} · ${app.contact.phone}`;
+
+        provTypeBadge.className = `uc-badge ${badgeClassForType(app.providerType)}`;
+        provTypeBadge.textContent = app.providerType;
+
+        provDocs.innerHTML = '';
+        app.uploadedDocuments.forEach((d, idx) => {
+            const li = document.createElement('li');
+            li.className = 'd-flex align-items-center justify-content-between uc-list-item';
+            li.innerHTML = `
+            <div class="d-flex align-items-center gap-2">
+              <span class="uc-icon-circle"><i class="fa-regular fa-file"></i></span>
+              <a class="pv-doc-link" href="${d.url}" target="_blank" rel="noopener noreferrer">${d.fileName}</a>
+            </div>
+            <div class="small text-muted">${idx===0 ? 'Primary' : ''}</div>
+          `;
+            provDocs.appendChild(li);
+        });
+
+        loadingState.classList.add('d-none');
+        detailContent.classList.remove('d-none');
+        detailStatus.textContent = 'Pending Review';
+        btnApprove.disabled = false;
+        btnReject.disabled = false;
+    }, 500);
+}
+
+// Actions
+document.getElementById('btnRefresh').addEventListener('click', () => {
+    Swal.fire({
+        title: 'Refreshing',
+        text: 'Fetching latest pending applications...',
+        timer: 800,
+        timerProgressBar: true,
+        didOpen: () => Swal.showLoading()
+    }).then(() => {
+        renderQueue();
+        makeToast('Refreshed', 'Pending applications updated', 'info');
+    });
+});
+
+btnApprove.addEventListener('click', async () => {
+    const app = applicationsList.find(a => a.id === selectedApplicationId);
+    if (!app) return;
+    const result = await Swal.fire({
+        title: 'Approve Application?',
+        html: `<div class="text-start">You are about to verify <b>${app.providerName}</b> and publish their profile.</div>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, approve',
+        confirmButtonColor: '#198754'
+    });
+    if (result.isConfirmed) {
+        btnApprove.disabled = true;
+        btnReject.disabled = true;
+        Swal.showLoading();
+        setTimeout(() => {
+            // Remove from list
+            const idx = applicationsList.findIndex(a => a.id === app.id);
+            if (idx > -1) applicationsList.splice(idx, 1);
+            selectedApplicationId = null;
+            detailContent.classList.add('d-none');
+            emptyState.classList.remove('d-none');
+            detailStatus.textContent = 'No selection';
+            btnApprove.disabled = true;
+            btnReject.disabled = true;
+            renderQueue();
+            Swal.close();
+            makeToast('Approved', `${app.providerName} has been approved`, 'success');
+        }, 700);
+    }
+});
+
+btnReject.addEventListener('click', async () => {
+    const app = applicationsList.find(a => a.id === selectedApplicationId);
+    if (!app) return;
+    const {
+        value: reason,
+        isConfirmed
+    } = await Swal.fire({
+        title: 'Reject Application',
+        input: 'textarea',
+        inputLabel: 'Provide a reason for rejection',
+        inputPlaceholder: 'Enter reason...',
+        inputAttributes: {
+            'aria-label': 'Reason for rejection'
+        },
+        inputValidator: (value) => {
+            if (!value) return 'A reason is required.';
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Submit Rejection',
+        confirmButtonColor: '#dc3545'
+    });
+    if (isConfirmed && reason) {
+        btnApprove.disabled = true;
+        btnReject.disabled = true;
+        Swal.showLoading();
+        setTimeout(() => {
+            const idx = applicationsList.findIndex(a => a.id === app.id);
+            if (idx > -1) applicationsList.splice(idx, 1);
+            selectedApplicationId = null;
+            detailContent.classList.add('d-none');
+            emptyState.classList.remove('d-none');
+            detailStatus.textContent = 'No selection';
+            btnApprove.disabled = true;
+            btnReject.disabled = true;
+            renderQueue();
+            Swal.close();
+            makeToast('Rejected', `${app.providerName} was rejected. Reason: ${reason}`, 'warning');
+        }, 700);
+    }
+});
+
+// Filters
+filterSearch.addEventListener('input', () => {
+    filterCriteria.search = filterSearch.value;
+    currentPage = 1;
+    renderQueue();
+});
+filterType.addEventListener('change', () => {
+    filterCriteria.type = filterType.value;
+    currentPage = 1;
+    renderQueue();
+});
+document.querySelectorAll('.uc-segmented .uc-seg').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.uc-segmented .uc-seg').forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        sortOrder = btn.dataset.sort;
+        currentPage = 1;
+        renderQueue();
+    });
+});
+
+// Sort by header click
+document.querySelectorAll('th.sortable').forEach(th => {
+    th.style.cursor = 'pointer';
+    th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        sortOrder = (col === 'name') ? 'name' : (sortOrder === 'oldest' ? 'newest' : 'oldest');
+        // Update segmented UI to reflect date sort
+        document.querySelectorAll('.uc-segmented .uc-seg').forEach(b => b.setAttribute('aria-pressed', 'false'));
+        if (col === 'name') {
+            document.querySelector('.uc-segmented .uc-seg[data-sort="name"]').setAttribute('aria-pressed', 'true');
+        } else {
+            document.querySelector(`.uc-segmented .uc-seg[data-sort="${sortOrder}"]`).setAttribute('aria-pressed', 'true');
+        }
+        currentPage = 1;
+        renderQueue();
+    });
+});
+
+// Pagination
+prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        renderQueue();
+    }
+});
+nextPageBtn.addEventListener('click', () => {
+    const filtered = applyFilters(applicationsList);
+    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderQueue();
+    }
+});
+
+// Toast helper
+function makeToast(title, msg, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${type}`;
+    toast.innerHTML = `<i class="fa-solid ${typeIcon(type)}"></i><div><div class="fw-semibold">${title}</div><div class="small">${msg}</div></div>`;
+    document.getElementById('toastContainer').appendChild(toast);
+    setTimeout(() => toast.remove(), 3500);
+}
+
+function typeIcon(type) {
+    switch (type) {
+        case 'success':
+            return 'fa-circle-check text-success';
+        case 'warning':
+            return 'fa-triangle-exclamation text-warning';
+        case 'danger':
+            return 'fa-circle-xmark text-danger';
+        default:
+            return 'fa-circle-info text-info';
+    }
+}
+
+// Chart.js - Pending by Type
+let chart;
+
+function buildChart() {
+    const ctx = document.getElementById('pendingByTypeChart');
+    chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: chartDataFrom(applicationsList),
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            cutout: '60%'
+        }
+    });
+}
+
+function chartDataFrom(list) {
+    const counts = {
+        'Hospital': 0,
+        'Doctor': 0,
+        'Ambulance Service': 0
+    };
+    list.forEach(a => {
+        counts[a.providerType] = (counts[a.providerType] || 0) + 1;
+    });
+    return {
+        labels: Object.keys(counts),
+        datasets: [{
+            data: Object.values(counts),
+            backgroundColor: ['#008000', '#0099D2', '#CD2026'],
+            borderWidth: 1,
+            borderColor: '#fff'
+        }]
+    };
+}
+
+function updateChart() {
+    if (!chart) return;
+    chart.data = chartDataFrom(applicationsList);
+    chart.update();
+}
+
+// Initial render
+document.addEventListener('DOMContentLoaded', () => {
+    buildChart();
+    renderQueue();
+});
+  </script>
+ </body>
+</html>

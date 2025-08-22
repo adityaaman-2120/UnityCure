@@ -1,0 +1,57 @@
+/* Campaign Moderation - Page specific styles */
+:root {
+    /* keep using global design tokens from style.css */
+    }
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Keep main area readable against the light gradient */
+main#mainContent {
+    min-height: calc(100vh - 120px)
+    }
+/* Queue table enhancements */
+.uc-table th {
+    white-space: nowrap
+    }
+.uc-table td {
+    vertical-align: middle
+    }
+/* Empty state */
+.cm-empty-state i {
+    opacity: 0.8
+    }
+/* Detail cover image */
+.cm-detail-cover {
+    border: 1px solid var(--uc-color-border);
+    box-shadow: var(--uc-shadow-sm)
+    }
+/* Filter bar tweaks for spacing on small screens */
+.uc-filter-bar > * {
+    margin-right: 6px
+    }
+@media (max-width: 576px) {
+    .uc-filter-bar {
+        gap: 6px
+        }
+    }
+/* Make the pagination buttons compact */
+.uc-pagination .uc-page-btn {
+    padding: 6px 10px
+    }
+/* Align card bodies to stretch for equal height rows */
+.uc-card.h-100 .uc-card-body {
+    height: 100%
+    }
+/* Active link in sidebars (desktop and mobile) */
+#ucBackofficeNav .nav-link.active, #ucBackofficeNavDesktop .nav-link.active {
+    background: rgba(0, 128, 0, 0.08);
+    font-weight: 600
+    }
+/* Improve contrast of action footer */
+#actionFooter {
+    background: #FAFBFC
+    }
+/* Loading placeholder spacing */
+.cm-loading .uc-skeleton + .uc-skeleton {
+    margin-top: 8px
+    }

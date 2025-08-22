@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure • Confirmation
+  </title>
+  <!-- Brand font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Font Awesome 6 -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+   <!-- SweetAlert2 -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css" rel="stylesheet"/>
+   <!-- Global Theme -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="confirmation_page.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#main">
+   Skip to content
+  </a>
+  <!-- Header (Public/Auth) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarPublic" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarPublic" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./login_page.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarPublic" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarPublic" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarPublic">
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item">
+       <a class="nav-link" href="./provider_registration.html">
+        Register Provider
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Public/Auth) -->
+  <div aria-labelledby="ucSidebarPublicLabel" class="offcanvas offcanvas-start" id="ucSidebarPublic" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarPublicLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Welcome
+       </div>
+       <div class="text-muted small">
+        Public
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucPublicNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+      <i class="fa-solid fa-right-to-bracket me-2 text-success">
+      </i>
+      Login
+     </a>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./provider_registration.html">
+      <i class="fa-solid fa-hospital me-2 text-success">
+      </i>
+      Provider Registration
+     </a>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./confirmation_page.html">
+      <i class="fa-regular fa-circle-check me-2 text-success">
+      </i>
+      Confirmation
+     </a>
+     <hr class="my-2"/>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+      <i class="fa-regular fa-circle-question me-2">
+      </i>
+      Help
+     </a>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucPublicNav .nav-link{color:#212529}
+    #ucPublicNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="uc-app d-flex flex-column min-vh-100" id="main">
+   <!-- Toast container (system feedback) -->
+   <div class="uc-toast-container" id="toastZone">
+   </div>
+   <div class="uc-container flex-grow-1 py-4">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="uc-breadcrumbs mb-3">
+     <a href="./login_page.html">
+      Home
+     </a>
+     <span>
+      /
+     </span>
+     <a aria-current="page" href="./confirmation_page.html">
+      Confirmation
+     </a>
+    </nav>
+    <!-- Confirmation Display -->
+    <section class="confirmation-section">
+     <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+       <div class="uc-card confirmation-card uc-hover-raise">
+        <div class="uc-card-body text-center p-4 p-md-5">
+         <!-- Success Indicator -->
+         <div class="success-indicator mb-3">
+          <div class="success-icon-wrapper">
+           <i class="fa-solid fa-circle-check" id="successIcon">
+           </i>
+          </div>
+         </div>
+         <!-- Primary message -->
+         <h2 class="uc-h2 mb-2" id="confirmTitle">
+          Action Completed!
+         </h2>
+         <p class="uc-subtitle mb-4" id="confirmSubtitle">
+          Your action was successful. Details below.
+         </p>
+         <!-- Context image -->
+         <div class="confirmation-visual mb-4">
+          <img alt="Confirmation visual" class="img-fluid rounded shadow-sm" id="contextImage" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-confirm/800/400?grayscale';" src="assets/illustration_for_appointment_c_1_7bbe812d.png"/>
+         </div>
+         <!-- Details summary -->
+         <div class="text-start mx-auto mb-4" style="max-width:720px;">
+          <ul class="list-group list-group-flush uc-list" id="detailsList">
+           <!-- JS will inject li items -->
+          </ul>
+         </div>
+         <!-- Action buttons -->
+         <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
+          <a class="uc-btn uc-btn-primary" href="#" id="primaryBtn">
+           <i class="fa-solid fa-arrow-right">
+           </i>
+           <span id="primaryBtnLabel">
+            Continue
+           </span>
+          </a>
+          <button class="uc-btn uc-btn-outline d-none" id="secondaryBtn" type="button">
+           <i class="fa-regular fa-calendar">
+           </i>
+           <span id="secondaryBtnLabel">
+            Add to Calendar
+           </span>
+          </button>
+         </div>
+         <!-- Info alert with disclaimer/next steps -->
+         <div class="uc-alert uc-alert-info mt-4 text-start">
+          <i class="fa-solid fa-circle-info text-info">
+          </i>
+          <div>
+           <div class="fw-semibold">
+            What happens next?
+           </div>
+           <div class="small text-muted" id="nextStepsText">
+            We’ve saved this confirmation. You can view details any time from your dashboard.
+           </div>
+          </div>
+          <div>
+           <a class="uc-btn uc-btn-link uc-text-info p-0" href="./user_dashboard.html">
+            Open Dashboard
+           </a>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Optional: Recent & Upcoming (helps users with next steps) -->
+    <section class="mt-4">
+     <div class="uc-section-header">
+      <h3 class="uc-h3 m-0">
+       Your Upcoming Items
+      </h3>
+      <div class="d-flex flex-wrap gap-2">
+       <div class="uc-search">
+        <i class="fa-solid fa-magnifying-glass text-muted">
+        </i>
+        <input class="form-control form-control-sm" id="tableFilter" placeholder="Filter by keyword..." type="text"/>
+       </div>
+      </div>
+     </div>
+     <div class="uc-card">
+      <div class="uc-card-body">
+       <div class="uc-table-responsive">
+        <table class="uc-table table table-striped align-middle" id="upcomingTable">
+         <thead>
+          <tr>
+           <th data-sort="type" role="button">
+            Type
+            <i class="fa-solid fa-sort">
+            </i>
+           </th>
+           <th data-sort="title" role="button">
+            Title
+            <i class="fa-solid fa-sort">
+            </i>
+           </th>
+           <th data-sort="date" role="button">
+            Date
+            <i class="fa-solid fa-sort">
+            </i>
+           </th>
+           <th data-sort="status" role="button">
+            Status
+            <i class="fa-solid fa-sort">
+            </i>
+           </th>
+           <th>
+            Action
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <!-- Sample rows -->
+          <tr>
+           <td>
+            <span class="uc-badge uc-badge-info">
+             Appointment
+            </span>
+           </td>
+           <td>
+            Dr. A. Banerjee — Cardiology
+           </td>
+           <td data-date="2025-09-02T10:00:00+05:30">
+            02 Sep 2025, 10:00
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-low">
+             Confirmed
+            </span>
+           </td>
+           <td>
+            <a class="uc-btn uc-btn-link" href="./appointment_booking.html">
+             View
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <span class="uc-badge uc-badge-success">
+             Campaign
+            </span>
+           </td>
+           <td>
+            Blood Donation Drive — Ward 12
+           </td>
+           <td data-date="2025-09-05T09:00:00+05:30">
+            05 Sep 2025, 09:00
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-low">
+             Registered
+            </span>
+           </td>
+           <td>
+            <a class="uc-btn uc-btn-link" href="./campaign_details.html">
+             Details
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <span class="uc-badge uc-badge-danger">
+             SOS
+            </span>
+           </td>
+           <td>
+            Incident #UC-398144
+           </td>
+           <td data-date="2025-08-20T20:18:00+05:30">
+            20 Aug 2025, 20:18
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-medium">
+             In Review
+            </span>
+           </td>
+           <td>
+            <a class="uc-btn uc-btn-link" href="./incident_details.html">
+             Track
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <span class="uc-badge uc-badge-info">
+             Appointment
+            </span>
+           </td>
+           <td>
+            Teleconsult — Dr. S. Roy (Dermatology)
+           </td>
+           <td data-date="2025-09-10T16:30:00+05:30">
+            10 Sep 2025, 16:30
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-low">
+             Confirmed
+            </span>
+           </td>
+           <td>
+            <a class="uc-btn uc-btn-link" href="./teleconsult_session.html">
+             Join
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <span class="uc-badge uc-badge-success">
+             Campaign
+            </span>
+           </td>
+           <td>
+            Vaccination Camp — Behala
+           </td>
+           <td data-date="2025-09-12T08:00:00+05:30">
+            12 Sep 2025, 08:00
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-low">
+             Registered
+            </span>
+           </td>
+           <td>
+            <a class="uc-btn uc-btn-link" href="./campaign_details.html">
+             Details
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            <span class="uc-badge uc-badge-info">
+             Appointment
+            </span>
+           </td>
+           <td>
+            OPD Visit — UnityCare Hospital
+           </td>
+           <td data-date="2025-09-15T12:00:00+05:30">
+            15 Sep 2025, 12:00
+           </td>
+           <td>
+            <span class="uc-status-badge uc-status-low">
+             Confirmed
+            </span>
+           </td>
+           <td>
+            <a class="uc-btn uc-btn-link" href="./appointment_booking.html">
+             View
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="d-flex align-items-center justify-content-between mt-2 small text-muted">
+        <div id="paginationInfo">
+         Showing 1–6 of 6
+        </div>
+        <div class="uc-pagination">
+         <span aria-current="true" class="uc-page-btn">
+          1
+         </span>
+         <span class="uc-page-btn">
+          /
+         </span>
+         <span class="uc-page-btn">
+          1
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <!-- Dev/demo panel: switch confirmation type -->
+    <section class="mt-4">
+     <div class="uc-card">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Try different confirmation scenarios
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="d-flex flex-wrap gap-2">
+        <button class="uc-btn uc-btn-outline" data-demo-type="APPOINTMENT_BOOKED">
+         Appointment Booked
+        </button>
+        <button class="uc-btn uc-btn-outline" data-demo-type="SOS_SUBMITTED">
+         SOS Submitted
+        </button>
+        <button class="uc-btn uc-btn-outline" data-demo-type="CAMPAIGN_REGISTERED">
+         Campaign Registered
+        </button>
+        <button class="uc-btn uc-btn-outline" data-demo-type="FEEDBACK_SUBMITTED">
+         Feedback Submitted
+        </button>
+       </div>
+       <div class="text-muted small mt-2">
+        Use URL param ?type=APPOINTMENT_BOOKED|SOS_SUBMITTED|CAMPAIGN_REGISTERED|FEEDBACK_SUBMITTED to deep-link a state.
+       </div>
+      </div>
+     </div>
+    </section>
+   </div>
+   <!-- Footer (Public/Auth) -->
+   <footer class="border-top py-2 mt-auto" style="background-color:#f8f9fa;">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+     <div class="d-flex align-items-center">
+      <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+      <span class="small text-muted">
+       © UnityCure
+      </span>
+     </div>
+     <div class="d-flex align-items-center gap-3 small">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+      <a class="text-decoration-none" href="#">
+       Help
+      </a>
+     </div>
+    </div>
+   </footer>
+  </main>
+  <!-- Chat FAB example (optional, hidden on this page) -->
+  <div class="uc-chat-fab d-none">
+   <button class="uc-btn uc-btn-info uc-rounded-full">
+    <i class="fa-solid fa-comments">
+    </i>
+    Chat
+   </button>
+  </div>
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Helpers
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+const typeParam = new URLSearchParams(location.search).get('type');
+
+const mappings = {
+    APPOINTMENT_BOOKED: {
+        title: 'Appointment Confirmed!',
+        subtitle: 'You will receive a reminder 24 hours before your appointment.',
+        icon: 'fa-circle-check',
+        image: 'assets/illustration_for_appointment_c_1_7bbe812d.png',
+        nextSteps: 'Join the teleconsultation on time or reach the hospital a few minutes early. Keep your ID handy.',
+        details: [{
+            label: 'Doctor',
+            value: 'Dr. A. Banerjee'
+        }, {
+            label: 'Specialty',
+            value: 'Cardiology'
+        }, {
+            label: 'Hospital',
+            value: 'UnityCare Hospital, Kolkata'
+        }, {
+            label: 'Date',
+            value: '02 Sep 2025'
+        }, {
+            label: 'Time',
+            value: '10:00 AM IST'
+        }, {
+            label: 'Booking ID',
+            value: 'UC-APT-582913'
+        }],
+        primary: {
+            label: 'View My Appointments',
+            href: './user_dashboard.html'
+        },
+        secondary: {
+            label: 'Add to Calendar',
+            action: 'calendar'
+        }
+    },
+    SOS_SUBMITTED: {
+        title: 'Emergency Report Submitted',
+        subtitle: 'Nearest ambulance and hospital have been alerted. Stay reachable.',
+        icon: 'fa-triangle-exclamation',
+        image: 'assets/reassuring_image_for_emergency_2_776fdc0e.jpg',
+        nextSteps: 'Keep your phone line open. If safe, stay where you are; responders will contact you shortly.',
+        details: [{
+            label: 'Report ID',
+            value: 'UC-SOS-398144'
+        }, {
+            label: 'Severity',
+            value: 'High'
+        }, {
+            label: 'Location',
+            value: 'Ballygunge, Kolkata'
+        }, {
+            label: 'Timestamp',
+            value: '20 Aug 2025, 20:18 IST'
+        }],
+        primary: {
+            label: 'View Incident',
+            href: './incident_details.html'
+        },
+        secondary: {
+            label: 'Back to Map',
+            href: './map_view.html'
+        }
+    },
+    CAMPAIGN_REGISTERED: {
+        title: "You're Registered!",
+        subtitle: 'We’ve saved this event to your reminders.',
+        icon: 'fa-bell',
+        image: 'assets/image_for_community_campaign_r_2_78bada75.png',
+        nextSteps: 'Come with a valid ID. Share the event with friends and family to increase participation.',
+        details: [{
+            label: 'Campaign',
+            value: 'Blood Donation Drive — Ward 12'
+        }, {
+            label: 'Venue',
+            value: 'Community Hall, Ward 12'
+        }, {
+            label: 'Date & Time',
+            value: '05 Sep 2025, 09:00 AM IST'
+        }, {
+            label: 'Registration ID',
+            value: 'UC-CMP-224591'
+        }],
+        primary: {
+            label: 'View Campaign Details',
+            href: './campaign_details.html'
+        },
+        secondary: {
+            label: 'Add to Calendar',
+            action: 'calendar'
+        }
+    },
+    FEEDBACK_SUBMITTED: {
+        title: 'Thank you for your feedback!',
+        subtitle: 'Your input helps us improve UnityCure.',
+        icon: 'fa-comment-dots',
+        image: 'assets/visual_for_feedback_submission_1_e1abcf0d.png',
+        nextSteps: 'We review feedback regularly. You may be contacted if follow-up is needed.',
+        details: [{
+            label: 'Feedback ID',
+            value: 'UC-FBK-885201'
+        }, {
+            label: 'Category',
+            value: 'Telemedicine Experience'
+        }, {
+            label: 'Submitted on',
+            value: '20 Aug 2025, 21:02 IST'
+        }],
+        primary: {
+            label: 'Back to Home',
+            href: './login_page.html'
+        },
+        secondary: {
+            label: 'Explore Campaigns',
+            href: './campaigns_list.html'
+        }
+    }
+};
+
+function setConfirmation(typeKey) {
+    const data = mappings[typeKey] || mappings['APPOINTMENT_BOOKED'];
+    // Icon
+    const iconEl = $('#successIcon');
+    iconEl.className = `fa-solid ${data.icon}`;
+
+    // Titles
+    $('#confirmTitle').textContent = data.title;
+    $('#confirmSubtitle').textContent = data.subtitle;
+
+    // Image
+    const img = $('#contextImage');
+    img.src = data.image;
+
+    // Next steps
+    $('#nextStepsText').textContent = data.nextSteps;
+
+    // Details list
+    const list = $('#detailsList');
+    list.innerHTML = '';
+    data.details.forEach(d => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex align-items-center justify-content-between';
+        li.innerHTML = `<span class="text-muted">${d.label}</span><span class="fw-semibold">${d.value}</span>`;
+        list.appendChild(li);
+    });
+
+    // Primary
+    const primaryBtn = $('#primaryBtn');
+    $('#primaryBtnLabel').textContent = data.primary.label;
+    if (data.primary.href) {
+        primaryBtn.setAttribute('href', data.primary.href);
+    } else {
+        primaryBtn.setAttribute('href', '#');
+    }
+
+    // Secondary
+    const secBtn = $('#secondaryBtn');
+    const secLabel = $('#secondaryBtnLabel');
+    if (data.secondary) {
+        secBtn.classList.remove('d-none');
+        secLabel.textContent = data.secondary.label;
+        secBtn.onclick = (e) => {
+            if (data.secondary.action === 'calendar') {
+                e.preventDefault();
+                addToCalendarFromDetails(data);
+            } else if (data.secondary.href) {
+                location.href = data.secondary.href;
+            }
+        };
+    } else {
+        secBtn.classList.add('d-none');
+    }
+
+    // Toast
+    showToast(`${data.title}`, 'info');
+
+    // Sweet Alert
+    Swal.fire({
+        icon: 'success',
+        title: data.title,
+        text: data.subtitle,
+        confirmButtonColor: '#008000'
+    });
+}
+
+function addToCalendarFromDetails(data) {
+    // crude ICS from details Date/Time where available
+    const start = extractDateTime(data.details) || new Date(Date.now() + 3600000);
+    const end = new Date(start.getTime() + 30 * 60000);
+    const title = data.title.replace(/!/g, '');
+    const desc = data.subtitle;
+    const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//UnityCure//Confirmation//EN\nBEGIN:VEVENT\nUID:${Date.now()}@unitycure\nDTSTAMP:${toICSDate(new Date())}\nDTSTART:${toICSDate(start)}\nDTEND:${toICSDate(end)}\nSUMMARY:${escapeICS(title)}\nDESCRIPTION:${escapeICS(desc)}\nEND:VEVENT\nEND:VCALENDAR`;
+    const blob = new Blob([ics], {
+        type: 'text/calendar;charset=utf-8'
+    });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'unitycure-event.ics';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    Swal.fire({
+        icon: 'success',
+        title: 'Added to Calendar',
+        text: 'ICS file downloaded. Open it to save into your calendar.',
+        confirmButtonColor: '#008000'
+    });
+}
+
+function extractDateTime(details) {
+    // Try to find 'Date' and 'Time' fields or a combined 'Date & Time'
+    try {
+        const map = Object.fromEntries(details.map(d => [d.label.toLowerCase(), d.value]));
+        let dtStr = '';
+        if (map['date & time']) dtStr = map['date & time'];
+        else if (map['date'] && map['time']) dtStr = `${map['date']} ${map['time']}`;
+        if (!dtStr) return null;
+        // naive parse assuming formats like 02 Sep 2025, 10:00 AM IST
+        const normalized = dtStr.replace(' IST', '').replace(',', '');
+        const d = new Date(normalized);
+        return isNaN(d.getTime()) ? null : d;
+    } catch (e) {
+        return null;
+    }
+}
+
+function toICSDate(date) {
+    const pad = (n) => String(n).padStart(2, '0');
+    const yyyy = date.getUTCFullYear();
+    const mm = pad(date.getUTCMonth() + 1);
+    const dd = pad(date.getUTCDate());
+    const hh = pad(date.getUTCHours());
+    const mi = pad(date.getUTCMinutes());
+    const ss = pad(date.getUTCSeconds());
+    return `${yyyy}${mm}${dd}T${hh}${mi}${ss}Z`;
+}
+
+function escapeICS(text) {
+    return String(text).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+}
+
+function showToast(message, type = 'info') {
+    const zone = $('#toastZone');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${type}`;
+    toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : (type==='danger'?'fa-circle-xmark':'fa-circle-info')}"></i><div>${message}</div>`;
+    zone.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+}
+
+// Table filter and sort
+let sortState = {
+    key: null,
+    asc: true
+};
+
+function sortTableBy(key) {
+    const tbody = $('#upcomingTable tbody');
+    const rows = $$('#upcomingTable tbody tr');
+    const idxMap = {
+        type: 0,
+        title: 1,
+        date: 2,
+        status: 3
+    };
+    const idx = idxMap[key];
+    const parser = (td, key) => {
+        if (key === 'date') {
+            const dateAttr = td.getAttribute('data-date');
+            return dateAttr ? new Date(dateAttr).getTime() : new Date(td.textContent.trim()).getTime();
+        }
+        return td.textContent.trim().toLowerCase();
+    };
+    const asc = sortState.key === key ? !sortState.asc : true;
+    sortState = {
+        key,
+        asc
+    };
+    rows.sort((a, b) => {
+        const av = parser(a.children[idx], key);
+        const bv = parser(b.children[idx], key);
+        if (av < bv) return asc ? -1 : 1;
+        if (av > bv) return asc ? 1 : -1;
+        return 0;
+    });
+    tbody.innerHTML = '';
+    rows.forEach(r => tbody.appendChild(r));
+}
+
+function filterTable(query) {
+    const q = query.trim().toLowerCase();
+    const rows = $$('#upcomingTable tbody tr');
+    let visible = 0;
+    rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        const show = text.includes(q);
+        r.style.display = show ? '' : 'none';
+        if (show) visible++;
+    });
+    $('#paginationInfo').textContent = `Showing 1–${visible} of ${rows.length}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initial state
+    const initType = typeParam && mappings[typeParam] ? typeParam : 'APPOINTMENT_BOOKED';
+    setConfirmation(initType);
+
+    // Table interactions
+    $$('#upcomingTable thead th[data-sort]').forEach(th => th.addEventListener('click', () => sortTableBy(th.getAttribute('data-sort'))));
+    $('#tableFilter').addEventListener('input', (e) => filterTable(e.target.value));
+
+    // Demo buttons
+    $$('[data-demo-type]').forEach(btn => btn.addEventListener('click', () => setConfirmation(btn.getAttribute('data-demo-type'))));
+});
+  </script>
+ </body>
+</html>

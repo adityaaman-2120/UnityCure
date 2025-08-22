@@ -1,0 +1,49 @@
+/* report_moderation.css - Page-specific styles for Report Moderation */
+/* Layout adjustments */
+.rm-main {
+    min-height: calc(100vh - 56px - 50px)
+    }
+/* Queue table */
+.rm-queue-table thead th {
+    position: sticky;
+    top: 0;
+    background: #F9FBFD;
+    z-index: 2
+    }
+.rm-row {
+    cursor: pointer
+    }
+.rm-row-selected {
+    outline: 2px solid color-mix(in oklab, var(--uc-color-info) 35%, white);
+    background: #FAFDFF
+    }
+/* Details panel */
+.rm-details-body {
+    overflow: auto
+    }
+.rm-media-thumb {
+    object-fit: cover;
+    width: 100%;
+    height: 86px
+    }
+/* Buttons spacing on small screens */
+@media (max-width: 768px) {
+    #btnEscalate {
+        margin-top: 8px
+        }
+    }
+/* Chart container visual polish */
+#reportsChart {
+    border-radius: 10px;
+    background: #fff
+    }
+/* Map height tweak for smaller screens */
+@media (max-width: 576px) {
+    #reportMap {
+        height: 300px
+        }
+    }
+/* Toast position offset above footer */
+.uc-toast-container {
+    bottom: 72px
+    }

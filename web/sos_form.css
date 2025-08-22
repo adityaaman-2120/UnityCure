@@ -1,0 +1,109 @@
+/* sos_form.css - Page-specific styles for Emergency SOS Form */
+/* Use Poppins for this page, fallback to system fonts defined globally */
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Map height tuning for mobile and desktop */
+.sos-map {
+    height: 320px
+    }
+@media (min-width: 768px) {
+    .sos-map {
+        height: 380px
+        }
+    }
+@media (min-width: 1200px) {
+    .sos-map {
+        height: 420px
+        }
+    }
+/* Sticky action bar at bottom of card list */
+.sos-sticky-actions {
+    position: sticky;
+    bottom: 0;
+    background: var(--uc-color-surface);
+    border: 1px solid var(--uc-color-border);
+    box-shadow: var(--uc-shadow-sm);
+    border-radius: var(--uc-radius-md);
+    padding: var(--uc-space-3) var(--uc-space-4)
+    }
+/* Symptoms grid and chips */
+.sos-symptoms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px
+    }
+@media (min-width: 640px) {
+    .sos-symptoms-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+    }
+@media (min-width: 1024px) {
+    .sos-symptoms-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr))
+        }
+    }
+.sos-chip {
+    justify-content: start;
+    gap: 10px;
+    transition: transform 0.08s ease, box-shadow 0.2s ease
+    }
+.sos-chip:hover {
+    transform: translatey(-1px);
+    box-shadow: var(--uc-shadow-md)
+    }
+.sos-chip.active {
+    background: color-mix(in oklab, var(--uc-color-info) 14%, white);
+    border-color: var(--uc-color-info);
+    color: var(--uc-color-info);
+    font-weight: 700
+    }
+/* Media previews */
+.sos-media-thumb {
+    position: relative;
+    width: 160px;
+    height: 120px;
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-md);
+    overflow: hidden;
+    background: var(--uc-color-surface-2);
+    box-shadow: var(--uc-shadow-sm)
+    }
+.sos-media-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+    }
+.sos-media-video, .sos-media-other {
+    width: 100%;
+    height: 100%;
+    background: #101828;
+    color: #fff;
+    font-size: 22px
+    }
+.sos-media-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 11px;
+    padding: 4px 6px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden
+    }
+/* Adjust badges in header */
+#gpsFreshness {
+    font-size: var(--uc-text-sm)
+    }
+/* Leaflet override to match rounded container */
+#sosMap .leaflet-container, .leaflet-container {
+    background: #E8F3F8
+    }
+/* Accessibility tweaks */
+#addressText {
+    line-height: 1.4
+    }

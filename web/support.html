@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>UnityCure | Support</title>
+    <!-- Google Font: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.min.css" rel="stylesheet"/>
+    <!-- Global Theme CSS -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="support.css" rel="stylesheet"/>
+</head>
+<body class="uc-app">
+    <a class="uc-skip-link" href="#main">Skip to content</a>
+    
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="./login_page.html">
+                <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+                <span>UnityCure</span>
+            </a>
+            <button aria-controls="ucNavbarPublic" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarPublic" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="ucNavbarPublic">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./login_page.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./provider_registration.html">Register Provider</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main id="main" class="py-4">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa-solid fa-headset text-primary me-3" style="font-size: 2rem;"></i>
+                        <div>
+                            <h1 class="uc-page-title mb-1">Support Center</h1>
+                            <p class="uc-text-muted mb-0">Get help with UnityCure services and find answers to common questions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Help Cards -->
+            <div class="row mb-5">
+                <div class="col-12 col-md-4 mb-3">
+                    <div class="uc-card h-100 text-center p-4">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-question-circle text-info" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="uc-card-title">FAQ</h5>
+                        <p class="uc-text-muted">Find answers to frequently asked questions about our services</p>
+                        <a href="#faq-section" class="uc-btn uc-btn-outline-primary">Browse FAQ</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-3">
+                    <div class="uc-card h-100 text-center p-4">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-phone text-success" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="uc-card-title">Contact Us</h5>
+                        <p class="uc-text-muted">Get in touch with our support team for personalized assistance</p>
+                        <a href="./contact.html" class="uc-btn uc-btn-outline-success">Contact Now</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-3">
+                    <div class="uc-card h-100 text-center p-4">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-robot text-warning" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="uc-card-title">AI Assistant</h5>
+                        <p class="uc-text-muted">Chat with our AI assistant for instant help and guidance</p>
+                        <button class="uc-btn uc-btn-outline-warning" onclick="openChatbot()">Start Chat</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="row mb-5" id="faq-section">
+                <div class="col-12">
+                    <h2 class="uc-section-title mb-4">Frequently Asked Questions</h2>
+                    <div class="accordion" id="faqAccordion">
+                        <!-- Account & Login -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How do I create an account on UnityCure?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    To create an account, visit our login page and click on "Register your Hospital or Service" for healthcare providers, or contact our support team for citizen account creation. You'll need to provide valid identification and contact information.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    I forgot my password. How can I reset it?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Click on "Forgot Password?" on the login page. You'll receive a password reset link via email or SMS. If you don't receive it, please contact our support team.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Appointments -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    How do I book an appointment?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Log into your account and navigate to the appointment booking section. Select your preferred healthcare provider, choose an available time slot, and provide your details. You'll receive a confirmation via email/SMS.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Can I cancel or reschedule my appointment?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, you can cancel or reschedule appointments up to 24 hours before the scheduled time. Go to your dashboard, find the appointment, and use the modify option. For urgent changes, contact the healthcare provider directly.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Services -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                    How do I use the SOS feature?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    The SOS feature is for medical emergencies. Click the SOS button, describe your symptoms, and your location will be automatically shared with emergency services. This feature should only be used for genuine emergencies.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Telemedicine -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                    How does telemedicine work?
+                                </button>
+                            </h2>
+                            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Telemedicine allows you to consult with healthcare providers remotely via video call. You'll receive a secure link before your appointment. Ensure you have a stable internet connection and a quiet, private space for the consultation.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical Issues -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                    The website/app is not working properly. What should I do?
+                                </button>
+                            </h2>
+                            <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Try refreshing the page, clearing your browser cache, or using a different browser. If the issue persists, contact our technical support team with details about the problem and your device/browser information.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+                                    Is my personal health information secure?
+                                </button>
+                            </h2>
+                            <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes, we follow strict HIPAA guidelines and use industry-standard encryption to protect your data. All information is stored securely and only accessible to authorized healthcare providers involved in your care.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="uc-section-title mb-4">Contact Information</h2>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="uc-card p-4">
+                                <h5 class="uc-card-title mb-3">
+                                    <i class="fa-solid fa-phone text-primary me-2"></i>
+                                    Phone Support
+                                </h5>
+                                <p class="mb-2"><strong>General Inquiries:</strong> +1 (555) 123-4567</p>
+                                <p class="mb-2"><strong>Technical Support:</strong> +1 (555) 123-4568</p>
+                                <p class="mb-0"><strong>Emergency:</strong> 911</p>
+                                <p class="uc-text-muted small mt-2">Available Monday-Friday, 8 AM - 8 PM EST</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="uc-card p-4">
+                                <h5 class="uc-card-title mb-3">
+                                    <i class="fa-solid fa-envelope text-primary me-2"></i>
+                                    Email Support
+                                </h5>
+                                <p class="mb-2"><strong>General:</strong> support@unitycure.com</p>
+                                <p class="mb-2"><strong>Technical:</strong> tech@unitycure.com</p>
+                                <p class="mb-0"><strong>Partnerships:</strong> partnerships@unitycure.com</p>
+                                <p class="uc-text-muted small mt-2">Response within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Still Need Help -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="uc-card text-center p-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                        <h3 class="uc-card-title mb-3">Still Need Help?</h3>
+                        <p class="uc-text-muted mb-4">Our support team is here to help you with any questions or concerns</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="./contact.html" class="uc-btn uc-btn-primary">
+                                <i class="fa-solid fa-envelope me-2"></i>
+                                Contact Support
+                            </a>
+                            <button class="uc-btn uc-btn-outline-primary" onclick="openChatbot()">
+                                <i class="fa-solid fa-robot me-2"></i>
+                                Chat with AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-top py-2" style="background-color:#f8f9fa;">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+                <span class="small text-muted">© UnityCure</span>
+            </div>
+            <div class="d-flex align-items-center gap-3 small">
+                <a class="text-decoration-none" href="./support.html">Support</a>
+                <a class="text-decoration-none" href="./contact.html">Contact</a>
+                <a class="text-decoration-none" href="#">Terms</a>
+                <a class="text-decoration-none" href="#">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Modal -->
+    <div class="modal fade" id="chatbotModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fa-solid fa-robot text-primary me-2"></i>
+                        UnityCure AI Assistant
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="chatMessages" class="chat-messages mb-3" style="height: 400px; overflow-y: auto;">
+                        <div class="chat-message bot-message">
+                            <div class="message-content">
+                                <i class="fa-solid fa-robot text-primary me-2"></i>
+                                Hello! I'm your UnityCure AI assistant. How can I help you today?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="chatInput" placeholder="Type your message...">
+                        <button class="btn btn-primary" type="button" onclick="sendMessage()">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS: Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS: SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.all.min.js"></script>
+    
+    <script>
+        // Chatbot functionality
+        function openChatbot() {
+            const modal = new bootstrap.Modal(document.getElementById('chatbotModal'));
+            modal.show();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Show typing indicator
+            addTypingIndicator();
+
+            // Send to backend
+            fetch('/api/chatbot', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                removeTypingIndicator();
+                if (data.ok) {
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('Sorry, I encountered an error. Please try again or contact support.', 'bot');
+                }
+            })
+            .catch(error => {
+                removeTypingIndicator();
+                addMessage('Sorry, I\'m having trouble connecting. Please try again later.', 'bot');
+            });
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}-message`;
+            
+            const icon = sender === 'bot' ? 'fa-robot text-primary' : 'fa-user text-success';
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <i class="fa-solid ${icon} me-2"></i>
+                    ${text}
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message bot-message typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="message-content">
+                    <i class="fa-solid fa-robot text-primary me-2"></i>
+                    <span class="typing-dots">
+                        <span>.</span><span>.</span><span>.</span>
+                    </span>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Enter key to send message
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

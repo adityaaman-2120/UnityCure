@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure • Emergency SOS Form
+  </title>
+  <!-- Brand font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6Z5rC2R8b4l8RlK2nJQ1hY9B+7hZ9E9Q4Rj7lYe1xq+oS+1r1L1K6Q==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Leaflet (Map) -->
+   <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.min.css" rel="stylesheet"/>
+    <!-- Global theme -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="sos_form.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Common Component) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" data-page="map_view" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" data-page="sos_form" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="user_dashboard" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="login_page" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Common Component - Citizen) -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycuresidebar/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="map_view" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" data-page="user_dashboard" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="appointment_booking" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="teleconsult_session" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a aria-current="page" class="nav-link d-flex align-items-center rounded px-3 py-2 fw-semibold" data-page="sos_form" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaigns_list" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaign_details" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="feedback_form" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="login_page" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <!-- Main Content -->
+  <main class="uc-container my-3 my-md-4" id="mainContent">
+   <div class="row g-3">
+    <div class="col-12 col-lg-10 mx-auto">
+     <!-- Page header & disclaimer -->
+     <div class="uc-section">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+       <div>
+        <h1 class="uc-page-title m-0">
+         Emergency SOS Report
+        </h1>
+        <div class="uc-subtitle">
+         Report a medical emergency and alert nearby services
+        </div>
+       </div>
+       <a class="uc-btn uc-btn-outline uc-btn-sm" href="./map_view.html">
+        <i class="fa-solid fa-arrow-left">
+        </i>
+        Back to Map
+       </a>
+      </div>
+      <div class="uc-alert uc-alert-warning mt-3">
+       <i class="fa-solid fa-circle-info mt-1">
+       </i>
+       <div>
+        AI-generated guidance is assistive and not a substitute for professional diagnosis. If someone is in immediate danger, call emergency services directly.
+       </div>
+      </div>
+     </div>
+     <!-- SOS Form Card -->
+     <div class="uc-card">
+      <div class="uc-card-header">
+       <div class="uc-card-title d-flex align-items-center">
+        <span class="me-2 uc-icon-circle">
+         <i class="fa-solid fa-location-crosshairs">
+         </i>
+        </span>
+        Step 1: Confirm Location
+       </div>
+       <div class="uc-freshness" id="gpsFreshness">
+        <i class="fa-solid fa-satellite-dish">
+        </i>
+        Attempting GPS fix…
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <!-- LocationConfirmation -->
+       <div class="mb-3">
+        <div aria-label="Location map with draggable pin" class="uc-map-container sos-map" id="sosMap">
+        </div>
+        <div class="d-flex align-items-center justify-content-between mt-2 flex-wrap gap-2">
+         <div class="d-flex align-items-center gap-2">
+          <span class="badge text-bg-success" id="locStatus">
+           <i class="fa-solid fa-thumbtack">
+           </i>
+           Pin ready
+          </span>
+          <span class="badge text-bg-secondary" id="confirmStatus">
+           <i class="fa-regular fa-circle">
+           </i>
+           Not confirmed
+          </span>
+         </div>
+         <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary btn-sm" id="btnUseMyLocation" type="button">
+           <i class="fa-solid fa-location-crosshairs">
+           </i>
+           Use my location
+          </button>
+          <button class="btn btn-outline-info btn-sm" id="btnRecenter" type="button">
+           <i class="fa-solid fa-crosshairs">
+           </i>
+           Recenter
+          </button>
+         </div>
+        </div>
+       </div>
+       <div class="mb-3">
+        <label class="form-label fw-semibold">
+         <i class="fa-solid fa-map-pin text-info">
+         </i>
+         Detected Address
+        </label>
+        <div class="d-flex align-items-center gap-2">
+         <div aria-hidden="true" class="spinner-border spinner-border-sm text-info" id="addrSpinner" role="status">
+         </div>
+         <div class="text-muted" id="addressText">
+          Fetching address…
+         </div>
+        </div>
+       </div>
+       <div class="form-check mb-2">
+        <input class="form-check-input" id="chkConfirmLoc" type="checkbox" value="1"/>
+        <label class="form-check-label" for="chkConfirmLoc">
+         I confirm the pinned location is correct
+        </label>
+       </div>
+       <div class="small text-muted">
+        Coordinates to be sent:
+        <span id="coordsText">
+         --
+        </span>
+       </div>
+      </div>
+     </div>
+     <!-- Symptoms Card -->
+     <div class="uc-card mt-3">
+      <div class="uc-card-header">
+       <div class="uc-card-title d-flex align-items-center">
+        <span class="me-2 uc-icon-circle">
+         <i class="fa-solid fa-heart-pulse">
+         </i>
+        </span>
+        Step 2: Select Symptoms
+       </div>
+       <div class="uc-card-subtitle">
+        Select all that apply
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="sos-symptoms-grid" id="symptomsGrid">
+        <!-- Chips rendered by JS -->
+       </div>
+       <div class="mt-2 small text-muted" id="symptomHelp">
+        Select at least one symptom to enable submission.
+       </div>
+      </div>
+     </div>
+     <!-- Additional Details Card -->
+     <div class="uc-card mt-3">
+      <div class="uc-card-header">
+       <div class="uc-card-title d-flex align-items-center">
+        <span class="me-2 uc-icon-circle">
+         <i class="fa-solid fa-circle-info">
+         </i>
+        </span>
+        Step 3: Additional Details (Optional)
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="mb-3">
+        <label class="form-label fw-semibold" for="txtDescription">
+         Describe what happened (optional)
+        </label>
+        <textarea class="form-control" id="txtDescription" maxlength="500" placeholder="E.g., Person collapsed suddenly, breathing is shallow…" rows="3"></textarea>
+        <div class="form-text text-end">
+         <span id="descCount">
+          0
+         </span>
+         /500
+        </div>
+       </div>
+       <div class="mb-2">
+        <label class="form-label fw-semibold">
+         Attach photos/videos (optional)
+        </label>
+        <input accept="image/*,video/*" class="form-control" id="fileMedia" multiple="" type="file"/>
+       </div>
+       <div class="d-flex flex-wrap gap-2" id="mediaPreview">
+       </div>
+      </div>
+     </div>
+     <!-- Action Bar -->
+     <div class="sos-sticky-actions mt-3 uc-no-print">
+      <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-between gap-2">
+       <div class="text-muted small">
+        By submitting, you consent to share the provided data for emergency response as per DPDP Act 2023.
+       </div>
+       <div class="d-flex gap-2">
+        <button class="uc-btn uc-btn-outline" id="btnCancel" type="button">
+         <i class="fa-solid fa-xmark">
+         </i>
+         Cancel
+        </button>
+        <button class="uc-btn uc-btn-danger uc-btn-lg" disabled="" id="btnSubmit" type="button">
+         <span class="btn-label">
+          <i class="fa-solid fa-bullhorn">
+          </i>
+          ALERT EMERGENCY SERVICES
+         </span>
+         <span aria-hidden="true" class="spinner-border spinner-border-sm d-none" id="submitSpinner" role="status">
+         </span>
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer (Common Component) -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurefoot/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-warning d-lg-none" data-page="sos_form" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1">
+      </i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container (system feedback) -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Dependencies: Bootstrap Bundle, Leaflet, SweetAlert2 -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js">
+  </script>
+  <script>
+   // Typography: use Poppins for this page
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.style.fontFamily = "'Poppins', var(--uc-font-sans)";
+});
+
+// Utility: Toast
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${type}`;
+    toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-triangle-exclamation' : type === 'danger' ? 'fa-circle-xmark' : 'fa-circle-info'}"></i><div>${message}</div>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity .3s';
+    }, 3000);
+    setTimeout(() => container.removeChild(toast), 3500);
+}
+
+// Map & Location state
+let map, marker, pinnedLocation = {
+    lat: 22.5726,
+    lng: 88.3639
+}; // Default Kolkata
+let locationConfirmed = false;
+let selectedSymptoms = new Set();
+
+const coordsText = document.getElementById('coordsText');
+const addressText = document.getElementById('addressText');
+const addrSpinner = document.getElementById('addrSpinner');
+const gpsFreshness = document.getElementById('gpsFreshness');
+const confirmStatus = document.getElementById('confirmStatus');
+const chkConfirmLoc = document.getElementById('chkConfirmLoc');
+const btnSubmit = document.getElementById('btnSubmit');
+const submitSpinner = document.getElementById('submitSpinner');
+
+function updateCoordsText() {
+    coordsText.textContent = `${pinnedLocation.lat.toFixed(5)}, ${pinnedLocation.lng.toFixed(5)}`;
+}
+
+function setConfirmStatus(confirmed) {
+    locationConfirmed = confirmed;
+    confirmStatus.className = confirmed ? 'badge text-bg-primary' : 'badge text-bg-secondary';
+    confirmStatus.innerHTML = confirmed ? '<i class="fa-solid fa-circle-check"></i> Confirmed' : '<i class="fa-regular fa-circle"></i> Not confirmed';
+    updateSubmitState();
+}
+
+function updateSubmitState() {
+    const enabled = locationConfirmed && selectedSymptoms.size > 0;
+    btnSubmit.disabled = !enabled;
+}
+
+function reverseGeocode(lat, lon) {
+    addrSpinner.classList.remove('d-none');
+    addressText.textContent = 'Fetching address…';
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+        .then(r => r.json())
+        .then(data => {
+            const addr = data && (data.display_name || data.name);
+            addressText.textContent = addr || 'Address unavailable';
+        })
+        .catch(() => {
+            addressText.textContent = 'Address unavailable';
+        })
+        .finally(() => {
+            addrSpinner.classList.add('d-none');
+        });
+}
+
+function initMap() {
+    map = L.map('sosMap', {
+        zoomControl: true
+    }).setView([pinnedLocation.lat, pinnedLocation.lng], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    marker = L.marker([pinnedLocation.lat, pinnedLocation.lng], {
+        draggable: true
+    }).addTo(map);
+    marker.on('dragend', (e) => {
+        const ll = e.target.getLatLng();
+        pinnedLocation = {
+            lat: ll.lat,
+            lng: ll.lng
+        };
+        updateCoordsText();
+        reverseGeocode(pinnedLocation.lat, pinnedLocation.lng);
+        setConfirmStatus(false);
+    });
+
+    updateCoordsText();
+    reverseGeocode(pinnedLocation.lat, pinnedLocation.lng);
+    attemptGeolocation(true);
+}
+
+function attemptGeolocation(initial = false) {
+    if (!('geolocation' in navigator)) {
+        if (initial) showToast('Geolocation not supported by this browser.', 'warning');
+        gpsFreshness.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> GPS not available';
+        return;
+    }
+    gpsFreshness.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> Getting GPS…';
+    navigator.geolocation.getCurrentPosition((pos) => {
+        const {
+            latitude,
+            longitude
+        } = pos.coords;
+        pinnedLocation = {
+            lat: latitude,
+            lng: longitude
+        };
+        marker.setLatLng([latitude, longitude]);
+        map.setView([latitude, longitude], 16);
+        updateCoordsText();
+        reverseGeocode(latitude, longitude);
+        gpsFreshness.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> GPS fix acquired just now';
+    }, (err) => {
+        console.warn('Geolocation error', err);
+        if (initial) showToast('Could not get GPS location. You can drag the pin to adjust.', 'warning');
+        gpsFreshness.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> Using last known/default location';
+    }, {
+        enableHighAccuracy: true,
+        timeout: 8000,
+        maximumAge: 10000
+    });
+}
+
+// Symptoms
+const symptomOptions = [
+    'Chest Pain',
+    'Difficulty Breathing',
+    'Unconscious',
+    'Severe Bleeding',
+    'Stroke Symptoms',
+    'Seizure',
+    'Fracture/Trauma',
+    'Severe Allergic Reaction',
+    'Burns',
+    'High Fever',
+    'Poisoning/Overdose',
+    'Pregnancy Emergency'
+];
+
+function renderSymptoms() {
+    const grid = document.getElementById('symptomsGrid');
+    grid.innerHTML = '';
+    symptomOptions.forEach((opt) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'uc-chip sos-chip';
+        chip.setAttribute('data-value', opt);
+        chip.innerHTML = `<i class="fa-regular fa-square"></i> <span>${opt}</span>`;
+        chip.addEventListener('click', () => toggleSymptom(opt, chip));
+        grid.appendChild(chip);
+    });
+}
+
+function toggleSymptom(value, el) {
+    if (selectedSymptoms.has(value)) {
+        selectedSymptoms.delete(value);
+        el.classList.remove('active');
+        el.innerHTML = `<i class=\"fa-regular fa-square\"></i> <span>${value}</span>`;
+    } else {
+        selectedSymptoms.add(value);
+        el.classList.add('active');
+        el.innerHTML = `<i class=\"fa-solid fa-square-check\"></i> <span>${value}</span>`;
+    }
+    updateSubmitState();
+}
+
+// Description counter
+const txtDescription = document.getElementById('txtDescription');
+const descCount = document.getElementById('descCount');
+txtDescription.addEventListener('input', () => {
+    descCount.textContent = txtDescription.value.length;
+});
+
+// File previews
+const fileInput = document.getElementById('fileMedia');
+const mediaPreview = document.getElementById('mediaPreview');
+fileInput.addEventListener('change', () => {
+    mediaPreview.innerHTML = '';
+    const files = Array.from(fileInput.files || []);
+    files.forEach((file) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'sos-media-thumb';
+        const info = document.createElement('div');
+        info.className = 'sos-media-label';
+        info.textContent = file.name;
+        if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.alt = file.name;
+            img.onload = () => URL.revokeObjectURL(img.src);
+            img.onerror = function() {
+                this.src = 'https://picsum.photos/seed/attach/160/120';
+            };
+            img.src = URL.createObjectURL(file);
+            wrap.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+            const icon = document.createElement('div');
+            icon.className = 'sos-media-video d-flex align-items-center justify-content-center';
+            icon.innerHTML = '<i class="fa-solid fa-video"></i>';
+            wrap.appendChild(icon);
+        } else {
+            const other = document.createElement('div');
+            other.className = 'sos-media-other d-flex align-items-center justify-content-center';
+            other.innerHTML = '<i class="fa-solid fa-file"></i>';
+            wrap.appendChild(other);
+        }
+        wrap.appendChild(info);
+        mediaPreview.appendChild(wrap);
+    });
+});
+
+// Controls
+document.getElementById('btnUseMyLocation').addEventListener('click', () => attemptGeolocation(false));
+document.getElementById('btnRecenter').addEventListener('click', () => {
+    map.setView([pinnedLocation.lat, pinnedLocation.lng], 16);
+});
+chkConfirmLoc.addEventListener('change', (e) => setConfirmStatus(e.target.checked));
+
+// Submit
+document.getElementById('btnSubmit').addEventListener('click', async () => {
+    // Validation
+    if (!locationConfirmed || selectedSymptoms.size === 0) {
+        showToast('Confirm location and select at least one symptom.', 'warning');
+        return;
+    }
+    // Show loading state
+    btnSubmit.disabled = true;
+    submitSpinner.classList.remove('d-none');
+    document.querySelector('#btnSubmit .btn-label').classList.add('d-none');
+
+    // Simulate triage severity
+    const symptomsArr = Array.from(selectedSymptoms);
+    const highSet = new Set(['Difficulty Breathing', 'Chest Pain', 'Unconscious', 'Severe Bleeding', 'Stroke Symptoms']);
+    const mediumSet = new Set(['Seizure', 'Fracture/Trauma', 'Severe Allergic Reaction', 'Burns']);
+    let severity = 'Low';
+    if (symptomsArr.some(s => highSet.has(s))) severity = 'High';
+    else if (symptomsArr.some(s => mediumSet.has(s))) severity = 'Medium';
+
+    try {
+        const payload = {
+            lat: pinnedLocation.lat,
+            lng: pinnedLocation.lng,
+            symptoms: symptomsArr,
+            description: txtDescription.value.trim() || null
+        };
+        const resp = await fetch('/api/sos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+        if (!data.ok) throw new Error('Failed');
+        submitSpinner.classList.add('d-none');
+        document.querySelector('#btnSubmit .btn-label').classList.remove('d-none');
+        btnSubmit.disabled = false;
+        Swal.fire({
+            icon: severity === 'High' ? 'error' : severity === 'Medium' ? 'warning' : 'info',
+            title: 'SOS Submitted',
+            html: `<div class="text-start">\
+              <div class="mb-2">Triage Severity: <span class="badge ${severity==='High'?'text-bg-danger':severity==='Medium'?'text-bg-warning':'text-bg-info'}">${severity}</span></div>\
+              <div class="small text-muted">Alerts have been sent to nearby ambulance services and hospitals. Keep your phone accessible.</div>\
+            </div>`,
+            confirmButtonText: 'View Confirmation',
+            confirmButtonColor: '#008000'
+        }).then(() => {
+            window.location.href = './confirmation_page.html';
+        });
+    } catch (e) {
+        submitSpinner.classList.add('d-none');
+        document.querySelector('#btnSubmit .btn-label').classList.remove('d-none');
+        btnSubmit.disabled = false;
+        showToast('Failed to submit SOS. Please try again.', 'danger');
+    }
+});
+
+// Cancel
+document.getElementById('btnCancel').addEventListener('click', () => {
+    Swal.fire({
+        title: 'Cancel SOS report?',
+        text: 'Your entered information will be discarded.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, cancel',
+        cancelButtonText: 'No',
+        confirmButtonColor: '#CD2026'
+    }).then((res) => {
+        if (res.isConfirmed) {
+            window.location.href = './map_view.html';
+        }
+    });
+});
+
+// Initialize
+window.addEventListener('load', () => {
+    renderSymptoms();
+    initMap();
+});
+  </script>
+ </body>
+</html>

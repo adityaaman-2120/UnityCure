@@ -1,0 +1,44 @@
+/* campaign_details.css - Page-specific styles for Campaign Details */
+/* Hero image height and fit */
+.campaign-hero {
+    width: 100%;
+    height: clamp(220px, 28vw, 360px);
+    object-fit: cover;
+    background: #EEE
+    }
+/* Sticky sidebar for event details */
+.sticky-sidebar {
+    position: sticky;
+    top: 84px;
+    /* accounts for header height */
+    }
+/* Leaflet map container within card */
+.leaflet-map {
+    width: 100%;
+    height: 280px
+    }
+/* Table header interactive hint */
+#participantTable thead th[role="button"] {
+    user-select: none
+    }
+#participantTable thead th[role="button"]:hover {
+    background: rgba(0, 128, 0, 0.06)
+    }
+/* Breadcrumb tweak for subtlety */
+.breadcrumb {
+    margin-bottom: 0.25rem
+    }
+/* Chart canvas spacing */
+#regChart {
+    padding: 8px
+    }
+/* Improve search field within uc-search container */
+.uc-search input::placeholder {
+    color: #94A3B8
+    }
+/* Responsive spacing adjustments */
+@media (max-width: 991.98px) {
+    .sticky-sidebar {
+        top: 8px
+        }
+    }

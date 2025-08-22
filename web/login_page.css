@@ -1,0 +1,42 @@
+/* Login Page - Page-specific styles (login_page.css)
+   This CSS builds on top of the global style.css without duplicating rules.
+*/
+/* 1) Typography override for this page: use Poppins */
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* 2) Background hero with image + subtle overlay */
+.login-hero {
+    min-height: calc(100vh - 56px - 44px);
+    /* header (~56) + footer (~44) */
+    background: linear-gradient(0deg, rgba(16, 24, 40, 0.35), rgba(16, 24, 40, 0.35)), url(assets/login_page_background_image_2_f16ce9dd.jpg) center/cover no-repeat fixed
+    }
+.me-2 rounded{
+    width: 20px;
+    height: 20px;
+}
+
+/* 3) Login card enhancements */
+.login-card {
+    backdrop-filter: saturate(1.1) blur(6px);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--uc-color-border)
+    }
+/* 4) Password toggle button alignment */
+.password-toggle {
+    border-color: var(--uc-color-border-strong)
+    }
+.password-toggle:hover {
+    background: color-mix(in oklab, var(--uc-color-info) 6%, white);
+    border-color: var(--uc-color-info)
+    }
+/* 5) Invalid state alignment for grouped field */
+.input-group .invalid-feedback {
+    display: block
+    }
+/* 6) Responsive spacing tweaks */
+@media (max-width: 576px) {
+    .login-card {
+        padding: 18px
+        }
+    }

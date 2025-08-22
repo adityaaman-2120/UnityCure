@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Provide Feedback - UnityCure
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfAm9P1ZPLb9vyvyehZ9erjRzCIYS1gh6QfK5d8d0LC5XGxg3r3f2v3A==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- SweetAlert2 -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet"/>
+   <!-- Global Theme CSS -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page specific CSS -->
+   <link href="feedback_form.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body>
+  <!-- Header (Citizen/Community) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" data-page="map_view" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" onsubmit="event.preventDefault();" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" data-page="sos_form" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="user_dashboard" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="login_page" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Offcanvas Left) - Include on feedback page for quick navigation -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="map_view" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" data-page="user_dashboard" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="appointment_booking" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="teleconsult_session" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="sos_form" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaigns_list" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" data-page="campaign_details" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="feedback_form" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="login_page" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="py-3" id="main">
+   <div class="container">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="uc-breadcrumbs mb-3">
+     <a href="./map_view.html">
+      Home
+     </a>
+     <span>
+      /
+     </span>
+     <span aria-current="page" class="text-muted">
+      Provide Feedback
+     </span>
+    </nav>
+    <!-- Page Header -->
+    <div class="uc-section">
+     <div class="row g-3 align-items-center">
+      <div class="col-md-8">
+       <h1 class="uc-page-title m-0">
+        Provide Feedback
+       </h1>
+       <p class="uc-text-muted mb-0">
+        Your review helps others in Kolkata find timely, quality care and improves transparency.
+       </p>
+      </div>
+      <div class="col-md-4 text-md-end">
+       <span class="uc-badge uc-badge-info">
+        <i class="fa-regular fa-circle-question">
+        </i>
+        Be constructive and avoid sharing personal identifiers.
+       </span>
+      </div>
+     </div>
+    </div>
+    <div class="row g-4">
+     <!-- Feedback Form Column -->
+     <div class="col-lg-7">
+      <div class="uc-card">
+       <div class="uc-card-header">
+        <div>
+         <div class="uc-card-title" id="serviceNameDisplay">
+          Kolkata General Hospital
+         </div>
+         <div class="uc-card-subtitle" id="serviceTypeLabel">
+          Provide feedback for this Hospital
+         </div>
+        </div>
+        <div class="text-end">
+         <span class="badge text-bg-light text-dark">
+          <i class="fa-regular fa-id-card me-1">
+          </i>
+          Ref
+          <span id="serviceRef">
+           SRV-10291
+          </span>
+         </span>
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <form id="feedbackForm" novalidate="">
+         <!-- Hidden contextual fields (would be set from query params or app state) -->
+         <input id="serviceId" type="hidden" value="10291"/>
+         <input id="serviceType" type="hidden" value="Hospital"/>
+         <input id="userId" type="hidden" value="U-0001"/>
+         <!-- Rating -->
+         <div class="mb-3">
+          <label class="form-label fw-semibold">
+           Your rating
+           <span class="text-danger">
+            *
+           </span>
+          </label>
+          <div aria-label="Star rating selector" class="rating-stars d-inline-flex align-items-center" role="radiogroup">
+           <button aria-label="1 star" class="star btn p-0 me-1" data-value="1" type="button">
+            <i class="fa-regular fa-star">
+            </i>
+           </button>
+           <button aria-label="2 stars" class="star btn p-0 me-1" data-value="2" type="button">
+            <i class="fa-regular fa-star">
+            </i>
+           </button>
+           <button aria-label="3 stars" class="star btn p-0 me-1" data-value="3" type="button">
+            <i class="fa-regular fa-star">
+            </i>
+           </button>
+           <button aria-label="4 stars" class="star btn p-0 me-1" data-value="4" type="button">
+            <i class="fa-regular fa-star">
+            </i>
+           </button>
+           <button aria-label="5 stars" class="star btn p-0" data-value="5" type="button">
+            <i class="fa-regular fa-star">
+            </i>
+           </button>
+           <span class="ms-2 small text-muted" id="ratingText">
+            No rating yet
+           </span>
+          </div>
+          <div class="invalid-feedback d-block" id="ratingError" style="display:none;">
+           Please select a rating to continue.
+          </div>
+         </div>
+         <!-- Review Text -->
+         <div class="mb-3">
+          <label class="form-label fw-semibold" for="reviewText">
+           Write your review
+          </label>
+          <textarea class="form-control" id="reviewText" maxlength="1000" placeholder="Share details about your experience (optional): staff responsiveness, wait time, cleanliness, telemedicine quality, ambulance coordination, etc." rows="6"></textarea>
+          <div class="d-flex justify-content-between align-items-center mt-1">
+           <small class="text-muted" id="charCount">
+            0 / 1000
+           </small>
+           <span class="uc-freshness" title="Your feedback autosaves locally.">
+            <i class="fa-regular fa-clock me-1">
+            </i>
+            <span id="draftStatus">
+             Draft not saved
+            </span>
+           </span>
+          </div>
+         </div>
+         <!-- Actions -->
+         <div class="d-flex gap-2 justify-content-end">
+          <button class="btn btn-outline-secondary" id="cancelBtn" type="button">
+           Cancel
+          </button>
+          <button class="btn btn-success" disabled="" id="submitBtn" type="submit">
+           <span class="btn-label">
+            Submit Feedback
+           </span>
+           <span aria-hidden="true" class="spinner-border spinner-border-sm ms-2 d-none" role="status">
+           </span>
+          </button>
+         </div>
+        </form>
+       </div>
+      </div>
+     </div>
+     <!-- Illustration & Tips Column -->
+     <div class="col-lg-5">
+      <div class="uc-card h-100">
+       <div class="uc-card-body">
+        <img alt="Feedback Page Supportive Illustration" class="img-fluid rounded mb-3" onerror="this.onerror=null;this.src='https://picsum.photos/seed/feedback/640/360';" src="assets/feedback_page_supportive_illus_1_53c2ccec.png"/>
+        <ul class="list-unstyled mb-0">
+         <li class="d-flex align-items-start mb-2">
+          <i class="fa-solid fa-circle-check text-success me-2 mt-1">
+          </i>
+          <span>
+           Be specific. Mention departments, timings, or the nature of service (OPD, ICU, ambulance, telemedicine).
+          </span>
+         </li>
+         <li class="d-flex align-items-start mb-2">
+          <i class="fa-solid fa-circle-check text-success me-2 mt-1">
+          </i>
+          <span>
+           Avoid sharing personal data like phone numbers or medical record IDs.
+          </span>
+         </li>
+         <li class="d-flex align-items-start">
+          <i class="fa-solid fa-circle-check text-success me-2 mt-1">
+          </i>
+          <span>
+           Emergency experience? Highlight time-to-response and coordination quality.
+          </span>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Recent Feedback (sample data table) -->
+    <div class="uc-section mt-4">
+     <div class="uc-section-header">
+      <div class="d-flex align-items-center gap-2">
+       <h2 class="uc-h3 m-0">
+        Your recent feedback
+       </h2>
+       <span class="badge text-bg-info">
+        <i class="fa-regular fa-star me-1">
+        </i>
+        6 entries
+       </span>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+       <div class="input-group input-group-sm" style="max-width:260px;">
+        <span class="input-group-text bg-white">
+         <i class="fa-solid fa-magnifying-glass">
+         </i>
+        </span>
+        <input class="form-control" id="tblSearch" placeholder="Search service or type" type="text"/>
+       </div>
+       <select class="form-select form-select-sm" id="typeFilter" style="max-width:200px;">
+        <option value="">
+         All Types
+        </option>
+        <option>
+         Hospital
+        </option>
+        <option>
+         Doctor
+        </option>
+        <option>
+         Ambulance
+        </option>
+        <option>
+         Campaign
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="uc-table-responsive">
+      <table class="uc-table" id="recentFeedbackTable">
+       <thead>
+        <tr>
+         <th data-sort="date" role="button">
+          Date
+          <i class="fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th data-sort="service" role="button">
+          Service
+         </th>
+         <th data-sort="type" role="button">
+          Type
+         </th>
+         <th>
+          Rating
+         </th>
+         <th>
+          Status
+         </th>
+         <th>
+          Actions
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td data-value="2025-08-18">
+          18 Aug 2025
+         </td>
+         <td>
+          Kolkata General Hospital
+         </td>
+         <td>
+          Hospital
+         </td>
+         <td>
+          <span class="table-stars" data-rating="4">
+          </span>
+         </td>
+         <td>
+          <span class="badge text-bg-success">
+           Published
+          </span>
+         </td>
+         <td>
+          <a class="btn btn-sm btn-outline-primary" href="./confirmation_page.html">
+           View
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td data-value="2025-08-12">
+          12 Aug 2025
+         </td>
+         <td>
+          Dr. Anjali Roy
+         </td>
+         <td>
+          Doctor
+         </td>
+         <td>
+          <span class="table-stars" data-rating="5">
+          </span>
+         </td>
+         <td>
+          <span class="badge text-bg-warning text-dark">
+           Pending
+          </span>
+         </td>
+         <td>
+          <button class="btn btn-sm btn-outline-secondary" disabled="">
+           Edit
+          </button>
+         </td>
+        </tr>
+        <tr>
+         <td data-value="2025-08-03">
+          03 Aug 2025
+         </td>
+         <td>
+          CityCare Ambulance Network
+         </td>
+         <td>
+          Ambulance
+         </td>
+         <td>
+          <span class="table-stars" data-rating="3">
+          </span>
+         </td>
+         <td>
+          <span class="badge text-bg-success">
+           Published
+          </span>
+         </td>
+         <td>
+          <a class="btn btn-sm btn-outline-primary" href="./confirmation_page.html">
+           View
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td data-value="2025-07-28">
+          28 Jul 2025
+         </td>
+         <td>
+          Monsoon Vaccination Drive
+         </td>
+         <td>
+          Campaign
+         </td>
+         <td>
+          <span class="table-stars" data-rating="4">
+          </span>
+         </td>
+         <td>
+          <span class="badge text-bg-success">
+           Published
+          </span>
+         </td>
+         <td>
+          <a class="btn btn-sm btn-outline-primary" href="./confirmation_page.html">
+           View
+          </a>
+         </td>
+        </tr>
+        <tr>
+         <td data-value="2025-07-17">
+          17 Jul 2025
+         </td>
+         <td>
+          North Kolkata Clinic
+         </td>
+         <td>
+          Hospital
+         </td>
+         <td>
+          <span class="table-stars" data-rating="2">
+          </span>
+         </td>
+         <td>
+          <span class="badge text-bg-secondary">
+           Draft
+          </span>
+         </td>
+         <td>
+          <button class="btn btn-sm btn-outline-secondary">
+           Edit
+          </button>
+         </td>
+        </tr>
+        <tr>
+         <td data-value="2025-07-06">
+          06 Jul 2025
+         </td>
+         <td>
+          Telemedicine - Dr. I. Chatterjee
+         </td>
+         <td>
+          Doctor
+         </td>
+         <td>
+          <span class="table-stars" data-rating="5">
+          </span>
+         </td>
+         <td>
+          <span class="badge text-bg-success">
+           Published
+          </span>
+         </td>
+         <td>
+          <a class="btn btn-sm btn-outline-primary" href="./confirmation_page.html">
+           View
+          </a>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="d-flex justify-content-between align-items-center mt-2">
+      <small class="text-muted">
+       Showing
+       <strong>
+        1-6
+       </strong>
+       of
+       <strong>
+        6
+       </strong>
+       entries
+      </small>
+      <nav aria-label="Table pagination" class="uc-pagination">
+       <button aria-current="true" class="uc-page-btn btn btn-sm">
+        1
+       </button>
+       <button class="uc-page-btn btn btn-sm" disabled="">
+        2
+       </button>
+      </nav>
+     </div>
+    </div>
+    <!-- Rating distribution (Chart.js) -->
+    <div class="uc-section">
+     <div class="row g-3">
+      <div class="col-lg-6">
+       <div class="uc-card">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title">
+           Rating distribution
+          </div>
+          <div class="uc-card-subtitle">
+           Across services you reviewed
+          </div>
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <div class="uc-skeleton" id="chartSkeleton" style="height:260px;">
+         </div>
+         <canvas class="d-none" height="260" id="ratingChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg">
+      <span class="small text-muted">
+       © UnityCure
+      </span>
+     </img>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-warning d-lg-none" data-page="sos_form" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1">
+      </i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container (for subtle notifications) -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Bootstrap Bundle JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Brand: apply Poppins for this page
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.fontFamily = "'Poppins', var(--uc-font-sans), sans-serif";
+});
+
+// Utility: simple toast
+function showToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class=\"fa-regular fa-bell\"></i><div class=\"small\">${message}</div>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(18px)';
+        setTimeout(() => toast.remove(), 350);
+    }, 2600);
+}
+
+// Query params -> service context
+(function initServiceContext() {
+    const params = new URLSearchParams(window.location.search);
+    const serviceName = params.get('serviceName') || 'Kolkata General Hospital';
+    const serviceType = params.get('serviceType') || 'Hospital';
+    const serviceId = params.get('serviceId') || '10291';
+    document.getElementById('serviceNameDisplay').textContent = serviceName;
+    document.getElementById('serviceTypeLabel').textContent = `Provide feedback for this ${serviceType}`;
+    document.getElementById('serviceRef').textContent = `SRV-${serviceId}`;
+    document.getElementById('serviceId').value = serviceId;
+    document.getElementById('serviceType').value = serviceType;
+})();
+
+// Rating stars interactivity
+let selectedRating = 0;
+(function initRatingStars() {
+    const stars = document.querySelectorAll('.rating-stars .star');
+    const ratingText = document.getElementById('ratingText');
+    const submitBtn = document.getElementById('submitBtn');
+    const ratingError = document.getElementById('ratingError');
+
+    function updateStars(hoverVal = 0) {
+        const active = hoverVal || selectedRating;
+        stars.forEach(btn => {
+            const v = parseInt(btn.getAttribute('data-value'));
+            const icon = btn.querySelector('i');
+            if (v <= active) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                icon.classList.add('text-warning');
+            } else {
+                icon.classList.add('fa-regular');
+                icon.classList.remove('fa-solid');
+                icon.classList.remove('text-warning');
+            }
+        });
+        ratingText.textContent = active > 0 ? `${active} / 5` : 'No rating yet';
+        submitBtn.disabled = selectedRating === 0;
+        ratingError.style.display = selectedRating === 0 ? 'block' : 'none';
+    }
+
+    stars.forEach(btn => {
+        btn.addEventListener('mouseenter', () => updateStars(parseInt(btn.dataset.value)));
+        btn.addEventListener('mouseleave', () => updateStars());
+        btn.addEventListener('click', () => {
+            selectedRating = parseInt(btn.dataset.value);
+            updateStars();
+        });
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectedRating = parseInt(btn.dataset.value);
+                updateStars();
+            }
+        });
+        btn.setAttribute('tabindex', '0');
+    });
+    updateStars();
+})();
+
+// Character counter + simple local autosave
+(function initReviewText() {
+    const ta = document.getElementById('reviewText');
+    const counter = document.getElementById('charCount');
+    const draftStatus = document.getElementById('draftStatus');
+    const key = 'uc_feedback_draft';
+
+    // restore
+    try {
+        const saved = JSON.parse(localStorage.getItem(key) || '{}');
+        if (saved && saved.text) {
+            ta.value = saved.text;
+        }
+        if (saved && saved.rating) {
+            /* optionally restore rating */ }
+    } catch {}
+
+    const updateCount = () => {
+        counter.textContent = `${ta.value.length} / ${ta.maxLength}`;
+    };
+    updateCount();
+
+    let saveTimer;
+    ta.addEventListener('input', () => {
+        updateCount();
+        draftStatus.textContent = 'Saving...';
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => {
+            try {
+                localStorage.setItem(key, JSON.stringify({
+                    text: ta.value
+                }));
+                draftStatus.textContent = 'Draft saved';
+            } catch {
+                draftStatus.textContent = 'Draft not saved';
+            }
+        }, 500);
+    });
+})();
+
+// Submit & Cancel
+(function initFormActions() {
+    const form = document.getElementById('feedbackForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitSpinner = submitBtn.querySelector('.spinner-border');
+    const ratingError = document.getElementById('ratingError');
+    const ta = document.getElementById('reviewText');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (selectedRating === 0) {
+            ratingError.style.display = 'block';
+            showToast('Please select a rating before submitting.', 'warning');
+            return;
+        }
+        submitBtn.disabled = true;
+        submitSpinner.classList.remove('d-none');
+
+        // Call backend API
+        const payload = {
+            serviceId: document.getElementById('serviceId').value,
+            serviceType: document.getElementById('serviceType').value,
+            userId: document.getElementById('userId').value,
+            rating: selectedRating,
+            review: document.getElementById('reviewText').value.trim()
+        };
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(r => r.json()).then(data => {
+            if (!data.ok) throw new Error('Failed');
+            submitSpinner.classList.add('d-none');
+            submitBtn.disabled = false;
+            Swal.fire({
+                icon: 'success',
+                title: 'Thank you! 🎉',
+                text: 'Your feedback has been submitted successfully.',
+                confirmButtonColor: '#008000',
+                confirmButtonText: 'Continue'
+            }).then(() => {
+                const svc = encodeURIComponent(document.getElementById('serviceNameDisplay').textContent);
+                const rating = selectedRating;
+                window.location.href = `./confirmation_page.html?context=feedback&service=${svc}&rating=${rating}`;
+            });
+        }).catch(() => {
+            submitSpinner.classList.add('d-none');
+            submitBtn.disabled = false;
+            showToast('Failed to submit feedback. Please try again.', 'danger');
+        });
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+        const hasInput = selectedRating > 0 || (ta.value && ta.value.trim().length > 0);
+        if (!hasInput) {
+            window.location.href = './facility_details.html';
+            return;
+        }
+        Swal.fire({
+            title: 'Discard feedback?',
+            text: 'Your entered rating/comments will be lost.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Discard',
+            cancelButtonText: 'Keep editing'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = './facility_details.html';
+            }
+        });
+    });
+})();
+
+// Table: render stars + filtering + simple sorting
+(function initTable() {
+    // Render star visuals in table
+    document.querySelectorAll('.table-stars').forEach(el => {
+        const r = parseInt(el.getAttribute('data-rating')) || 0;
+        el.innerHTML = Array.from({
+            length: 5
+        }).map((_, i) => `<i class=\"fa-${i<r?'solid':'regular'} fa-star text-warning\"></i>`).join('');
+    });
+
+    const table = document.getElementById('recentFeedbackTable');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const search = document.getElementById('tblSearch');
+    const typeFilter = document.getElementById('typeFilter');
+
+    function applyFilters() {
+        const q = search.value.toLowerCase();
+        const tf = typeFilter.value;
+        rows.forEach(tr => {
+            const service = tr.children[1].textContent.toLowerCase();
+            const type = tr.children[2].textContent;
+            const match = (!q || service.includes(q)) && (!tf || type === tf);
+            tr.style.display = match ? '' : 'none';
+        });
+    }
+    search.addEventListener('input', applyFilters);
+    typeFilter.addEventListener('change', applyFilters);
+
+    // Simple sorting for date/service/type
+    table.querySelectorAll('th[data-sort]').forEach(th => {
+        let asc = true;
+        th.addEventListener('click', () => {
+            const key = th.getAttribute('data-sort');
+            const sorted = rows.slice().sort((a, b) => {
+                if (key === 'date') {
+                    const aVal = a.children[0].getAttribute('data-value');
+                    const bVal = b.children[0].getAttribute('data-value');
+                    return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                if (key === 'service') {
+                    const aVal = a.children[1].textContent.toLowerCase();
+                    const bVal = b.children[1].textContent.toLowerCase();
+                    return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                if (key === 'type') {
+                    const aVal = a.children[2].textContent.toLowerCase();
+                    const bVal = b.children[2].textContent.toLowerCase();
+                    return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                }
+                return 0;
+            });
+            asc = !asc;
+            // re-append
+            sorted.forEach(tr => tbody.appendChild(tr));
+        });
+    });
+})();
+
+// Chart.js - rating distribution
+(function initChart() {
+    const ctx = document.getElementById('ratingChart');
+    const skeleton = document.getElementById('chartSkeleton');
+    setTimeout(() => {
+        skeleton.classList.add('d-none');
+        ctx.classList.remove('d-none');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['1★', '2★', '3★', '4★', '5★'],
+                datasets: [{
+                    label: 'Count',
+                    data: [1, 2, 4, 7, 10],
+                    backgroundColor: ['#CD2026', '#FFA500', '#0099D2', '#008000', '#005400'].map(c => c + 'cc')
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                }
+            }
+        });
+    }, 600);
+})();
+
+// Mark active nav link in sidebar
+(function markActiveNav() {
+    const links = document.querySelectorAll('#ucCitizenNav a.nav-link');
+    links.forEach(a => {
+        if (a.getAttribute('href') && a.getAttribute('href').includes('feedback_form.html')) {
+            a.classList.add('active');
+            a.setAttribute('aria-current', 'page');
+        }
+    });
+})();
+  </script>
+ </body>
+</html>

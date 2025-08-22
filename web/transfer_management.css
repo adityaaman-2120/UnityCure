@@ -1,0 +1,80 @@
+/* transfer_management.css - page specific styles (avoid duplicating global styles) */
+/* Layout helpers to ensure neat spacing on this page */
+#listTabs .nav-link {
+    font-weight: 600
+    }
+#listTabs .badge {
+    font-weight: 600
+    }
+/* Request list item styling */
+.tm-request-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 6px 1fr;
+    align-items: stretch;
+    border-left: none !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease
+    }
+.tm-request-item .tm-left {
+    width: 6px;
+    border-radius: 6px 0 0 6px
+    }
+.tm-request-item .tm-content {
+    padding-left: 10px
+    }
+.tm-request-item:hover {
+    transform: translatey(-2px);
+    box-shadow: var(--uc-shadow-lg)
+    }
+.tm-request-item.tm-selected {
+    outline: 2px solid color-mix(in oklab, var(--uc-color-primary) 50%, white)
+    }
+/* Status stripes */
+.tm-status-pending {
+    background: var(--uc-color-warning)
+    }
+.tm-status-accepted {
+    background: var(--uc-color-primary)
+    }
+.tm-status-inprogress {
+    background: var(--uc-color-info)
+    }
+.tm-status-declined {
+    background: var(--uc-color-error)
+    }
+.tm-status-completed {
+    background: var(--uc-color-neutral)
+    }
+/* Details section visuals */
+#detailsContainer .uc-avatar {
+    box-shadow: var(--uc-shadow-sm)
+    }
+#detailsContainer .uc-timeline .uc-timeline-item {
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--uc-color-border)
+    }
+/* Chart container responsiveness */
+#statusChart {
+    max-height: 240px
+    }
+/* Buttons in footer */
+#acceptBtn[disabled], #declineBtn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed
+    }
+/* Improve form control alignment inside uc-search */
+.uc-search input.form-control {
+    height: auto;
+    padding-top: 0;
+    padding-bottom: 0
+    }
+/* Breadcrumb tweaks */
+.uc-breadcrumbs a {
+    text-decoration: none
+    }
+/* Minor spacing adjustments */
+#paginationInfo {
+    min-height: 24px
+    }

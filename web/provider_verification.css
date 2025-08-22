@@ -1,0 +1,58 @@
+/* Provider Verification - Page-specific Styles */
+:root {
+    /* local accents if needed */
+    }
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Queue table row selection */
+.pv-queue-table tbody tr.active {
+    background: color-mix(in oklab, var(--uc-color-info) 12%, white);
+    border-left: 3px solid var(--uc-color-info)
+    }
+/* Make details action bar sticky within the card body on larger screens */
+@media (min-width: 768px) {
+    .pv-sticky-actions {
+        position: sticky;
+        bottom: 0;
+        background: var(--uc-color-surface);
+        border-top: 1px solid var(--uc-color-border);
+        padding-top: var(--uc-space-3);
+        margin-top: var(--uc-space-4)
+        }
+    }
+/* Document link styling */
+.pv-doc-link {
+    color: var(--uc-color-info)
+    }
+.pv-doc-link:hover {
+    text-decoration: underline
+    }
+/* Sortable header indicator (cursor) */
+th.sortable {
+    user-select: none
+    }
+th.sortable::after {
+    content: "";
+    /* fa-sort */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-left: 6px;
+    color: var(--uc-color-text-muted);
+    opacity: 0.7
+    }
+/* Improve spacing in filter bar */
+.uc-filter-bar .form-select {
+    min-width: 140px
+    }
+/* Chart canvas responsive cap inside card */
+#pendingByTypeChart {
+    max-width: 100%
+    }
+/* Small tweaks for card titles and subtitles alignment */
+.uc-card-title {
+    letter-spacing: 0.2px
+    }
+.uc-card-subtitle {
+    letter-spacing: 0.1px
+    }

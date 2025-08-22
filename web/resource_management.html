@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Provider - Resource Management
+  </title>
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+   <!-- Global Theme CSS -->
+   <link href="style.css" rel="stylesheet">
+    <!-- Page specific CSS -->
+    <link href="resource_management.css" rel="stylesheet"/>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    </script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+    </script>
+    <style>
+     body { font-family: 'Poppins', var(--uc-font-sans); }
+    </style>
+   </link>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#main">
+   Skip to main content
+  </a>
+  <div class="uc-app d-flex flex-column min-vh-100">
+   <!-- Header: Provider Portal Header with Quick Update and Join Session actions -->
+   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+    <div class="container-fluid">
+     <button aria-controls="ucSidebarProvider" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarProvider" data-bs-toggle="offcanvas" type="button">
+      <i class="fa-solid fa-bars">
+      </i>
+     </button>
+     <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+      <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/32/32';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+      <span>
+       UnityCure Provider
+      </span>
+     </a>
+     <button aria-controls="ucNavbarProvider" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarProvider" data-bs-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="ucNavbarProvider">
+      <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" role="search">
+       <input aria-label="Search" class="form-control me-2" placeholder="Search patients, transfers..." type="search"/>
+       <button class="btn btn-outline-light" type="submit">
+        <i class="fa-solid fa-magnifying-glass">
+        </i>
+       </button>
+      </form>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+       <li class="nav-item me-2 d-none d-md-inline">
+        <a class="btn btn-outline-light" href="./resource_management.html">
+         <i class="fa-solid fa-bed-pulse me-1">
+         </i>
+         Quick Update
+        </a>
+       </li>
+       <li class="nav-item me-2 d-none d-md-inline">
+        <a class="btn btn-warning" href="./teleconsult_session.html">
+         <i class="fa-solid fa-video me-1">
+         </i>
+         Join Session
+        </a>
+       </li>
+       <li class="nav-item me-2">
+        <a class="nav-link" href="#" id="notifBell">
+         <i class="fa-regular fa-bell">
+         </i>
+        </a>
+       </li>
+       <li class="nav-item me-2">
+        <a class="nav-link" href="#">
+         <i class="fa-regular fa-envelope">
+         </i>
+        </a>
+       </li>
+       <li class="nav-item dropdown">
+        <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+         <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+          <i class="fa-solid fa-user-doctor">
+          </i>
+         </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+         <li>
+          <h6 class="dropdown-header">
+           Provider
+          </h6>
+         </li>
+         <li>
+          <a class="dropdown-item" href="./admin_dashboard.html">
+           Hospital Dashboard
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="./doctor_schedule.html">
+           My Schedule
+          </a>
+         </li>
+         <li>
+          <hr class="dropdown-divider"/>
+         </li>
+         <li>
+          <a class="dropdown-item" href="./login_page.html">
+           Logout
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </nav>
+   <!-- Sidebar: Provider Portal Sidebar (left offcanvas) -->
+   <div aria-labelledby="ucSidebarProviderLabel" class="offcanvas offcanvas-start" id="ucSidebarProvider" tabindex="-1">
+    <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+     <div class="d-flex align-items-center">
+      <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/36/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+      <h5 class="offcanvas-title" id="ucSidebarProviderLabel">
+       Provider Portal
+      </h5>
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+     </button>
+    </div>
+    <div class="offcanvas-body p-0 d-flex flex-column">
+     <div class="p-3 border-bottom">
+      <div class="d-flex align-items-center">
+       <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+        <i class="fa-solid fa-user-doctor">
+        </i>
+       </div>
+       <div>
+        <div class="fw-semibold">
+         Provider User
+        </div>
+        <div class="text-muted small">
+         Hospital Admin / Doctor
+        </div>
+       </div>
+      </div>
+     </div>
+     <nav class="nav flex-column p-2" id="ucProviderNav">
+      <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#opsGroup" data-bs-toggle="collapse">
+       <i class="fa-solid fa-gauge me-2 text-success">
+       </i>
+       Hospital Operations
+      </button>
+      <div class="collapse show" id="opsGroup">
+       <a class="nav-link ms-4 px-3 py-1" href="./admin_dashboard.html">
+        <i class="fa-solid fa-gauge-high me-2">
+        </i>
+        Dashboard
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./resource_management.html">
+        <i class="fa-solid fa-bed-pulse me-2">
+        </i>
+        Manage Resources
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./transfer_management.html">
+        <i class="fa-solid fa-arrow-right-arrow-left me-2">
+        </i>
+        Transfers
+       </a>
+      </div>
+      <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#doctorGroup" data-bs-toggle="collapse">
+       <i class="fa-solid fa-user-doctor me-2 text-success">
+       </i>
+       Doctor Workspace
+      </button>
+      <div class="collapse show" id="doctorGroup">
+       <a class="nav-link ms-4 px-3 py-1" href="./doctor_schedule.html">
+        <i class="fa-regular fa-calendar-days me-2">
+        </i>
+        My Schedule
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./teleconsult_session.html">
+        <i class="fa-solid fa-video me-2">
+        </i>
+        Teleconsult Sessions
+       </a>
+       <a class="nav-link ms-4 px-3 py-1" href="./prescription_form.html">
+        <i class="fa-solid fa-prescription me-2">
+        </i>
+        E-Prescriptions
+       </a>
+      </div>
+      <hr class="my-2">
+       <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./admin_dashboard.html">
+        <i class="fa-solid fa-gear me-2">
+        </i>
+        Settings
+       </a>
+       <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+        <i class="fa-solid fa-right-from-bracket me-2">
+        </i>
+        Logout
+       </a>
+      </hr>
+     </nav>
+     <div class="mt-auto p-3 small text-muted border-top">
+      <div>
+       © UnityCure
+      </div>
+      <div class="mt-1">
+       <a class="text-decoration-none" href="./platform_admin_dashboard.html">
+        Terms
+       </a>
+       ·
+       <a class="text-decoration-none" href="./user_management.html">
+        Privacy
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+   <style>
+    #ucProviderNav .nav-link{color:#212529}
+      #ucProviderNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+      .btn-toggle{color:#212529}
+      .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+   </style>
+   <!-- Main Content -->
+   <main class="flex-grow-1" id="main">
+    <div class="container-fluid py-3">
+     <!-- Breadcrumbs -->
+     <nav class="uc-breadcrumbs mb-2">
+      <a href="./admin_dashboard.html">
+       Hospital Dashboard
+      </a>
+      <span>
+       /
+      </span>
+      <span>
+       Resource Management
+      </span>
+     </nav>
+     <!-- Page Header Section -->
+     <div class="uc-section">
+      <div class="uc-section-header">
+       <div>
+        <h1 class="uc-page-title m-0">
+         Resource Management
+        </h1>
+        <div class="uc-subtitle mt-1">
+         Update real-time availability of beds, ambulances and keep data fresh for the public.
+        </div>
+       </div>
+       <div class="text-end">
+        <button class="uc-btn uc-btn-info" id="btnRefresh">
+         <i class="fa-solid fa-rotate">
+         </i>
+         Refresh Data
+        </button>
+        <div class="uc-freshness mt-2" id="globalFreshness">
+         Last updated a moment ago
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Dashboard Grid -->
+     <div class="row g-3">
+      <!-- Bed Availability Manager -->
+      <div class="col-12 col-lg-6">
+       <div aria-labelledby="bedManagerTitle" class="uc-card h-100">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title" id="bedManagerTitle">
+           <i class="fa-solid fa-bed-pulse me-2 uc-text-primary">
+           </i>
+           Bed Availability
+          </div>
+          <div class="uc-card-subtitle">
+           Manage ICU and General bed counts
+          </div>
+         </div>
+         <div class="text-end">
+          <span class="uc-freshness" id="bedFreshness">
+           Updated just now
+          </span>
+         </div>
+        </div>
+        <div class="uc-card-body" id="bedCardBody">
+         <div class="row g-3 align-items-end">
+          <div class="col-12 col-sm-6">
+           <label class="uc-label" for="icuBedsInput">
+            Available ICU Beds
+           </label>
+           <input aria-describedby="icuHelp" class="uc-input" id="icuBedsInput" min="0" placeholder="e.g. 5" step="1" type="number"/>
+           <div class="uc-help-text" id="icuHelp">
+            Must be a non-negative integer.
+           </div>
+          </div>
+          <div class="col-12 col-sm-6">
+           <label class="uc-label" for="genBedsInput">
+            Available General Beds
+           </label>
+           <input aria-describedby="genHelp" class="uc-input" id="genBedsInput" min="0" placeholder="e.g. 12" step="1" type="number"/>
+           <div class="uc-help-text" id="genHelp">
+            Must be a non-negative integer.
+           </div>
+          </div>
+          <div class="col-12 d-flex gap-2">
+           <button class="uc-btn uc-btn-primary" disabled="" id="btnUpdateBeds">
+            <span class="me-1" id="bedsBtnIcon">
+             <i class="fa-solid fa-floppy-disk">
+             </i>
+            </span>
+            <span>
+             Update Bed Availability
+            </span>
+           </button>
+           <button class="uc-btn uc-btn-outline" disabled="" id="btnResetBeds">
+            <i class="fa-solid fa-arrow-rotate-left me-1">
+            </i>
+            Reset
+           </button>
+          </div>
+          <div class="col-12">
+           <div class="uc-alert uc-alert-info" role="status">
+            <i class="fa-solid fa-circle-info mt-1">
+            </i>
+            <div>
+             <div class="fw-semibold">
+              Data Freshness
+             </div>
+             <div class="small">
+              Values older than 60 minutes will be flagged as stale. Please keep information up to date.
+             </div>
+            </div>
+            <div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Ambulance Availability Manager -->
+      <div class="col-12 col-lg-6">
+       <div aria-labelledby="ambManagerTitle" class="uc-card h-100">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title" id="ambManagerTitle">
+           <i class="fa-solid fa-truck-medical me-2 uc-text-info">
+           </i>
+           Ambulances
+          </div>
+          <div class="uc-card-subtitle">
+           Manage available ambulances
+          </div>
+         </div>
+         <div class="text-end">
+          <span class="uc-freshness" id="ambFreshness">
+           Updated just now
+          </span>
+         </div>
+        </div>
+        <div class="uc-card-body" id="ambCardBody">
+         <div class="row g-3 align-items-end">
+          <div class="col-12 col-sm-6">
+           <label class="uc-label" for="ambulanceInput">
+            Available Ambulances
+           </label>
+           <input aria-describedby="ambHelp" class="uc-input" id="ambulanceInput" min="0" placeholder="e.g. 2" step="1" type="number"/>
+           <div class="uc-help-text" id="ambHelp">
+            Must be a non-negative integer.
+           </div>
+          </div>
+          <div class="col-12 d-flex gap-2">
+           <button class="uc-btn uc-btn-info" disabled="" id="btnUpdateAmb">
+            <span class="me-1" id="ambBtnIcon">
+             <i class="fa-solid fa-floppy-disk">
+             </i>
+            </span>
+            <span>
+             Update Ambulance Count
+            </span>
+           </button>
+           <button class="uc-btn uc-btn-outline" disabled="" id="btnResetAmb">
+            <i class="fa-solid fa-arrow-rotate-left me-1">
+            </i>
+            Reset
+           </button>
+          </div>
+          <div class="col-12">
+           <div class="uc-alert uc-alert-warning" role="status">
+            <i class="fa-solid fa-triangle-exclamation mt-1">
+            </i>
+            <div>
+             <div class="fw-semibold">
+              Operational Notes
+             </div>
+             <div class="small">
+              Only include ambulances that are staffed and operational.
+             </div>
+            </div>
+            <div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Resource Trends Chart -->
+      <div class="col-12">
+       <div class="uc-card">
+        <div class="uc-card-header">
+         <div class="uc-card-title">
+          <i class="fa-solid fa-chart-line me-2">
+          </i>
+          Resource Trends (Last 24h)
+         </div>
+         <div class="uc-card-subtitle">
+          Interactive chart with hover tooltips
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <canvas aria-label="Resource trend chart" height="110" id="resourceChart" role="img">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <!-- Update Log Table -->
+      <div class="col-12">
+       <div class="uc-card">
+        <div class="uc-card-header">
+         <div>
+          <div class="uc-card-title">
+           <i class="fa-regular fa-clock me-2">
+           </i>
+           Recent Updates Log
+          </div>
+          <div class="uc-card-subtitle">
+           Audit trail of changes
+          </div>
+         </div>
+         <div class="d-flex gap-2">
+          <div class="uc-search" style="min-width: 220px;">
+           <i class="fa-solid fa-magnifying-glass">
+           </i>
+           <input id="logSearch" placeholder="Filter by resource/user..." type="text">
+           </input>
+          </div>
+          <div class="dropdown">
+           <button class="uc-btn uc-btn-ghost dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-filter me-1">
+            </i>
+            Filter
+           </button>
+           <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+             <a class="dropdown-item log-filter" data-filter="all" href="#">
+              All
+             </a>
+            </li>
+            <li>
+             <a class="dropdown-item log-filter" data-filter="Beds" href="#">
+              Beds
+             </a>
+            </li>
+            <li>
+             <a class="dropdown-item log-filter" data-filter="Ambulance" href="#">
+              Ambulance
+             </a>
+            </li>
+           </ul>
+          </div>
+         </div>
+        </div>
+        <div class="uc-card-body">
+         <div class="uc-table-responsive">
+          <table class="uc-table" id="logTable">
+           <thead>
+            <tr>
+             <th class="sortable" data-key="timestamp">
+              Timestamp
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable" data-key="resource">
+              Resource
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable text-end" data-key="prev">
+              Previous Count
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable text-end" data-key="next">
+              New Count
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th class="sortable" data-key="by">
+              Updated By
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+            </tr>
+           </thead>
+           <tbody id="logTbody">
+            <!-- rows injected by JS -->
+           </tbody>
+          </table>
+         </div>
+         <div class="d-flex align-items-center justify-content-between mt-2">
+          <div class="small text-muted" id="paginationInfo">
+           Showing 1-6 of 0
+          </div>
+          <div class="uc-pagination">
+           <button class="uc-page-btn btn" id="prevPage">
+            <i class="fa-solid fa-angle-left">
+            </i>
+           </button>
+           <span class="px-2 small" id="pageIndicator">
+            1
+           </span>
+           <button class="uc-page-btn btn" id="nextPage">
+            <i class="fa-solid fa-angle-right">
+            </i>
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main>
+   <!-- Footer: Provider Portal Footer -->
+   <footer class="border-top py-2" style="background-color:#f8f9fa;">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+     <div class="d-flex align-items-center">
+      <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/20/20';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+      <span class="small text-muted">
+       © UnityCure Provider
+      </span>
+     </div>
+     <div class="d-flex align-items-center gap-3 small">
+      <a class="text-decoration-none" href="./platform_admin_dashboard.html">
+       Terms
+      </a>
+      <a class="text-decoration-none" href="./user_management.html">
+       Privacy
+      </a>
+      <a class="btn btn-sm btn-outline-success" href="./resource_management.html">
+       <i class="fa-solid fa-bed-pulse me-1">
+       </i>
+       Update Beds
+      </a>
+     </div>
+    </div>
+   </footer>
+   <!-- Toast Container -->
+   <div class="uc-toast-container" id="toastContainer">
+   </div>
+  </div>
+  <!-- Bootstrap 5 Bundle JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Mock initial data as if fetched from API
+const state = {
+    hospitalId: 'HSP-001',
+    isLoading: true,
+    error: null,
+    lastUpdated: new Date(Date.now() - 12 * 60 * 1000), // 12 minutes ago
+    beds: {
+        icu: 5,
+        general: 12,
+        lastUpdated: new Date(Date.now() - 12 * 60 * 1000)
+    },
+    ambulances: {
+        available: 2,
+        lastUpdated: new Date(Date.now() - 90 * 60 * 1000) // 90 minutes ago (stale)
+    },
+    logEntries: []
+};
+
+// Sample log entries
+const sampleLog = [{
+    timestamp: Date.now() - 5 * 60 * 1000,
+    resource: 'Beds (ICU)',
+    prev: 4,
+    next: 5,
+    by: 'Admin A'
+}, {
+    timestamp: Date.now() - 12 * 60 * 1000,
+    resource: 'Beds (General)',
+    prev: 10,
+    next: 12,
+    by: 'Admin A'
+}, {
+    timestamp: Date.now() - 65 * 60 * 1000,
+    resource: 'Ambulance',
+    prev: 3,
+    next: 2,
+    by: 'Dispatcher K'
+}, {
+    timestamp: Date.now() - 2 * 60 * 60 * 1000,
+    resource: 'Beds (ICU)',
+    prev: 6,
+    next: 4,
+    by: 'Admin B'
+}, {
+    timestamp: Date.now() - 3 * 60 * 60 * 1000,
+    resource: 'Beds (General)',
+    prev: 15,
+    next: 10,
+    by: 'Admin B'
+}, {
+    timestamp: Date.now() - 5 * 60 * 60 * 1000,
+    resource: 'Ambulance',
+    prev: 2,
+    next: 3,
+    by: 'Dispatcher K'
+}, {
+    timestamp: Date.now() - 7 * 60 * 60 * 1000,
+    resource: 'Beds (General)',
+    prev: 12,
+    next: 15,
+    by: 'Admin C'
+}, {
+    timestamp: Date.now() - 9 * 60 * 60 * 1000,
+    resource: 'Beds (ICU)',
+    prev: 5,
+    next: 6,
+    by: 'Admin C'
+}];
+
+// Utility functions
+function formatRelative(ts) {
+    const now = Date.now();
+    const diffMs = now - (ts instanceof Date ? ts.getTime() : ts);
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 1) return 'Updated just now';
+    if (diffMin < 60) return `Updated ${diffMin} minute${diffMin===1?'':'s'} ago`;
+    const hours = Math.floor(diffMin / 60);
+    return `Updated ${hours} hour${hours===1?'':'s'} ago`;
+}
+
+function setFreshness(el, ts) {
+    el.textContent = formatRelative(ts);
+    const minutes = Math.floor((Date.now() - (ts instanceof Date ? ts.getTime() : ts)) / 60000);
+    el.classList.remove('uc-freshness-stale');
+    el.classList.remove('text-warning', 'text-danger');
+    if (minutes > 60 && minutes <= 120) {
+        el.classList.add('uc-freshness-stale', 'text-warning');
+    } else if (minutes > 120) {
+        el.classList.add('uc-freshness-stale', 'text-danger');
+    }
+}
+
+function showToast(message, variant = 'info') {
+    const cont = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class="fa-solid fa-circle-${variant==='success'?'check':variant==='danger'?'xmark':'info'}"></i><div>${message}</div>`;
+    cont.appendChild(toast);
+    setTimeout(() => cont.removeChild(toast), 3500);
+}
+
+// Page elements
+const icuInput = () => document.getElementById('icuBedsInput');
+const genInput = () => document.getElementById('genBedsInput');
+const ambInput = () => document.getElementById('ambulanceInput');
+const btnUpdateBeds = () => document.getElementById('btnUpdateBeds');
+const btnResetBeds = () => document.getElementById('btnResetBeds');
+const btnUpdateAmb = () => document.getElementById('btnUpdateAmb');
+const btnResetAmb = () => document.getElementById('btnResetAmb');
+
+let initBeds = {
+    icu: 0,
+    general: 0
+};
+let initAmb = {
+    available: 0
+};
+
+function populateInitial() {
+    // Simulate loading
+    setTimeout(() => {
+        state.isLoading = false;
+        state.logEntries = sampleLog.slice();
+        // Populate inputs
+        initBeds.icu = state.beds.icu;
+        initBeds.general = state.beds.general;
+        initAmb.available = state.ambulances.available;
+        icuInput().value = state.beds.icu;
+        genInput().value = state.beds.general;
+        ambInput().value = state.ambulances.available;
+        // Freshness
+        setFreshness(document.getElementById('globalFreshness'), state.lastUpdated);
+        setFreshness(document.getElementById('bedFreshness'), state.beds.lastUpdated);
+        setFreshness(document.getElementById('ambFreshness'), state.ambulances.lastUpdated);
+        // Table render
+        renderLogTable();
+        // Chart render
+        renderChart();
+        // Enable resets as nothing changed yet? Keep disabled until change.
+    }, 600);
+}
+
+// Change detection and validation
+function isNonNegativeInt(val) {
+    return /^\d+$/.test(String(val));
+}
+
+function updateBedsButtons() {
+    const icuVal = icuInput().value.trim();
+    const genVal = genInput().value.trim();
+    const changed = (icuVal !== String(initBeds.icu)) || (genVal !== String(initBeds.general));
+    const valid = isNonNegativeInt(icuVal) && isNonNegativeInt(genVal);
+    btnUpdateBeds().disabled = !(changed && valid);
+    btnResetBeds().disabled = !changed;
+    icuInput().setAttribute('aria-invalid', String(!isNonNegativeInt(icuVal)));
+    genInput().setAttribute('aria-invalid', String(!isNonNegativeInt(genVal)));
+}
+
+function updateAmbButtons() {
+    const ambVal = ambInput().value.trim();
+    const changed = (ambVal !== String(initAmb.available));
+    const valid = isNonNegativeInt(ambVal);
+    btnUpdateAmb().disabled = !(changed && valid);
+    btnResetAmb().disabled = !changed;
+    ambInput().setAttribute('aria-invalid', String(!isNonNegativeInt(ambVal)));
+}
+
+// Update actions with SweetAlert2
+function saveBeds() {
+    const newIcu = parseInt(icuInput().value, 10);
+    const newGen = parseInt(genInput().value, 10);
+    Swal.fire({
+        title: 'Updating bed availability...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    // Simulate API call
+    setTimeout(() => {
+        // Success
+        state.beds.icu = newIcu;
+        state.beds.general = newGen;
+        state.beds.lastUpdated = new Date();
+        state.lastUpdated = new Date();
+        initBeds.icu = newIcu;
+        initBeds.general = newGen;
+        setFreshness(document.getElementById('bedFreshness'), state.beds.lastUpdated);
+        setFreshness(document.getElementById('globalFreshness'), state.lastUpdated);
+        updateBedsButtons();
+        addLog('Beds (ICU)', parseInt(icuInput().value, 10), newIcu, 'Admin A', true, true);
+        addLog('Beds (General)', parseInt(genInput().value, 10), newGen, 'Admin A', true, false);
+        Swal.fire({
+            icon: 'success',
+            title: 'Beds updated successfully',
+            timer: 1400,
+            showConfirmButton: false
+        });
+        showToast('Bed availability updated', 'success');
+    }, 900);
+}
+
+function saveAmb() {
+    const newAmb = parseInt(ambInput().value, 10);
+    Swal.fire({
+        title: 'Updating ambulance count...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    setTimeout(() => {
+        state.ambulances.available = newAmb;
+        state.ambulances.lastUpdated = new Date();
+        state.lastUpdated = new Date();
+        initAmb.available = newAmb;
+        setFreshness(document.getElementById('ambFreshness'), state.ambulances.lastUpdated);
+        setFreshness(document.getElementById('globalFreshness'), state.lastUpdated);
+        updateAmbButtons();
+        addLog('Ambulance', parseInt(ambInput().value, 10), newAmb, 'Dispatcher K', true, false);
+        Swal.fire({
+            icon: 'success',
+            title: 'Ambulance count updated',
+            timer: 1400,
+            showConfirmButton: false
+        });
+        showToast('Ambulance count updated', 'success');
+    }, 900);
+}
+
+function addLog(resource, prev, next, by, rerender = true, prepend = true) {
+    const entry = {
+        timestamp: Date.now(),
+        resource,
+        prev,
+        next,
+        by
+    };
+    if (prepend) {
+        state.logEntries.unshift(entry);
+    } else {
+        state.logEntries.push(entry);
+    }
+    if (rerender) renderLogTable();
+}
+
+// Refresh data simulation
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btnRefresh').addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('Refreshing latest data...', 'info');
+        setTimeout(() => {
+            state.lastUpdated = new Date();
+            setFreshness(document.getElementById('globalFreshness'), state.lastUpdated);
+            Swal.fire({
+                icon: 'success',
+                title: 'Data refreshed',
+                timer: 1200,
+                showConfirmButton: false
+            });
+        }, 700);
+    });
+});
+
+// Table rendering with sorting, filtering, pagination
+let sortState = {
+    key: 'timestamp',
+    dir: 'desc'
+};
+let currentPage = 1;
+const pageSize = 6;
+let activeFilterType = 'all';
+
+function renderLogTable() {
+    const tbody = document.getElementById('logTbody');
+    tbody.innerHTML = '';
+
+    // Filter
+    const searchVal = document.getElementById('logSearch').value?.toLowerCase() || '';
+    let rows = state.logEntries.slice();
+    if (activeFilterType !== 'all') rows = rows.filter(r => r.resource.toLowerCase().includes(activeFilterType.toLowerCase()));
+    if (searchVal) rows = rows.filter(r => `${new Date(r.timestamp).toLocaleString()} ${r.resource} ${r.prev} ${r.next} ${r.by}`.toLowerCase().includes(searchVal));
+
+    // Sort
+    rows.sort((a, b) => {
+        const {
+            key,
+            dir
+        } = sortState;
+        const m = dir === 'asc' ? 1 : -1;
+        if (key === 'timestamp') return (a.timestamp - b.timestamp) * m;
+        if (key === 'resource') return a.resource.localeCompare(b.resource) * m;
+        if (key === 'prev') return (a.prev - b.prev) * m;
+        if (key === 'next') return (a.next - b.next) * m;
+        if (key === 'by') return a.by.localeCompare(b.by) * m;
+        return 0;
+    });
+
+    // Pagination
+    const total = rows.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * pageSize;
+    const pageRows = rows.slice(start, start + pageSize);
+
+    pageRows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${new Date(r.timestamp).toLocaleString()}</td>
+          <td>${r.resource}</td>
+          <td class="text-end">${r.prev}</td>
+          <td class="text-end">${r.next}</td>
+          <td>${r.by}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById('paginationInfo').textContent = `Showing ${total === 0 ? 0 : start+1}-${Math.min(start+pageSize,total)} of ${total}`;
+    document.getElementById('pageIndicator').textContent = `${currentPage}/${totalPages}`;
+}
+
+function attachTableEvents() {
+    document.querySelectorAll('#logTable thead th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.getAttribute('data-key');
+            if (sortState.key === key) {
+                sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortState.key = key;
+                sortState.dir = 'asc';
+            }
+            document.querySelectorAll('#logTable thead th.sortable i').forEach(i => i.className = 'fa-solid fa-sort ms-1');
+            const icon = th.querySelector('i');
+            icon.className = sortState.dir === 'asc' ? 'fa-solid fa-sort-up ms-1' : 'fa-solid fa-sort-down ms-1';
+            renderLogTable();
+        });
+    });
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderLogTable();
+        }
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage++;
+        renderLogTable();
+    });
+    document.getElementById('logSearch').addEventListener('input', () => {
+        currentPage = 1;
+        renderLogTable();
+    });
+    document.querySelectorAll('.log-filter').forEach(a => a.addEventListener('click', (e) => {
+        e.preventDefault();
+        activeFilterType = a.getAttribute('data-filter');
+        currentPage = 1;
+        renderLogTable();
+    }));
+}
+
+// Chart
+let chartInstance = null;
+
+function renderChart() {
+    const ctx = document.getElementById('resourceChart');
+    const labels = [];
+    const icuData = [];
+    const genData = [];
+    const ambData = [];
+    // create 8 data points over last 24h
+    for (let i = 7; i >= 0; i--) {
+        const t = new Date(Date.now() - i * 3 * 60 * 60 * 1000);
+        labels.push(t.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        }));
+        icuData.push(Math.max(0, state.beds.icu + (Math.round(Math.sin(i) * 2))));
+        genData.push(Math.max(0, state.beds.general + (Math.round(Math.cos(i) * 3))));
+        ambData.push(Math.max(0, state.ambulances.available + (i % 3 - 1)));
+    }
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'ICU Beds',
+                data: icuData,
+                borderColor: '#008000',
+                backgroundColor: 'rgba(0,128,0,0.1)',
+                tension: 0.3
+            }, {
+                label: 'General Beds',
+                data: genData,
+                borderColor: '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.1)',
+                tension: 0.3
+            }, {
+                label: 'Ambulances',
+                data: ambData,
+                borderColor: '#CD2026',
+                backgroundColor: 'rgba(205,32,38,0.1)',
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                intersect: false
+            }
+        }
+    });
+    // Adjust canvas parent height for responsiveness
+    ctx.parentElement.style.height = '340px';
+}
+
+// Input listeners
+document.addEventListener('DOMContentLoaded', () => {
+    icuInput().addEventListener('input', updateBedsButtons);
+    genInput().addEventListener('input', updateBedsButtons);
+    ambInput().addEventListener('input', updateAmbButtons);
+    btnUpdateBeds().addEventListener('click', (e) => {
+        e.preventDefault();
+        saveBeds();
+    });
+    btnResetBeds().addEventListener('click', (e) => {
+        e.preventDefault();
+        icuInput().value = initBeds.icu;
+        genInput().value = initBeds.general;
+        updateBedsButtons();
+    });
+    btnUpdateAmb().addEventListener('click', (e) => {
+        e.preventDefault();
+        saveAmb();
+    });
+    btnResetAmb().addEventListener('click', (e) => {
+        e.preventDefault();
+        ambInput().value = initAmb.available;
+        updateAmbButtons();
+    });
+
+    attachTableEvents();
+    populateInitial();
+
+    // Notification bell demo
+    document.getElementById('notifBell').addEventListener('click', (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Notifications',
+            html: '<div class="text-start">No new notifications.</div>',
+            icon: 'info'
+        });
+    });
+});
+  </script>
+ </body>
+</html>

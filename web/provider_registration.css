@@ -1,0 +1,96 @@
+/* Provider Registration - page specific styles */
+/* Use brand font on this page */
+html, body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Stepper */
+.pr-stepper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px
+    }
+.pr-step {
+    position: relative;
+    background: var(--uc-color-surface);
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-md);
+    padding: 10px 12px;
+    font-weight: 600;
+    color: var(--uc-color-text-muted);
+    text-align: left
+    }
+.pr-step::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: transparent;
+    border-bottom-left-radius: var(--uc-radius-md);
+    border-bottom-right-radius: var(--uc-radius-md)
+    }
+.pr-step.completed {
+    color: var(--uc-color-success);
+    border-color: color-mix(in oklab, var(--uc-color-success) 40%, white)
+    }
+.pr-step.completed::after {
+    background: var(--uc-color-success)
+    }
+.pr-step.active {
+    color: var(--uc-color-primary);
+    border-color: var(--uc-color-primary);
+    box-shadow: var(--uc-shadow-sm)
+    }
+.pr-step.active::after {
+    background: var(--uc-color-primary)
+    }
+.pr-step-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin-right: 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    background: color-mix(in oklab, var(--uc-color-info) 16%, white);
+    color: var(--uc-color-info)
+    }
+/* Map sizing */
+#map {
+    height: 360px
+    }
+@media (min-width: 992px) {
+    #map {
+        height: 380px
+        }
+    }
+/* Hero image */
+.pr-hero {
+    height: 240px;
+    object-fit: cover
+    }
+@media (min-width: 992px) {
+    .pr-hero {
+        height: 280px
+        }
+    }
+/* Buttons spacing fine-tuning */
+#btnBack:disabled {
+    opacity: 0.6;
+    cursor: not-allowed
+    }
+/* Toast icons color alignment when used with uc-toast-variant */
+.uc-toast-info i {
+    color: var(--uc-color-info)
+    }
+.uc-toast-success i {
+    color: var(--uc-color-success)
+    }
+.uc-toast-warning i {
+    color: var(--uc-color-warning)
+    }
+.uc-toast-danger i {
+    color: var(--uc-color-error)
+    }

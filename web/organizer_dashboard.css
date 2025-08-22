@@ -1,0 +1,40 @@
+/* organizer_dashboard.css - Page-specific styles for Organizer Dashboard */
+/* Use Poppins as brand typography on this page */
+body {
+    font-family: "Poppins", var(--uc-font-sans), system-ui, sans-serif
+    }
+/* Keep main sections well spaced */
+#mainContent .uc-section {
+    margin-bottom: var(--uc-space-8)
+    }
+/* Ensure chart card body has a sensible height for responsiveness */
+#registrationsChart {
+    min-height: 220px
+    }
+/* Improve alignment for the static sidebar card on large screens */
+@media (min-width: 992px) {
+    aside > .card {
+        position: sticky;
+        top: 84px
+        }
+    }
+/* Make filter bar items wrap nicely on smaller screens */
+.uc-filter-bar {
+    row-gap: 8px
+    }
+/* Table tweaks for tighter look on small screens */
+@media (max-width: 480px) {
+    .uc-table th, .uc-table td {
+        padding: 10px
+        }
+    }
+/* Buttons in action group: keep icons centered */
+.btn-group .btn i {
+    width: 14px;
+    text-align: center
+    }
+/* Toast placement spacing on this page */
+.uc-toast-container {
+    right: 20px;
+    bottom: 20px
+    }

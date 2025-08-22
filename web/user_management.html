@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice — User Management
+  </title>
+  <!-- Brand typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-Sl1f6pZrGG2unC5Vlz2lqk5C9w6CR5+5nC6Rj0xQd2dQp7W7sqa2uX9l8m9bVvlhYdQfB5nV0wQ3zQv8Q3G1Zg==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Global theme -->
+   <link href="style.css" rel="stylesheet">
+    <!-- Page-specific CSS (preferred) -->
+    <link href="user_management.css" rel="stylesheet"/>
+    <!-- Note: Some instructions suggest using <style rel="stylesheet" href="user_management.css">, but link rel is the correct way to include external CSS. -->
+    <style>
+     /* Fallback if page CSS file isn't loaded for any reason */
+    </style>
+   </link>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (included on admin pages) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" title="Inbox">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (offcanvas) - included for backoffice pages like User Management -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="container-fluid py-3" id="mainContent">
+   <!-- Page header -->
+   <div class="uc-section-header mb-3">
+    <div>
+     <div class="uc-breadcrumbs mb-1">
+      <a href="./platform_admin_dashboard.html">
+       Admin
+      </a>
+      <span>
+       /
+      </span>
+      <span>
+       User Management
+      </span>
+     </div>
+     <h1 class="uc-page-title m-0">
+      User Management
+     </h1>
+     <div class="uc-text-muted">
+      Manage all platform accounts, roles, and access.
+     </div>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+     <button class="btn btn-outline-success" id="btnExportCsv">
+      <i class="fa-solid fa-file-csv me-1">
+      </i>
+      Export CSV
+     </button>
+     <button class="btn uc-btn uc-btn-primary" id="btnAddUser">
+      <i class="fa-solid fa-user-plus me-2">
+      </i>
+      Add User
+     </button>
+    </div>
+   </div>
+   <!-- Metrics & Snapshot -->
+   <div class="row g-3 mb-3">
+    <div class="col-6 col-lg-3">
+     <div class="uc-stat-card">
+      <div class="uc-stat-icon">
+       <i class="fa-solid fa-users">
+       </i>
+      </div>
+      <div>
+       <div class="uc-stat-title">
+        Total Users
+       </div>
+       <div class="uc-stat-value" id="metricTotal">
+        0
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="col-6 col-lg-3">
+     <div class="uc-stat-card">
+      <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-success) 10%, white); color: var(--uc-color-success)">
+       <i class="fa-solid fa-user-check">
+       </i>
+      </div>
+      <div>
+       <div class="uc-stat-title">
+        Active
+       </div>
+       <div class="uc-stat-value" id="metricActive">
+        0
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="col-6 col-lg-3">
+     <div class="uc-stat-card">
+      <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-warning) 12%, white); color: var(--uc-color-warning)">
+       <i class="fa-solid fa-user-clock">
+       </i>
+      </div>
+      <div>
+       <div class="uc-stat-title">
+        Pending
+       </div>
+       <div class="uc-stat-value" id="metricPending">
+        0
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="col-6 col-lg-3">
+     <div class="uc-stat-card">
+      <div class="uc-stat-icon" style="background: color-mix(in oklab, var(--uc-color-error) 10%, white); color: var(--uc-color-error)">
+       <i class="fa-solid fa-user-slash">
+       </i>
+      </div>
+      <div>
+       <div class="uc-stat-title">
+        Suspended
+       </div>
+       <div class="uc-stat-value" id="metricSuspended">
+        0
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-5">
+     <div class="uc-card h-100">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Users by Role
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <canvas aria-label="Chart showing distribution of users by role" height="200" id="roleChart" role="img">
+       </canvas>
+      </div>
+     </div>
+    </div>
+    <div class="col-12 col-lg-7">
+     <div class="uc-card h-100">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Security Reminders
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <ul class="uc-list m-0">
+        <li class="uc-list-item">
+         <span>
+          Use role-based access control (RBAC) consistently across all new users.
+         </span>
+         <span class="uc-badge uc-badge-info">
+          <i class="fa-solid fa-shield">
+          </i>
+          RBAC
+         </span>
+        </li>
+        <li class="uc-list-item">
+         <span>
+          Enforce strong passwords and mandatory email verification for new accounts.
+         </span>
+         <span class="uc-badge uc-badge-warning">
+          <i class="fa-solid fa-key">
+          </i>
+          Policy
+         </span>
+        </li>
+        <li class="uc-list-item">
+         <span>
+          Audit admin activity logs weekly for unusual behavior.
+         </span>
+         <span class="uc-badge uc-badge-primary">
+          <i class="fa-solid fa-file-shield">
+          </i>
+          Audit
+         </span>
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- Filter Bar -->
+   <div class="uc-filter-bar mb-3" id="filterBar">
+    <div class="uc-search flex-grow-1" style="max-width:520px">
+     <i class="fa-solid fa-magnifying-glass text-muted">
+     </i>
+     <input aria-label="Search users" id="searchInput" placeholder="Search by name, email or user ID..." type="search">
+     </input>
+    </div>
+    <select aria-label="Filter by role" class="form-select form-select-sm" id="roleFilter" style="width:220px">
+     <option selected="" value="All">
+      All Roles
+     </option>
+    </select>
+    <select aria-label="Filter by status" class="form-select form-select-sm" id="statusFilter" style="width:220px">
+     <option selected="" value="All">
+      All Statuses
+     </option>
+    </select>
+    <button class="btn btn-outline-secondary btn-sm" id="btnResetFilters">
+     <i class="fa-solid fa-rotate">
+     </i>
+     Reset
+    </button>
+   </div>
+   <!-- User Table -->
+   <div class="uc-card">
+    <div class="uc-card-body p-0">
+     <div class="uc-table-responsive">
+      <table class="uc-table mb-0" id="userTable">
+       <thead>
+        <tr>
+         <th class="sortable" data-sort="id">
+          User ID
+          <i class="sort-ind fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th class="sortable" data-sort="name">
+          Name
+          <i class="sort-ind fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th class="sortable" data-sort="email">
+          Email
+          <i class="sort-ind fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th class="sortable" data-sort="role">
+          Role
+          <i class="sort-ind fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th>
+          Facility
+         </th>
+         <th class="sortable" data-sort="status">
+          Status
+          <i class="sort-ind fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th class="sortable" data-sort="lastLogin">
+          Last Login
+          <i class="sort-ind fa-solid fa-sort ms-1">
+          </i>
+         </th>
+         <th class="text-end">
+          Actions
+         </th>
+        </tr>
+       </thead>
+       <tbody id="userTbody">
+        <!-- Rows rendered by JS -->
+       </tbody>
+      </table>
+     </div>
+     <!-- Empty state -->
+     <div class="text-center p-4 d-none" id="emptyState">
+      <img alt="No users found" class="mx-auto d-block mb-3" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-users/800/400';" src="assets/illustration_for_empty_user_li_1_7213e667.png" style="max-width:480px"/>
+      <h5 class="mb-1">
+       No users found
+      </h5>
+      <p class="text-muted mb-0">
+       Try adjusting your filters or search term.
+      </p>
+     </div>
+    </div>
+    <div class="uc-card-footer d-flex flex-wrap align-items-center justify-content-between gap-2">
+     <div class="text-muted small" id="paginationInfo">
+      Showing 0–0 of 0
+     </div>
+     <nav aria-label="User table pagination">
+      <ul class="uc-pagination mb-0" id="pagination">
+       <!-- Pagination buttons rendered by JS -->
+      </ul>
+     </nav>
+    </div>
+   </div>
+   <!-- Loading overlay -->
+   <div class="position-fixed top-0 start-0 w-100 h-100 d-none" id="loadingOverlay" style="background:rgba(255,255,255,0.6); z-index:1050;">
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+     <div aria-hidden="true" class="spinner-border text-success" role="status">
+     </div>
+     <div class="mt-2 text-success fw-semibold">
+      Loading...
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer (included on admin pages) -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Backoffice
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Add/Edit User Modal (Bootstrap) -->
+  <div aria-hidden="true" aria-labelledby="addEditUserLabel" class="modal fade" id="addEditUserModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content uc-card">
+     <div class="modal-header uc-card-header">
+      <h5 class="modal-title uc-card-title" id="addEditUserLabel">
+       Add User
+      </h5>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+      </button>
+     </div>
+     <div class="modal-body uc-card-body">
+      <form id="userForm" novalidate="">
+       <input id="formMode" type="hidden" value="add"/>
+       <input id="editingUserId" type="hidden"/>
+       <div class="row g-3">
+        <div class="col-md-6">
+         <label class="form-label uc-label" for="fullName">
+          Full Name
+          <span class="text-danger">
+           *
+          </span>
+         </label>
+         <input class="form-control uc-input" id="fullName" placeholder="Enter full name" required="" type="text"/>
+         <div class="invalid-feedback">
+          Please enter a name.
+         </div>
+        </div>
+        <div class="col-md-6">
+         <label class="form-label uc-label" for="email">
+          Email
+          <span class="text-danger">
+           *
+          </span>
+         </label>
+         <input class="form-control uc-input" id="email" placeholder="name@domain.com" required="" type="email"/>
+         <div class="invalid-feedback">
+          Please enter a valid email.
+         </div>
+        </div>
+        <div class="col-md-4">
+         <label class="form-label uc-label" for="role">
+          Role
+          <span class="text-danger">
+           *
+          </span>
+         </label>
+         <select class="form-select uc-select" id="role" required="">
+         </select>
+         <div class="invalid-feedback">
+          Select a role.
+         </div>
+        </div>
+        <div class="col-md-4">
+         <label class="form-label uc-label" for="status">
+          Status
+          <span class="text-danger">
+           *
+          </span>
+         </label>
+         <select class="form-select uc-select" id="status" required="">
+         </select>
+         <div class="invalid-feedback">
+          Select a status.
+         </div>
+        </div>
+        <div class="col-md-4 d-none" id="facilityWrap">
+         <label class="form-label uc-label" for="facility">
+          Associated Facility
+         </label>
+         <select class="form-select uc-select" id="facility">
+         </select>
+        </div>
+        <div class="col-md-6" id="passwordWrap">
+         <label class="form-label uc-label" for="password">
+          Password
+          <span class="text-danger">
+           *
+          </span>
+         </label>
+         <input class="form-control uc-input" id="password" minlength="8" placeholder="Min 8 characters" type="password"/>
+         <div class="form-text">
+          At least 8 characters with letters and numbers.
+         </div>
+         <div class="invalid-feedback">
+          Password must be at least 8 characters.
+         </div>
+        </div>
+        <div class="col-md-6" id="confirmWrap">
+         <label class="form-label uc-label" for="confirmPassword">
+          Confirm Password
+          <span class="text-danger">
+           *
+          </span>
+         </label>
+         <input class="form-control uc-input" id="confirmPassword" placeholder="Re-enter password" type="password"/>
+         <div class="invalid-feedback">
+          Passwords must match.
+         </div>
+        </div>
+       </div>
+      </form>
+     </div>
+     <div class="modal-footer uc-card-footer">
+      <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+       Cancel
+      </button>
+      <button class="btn btn-success" id="btnSaveUser" type="button">
+       <i class="fa-solid fa-floppy-disk me-1">
+       </i>
+       <span id="btnSaveUserLabel">
+        Create User
+       </span>
+      </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Toast container -->
+  <div class="uc-toast-container" id="ucToastContainer">
+  </div>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <!-- Bootstrap JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Brand font
+document.documentElement.style.setProperty('--brand-font', 'Poppins, var(--uc-font-sans)');
+
+// Mock data and state
+const ROLES = ["Platform Admin", "Hospital Admin", "Doctor", "Patient", "Dispatcher", "NGO Organizer"];
+const STATUSES = ["Active", "Suspended", "Pending"];
+const FACILITIES = [
+    "Kolkata Medical College", "Apollo Gleneagles", "Fortis Anandapur", "AMRI Dhakuria", "Narayana Superspeciality", "Mission NGO Kolkata"
+];
+
+const currentUserEmail = 'admin@unitycure.org';
+const currentUserRole = 'Platform Admin';
+
+let users = [{
+    id: 'U-1001',
+    name: 'Ananya Sen',
+    email: 'ananya.sen@apollokolkata.in',
+    role: 'Doctor',
+    facility: 'Apollo Gleneagles',
+    status: 'Active',
+    lastLogin: '2025-08-18T09:42:00+05:30'
+}, {
+    id: 'U-1002',
+    name: 'Rohit Sharma',
+    email: 'rohit.sharma@kolmed.edu',
+    role: 'Hospital Admin',
+    facility: 'Kolkata Medical College',
+    status: 'Active',
+    lastLogin: '2025-08-19T14:05:00+05:30'
+}, {
+    id: 'U-1003',
+    name: 'Priya Verma',
+    email: 'priya.verma@example.com',
+    role: 'Patient',
+    facility: '',
+    status: 'Pending',
+    lastLogin: '2025-08-17T18:22:00+05:30'
+}, {
+    id: 'U-1004',
+    name: 'Suresh Das',
+    email: 'suresh.das@amri.in',
+    role: 'Dispatcher',
+    facility: 'AMRI Dhakuria',
+    status: 'Active',
+    lastLogin: '2025-08-20T08:10:00+05:30'
+}, {
+    id: 'U-1005',
+    name: 'Meera Iyer',
+    email: 'meera.iyer@fortis.in',
+    role: 'Doctor',
+    facility: 'Fortis Anandapur',
+    status: 'Suspended',
+    lastLogin: '2025-08-15T11:50:00+05:30'
+}, {
+    id: 'U-1006',
+    name: 'Rahul Gupta',
+    email: 'rahul.gupta@narayana.in',
+    role: 'Doctor',
+    facility: 'Narayana Superspeciality',
+    status: 'Active',
+    lastLogin: '2025-08-19T21:12:00+05:30'
+}, {
+    id: 'U-1007',
+    name: 'Kavita Roy',
+    email: 'kavita.roy@missionngo.org',
+    role: 'NGO Organizer',
+    facility: 'Mission NGO Kolkata',
+    status: 'Active',
+    lastLogin: '2025-08-18T16:37:00+05:30'
+}, {
+    id: 'U-1008',
+    name: 'Arjun Mehta',
+    email: 'arjun.mehta@example.com',
+    role: 'Patient',
+    facility: '',
+    status: 'Active',
+    lastLogin: '2025-08-13T07:05:00+05:30'
+}, {
+    id: 'U-1009',
+    name: 'Admin User',
+    email: currentUserEmail,
+    role: 'Platform Admin',
+    facility: '',
+    status: 'Active',
+    lastLogin: '2025-08-20T09:10:00+05:30'
+}, {
+    id: 'U-1010',
+    name: 'Hospital Admin 2',
+    email: 'ha2@amri.in',
+    role: 'Hospital Admin',
+    facility: 'AMRI Dhakuria',
+    status: 'Pending',
+    lastLogin: '2025-08-12T15:19:00+05:30'
+}];
+
+let filters = {
+    search: '',
+    role: 'All',
+    status: 'All'
+};
+let sortColumn = 'name';
+let sortDirection = 'asc';
+const PAGE_SIZE = 8;
+let currentPage = 1;
+
+// Elements
+const roleFilterEl = document.getElementById('roleFilter');
+const statusFilterEl = document.getElementById('statusFilter');
+const searchInputEl = document.getElementById('searchInput');
+const tbodyEl = document.getElementById('userTbody');
+const emptyStateEl = document.getElementById('emptyState');
+const paginationEl = document.getElementById('pagination');
+const paginationInfoEl = document.getElementById('paginationInfo');
+const loadingOverlay = document.getElementById('loadingOverlay');
+
+const metricTotalEl = document.getElementById('metricTotal');
+const metricActiveEl = document.getElementById('metricActive');
+const metricPendingEl = document.getElementById('metricPending');
+const metricSuspendedEl = document.getElementById('metricSuspended');
+
+const btnAddUser = document.getElementById('btnAddUser');
+const btnExportCsv = document.getElementById('btnExportCsv');
+
+// Modal elements
+const addEditModal = new bootstrap.Modal(document.getElementById('addEditUserModal'));
+const formEl = document.getElementById('userForm');
+const formModeEl = document.getElementById('formMode');
+const editingUserIdEl = document.getElementById('editingUserId');
+
+const fullNameEl = document.getElementById('fullName');
+const emailEl = document.getElementById('email');
+const roleEl = document.getElementById('role');
+const statusEl = document.getElementById('status');
+const facilityWrapEl = document.getElementById('facilityWrap');
+const facilityEl = document.getElementById('facility');
+const passwordWrapEl = document.getElementById('passwordWrap');
+const confirmWrapEl = document.getElementById('confirmWrap');
+const passwordEl = document.getElementById('password');
+const confirmPasswordEl = document.getElementById('confirmPassword');
+const btnSaveUser = document.getElementById('btnSaveUser');
+const btnSaveUserLabel = document.getElementById('btnSaveUserLabel');
+
+let roleChart;
+
+// Utils
+function showLoading(show = true) {
+    loadingOverlay.classList.toggle('d-none', !show);
+}
+
+function showToast(message, type = 'info') {
+    const container = document.getElementById('ucToastContainer');
+    const id = 'toast_' + Math.random().toString(36).slice(2);
+    const variantClass = {
+        info: 'uc-toast-info',
+        success: 'uc-toast-success',
+        warning: 'uc-toast-warning',
+        danger: 'uc-toast-danger'
+    } [type] || 'uc-toast-info';
+    const icon = {
+        info: 'fa-circle-info',
+        success: 'fa-circle-check',
+        warning: 'fa-triangle-exclamation',
+        danger: 'fa-circle-exclamation'
+    } [type] || 'fa-circle-info';
+    const toast = document.createElement('div');
+    toast.className = `uc-toast ${variantClass}`;
+    toast.id = id;
+    toast.innerHTML = `<i class="fa-solid ${icon}"></i><div>${message}</div>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(12px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+function formatDateTime(iso) {
+    if (!iso) return '-';
+    try {
+        const d = new Date(iso);
+        return new Intl.DateTimeFormat('en-IN', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+            timeZone: 'Asia/Kolkata'
+        }).format(d);
+    } catch (_) {
+        return iso;
+    }
+}
+
+function debounce(fn, delay = 300) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
+    };
+}
+
+function computeRoleCounts(list) {
+    const counts = {};
+    ROLES.forEach(r => counts[r] = 0);
+    list.forEach(u => {
+        if (counts[u.role] !== undefined) counts[u.role]++;
+    });
+    return counts;
+}
+
+function updateChart() {
+    const counts = computeRoleCounts(users);
+    const labels = Object.keys(counts);
+    const data = Object.values(counts);
+    const colors = [
+        '#008000', '#0099D2', '#FFA500', '#CD2026', '#6C757D', '#00C2C2'
+    ];
+    const ctx = document.getElementById('roleChart');
+    if (roleChart) {
+        roleChart.destroy();
+    }
+    roleChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels,
+            datasets: [{
+                data,
+                backgroundColor: colors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            cutout: '60%'
+        }
+    });
+}
+
+function populateFilters() {
+    // Role filter options
+    ROLES.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r;
+        opt.textContent = r;
+        roleFilterEl.appendChild(opt);
+        const opt2 = document.createElement('option');
+        opt2.value = r;
+        opt2.textContent = r;
+        roleEl.appendChild(opt2);
+    });
+    // Status options
+    STATUSES.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        statusFilterEl.appendChild(opt);
+        const opt2 = document.createElement('option');
+        opt2.value = s;
+        opt2.textContent = s;
+        statusEl.appendChild(opt2);
+    });
+    // Facilities
+    FACILITIES.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f;
+        opt.textContent = f;
+        facilityEl.appendChild(opt);
+    });
+}
+
+function roleNeedsFacility(role) {
+    return ['Doctor', 'Hospital Admin', 'Dispatcher'].includes(role);
+}
+
+function applyFilters(list) {
+    let result = list.slice();
+    const s = filters.search.trim().toLowerCase();
+    if (s) {
+        result = result.filter(u => (u.name + u.email + u.id).toLowerCase().includes(s));
+    }
+    if (filters.role !== 'All') {
+        result = result.filter(u => u.role === filters.role);
+    }
+    if (filters.status !== 'All') {
+        result = result.filter(u => u.status === filters.status);
+    }
+    return result;
+}
+
+function applySort(list) {
+    const dir = sortDirection === 'asc' ? 1 : -1;
+    const col = sortColumn;
+    return list.sort((a, b) => {
+        let av = a[col] ?? '',
+            bv = b[col] ?? '';
+        if (col === 'lastLogin') {
+            av = av ? new Date(av).getTime() : 0;
+            bv = bv ? new Date(bv).getTime() : 0;
+        } else {
+            av = ('' + av).toLowerCase();
+            bv = ('' + bv).toLowerCase();
+        }
+        if (av > bv) return dir;
+        if (av < bv) return -dir;
+        return 0;
+    });
+}
+
+function paginate(list) {
+    const total = list.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = Math.min(start + PAGE_SIZE, total);
+    return {
+        pageItems: list.slice(start, end),
+        total,
+        totalPages,
+        start: start + 1,
+        end
+    };
+}
+
+function renderTable() {
+    showLoading(false);
+    const filtered = applyFilters(users);
+    const sorted = applySort(filtered);
+    const {
+        pageItems,
+        total,
+        totalPages,
+        start,
+        end
+    } = paginate(sorted);
+
+    tbodyEl.innerHTML = '';
+    if (pageItems.length === 0) {
+        emptyStateEl.classList.remove('d-none');
+    } else {
+        emptyStateEl.classList.add('d-none');
+        for (const u of pageItems) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${u.id}</td>
+            <td><div class="d-flex align-items-center gap-2"><div class="uc-avatar uc-avatar-sm">${(u.name||'?').charAt(0)}</div><div>${u.name}</div></div></td>
+            <td><a href="mailto:${u.email}" class="text-info text-decoration-none">${u.email}</a></td>
+            <td><span class="uc-badge role-badge role-${u.role.replace(/\s+/g,'-').toLowerCase()}"><i class="fa-solid fa-user-gear me-1"></i>${u.role}</span></td>
+            <td>${u.facility || '-'}</td>
+            <td>${renderStatusBadge(u.status)}</td>
+            <td>${formatDateTime(u.lastLogin)}</td>
+            <td class="text-end">
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><button class="dropdown-item btn-edit" data-id="${u.id}"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</button></li>
+                  <li><button class="dropdown-item btn-reset" data-id="${u.id}" ${u.email===currentUserEmail ? 'disabled' : ''}><i class="fa-solid fa-unlock-keyhole me-2"></i>Reset Password</button></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><button class="dropdown-item btn-suspend text-${u.status==='Suspended'?'success':'danger'}" data-id="${u.id}" ${u.email===currentUserEmail ? 'disabled' : ''}>
+                    <i class="fa-solid ${u.status==='Suspended'?'fa-user-check':'fa-user-slash'} me-2"></i>${u.status==='Suspended'?'Activate':'Suspend'}</button></li>
+                </ul>
+              </div>
+            </td>`;
+            tbodyEl.appendChild(tr);
+        }
+    }
+
+    paginationInfoEl.textContent = `Showing ${total?start:0}–${total?end:0} of ${total}`;
+    renderPagination(totalPages);
+    attachRowEvents();
+    updateMetrics();
+}
+
+function renderStatusBadge(status) {
+    const map = {
+        'Active': '<span class="uc-badge status-active"><span class="uc-dot uc-dot-success"></span> Active</span>',
+        'Pending': '<span class="uc-badge status-pending"><span class="uc-dot uc-dot-warning"></span> Pending</span>',
+        'Suspended': '<span class="uc-badge status-suspended"><span class="uc-dot uc-dot-danger"></span> Suspended</span>'
+    };
+    return map[status] || status;
+}
+
+function renderPagination(totalPages) {
+    paginationEl.innerHTML = '';
+    const makeBtn = (label, page, disabled = false, current = false) => {
+        const li = document.createElement('li');
+        li.className = 'page-item';
+        const a = document.createElement('button');
+        a.className = 'uc-page-btn btn btn-sm';
+        a.textContent = label;
+        a.disabled = disabled;
+        a.setAttribute('aria-current', current ? 'true' : 'false');
+        a.addEventListener('click', () => {
+            currentPage = page;
+            renderTable();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        li.appendChild(a);
+        return li;
+    };
+    paginationEl.appendChild(makeBtn('«', Math.max(1, currentPage - 1), currentPage === 1));
+    for (let p = 1; p <= totalPages; p++) {
+        paginationEl.appendChild(makeBtn(String(p), p, false, p === currentPage));
+    }
+    paginationEl.appendChild(makeBtn('»', Math.min(totalPages, currentPage + 1), currentPage === totalPages));
+}
+
+function attachRowEvents() {
+    document.querySelectorAll('.btn-edit').forEach(btn => btn.addEventListener('click', e => {
+        const id = e.currentTarget.getAttribute('data-id');
+        openEditUserModal(id);
+    }));
+    document.querySelectorAll('.btn-suspend').forEach(btn => btn.addEventListener('click', e => {
+        const id = e.currentTarget.getAttribute('data-id');
+        toggleSuspendUser(id);
+    }));
+    document.querySelectorAll('.btn-reset').forEach(btn => btn.addEventListener('click', e => {
+        const id = e.currentTarget.getAttribute('data-id');
+        resetPassword(id);
+    }));
+}
+
+function updateMetrics() {
+    const total = users.length;
+    const active = users.filter(u => u.status === 'Active').length;
+    const pending = users.filter(u => u.status === 'Pending').length;
+    const suspended = users.filter(u => u.status === 'Suspended').length;
+    metricTotalEl.textContent = total;
+    metricActiveEl.textContent = active;
+    metricPendingEl.textContent = pending;
+    metricSuspendedEl.textContent = suspended;
+    updateChart();
+}
+
+// Actions
+function openAddUserModal() {
+    formModeEl.value = 'add';
+    editingUserIdEl.value = '';
+    document.getElementById('addEditUserLabel').textContent = 'Add User';
+    btnSaveUserLabel.textContent = 'Create User';
+    fullNameEl.value = '';
+    emailEl.value = '';
+    roleEl.value = ROLES[0];
+    statusEl.value = 'Pending';
+    facilityEl.value = '';
+    passwordEl.value = '';
+    confirmPasswordEl.value = '';
+    passwordWrapEl.classList.remove('d-none');
+    confirmWrapEl.classList.remove('d-none');
+    toggleFacilityVisibility();
+    addEditModal.show();
+}
+
+function openEditUserModal(id) {
+    const u = users.find(x => x.id === id);
+    if (!u) return;
+    formModeEl.value = 'edit';
+    editingUserIdEl.value = id;
+    document.getElementById('addEditUserLabel').textContent = 'Edit User';
+    btnSaveUserLabel.textContent = 'Save Changes';
+    fullNameEl.value = u.name;
+    emailEl.value = u.email;
+    roleEl.value = u.role;
+    statusEl.value = u.status;
+    facilityEl.value = u.facility || '';
+    passwordEl.value = '';
+    confirmPasswordEl.value = '';
+    passwordWrapEl.classList.add('d-none');
+    confirmWrapEl.classList.add('d-none');
+    toggleFacilityVisibility();
+    addEditModal.show();
+}
+
+function toggleFacilityVisibility() {
+    const need = roleNeedsFacility(roleEl.value);
+    facilityWrapEl.classList.toggle('d-none', !need);
+    if (!need) {
+        facilityEl.value = '';
+    }
+}
+
+function validateForm() {
+    let valid = true;
+    formEl.classList.add('was-validated');
+    if (!fullNameEl.value.trim()) valid = false;
+    if (!emailEl.value.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailEl.value)) valid = false;
+    if (!roleEl.value) valid = false;
+    if (!statusEl.value) valid = false;
+    if (formModeEl.value === 'add') {
+        if (passwordEl.value.length < 8) valid = false;
+        if (confirmPasswordEl.value !== passwordEl.value) valid = false;
+    }
+    return valid;
+}
+
+function emailExists(email, excludeId) {
+    return users.some(u => u.email.toLowerCase() === email.toLowerCase() && u.id !== excludeId);
+}
+
+function saveUser() {
+    if (!validateForm()) {
+        showToast('Please fix the errors in the form.', 'warning');
+        return;
+    }
+    const mode = formModeEl.value;
+    const data = {
+        name: fullNameEl.value.trim(),
+        email: emailEl.value.trim(),
+        role: roleEl.value,
+        status: statusEl.value,
+        facility: roleNeedsFacility(roleEl.value) ? (facilityEl.value || '') : ''
+    };
+    // Email uniqueness
+    if (mode === 'add' && emailExists(data.email)) {
+        showToast('Email already exists. Please use a different email.', 'danger');
+        return;
+    }
+    if (mode === 'edit' && emailExists(data.email, editingUserIdEl.value)) {
+        showToast('Email already exists for another user.', 'danger');
+        return;
+    }
+
+    if (mode === 'add') {
+        const newId = 'U-' + (Math.max(...users.map(u => parseInt(u.id.split('-')[1], 10))) + 1);
+        const newUser = {
+            id: newId,
+            ...data,
+            lastLogin: null
+        };
+        users.unshift(newUser);
+        showToast('User created successfully.', 'success');
+    } else {
+        const id = editingUserIdEl.value;
+        const idx = users.findIndex(u => u.id === id);
+        if (idx > -1) {
+            users[idx] = {
+                ...users[idx],
+                ...data
+            };
+        }
+        showToast('User updated successfully.', 'success');
+    }
+    addEditModal.hide();
+    formEl.classList.remove('was-validated');
+    currentPage = 1; // go to first page to see new user
+    renderTable();
+}
+
+function toggleSuspendUser(id) {
+    const u = users.find(x => x.id === id);
+    if (!u) return;
+    const willSuspend = u.status !== 'Suspended';
+    Swal.fire({
+        title: willSuspend ? 'Suspend user?' : 'Activate user?',
+        text: willSuspend ? 'The user will lose access until reactivated.' : 'The user will regain access immediately.',
+        icon: willSuspend ? 'warning' : 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#008000',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: willSuspend ? 'Yes, suspend' : 'Yes, activate'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            u.status = willSuspend ? 'Suspended' : 'Active';
+            showToast(`User ${willSuspend?'suspended':'activated'} successfully.`, 'success');
+            renderTable();
+        }
+    });
+}
+
+function resetPassword(id) {
+    const u = users.find(x => x.id === id);
+    if (!u) return;
+    Swal.fire({
+        title: 'Reset password?',
+        text: `Send a password reset email to ${u.email}?`,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#008000',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Send Reset Link'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showToast('Password reset email sent.', 'info');
+        }
+    });
+}
+
+function exportCsv() {
+    const header = ['User ID', 'Name', 'Email', 'Role', 'Facility', 'Status', 'Last Login'];
+    const rows = users.map(u => [
+        u.id, u.name, u.email, u.role, (u.facility || ''), u.status, formatDateTime(u.lastLogin)
+    ]);
+    const csv = [header, ...rows].map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n');
+    const blob = new Blob([csv], {
+        type: 'text/csv;charset=utf-8;'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'unitycure_users.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// Event bindings
+function bindEvents() {
+    roleFilterEl.addEventListener('change', () => {
+        filters.role = roleFilterEl.value;
+        currentPage = 1;
+        renderTable();
+    });
+    statusFilterEl.addEventListener('change', () => {
+        filters.status = statusFilterEl.value;
+        currentPage = 1;
+        renderTable();
+    });
+    searchInputEl.addEventListener('input', debounce(() => {
+        filters.search = searchInputEl.value;
+        currentPage = 1;
+        renderTable();
+    }, 300));
+    document.getElementById('btnResetFilters').addEventListener('click', () => {
+        filters = {
+            search: '',
+            role: 'All',
+            status: 'All'
+        };
+        roleFilterEl.value = 'All';
+        statusFilterEl.value = 'All';
+        searchInputEl.value = '';
+        currentPage = 1;
+        renderTable();
+    });
+
+    document.querySelectorAll('#userTable thead th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.getAttribute('data-sort');
+            if (sortColumn === key) {
+                sortDirection = (sortDirection === 'asc' ? 'desc' : 'asc');
+            } else {
+                sortColumn = key;
+                sortDirection = 'asc';
+            }
+            // update icons
+            document.querySelectorAll('#userTable thead th.sortable .sort-ind').forEach(i => i.className = 'sort-ind fa-solid fa-sort ms-1');
+            const icon = th.querySelector('.sort-ind');
+            icon.className = 'sort-ind fa-solid ' + (sortDirection === 'asc' ? 'fa-sort-up' : 'fa-sort-down') + ' ms-1';
+            renderTable();
+        });
+    });
+
+    btnAddUser.addEventListener('click', () => {
+        if (currentUserRole !== 'Platform Admin') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Insufficient permissions',
+                text: 'Only Platform Admin can add users.'
+            });
+            return;
+        }
+        openAddUserModal();
+    });
+
+    roleEl.addEventListener('change', toggleFacilityVisibility);
+    btnSaveUser.addEventListener('click', saveUser);
+    btnExportCsv.addEventListener('click', exportCsv);
+}
+
+// Init
+function init() {
+    document.body.style.fontFamily = 'Poppins, var(--uc-font-sans)';
+    showLoading(true);
+    populateFilters();
+    updateChart();
+    bindEvents();
+    setTimeout(() => {
+        renderTable();
+    }, 300); // simulate fetch delay
+}
+
+document.addEventListener('DOMContentLoaded', init);
+  </script>
+ </body>
+</html>

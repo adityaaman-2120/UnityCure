@@ -1,0 +1,42 @@
+/* prescription_form.css - Page specific styles for E-Prescription Form */
+/* Typography override for this page to use Poppins */
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Sticky action footer that stays above the site footer */
+.uc-action-footer {
+    position: sticky;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: saturate(1.2) blur(6px)
+    }
+/* Medication row visuals */
+.med-row {
+    background: var(--uc-color-surface)
+    }
+.med-row .remove-med {
+    opacity: 0.8
+    }
+.med-row:hover {
+    box-shadow: var(--uc-shadow-sm)
+    }
+/* Preview area styled like an A4 sheet */
+.preview-a4 {
+    background: #fff;
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-md)
+    }
+.preview-a4 .table > :not(caption) > * > * {
+    padding: 8px
+    }
+/* Right column table adjustments */
+#historyTbody tr td {
+    vertical-align: middle
+    }
+/* Responsive tweaks */
+@media (max-width: 767.98px) {
+    .uc-action-footer .container-fluid {
+        padding-left: 12px;
+        padding-right: 12px
+        }
+    }

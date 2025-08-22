@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Backoffice • Organizer Dashboard
+  </title>
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+   <!-- SweetAlert2 -->
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Global Style Theme -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="organizer_dashboard.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Backoffice Header with Global Search) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarBackoffice" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarBackoffice" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./platform_admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Backoffice
+     </span>
+    </a>
+    <button aria-controls="ucNavbarBackoffice" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarBackoffice" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarBackoffice">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" onsubmit="event.preventDefault();handleGlobalSearch();" role="search">
+      <input aria-label="Search" class="form-control me-2" id="globalSearch" placeholder="Search providers, users, reports..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" onclick="showNotifications()">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" onclick="showInbox()">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-gear">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Backoffice
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./platform_admin_dashboard.html">
+          Admin Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./organizer_dashboard.html">
+          Organizer Dashboard
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Backoffice Sidebar) -->
+  <div aria-labelledby="ucSidebarBackofficeLabel" class="offcanvas offcanvas-start" id="ucSidebarBackoffice" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarBackofficeLabel">
+      Backoffice
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-users-gear">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Admin/Organizer
+       </div>
+       <div class="text-muted small">
+        Backoffice
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucBackofficeNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#platformGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-chart-line me-2 text-success">
+      </i>
+      Platform Admin
+     </button>
+     <div class="collapse show" id="platformGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./platform_admin_dashboard.html">
+       <i class="fa-solid fa-chart-line me-2">
+       </i>
+       Admin Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./provider_verification.html">
+       <i class="fa-solid fa-user-check me-2">
+       </i>
+       Provider Verification
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./report_moderation.html">
+       <i class="fa-solid fa-shield-heart me-2">
+       </i>
+       Report Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_moderation.html">
+       <i class="fa-solid fa-bullhorn me-2">
+       </i>
+       Campaign Moderation
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./user_management.html">
+       <i class="fa-solid fa-users-gear me-2">
+       </i>
+       User Management
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#organizerGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-clipboard-list me-2 text-success">
+      </i>
+      Organizer Tools
+     </button>
+     <div class="collapse show" id="organizerGroup">
+      <a class="nav-link ms-4 px-3 py-1 uc-sidebar-link-active" href="./organizer_dashboard.html">
+       <i class="fa-solid fa-clipboard-list me-2">
+       </i>
+       Organizer Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_form.html">
+       <i class="fa-solid fa-plus me-2">
+       </i>
+       Create Campaign
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucBackofficeNav .nav-link{color:#212529}
+    #ucBackofficeNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <!-- Main Layout -->
+  <div class="container-fluid py-3">
+   <div class="row g-3">
+    <!-- Static sidebar placeholder for large screens -->
+    <aside class="col-lg-3 d-none d-lg-block">
+     <div class="card shadow-sm">
+      <div class="card-header bg-white fw-semibold">
+       <i class="fa-solid fa-sitemap text-success me-2">
+       </i>
+       Navigation
+      </div>
+      <div class="list-group list-group-flush">
+       <a class="list-group-item list-group-item-action" href="./organizer_dashboard.html">
+        <i class="fa-solid fa-clipboard-list me-2 text-success">
+        </i>
+        Organizer Dashboard
+       </a>
+       <a class="list-group-item list-group-item-action" href="./campaign_form.html">
+        <i class="fa-solid fa-plus me-2 text-success">
+        </i>
+        Create Campaign
+       </a>
+       <div class="list-group-item small text-muted">
+        Use the menu button on mobile to open full menu.
+       </div>
+      </div>
+     </div>
+    </aside>
+    <main class="col-12 col-lg-9" id="mainContent">
+     <!-- Dashboard Header -->
+     <section class="uc-section">
+      <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+       <div>
+        <h1 class="uc-page-title m-0">
+         Organizer Campaign Dashboard
+        </h1>
+        <div class="uc-text-muted">
+         Welcome,
+         <span id="organizerName">
+          Kolkata Health NGO
+         </span>
+        </div>
+       </div>
+       <div class="d-flex gap-2">
+        <a class="btn btn-success d-inline-flex align-items-center" href="./campaign_form.html" id="btnCreateCampaign">
+         <i class="fa-solid fa-plus me-2">
+         </i>
+         Create New Campaign
+        </a>
+        <button class="btn btn-outline-success d-inline-flex align-items-center" id="btnImportCsv" type="button">
+         <i class="fa-solid fa-file-arrow-up me-2">
+         </i>
+         Import CSV
+        </button>
+       </div>
+      </div>
+     </section>
+     <!-- Summary Metrics -->
+     <section class="uc-section">
+      <div class="row g-3" id="summaryLoading">
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-skeleton" style="height:96px">
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-skeleton" style="height:96px">
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-skeleton" style="height:96px">
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-skeleton" style="height:96px">
+        </div>
+       </div>
+      </div>
+      <div class="row g-3 d-none" id="summaryRow">
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-bolt">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Active Campaigns
+          </div>
+          <div class="uc-stat-value" id="statActive">
+           –
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-hourglass-half">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Pending Approval
+          </div>
+          <div class="uc-stat-value" id="statPending">
+           –
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-user-check">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Total Registrations
+          </div>
+          <div class="uc-stat-value" id="statRegistrations">
+           –
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-xl-3">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-calendar-days">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Upcoming Events
+          </div>
+          <div class="uc-stat-value" id="statUpcoming">
+           –
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Trend Chart -->
+     <section class="uc-section">
+      <div class="uc-card">
+       <div class="uc-card-header">
+        <div>
+         <div class="uc-card-title">
+          Registrations (Last 8 Weeks)
+         </div>
+         <div class="uc-card-subtitle">
+          Track weekly sign-ups across all campaigns
+         </div>
+        </div>
+        <div class="uc-freshness" id="chartFreshness">
+         Last updated just now
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <canvas aria-label="Registrations over time" height="110" id="registrationsChart" role="img">
+        </canvas>
+       </div>
+      </div>
+     </section>
+     <!-- Campaigns List -->
+     <section class="uc-section">
+      <div class="uc-card">
+       <div class="uc-card-header">
+        <div class="uc-card-title">
+         Your Campaigns
+        </div>
+        <div class="uc-card-subtitle">
+         Filter, sort, and manage campaigns
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <!-- Filters -->
+        <div class="uc-filter-bar mb-3">
+         <div class="input-group input-group-sm" style="max-width: 340px;">
+          <span class="input-group-text bg-white">
+           <i class="fa-solid fa-magnifying-glass">
+           </i>
+          </span>
+          <input class="form-control" id="searchInput" placeholder="Search campaign name..." type="text">
+          </input>
+         </div>
+         <div class="ms-auto d-flex flex-wrap gap-2">
+          <select class="form-select form-select-sm" id="statusFilter" style="min-width: 200px;">
+           <option value="All">
+            All Statuses
+           </option>
+           <option value="Active">
+            Active
+           </option>
+           <option value="Draft">
+            Draft
+           </option>
+           <option value="Pending Approval">
+            Pending Approval
+           </option>
+           <option value="Completed">
+            Completed
+           </option>
+           <option value="Rejected">
+            Rejected
+           </option>
+          </select>
+          <select class="form-select form-select-sm" id="sortSelect" style="min-width: 180px;">
+           <option value="date_desc">
+            Date: Newest First
+           </option>
+           <option value="date_asc">
+            Date: Oldest First
+           </option>
+           <option value="name_asc">
+            Name: A → Z
+           </option>
+           <option value="name_desc">
+            Name: Z → A
+           </option>
+          </select>
+         </div>
+        </div>
+        <!-- Table Responsive Wrapper -->
+        <div class="uc-table-responsive">
+         <table class="uc-table" id="campaignsTable">
+          <thead>
+           <tr>
+            <th>
+             Campaign
+            </th>
+            <th>
+             Status
+            </th>
+            <th>
+             Event Date &amp; Time
+            </th>
+            <th>
+             Registrations
+            </th>
+            <th>
+             Capacity
+            </th>
+            <th>
+             Actions
+            </th>
+           </tr>
+          </thead>
+          <tbody id="campaignsTbody">
+           <!-- Rows injected by JS -->
+          </tbody>
+         </table>
+        </div>
+        <!-- Pagination -->
+        <div class="d-flex align-items-center justify-content-between mt-3">
+         <div class="small text-muted" id="paginationInfo">
+          Showing 1–5 of 0
+         </div>
+         <nav aria-label="Campaigns pagination">
+          <ul class="pagination pagination-sm mb-0" id="pagination">
+           <!-- Pagination items injected by JS -->
+          </ul>
+         </nav>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Feedback/Notifications Area -->
+     <div class="uc-toast-container" id="toastContainer">
+     </div>
+    </main>
+   </div>
+  </div>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Backoffice
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./campaign_form.html">
+      <i class="fa-solid fa-plus me-1">
+      </i>
+      New Campaign
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Dependencies: Bootstrap, SweetAlert2, Chart.js -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Page Data (Mock)
+const campaignsData = [{
+    id: 101,
+    name: 'Monsoon Vaccination Camp - Behala',
+    status: 'Active',
+    eventDate: '2025-08-25T10:00:00+05:30',
+    registeredCount: 142,
+    capacity: 200
+}, {
+    id: 102,
+    name: 'Dengue Awareness Drive - Salt Lake',
+    status: 'Pending Approval',
+    eventDate: '2025-09-05T09:00:00+05:30',
+    registeredCount: 35,
+    capacity: 150
+}, {
+    id: 103,
+    name: 'Blood Donation Marathon - Park Street',
+    status: 'Completed',
+    eventDate: '2025-07-20T08:00:00+05:30',
+    registeredCount: 320,
+    capacity: 300
+}, {
+    id: 104,
+    name: 'Polio Booster Camp - Howrah',
+    status: 'Draft',
+    eventDate: '2025-10-02T11:30:00+05:30',
+    registeredCount: 0,
+    capacity: 180
+}, {
+    id: 105,
+    name: 'Free Eye Check-up - Dum Dum',
+    status: 'Active',
+    eventDate: '2025-08-28T14:00:00+05:30',
+    registeredCount: 88,
+    capacity: 120
+}, {
+    id: 106,
+    name: 'Women Health & Hygiene Workshop - Jadavpur',
+    status: 'Rejected',
+    eventDate: '2025-08-12T16:00:00+05:30',
+    registeredCount: 12,
+    capacity: 100
+}, {
+    id: 107,
+    name: 'Mobile Clinic - New Town',
+    status: 'Active',
+    eventDate: '2025-08-26T12:30:00+05:30',
+    registeredCount: 60,
+    capacity: 90
+}, {
+    id: 108,
+    name: 'Senior Citizens Wellness Camp - Ballygunge',
+    status: 'Completed',
+    eventDate: '2025-06-15T10:00:00+05:30',
+    registeredCount: 210,
+    capacity: 200
+}, ];
+
+// State
+let filtered = [...campaignsData];
+let currentPage = 1;
+const pageSize = 5;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Simulate loading summaries
+    setTimeout(() => {
+        populateSummary();
+        document.getElementById('summaryLoading').classList.add('d-none');
+        document.getElementById('summaryRow').classList.remove('d-none');
+    }, 600);
+
+    initChart();
+    bindFilters();
+    render();
+
+    welcomeToast('Welcome back! Manage your campaigns from here.');
+});
+
+function populateSummary() {
+    const active = campaignsData.filter(c => c.status === 'Active').length;
+    const pending = campaignsData.filter(c => c.status === 'Pending Approval').length;
+    const registrations = campaignsData.reduce((acc, c) => acc + c.registeredCount, 0);
+    const now = new Date();
+    const upcoming = campaignsData.filter(c => new Date(c.eventDate) > now).length;
+    document.getElementById('statActive').textContent = active;
+    document.getElementById('statPending').textContent = pending;
+    document.getElementById('statRegistrations').textContent = registrations.toLocaleString();
+    document.getElementById('statUpcoming').textContent = upcoming;
+}
+
+function initChart() {
+    const ctx = document.getElementById('registrationsChart');
+    const labels = Array.from({
+        length: 8
+    }, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - (7 * (7 - i)));
+        return d.toLocaleDateString(undefined, {
+            month: 'short',
+            day: '2-digit'
+        });
+    });
+    const data = [54, 88, 96, 120, 110, 134, 148, 162];
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'Registrations',
+                data,
+                borderColor: '#0099D2',
+                backgroundColor: 'rgba(0,153,210,0.15)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 3,
+                pointHoverRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    });
+}
+
+function bindFilters() {
+    document.getElementById('statusFilter').addEventListener('change', applyFilters);
+    document.getElementById('sortSelect').addEventListener('change', applyFilters);
+    document.getElementById('searchInput').addEventListener('input', debounce(applyFilters, 200));
+
+    document.getElementById('btnImportCsv').addEventListener('click', () => {
+        Swal.fire({
+            title: 'Import CSV',
+            text: 'Bulk import of campaigns will be available soon.',
+            icon: 'info',
+            confirmButtonColor: '#008000'
+        });
+    });
+}
+
+function applyFilters() {
+    const status = document.getElementById('statusFilter').value;
+    const sort = document.getElementById('sortSelect').value;
+    const term = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    filtered = campaignsData.filter(c => {
+        const statusOk = status === 'All' ? true : c.status === status;
+        const searchOk = term.length === 0 ? true : c.name.toLowerCase().includes(term);
+        return statusOk && searchOk;
+    });
+
+    if (sort === 'date_desc') filtered.sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
+    if (sort === 'date_asc') filtered.sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+    if (sort === 'name_asc') filtered.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'name_desc') filtered.sort((a, b) => b.name.localeCompare(a.name));
+
+    currentPage = 1;
+    render();
+}
+
+function render() {
+    renderTable();
+    renderPagination();
+}
+
+function renderTable() {
+    const tbody = document.getElementById('campaignsTbody');
+    tbody.innerHTML = '';
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = filtered.slice(start, start + pageSize);
+
+    if (pageItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">No campaigns match your filters.</td></tr>`;
+    }
+
+    pageItems.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <a class="text-decoration-none uc-text-info" href="./campaign_details.html" data-id="${c.id}"><i class="fa-solid fa-bullhorn me-2"></i>${escapeHtml(c.name)}</a>
+          </td>
+          <td>${renderStatusBadge(c.status)}</td>
+          <td>${formatDateTime(c.eventDate)}</td>
+          <td>${c.registeredCount.toLocaleString()}</td>
+          <td>${renderCapacity(c.registeredCount, c.capacity)}</td>
+          <td>${renderActions(c)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    const total = filtered.length;
+    const showingFrom = total === 0 ? 0 : (start + 1);
+    const showingTo = Math.min(start + pageSize, total);
+    document.getElementById('paginationInfo').textContent = `Showing ${showingFrom}–${showingTo} of ${total}`;
+}
+
+function renderStatusBadge(status) {
+    const map = {
+        'Active': 'uc-badge uc-badge-success',
+        'Pending Approval': 'uc-badge uc-badge-warning',
+        'Completed': 'uc-badge uc-badge-info',
+        'Draft': 'uc-badge',
+        'Rejected': 'uc-badge uc-badge-danger'
+    };
+    const cls = map[status] || 'uc-badge';
+    return `<span class="${cls}"><i class="fa-solid fa-circle-dot"></i> ${status}</span>`;
+}
+
+function renderCapacity(registered, capacity) {
+    const percent = Math.min(100, Math.round((registered / Math.max(capacity, 1)) * 100));
+    return `
+        <div class="d-flex flex-column" style="min-width:160px;">
+          <div class="d-flex justify-content-between small mb-1"><span>${registered.toLocaleString()} / ${capacity.toLocaleString()} Registered</span><span>${percent}%</span></div>
+          <div class="uc-progress"><div class="uc-progress-bar" style="width:${percent}%"></div></div>
+        </div>
+      `;
+}
+
+function renderActions(c) {
+    const canEdit = (c.status === 'Draft' || c.status === 'Rejected');
+    const isEventDay = isSameDay(new Date(c.eventDate), new Date());
+    return `
+        <div class="btn-group btn-group-sm" role="group">
+          <a href="./campaign_form.html" class="btn btn-outline-secondary" ${canEdit ? '' : 'aria-disabled="true" tabindex="-1"'} title="Edit campaign"><i class="fa-regular fa-pen-to-square"></i></a>
+          <button class="btn btn-outline-primary" type="button" title="View registrants" onclick="viewRegistrants(${c.id})"><i class="fa-solid fa-users"></i></button>
+          <button class="btn btn-outline-success" type="button" title="Manage attendance" ${isEventDay ? '' : 'disabled'} onclick="manageAttendance(${c.id})"><i class="fa-solid fa-clipboard-check"></i></button>
+        </div>
+      `;
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+    const ul = document.getElementById('pagination');
+    ul.innerHTML = '';
+
+    const prev = document.createElement('li');
+    prev.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+    prev.innerHTML = `<a class="page-link" href="#" tabindex="${currentPage===1?'-1':'0'}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+    prev.onclick = (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            render();
+        }
+    };
+    ul.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement('li');
+        li.className = 'page-item' + (i === currentPage ? ' active' : '');
+        li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        li.onclick = (e) => {
+            e.preventDefault();
+            currentPage = i;
+            render();
+        };
+        ul.appendChild(li);
+    }
+
+    const next = document.createElement('li');
+    next.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+    next.innerHTML = `<a class="page-link" href="#" tabindex="${currentPage===totalPages?'-1':'0'}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+    next.onclick = (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            currentPage++;
+            render();
+        }
+    };
+    ul.appendChild(next);
+}
+
+// Utilities
+function formatDateTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleString(undefined, {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+    });
+}
+
+function isSameDay(a, b) {
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+function escapeHtml(str) {
+    return str.replace(/[&<>"]+/g, s => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;'
+    } [s]));
+}
+
+function debounce(fn, delay) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// Actions
+function viewRegistrants(id) {
+    const c = campaignsData.find(x => x.id === id);
+    Swal.fire({
+        title: 'Registrants',
+        html: `<div class="text-start">\n          <div class="mb-2"><strong>${escapeHtml(c.name)}</strong></div>\n          <div class="mb-1">Registered: <strong>${c.registeredCount.toLocaleString()}</strong></div>\n          <div>Capacity: <strong>${c.capacity.toLocaleString()}</strong></div>\n          <hr class="my-2"/>\n          <div class="small text-muted">Detailed registrant list will be available in the next update.</div>\n        </div>`,
+        icon: 'info',
+        confirmButtonColor: '#008000'
+    });
+}
+
+function manageAttendance(id) {
+    Swal.fire({
+        title: 'Manage Attendance',
+        text: 'Opening attendance panel for campaign #' + id,
+        icon: 'success',
+        confirmButtonColor: '#008000'
+    });
+}
+
+function welcomeToast(message) {
+    const container = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = 'uc-toast uc-toast-info';
+    el.innerHTML = `<i class="fa-solid fa-circle-info text-info"></i><div>${message}</div>`;
+    container.appendChild(el);
+    setTimeout(() => {
+        el.remove();
+    }, 3500);
+}
+
+function handleGlobalSearch() {
+    const q = document.getElementById('globalSearch').value.trim();
+    if (!q) return;
+    Swal.fire({
+        title: 'Search',
+        text: `Searching for "${q}"...`,
+        icon: 'info',
+        timer: 1200,
+        showConfirmButton: false
+    });
+}
+
+function showNotifications() {
+    Swal.fire({
+        title: 'Notifications',
+        text: 'No new notifications',
+        icon: 'info',
+        confirmButtonColor: '#008000'
+    });
+}
+
+function showInbox() {
+    Swal.fire({
+        title: 'Inbox',
+        text: 'Your inbox is empty',
+        icon: 'info',
+        confirmButtonColor: '#008000'
+    });
+}
+  </script>
+ </body>
+</html>

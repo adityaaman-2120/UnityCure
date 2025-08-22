@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure — Facility Details
+  </title>
+  <!-- Brand Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-aC0j5jQx3o+q7p3u8P7QnqQO+Q0rVbkg6sM7G0b9r9E7WqG2aYfA4+Q+eD5D8bQkY3qfBA9pUu0R7i/5xX2zNw==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Global Theme CSS -->
+   <link href="style.css" rel="stylesheet">
+    <!-- Page-specific CSS -->
+    <link href="facility_details.css" rel="stylesheet"/>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    </script>
+    <!-- Chart.js for simple visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+    </script>
+    <style>
+     /* Ensure Poppins is applied site-wide */
+    body { font-family: 'Poppins', var(--uc-font-sans), sans-serif; }
+    </style>
+   </link>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Citizen/Community Header) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Offcanvas Left) -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="pt-3 pb-5" id="mainContent">
+   <!-- Facility Hero/Header -->
+   <section class="position-relative uc-section">
+    <div class="facility-hero ratio ratio-21x9">
+     <img alt="Facility" class="w-100 h-100 object-fit-cover" id="facilityHeroImg" onerror="this.onerror=null;this.src='https://picsum.photos/seed/facilityhero/1280/480';" src="assets/facility_hero_image_2_6439d482.jpg"/>
+    </div>
+    <div class="container position-relative">
+     <div class="uc-card hero-card p-3 p-md-4 mt-n5 mx-auto">
+      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+       <div>
+        <h1 class="uc-h1 m-0" id="facilityName">
+         Loading Facility…
+        </h1>
+        <p class="m-0 mt-1 text-muted" id="facilityTypeLine">
+         <span id="facilityType">
+          —
+         </span>
+         <span class="badge bg-success ms-2 d-none" data-bs-title="Verified facility" data-bs-toggle="tooltip" id="verifiedBadge">
+          <i class="fa-solid fa-circle-check me-1">
+          </i>
+          Verified
+         </span>
+        </p>
+       </div>
+       <div class="text-md-end">
+        <div class="uc-freshness" id="freshnessIndicator">
+         Last updated —
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Primary Info: Address, Actions -->
+   <section class="container uc-section">
+    <div class="row g-3">
+     <div class="col-12 col-lg-8">
+      <div class="uc-card">
+       <div class="uc-card-body">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+         <div>
+          <div class="d-flex align-items-start gap-2">
+           <i class="fa-solid fa-location-dot text-danger mt-1">
+           </i>
+           <p class="mb-1" id="facilityAddress">
+            Fetching address…
+           </p>
+          </div>
+          <div class="d-flex align-items-center gap-2 small text-muted">
+           <i class="fa-solid fa-globe">
+           </i>
+           <a class="text-decoration-none" href="#" id="facilityWebsite" rel="noopener" target="_blank">
+            Website
+           </a>
+          </div>
+         </div>
+         <div class="d-flex flex-wrap gap-2">
+          <button class="uc-directions-button" disabled="" id="btnDirections">
+           <i class="fa-solid fa-route">
+           </i>
+           Get Directions
+          </button>
+          <a aria-disabled="true" class="uc-call-button disabled" href="#" id="btnCall" role="button">
+           <i class="fa-solid fa-phone">
+           </i>
+           Call Now
+          </a>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col-12 col-lg-4">
+      <div class="uc-card h-100">
+       <div class="uc-card-body">
+        <h3 class="uc-h3">
+         Availability (Live)
+        </h3>
+        <div class="row g-2" id="resourceGrid">
+         <!-- Resource cards injected here -->
+         <div class="col-12">
+          <div class="uc-skeleton" style="height:56px">
+          </div>
+         </div>
+         <div class="col-12">
+          <div class="uc-skeleton" style="height:56px">
+          </div>
+         </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mt-3">
+         <small class="uc-freshness" id="resourcesTimestamp">
+          Last updated —
+         </small>
+         <button class="btn btn-sm btn-outline-primary" id="btnRefreshResources">
+          <i class="fa-solid fa-rotate">
+          </i>
+          Refresh
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Simple Visualization: 24h trend -->
+   <section class="container uc-section">
+    <div class="uc-card">
+     <div class="uc-card-header">
+      <div class="uc-card-title">
+       Last 24h Resource Trend
+      </div>
+      <div class="uc-card-subtitle">
+       ICU vs General Beds (sample)
+      </div>
+     </div>
+     <div class="uc-card-body">
+      <canvas aria-label="Resource trends over last 24 hours" height="120" id="trendChart" role="img">
+      </canvas>
+     </div>
+    </div>
+   </section>
+   <!-- Tabs: Services, Doctors, Reviews -->
+   <section class="container uc-section">
+    <ul class="nav nav-tabs" id="facilityTabs" role="tablist">
+     <li class="nav-item" role="presentation">
+      <button aria-controls="services" aria-selected="true" class="nav-link active" data-bs-target="#services" data-bs-toggle="tab" id="services-tab" role="tab" type="button">
+       <i class="fa-solid fa-stethoscope me-1">
+       </i>
+       Services
+      </button>
+     </li>
+     <li class="nav-item" role="presentation">
+      <button aria-controls="doctors" aria-selected="false" class="nav-link" data-bs-target="#doctors" data-bs-toggle="tab" id="doctors-tab" role="tab" type="button">
+       <i class="fa-solid fa-user-doctor me-1">
+       </i>
+       Doctors
+      </button>
+     </li>
+     <li class="nav-item" role="presentation">
+      <button aria-controls="reviews" aria-selected="false" class="nav-link" data-bs-target="#reviews" data-bs-toggle="tab" id="reviews-tab" role="tab" type="button">
+       <i class="fa-regular fa-star me-1">
+       </i>
+       Reviews
+      </button>
+     </li>
+    </ul>
+    <div class="tab-content uc-card uc-card-body" id="facilityTabsContent">
+     <!-- Services Panel -->
+     <div aria-labelledby="services-tab" class="tab-pane fade show active" id="services" role="tabpanel" tabindex="0">
+      <div class="services-bg rounded p-3 p-md-4">
+       <p class="text-muted mb-2">
+        Specializations &amp; Services
+       </p>
+       <div class="d-flex flex-wrap gap-2" id="servicesChips">
+        <span class="uc-chip">
+         Loading…
+        </span>
+       </div>
+      </div>
+     </div>
+     <!-- Doctors Panel -->
+     <div aria-labelledby="doctors-tab" class="tab-pane fade" id="doctors" role="tabpanel" tabindex="0">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+       <div class="input-group w-auto">
+        <span class="input-group-text">
+         <i class="fa-solid fa-magnifying-glass">
+         </i>
+        </span>
+        <input class="form-control" id="searchDoctor" placeholder="Search doctors by name or specialty" type="text">
+        </input>
+       </div>
+       <a class="btn btn-outline-primary btn-sm" href="./appointment_booking.html" id="viewAllSlots">
+        <i class="fa-regular fa-calendar">
+        </i>
+        View All Slots
+       </a>
+      </div>
+      <div class="row g-3" id="doctorsGrid">
+       <!-- DoctorProfileCards injected here -->
+       <div class="col-12 col-md-6 col-lg-4">
+        <div class="uc-skeleton" style="height:220px">
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-lg-4">
+        <div class="uc-skeleton" style="height:220px">
+        </div>
+       </div>
+       <div class="col-12 col-md-6 col-lg-4">
+        <div class="uc-skeleton" style="height:220px">
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Reviews Panel -->
+     <div aria-labelledby="reviews-tab" class="tab-pane fade" id="reviews" role="tabpanel" tabindex="0">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+       <div class="d-flex align-items-center gap-2" id="ratingSummary">
+        <span class="display-6 m-0" id="avgRating">
+         —
+        </span>
+        <div class="text-muted">
+         avg rating
+         <br/>
+         <span id="totalReviews">
+          — reviews
+         </span>
+        </div>
+       </div>
+       <div class="d-flex flex-wrap gap-2">
+        <select class="form-select form-select-sm" id="filterStars">
+         <option value="0">
+          All ratings
+         </option>
+         <option value="5">
+          5 stars
+         </option>
+         <option value="4">
+          4+ stars
+         </option>
+         <option value="3">
+          3+ stars
+         </option>
+        </select>
+        <select class="form-select form-select-sm" id="sortOrder">
+         <option value="recent">
+          Most recent
+         </option>
+         <option value="rating_desc">
+          Highest rated
+         </option>
+         <option value="rating_asc">
+          Lowest rated
+         </option>
+        </select>
+       </div>
+      </div>
+      <ul class="uc-list" id="reviewsList">
+       <!-- ReviewItem rows injected here -->
+       <li class="uc-list-item">
+        <div class="uc-skeleton" style="height:54px;width:100%">
+        </div>
+       </li>
+       <li class="uc-list-item">
+        <div class="uc-skeleton" style="height:54px;width:100%">
+        </div>
+       </li>
+       <li class="uc-list-item">
+        <div class="uc-skeleton" style="height:54px;width:100%">
+        </div>
+       </li>
+      </ul>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+       <small class="text-muted" id="paginationInfo">
+        —
+       </small>
+       <nav aria-label="Reviews pages" class="uc-pagination">
+        <button class="uc-page-btn btn btn-sm btn-light" id="prevPage">
+         Prev
+        </button>
+        <span aria-current="true" class="uc-page-btn" id="pageIndicator">
+         1
+        </span>
+        <button class="uc-page-btn btn btn-sm btn-light" id="nextPage">
+         Next
+        </button>
+       </nav>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Primary Action Buttons (sticky on mobile) -->
+   <section class="primary-action-bar border-top">
+    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 py-2">
+     <div class="d-flex align-items-center gap-2 text-muted small">
+      <i class="fa-solid fa-circle-info">
+      </i>
+      <span>
+       Have your reports ready for quicker check-in.
+      </span>
+     </div>
+     <div class="d-flex gap-2">
+      <a class="btn uc-btn uc-btn-primary" href="./appointment_booking.html" id="ctaBook">
+       <i class="fa-regular fa-calendar-check">
+       </i>
+       Book Appointment
+      </a>
+      <button class="btn uc-btn uc-btn-info" id="ctaTransfer">
+       <i class="fa-solid fa-ambulance">
+       </i>
+       Request Transfer
+      </button>
+     </div>
+    </div>
+   </section>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-warning d-lg-none" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1">
+      </i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Bootstrap 5 JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Utility: show toast
+function showToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class="fa-solid fa-circle-${variant === 'info' ? 'info' : variant === 'success' ? 'check' : variant === 'warning' ? 'exclamation' : 'xmark'}"></i><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+}
+
+function formatDate(d) {
+    const dt = new Date(d);
+    return dt.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit'
+    });
+}
+
+function minsDiffFromNow(iso) {
+    const then = new Date(iso).getTime();
+    const now = Date.now();
+    return Math.round((now - then) / 60000);
+}
+
+function updateFreshness(el, iso, thresholdMins = 60) {
+    const mins = minsDiffFromNow(iso);
+    el.textContent = `Last updated ${mins} min${mins === 1 ? '' : 's'} ago`;
+    if (mins > thresholdMins) {
+        el.classList.add('uc-freshness-stale');
+        el.textContent = `Stale Data: updated ${mins} mins ago`;
+    } else {
+        el.classList.remove('uc-freshness-stale');
+    }
+}
+
+// Mocked data fallback (when API not reachable)
+const mockFacility = {
+    id: 'kol-hosp-001',
+    name: 'Calcutta Heart & Multi-Specialty Hospital',
+    type: 'Multi-Specialty Hospital',
+    is_verified: true,
+    address: '12, Sarat Bose Road, Kolkata, West Bengal 700020',
+    phone: '+913340001234',
+    website: 'https://www.examplehospitalkolkata.org',
+    latitude: 22.5355,
+    longitude: 88.3476,
+    last_updated: new Date(Date.now() - 12 * 60000).toISOString(),
+    resources: {
+        last_updated: new Date(Date.now() - 8 * 60000).toISOString(),
+        items: [{
+            name: 'ICU Beds',
+            count: 6
+        }, {
+            name: 'General Beds',
+            count: 24
+        }, {
+            name: 'Ambulances',
+            count: 3
+        }]
+    },
+    services: [
+        'Cardiology', 'Emergency & Trauma', 'Orthopedics', 'Neurology', 'Nephrology', 'Obstetrics & Gynecology', 'Pediatrics', 'General Surgery', 'Radiology', 'Pathology'
+    ],
+    doctors: [{
+        id: 'doc-101',
+        name: 'Dr. Ananya Sen',
+        specialty: 'Cardiologist',
+        photo: 'https://picsum.photos/seed/doc101/300/200'
+    }, {
+        id: 'doc-102',
+        name: 'Dr. Arijit Ghosh',
+        specialty: 'Orthopedic Surgeon',
+        photo: 'https://picsum.photos/seed/doc102/300/200'
+    }, {
+        id: 'doc-103',
+        name: 'Dr. Rhea Mukherjee',
+        specialty: 'Neurologist',
+        photo: 'https://picsum.photos/seed/doc103/300/200'
+    }, {
+        id: 'doc-104',
+        name: 'Dr. Kunal Roy',
+        specialty: 'Pediatrician',
+        photo: 'https://picsum.photos/seed/doc104/300/200'
+    }, {
+        id: 'doc-105',
+        name: 'Dr. Tanvi Das',
+        specialty: 'Gynecologist',
+        photo: 'https://picsum.photos/seed/doc105/300/200'
+    }],
+    reviews: {
+        average: 4.4,
+        total: 42,
+        list: [{
+            user: 'Amit Sharma',
+            rating: 5,
+            comment: 'Quick emergency response and caring staff.',
+            date: new Date(Date.now() - 86400000 * 1).toISOString()
+        }, {
+            user: 'Priya Gupta',
+            rating: 4,
+            comment: 'Clean facility and helpful nurses.',
+            date: new Date(Date.now() - 86400000 * 3).toISOString()
+        }, {
+            user: 'Rahul Verma',
+            rating: 5,
+            comment: 'Expert cardiology team saved my father.',
+            date: new Date(Date.now() - 86400000 * 6).toISOString()
+        }, {
+            user: 'Sourav Chatterjee',
+            rating: 3,
+            comment: 'OPD waiting time could be better.',
+            date: new Date(Date.now() - 86400000 * 10).toISOString()
+        }, {
+            user: 'Megha Roy',
+            rating: 4,
+            comment: 'Teleconsultation was smooth and effective.',
+            date: new Date(Date.now() - 86400000 * 14).toISOString()
+        }, {
+            user: 'Farhan Ali',
+            rating: 5,
+            comment: 'Great pediatric care for my child.',
+            date: new Date(Date.now() - 86400000 * 20).toISOString()
+        }]
+    }
+};
+
+// State
+let facility = null;
+let currentPage = 1;
+const pageSize = 6;
+
+async function fetchFacilityData(facilityId) {
+    try {
+        const base = `/api/facilities/${encodeURIComponent(facilityId)}`;
+        const [metaRes, resourcesRes, servicesRes, doctorsRes, reviewsRes] = await Promise.all([
+            fetch(`${base}`),
+            fetch(`${base}/resources`),
+            fetch(`${base}/services`),
+            fetch(`${base}/doctors`),
+            fetch(`${base}/reviews`)
+        ]);
+        if (![metaRes, resourcesRes, servicesRes, doctorsRes, reviewsRes].every(r => r.ok)) throw new Error('API error');
+        const [meta, resources, services, doctors, reviews] = await Promise.all([
+            metaRes.json(), resourcesRes.json(), servicesRes.json(), doctorsRes.json(), reviewsRes.json()
+        ]);
+        return {
+            ...meta,
+            resources,
+            services,
+            doctors,
+            reviews
+        };
+    } catch (e) {
+        // Fallback to mock
+        return mockFacility;
+    }
+}
+
+function initTooltips() {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+}
+
+function bindPrimaryActions() {
+    const ctaBook = document.getElementById('ctaBook');
+    const ctaTransfer = document.getElementById('ctaTransfer');
+    if (facility?.id) {
+        ctaBook.href = `./appointment_booking.html?facilityId=${encodeURIComponent(facility.id)}`;
+    }
+    ctaTransfer.addEventListener('click', () => {
+        Swal.fire({
+            icon: 'question',
+            title: 'Request Transfer?',
+            text: 'We will guide you to initiate a digital transfer to this facility.',
+            showCancelButton: true,
+            confirmButtonText: 'Continue',
+            cancelButtonText: 'Cancel'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                const url = `./sos_form.html?facilityId=${encodeURIComponent(facility?.id || '')}`;
+                window.location.href = url;
+            }
+        });
+    });
+}
+
+function renderHeader() {
+    document.getElementById('facilityName').textContent = facility.name;
+    document.getElementById('facilityType').textContent = facility.type;
+    const verifiedBadge = document.getElementById('verifiedBadge');
+    if (facility.is_verified) verifiedBadge.classList.remove('d-none');
+    updateFreshness(document.getElementById('freshnessIndicator'), facility.last_updated, 60);
+    initTooltips();
+}
+
+function renderPrimaryInfo() {
+    document.getElementById('facilityAddress').textContent = facility.address;
+    const websiteEl = document.getElementById('facilityWebsite');
+    if (facility.website) {
+        websiteEl.href = facility.website;
+        websiteEl.textContent = facility.website.replace(/^https?:\/\//, '');
+    } else {
+        websiteEl.textContent = '—';
+        websiteEl.removeAttribute('href');
+    }
+
+    const btnDir = document.getElementById('btnDirections');
+    if (typeof facility.latitude === 'number' && typeof facility.longitude === 'number') {
+        btnDir.disabled = false;
+        btnDir.addEventListener('click', () => {
+            const gmap = `https://www.google.com/maps/dir/?api=1&destination=${facility.latitude},${facility.longitude}`;
+            window.open(gmap, '_blank', 'noopener');
+        }, {
+            once: true
+        });
+    }
+
+    const btnCall = document.getElementById('btnCall');
+    if (facility.phone) {
+        btnCall.classList.remove('disabled');
+        btnCall.removeAttribute('aria-disabled');
+        btnCall.href = `tel:${facility.phone}`;
+    }
+}
+
+function renderResources() {
+    const grid = document.getElementById('resourceGrid');
+    grid.innerHTML = '';
+    facility.resources.items.forEach(item => {
+        const col = document.createElement('div');
+        col.className = 'col-12';
+        col.innerHTML = `
+          <div class="uc-stat-card">
+            <div class="uc-stat-icon"><i class="fa-solid ${item.name.includes('ICU') ? 'fa-bed' : item.name.includes('Ambulance') ? 'fa-truck-medical' : 'fa-hospital'}"></i></div>
+            <div>
+              <div class="uc-stat-title">${item.name}</div>
+              <div class="uc-stat-value">${item.count}</div>
+            </div>
+          </div>`;
+        grid.appendChild(col);
+    });
+    const ts = document.getElementById('resourcesTimestamp');
+    updateFreshness(ts, facility.resources.last_updated, 60);
+}
+
+function renderServices() {
+    const wrap = document.getElementById('servicesChips');
+    wrap.innerHTML = '';
+    facility.services.forEach(svc => {
+        const chip = document.createElement('span');
+        chip.className = 'uc-chip';
+        chip.innerHTML = `<i class="fa-solid fa-circle-check text-success"></i> ${svc}`;
+        wrap.appendChild(chip);
+    });
+}
+
+function doctorCard(d) {
+    const url = `./appointment_booking.html?facilityId=${encodeURIComponent(facility.id)}&doctorId=${encodeURIComponent(d.id)}`;
+    return `
+        <div class="uc-card h-100 d-flex flex-column">
+          <img src="${d.photo || ''}" alt="${d.name}" class="w-100" style="height:140px;object-fit:cover;" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${d.id}/300/200';"/>
+          <div class="uc-card-body d-flex flex-column">
+            <div class="fw-semibold">${d.name}</div>
+            <div class="text-muted mb-2">${d.specialty}</div>
+            <div class="mt-auto d-flex gap-2">
+              <a href="${url}" class="btn btn-sm btn-primary"><i class="fa-regular fa-calendar-check"></i> Book</a>
+              <button class="btn btn-sm btn-outline-secondary" disabled><i class="fa-regular fa-id-badge"></i> Profile</button>
+            </div>
+          </div>
+        </div>`;
+}
+
+function renderDoctors(filter = '') {
+    const grid = document.getElementById('doctorsGrid');
+    grid.innerHTML = '';
+    const q = filter.trim().toLowerCase();
+    const list = facility.doctors.filter(d => d.name.toLowerCase().includes(q) || d.specialty.toLowerCase().includes(q));
+    if (!list.length) {
+        grid.innerHTML = '<div class="col-12 text-center text-muted py-4">No doctors found.</div>';
+        return;
+    }
+    list.forEach(d => {
+        const col = document.createElement('div');
+        col.className = 'col-12 col-md-6 col-lg-4';
+        col.innerHTML = doctorCard(d);
+        grid.appendChild(col);
+    });
+}
+
+function starIcons(rating) {
+    const full = Math.floor(rating);
+    const half = rating - full >= 0.5 ? 1 : 0;
+    const empty = 5 - full - half;
+    return `${'<i class=\'fa-solid fa-star text-warning\'></i>'.repeat(full)}${half?'<i class=\'fa-regular fa-star-half-stroke text-warning\'></i>':''}${'<i class=\'fa-regular fa-star text-warning\'></i>'.repeat(empty)}`;
+}
+
+function renderReviews(page = 1) {
+    const filterVal = parseInt(document.getElementById('filterStars').value, 10);
+    const sort = document.getElementById('sortOrder').value;
+    let list = [...facility.reviews.list];
+    if (filterVal > 0) list = list.filter(r => r.rating >= filterVal);
+    if (sort === 'recent') list.sort((a, b) => new Date(b.date) - new Date(a.date));
+    if (sort === 'rating_desc') list.sort((a, b) => b.rating - a.rating);
+    if (sort === 'rating_asc') list.sort((a, b) => a.rating - b.rating);
+
+    const total = list.length;
+    const start = (page - 1) * pageSize;
+    const pageItems = list.slice(start, start + pageSize);
+    const ul = document.getElementById('reviewsList');
+    ul.innerHTML = '';
+    pageItems.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'uc-list-item';
+        li.innerHTML = `
+          <div>
+            <div class="fw-semibold">${item.user} <span class="ms-2">${starIcons(item.rating)}</span></div>
+            <div class="text-muted">${item.comment}</div>
+          </div>
+          <div class="text-muted small">${formatDate(item.date)}</div>`;
+        ul.appendChild(li);
+    });
+
+    // Summary
+    document.getElementById('avgRating').textContent = facility.reviews.average.toFixed(1);
+    document.getElementById('totalReviews').textContent = `${facility.reviews.total} reviews`;
+
+    // Pagination info
+    const end = Math.min(start + pageSize, total);
+    document.getElementById('paginationInfo').textContent = total ? `Showing ${start+1}-${end} of ${total}` : 'No reviews';
+    document.getElementById('pageIndicator').textContent = String(page);
+
+    // Prev/Next enable state
+    document.getElementById('prevPage').disabled = page <= 1;
+    document.getElementById('nextPage').disabled = end >= total;
+
+    return {
+        total,
+        list
+    };
+}
+
+function initReviewsControls() {
+    document.getElementById('filterStars').addEventListener('change', () => {
+        currentPage = 1;
+        renderReviews(currentPage);
+    });
+    document.getElementById('sortOrder').addEventListener('change', () => {
+        currentPage = 1;
+        renderReviews(currentPage);
+    });
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderReviews(currentPage);
+        }
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage++;
+        renderReviews(currentPage);
+    });
+}
+
+function buildTrendChart() {
+    const ctx = document.getElementById('trendChart');
+    const labels = Array.from({
+        length: 12
+    }).map((_, i) => `${(i*2).toString().padStart(2,'0')}:00`);
+    const icu = labels.map(() => Math.max(0, Math.round(6 + (Math.random() * 2 - 1.2))));
+    const gen = labels.map(() => Math.max(0, Math.round(24 + (Math.random() * 5 - 2.5))));
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'ICU Beds',
+                data: icu,
+                tension: 0.3,
+                borderColor: '#CD2026',
+                backgroundColor: 'rgba(205,32,38,0.08)',
+                fill: true
+            }, {
+                label: 'General Beds',
+                data: gen,
+                tension: 0.3,
+                borderColor: '#008000',
+                backgroundColor: 'rgba(0,128,0,0.08)',
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load tooltips for verified badge later
+    const urlParams = new URLSearchParams(window.location.search);
+    const facilityId = urlParams.get('facilityId') || 'kol-hosp-001';
+    facility = await fetchFacilityData(facilityId);
+
+    renderHeader();
+    renderPrimaryInfo();
+    renderResources();
+    renderServices();
+    renderDoctors('');
+    initReviewsControls();
+    renderReviews(currentPage);
+    buildTrendChart();
+    bindPrimaryActions();
+
+    // Events
+    document.getElementById('btnRefreshResources').addEventListener('click', () => {
+        showToast('Refreshing live availability…', 'info');
+        setTimeout(() => {
+            // simulate minor changes
+            facility.resources.items = facility.resources.items.map(it => ({
+                ...it,
+                count: Math.max(0, it.count + (Math.random() > 0.5 ? 1 : -1))
+            }));
+            facility.resources.last_updated = new Date().toISOString();
+            renderResources();
+            showToast('Resource availability updated', 'success');
+        }, 800);
+    });
+
+    document.getElementById('searchDoctor').addEventListener('input', (e) => {
+        renderDoctors(e.target.value || '');
+    });
+
+    // Initialize Bootstrap tooltips across the page
+    initTooltips();
+});
+  </script>
+ </body>
+</html>

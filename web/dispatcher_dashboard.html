@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Dispatch Center • Dispatcher Dashboard
+  </title>
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+  <!-- Leaflet (Map) -->
+  <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet"/>
+  <!-- Global Theme CSS -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="dispatcher_dashboard.css" rel="stylesheet"/>
+  <style>
+   /* Ensure fallback font chain includes Poppins first for this page */
+    body { font-family: 'Poppins', var(--uc-font-sans); }
+  </style>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#mainContent">
+   Skip to main content
+  </a>
+  <!-- Header (Included: needed on Dispatcher Dashboard) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarDispatch" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarDispatch" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./dispatcher_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/32/32'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Dispatch
+     </span>
+     <span class="badge bg-warning text-dark ms-2">
+      <i class="fa-solid fa-bolt">
+      </i>
+      Live
+     </span>
+    </a>
+    <button aria-controls="ucNavbarDispatch" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarDispatch" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarDispatch">
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <button class="btn btn-outline-light" id="toggleSoundBtn" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high">
+        </i>
+       </button>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="./incident_details.html" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Dispatcher
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./dispatcher_dashboard.html">
+          Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./incident_details.html">
+          Incidents
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Included: needed on Dispatcher Dashboard) -->
+  <div aria-labelledby="ucSidebarDispatchLabel" class="offcanvas offcanvas-start" id="ucSidebarDispatch" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/36/36'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarDispatchLabel">
+      Dispatch Center
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-truck-medical">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Dispatcher
+       </div>
+       <div class="text-muted small">
+        Emergency Ops
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucDispatchNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./dispatcher_dashboard.html">
+      <i class="fa-solid fa-satellite-dish me-2 text-success">
+      </i>
+      Live Dispatch
+     </a>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./incident_details.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Incidents
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucDispatchNav .nav-link{color:#212529}
+    #ucDispatchNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <!-- Main Content -->
+  <main class="py-3" id="mainContent">
+   <div class="container-fluid">
+    <div class="row g-3">
+     <!-- Left/Main: Map + KPIs -->
+     <div class="col-12 col-lg-8 col-xl-9">
+      <div class="uc-card mb-3">
+       <div class="uc-card-header">
+        <div class="d-flex align-items-center gap-2">
+         <div class="uc-h3 m-0">
+          Live Dispatch Map
+         </div>
+         <span class="uc-badge uc-badge-info">
+          <i class="fa-solid fa-signal">
+          </i>
+          Real-time
+         </span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <div class="uc-freshness" id="dataFreshness">
+          Last updated just now
+         </div>
+         <button class="uc-btn uc-btn-outline uc-btn-sm" id="recenterBtn" title="Recenter to city">
+          <i class="fa-solid fa-location-crosshairs">
+          </i>
+          Center
+         </button>
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <!-- Filters -->
+        <div class="uc-filter-bar mb-2">
+         <div class="uc-search flex-grow-1" style="max-width: 420px;">
+          <i class="fa-solid fa-magnifying-glass">
+          </i>
+          <input aria-label="Search incidents" id="searchInput" placeholder="Search address or incident ID..." type="text"/>
+         </div>
+         <select class="form-select form-select-sm" id="severityFilter" style="max-width:180px">
+          <option value="all">
+           All Severities
+          </option>
+          <option value="High">
+           High
+          </option>
+          <option value="Medium">
+           Medium
+          </option>
+          <option value="Low">
+           Low
+          </option>
+         </select>
+         <select class="form-select form-select-sm" id="statusFilter" style="max-width:200px">
+          <option value="all">
+           All Statuses
+          </option>
+          <option>
+           New
+          </option>
+          <option>
+           Acknowledged
+          </option>
+          <option>
+           Dispatched
+          </option>
+          <option>
+           At Scene
+          </option>
+          <option>
+           Transporting
+          </option>
+          <option>
+           Arrived
+          </option>
+          <option>
+           Closed
+          </option>
+         </select>
+         <button class="uc-btn uc-btn-ghost uc-btn-sm" id="resetFiltersBtn">
+          <i class="fa-solid fa-rotate">
+          </i>
+          Reset
+         </button>
+        </div>
+        <!-- Map Container -->
+        <div class="uc-real-time-map" id="realTimeMap">
+        </div>
+        <div class="small text-muted mt-2">
+         AI triage is assistive and not a substitute for professional medical diagnosis.
+        </div>
+       </div>
+      </div>
+      <!-- Quick KPIs / Chart -->
+      <div class="row g-3">
+       <div class="col-12 col-xl-6">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-truck-medical">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Available Ambulances
+          </div>
+          <div class="uc-stat-value" id="availableAmbulancesCount">
+           --
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-xl-6">
+        <div class="uc-stat-card">
+         <div class="uc-stat-icon">
+          <i class="fa-solid fa-triangle-exclamation">
+          </i>
+         </div>
+         <div>
+          <div class="uc-stat-title">
+           Active Incidents
+          </div>
+          <div class="uc-stat-value" id="activeIncidentsCount">
+           --
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="col-12">
+        <div class="uc-card">
+         <div class="uc-card-header">
+          <div class="uc-card-title">
+           Incidents (Last 2 hours)
+          </div>
+          <div class="uc-card-subtitle">
+           15-min intervals • Kolkata Pilot
+          </div>
+         </div>
+         <div class="uc-card-body">
+          <canvas aria-label="Incidents chart" height="120" id="incidentsChart" role="img">
+          </canvas>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Right: Incident Queue Panel -->
+     <div class="col-12 col-lg-4 col-xl-3">
+      <div class="uc-card h-100">
+       <div class="uc-card-header">
+        <div>
+         <div class="uc-card-title">
+          Incident Queue
+         </div>
+         <div class="uc-card-subtitle">
+          Filter, sort and manage alerts
+         </div>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+         <select class="form-select form-select-sm" id="sortBy">
+          <option value="recent">
+           Sort: Most Recent
+          </option>
+          <option value="severity">
+           Sort: Severity
+          </option>
+         </select>
+        </div>
+       </div>
+       <div class="uc-card-body p-0">
+        <div class="list-group list-group-flush" id="incidentList" style="max-height:520px; overflow:auto;">
+         <!-- Incident cards injected here -->
+        </div>
+       </div>
+       <div class="uc-card-footer d-flex align-items-center justify-content-between">
+        <div class="small text-muted" id="paginationInfo">
+         Showing 0–0 of 0
+        </div>
+        <div class="uc-pagination">
+         <button aria-label="Previous" class="uc-page-btn" id="prevPageBtn">
+          «
+         </button>
+         <span aria-current="true" class="uc-page-btn" id="currentPage">
+          1
+         </span>
+         <button aria-label="Next" class="uc-page-btn" id="nextPageBtn">
+          »
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Dispatch Control Panel (visible when incident selected) -->
+    <div class="uc-card mt-3 d-none" id="dispatchPanel">
+     <div class="uc-card-header">
+      <div class="d-flex align-items-center gap-2">
+       <div class="uc-card-title mb-0">
+        Dispatch Controls
+       </div>
+       <span class="uc-status-badge uc-status-low" id="panelIncidentSeverity">
+        Low
+       </span>
+      </div>
+      <div>
+       <button class="uc-btn uc-btn-ghost uc-btn-sm" id="hidePanelBtn">
+        <i class="fa-solid fa-chevron-down">
+        </i>
+        Hide
+       </button>
+      </div>
+     </div>
+     <div class="uc-card-body">
+      <div class="row g-3">
+       <div class="col-12 col-lg-6">
+        <div class="mb-2">
+         <span class="uc-text-strong">
+          Incident:
+         </span>
+         <span id="panelIncidentId">
+          —
+         </span>
+        </div>
+        <div class="mb-2">
+         <span class="uc-text-strong">
+          Location:
+         </span>
+         <span id="panelIncidentAddress">
+          —
+         </span>
+        </div>
+        <div class="mb-2">
+         <span class="uc-text-strong">
+          Reported:
+         </span>
+         <span id="panelIncidentTime">
+          —
+         </span>
+        </div>
+        <div class="small text-muted">
+         Severity and details are AI-assistive. Verify when contacting caller.
+        </div>
+       </div>
+       <div class="col-12 col-lg-6">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+         <div class="uc-h4 m-0">
+          Nearest Available Ambulances
+         </div>
+         <div class="small text-muted" id="etaBasis">
+          ETA based on road speed 40 km/h
+         </div>
+        </div>
+        <div class="list-group" id="ambulanceList">
+         <!-- Ambulance options injected here -->
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-2">
+         <button class="uc-btn uc-btn-primary" disabled="" id="dispatchBtn">
+          <i class="fa-solid fa-paper-plane">
+          </i>
+          Dispatch
+         </button>
+         <button class="uc-btn uc-btn-outline" id="cancelDispatchBtn">
+          <i class="fa-solid fa-xmark">
+          </i>
+          Cancel
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="uc-card-body border-top d-none" id="statusTracker">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+       <div class="uc-h4 m-0">
+        Dispatch Status
+       </div>
+       <div class="uc-chip">
+        <i class="fa-regular fa-clock">
+        </i>
+        Ambulance ETA:
+        <span class="fw-semibold ms-1" id="liveETA">
+         —
+        </span>
+       </div>
+      </div>
+      <div class="uc-timeline" id="statusTimeline">
+       <!-- Timeline events injected here -->
+      </div>
+      <div class="mt-2 d-flex gap-2">
+       <button class="uc-btn uc-btn-success d-none" id="closeIncidentBtn">
+        <i class="fa-solid fa-check">
+        </i>
+        Close Incident
+       </button>
+       <button class="uc-btn uc-btn-link" id="viewIncidentDetailsBtn" onclick="location.href='./incident_details.html'">
+        View full details
+       </button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer (Included: needed on Dispatcher Dashboard) -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/20/20'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure Dispatch
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toasts -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- JS: Bootstrap, Leaflet, SweetAlert2, Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // ------------ Mock Data --------------
+const hospitalsData = [{
+    id: 'H-KLH-1',
+    name: 'Kolkata Medical College',
+    lat: 22.5745,
+    lng: 88.3639
+}, {
+    id: 'H-NRS-2',
+    name: 'NRS Medical Hospital',
+    lat: 22.5659,
+    lng: 88.3689
+}, {
+    id: 'H-SSKM-3',
+    name: 'SSKM Hospital',
+    lat: 22.5404,
+    lng: 88.3451
+}];
+
+const ambulancesData = [{
+    id: 'AMB-101',
+    lat: 22.5726,
+    lng: 88.3639,
+    status: 'Available'
+}, {
+    id: 'AMB-102',
+    lat: 22.5850,
+    lng: 88.3700,
+    status: 'Available'
+}, {
+    id: 'AMB-103',
+    lat: 22.5600,
+    lng: 88.3800,
+    status: 'En Route'
+}, {
+    id: 'AMB-104',
+    lat: 22.5500,
+    lng: 88.3550,
+    status: 'Out of Service'
+}, {
+    id: 'AMB-105',
+    lat: 22.5902,
+    lng: 88.4001,
+    status: 'Available'
+}];
+
+// Generate timestamps around now
+const now = Date.now();
+
+function minutesAgo(min) {
+    return new Date(now - min * 60000).toISOString();
+}
+
+const incidentsData = [{
+    id: 'INC-2301',
+    lat: 22.578,
+    lng: 88.371,
+    severity: 'High',
+    status: 'New',
+    address: 'Park Street, Kolkata',
+    reportedAt: minutesAgo(3)
+}, {
+    id: 'INC-2302',
+    lat: 22.563,
+    lng: 88.357,
+    severity: 'Medium',
+    status: 'Acknowledged',
+    address: 'Gariahat Rd, Ballygunge',
+    reportedAt: minutesAgo(15)
+}, {
+    id: 'INC-2303',
+    lat: 22.598,
+    lng: 88.410,
+    severity: 'Low',
+    status: 'New',
+    address: 'Salt Lake Sector V',
+    reportedAt: minutesAgo(6)
+}, {
+    id: 'INC-2304',
+    lat: 22.551,
+    lng: 88.359,
+    severity: 'High',
+    status: 'Dispatched',
+    address: 'Kalighat, Kolkata',
+    reportedAt: minutesAgo(24)
+}, {
+    id: 'INC-2305',
+    lat: 22.590,
+    lng: 88.320,
+    severity: 'Medium',
+    status: 'New',
+    address: 'Dum Dum Rd',
+    reportedAt: minutesAgo(8)
+}, {
+    id: 'INC-2306',
+    lat: 22.569,
+    lng: 88.395,
+    severity: 'Low',
+    status: 'New',
+    address: 'Science City Area',
+    reportedAt: minutesAgo(4)
+}];
+
+// ------------ Utilities --------------
+function timeAgo(iso) {
+    const d = new Date(iso);
+    const diff = Math.max(0, (Date.now() - d.getTime()) / 1000);
+    if (diff < 60) return `${Math.floor(diff)}s ago`;
+    if (diff < 3600) return `${Math.floor(diff/60)} mins ago`;
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    return `${h}h ${m}m ago`;
+}
+
+function haversineKm(a, b) {
+    const toRad = d => d * Math.PI / 180;
+    const R = 6371;
+    const dLat = toRad(b.lat - a.lat),
+        dLng = toRad(b.lng - a.lng);
+    const s1 = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * (Math.sin(dLng / 2) ** 2);
+    return 2 * R * Math.asin(Math.sqrt(s1));
+}
+
+function etaMinutesKm(distanceKm, speedKmph = 40) {
+    return Math.max(1, Math.round((distanceKm / speedKmph) * 60));
+}
+
+function severityClass(sev) {
+    return sev === 'High' ? 'uc-status-high' : sev === 'Medium' ? 'uc-status-medium' : 'uc-status-low';
+}
+
+function statusColor(status) {
+    switch (status) {
+        case 'New':
+            return 'secondary';
+        case 'Acknowledged':
+            return 'info';
+        case 'Dispatched':
+            return 'primary';
+        case 'At Scene':
+            return 'warning';
+        case 'Transporting':
+            return 'info';
+        case 'Arrived':
+            return 'success';
+        case 'Closed':
+            return 'dark';
+        default:
+            return 'secondary';
+    }
+}
+
+// Pagination state for incident list
+let pageSize = 6,
+    currentPageIdx = 1,
+    filteredIncidentIds = [];
+
+// Selection / dispatch state
+let selectedIncidentId = null;
+let selectedAmbulanceId = null;
+let markers = {
+    incidents: {},
+    ambulances: {},
+    hospitals: {}
+};
+
+// Sound toggle (simulated)
+let soundOn = true;
+
+// ------------ Map Init --------------
+const map = L.map('realTimeMap', {
+    zoomControl: true
+});
+const center = [22.5726, 88.3639];
+map.setView(center, 12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+}).addTo(map);
+
+function makeDivIcon(html, className = '') {
+    return L.divIcon({
+        html,
+        className: className || 'leaflet-div-icon',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28],
+        popupAnchor: [0, -28]
+    });
+}
+
+function renderHospitals() {
+    hospitalsData.forEach(h => {
+        const icon = makeDivIcon(`<div class="uc-marker uc-marker-hospital"><i class='fa-solid fa-hospital'></i></div>`);
+        const m = L.marker([h.lat, h.lng], {
+            icon
+        }).addTo(map);
+        m.bindTooltip(`${h.name}`, {
+            direction: 'top'
+        });
+        markers.hospitals[h.id] = m;
+    });
+}
+
+function renderAmbulances() {
+    ambulancesData.forEach(a => {
+        const colorClass = a.status === 'Available' ? 'uc-marker-hospital' : (a.status === 'En Route' ? 'uc-marker' : '');
+        // Better: map status to specific styles
+        const classForStatus = a.status === 'Available' ? 'amb-available' : a.status === 'En Route' ? 'amb-enroute' : 'amb-oos';
+        const icon = makeDivIcon(`<div class="uc-marker ${classForStatus}"><i class='fa-solid fa-truck-medical'></i></div>`);
+        const m = L.marker([a.lat, a.lng], {
+            icon
+        }).addTo(map);
+        m.bindTooltip(`<div><strong>${a.id}</strong><br>Status: ${a.status}</div>`);
+        m.on('click', () => showToast('info', 'Ambulance', `${a.id} • ${a.status}`));
+        markers.ambulances[a.id] = m;
+    });
+}
+
+function renderIncidents() {
+    incidentsData.forEach(inc => {
+        const sevClass = inc.severity === 'High' ? 'inc-high' : inc.severity === 'Medium' ? 'inc-medium' : 'inc-low';
+        const icon = makeDivIcon(`<div class="uc-marker ${sevClass}"><i class='fa-solid fa-siren-on'></i></div>`);
+        const m = L.marker([inc.lat, inc.lng], {
+            icon
+        }).addTo(map);
+        m.bindTooltip(`<div><strong>${inc.id}</strong><br>${inc.address}<br><span class='badge bg-${statusColor(inc.status)}'>${inc.status}</span></div>`);
+        m.on('click', () => selectIncident(inc.id, true));
+        markers.incidents[inc.id] = m;
+    });
+}
+
+renderHospitals();
+renderAmbulances();
+renderIncidents();
+
+// ------------ List Rendering --------------
+const incidentListEl = document.getElementById('incidentList');
+
+function applyFiltersSort() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const sev = document.getElementById('severityFilter').value;
+    const st = document.getElementById('statusFilter').value;
+    const sortBy = document.getElementById('sortBy').value;
+
+    let arr = [...incidentsData];
+    arr = arr.filter(i => (sev === 'all' || i.severity === sev) && (st === 'all' || (st === 'Arrived' ? i.status === 'Arrived' : i.status === st)));
+    if (q) {
+        arr = arr.filter(i => i.id.toLowerCase().includes(q) || i.address.toLowerCase().includes(q));
+    }
+    if (sortBy === 'severity') {
+        const rank = {
+            High: 1,
+            Medium: 2,
+            Low: 3
+        };
+        arr.sort((a, b) => rank[a.severity] - rank[b.severity] || new Date(b.reportedAt) - new Date(a.reportedAt));
+    } else {
+        arr.sort((a, b) => new Date(b.reportedAt) - new Date(a.reportedAt));
+    }
+    filteredIncidentIds = arr.map(i => i.id);
+    currentPageIdx = 1;
+    renderIncidentPage();
+    updateCounters();
+}
+
+function renderIncidentPage() {
+    const start = (currentPageIdx - 1) * pageSize;
+    const slice = filteredIncidentIds.slice(start, start + pageSize);
+    incidentListEl.innerHTML = '';
+    slice.forEach(id => {
+        const inc = incidentsData.find(x => x.id === id);
+        const sevBadge = inc.severity === 'High' ? 'danger' : inc.severity === 'Medium' ? 'warning' : 'success';
+        const ackBtn = inc.status === 'New' ? `<button class="btn btn-sm btn-outline-primary acknowledge-btn" data-id="${inc.id}"><i class="fa-regular fa-hand"></i> Acknowledge</button>` : '';
+        const activeClass = (selectedIncidentId === inc.id) ? 'active' : '';
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = `list-group-item list-group-item-action ${activeClass}`;
+        item.innerHTML = `
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2 text-start">
+              <span class="badge bg-${sevBadge}">${inc.severity}</span>
+              <div>
+                <div class="fw-semibold">${inc.id} <span class="badge bg-${statusColor(inc.status)}">${inc.status}</span></div>
+                <div class="small text-muted"><i class="fa-solid fa-location-dot me-1"></i>${inc.address}</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="small text-muted" data-time="${inc.reportedAt}">${timeAgo(inc.reportedAt)}</div>
+              ${ackBtn}
+            </div>
+          </div>`;
+        item.addEventListener('click', (e) => {
+            if (e.target.closest('.acknowledge-btn')) return; // ack handled separately
+            selectIncident(inc.id, false);
+        });
+        incidentListEl.appendChild(item);
+    });
+    // Pagination info
+    const info = document.getElementById('paginationInfo');
+    const total = filteredIncidentIds.length;
+    const end = Math.min(start + pageSize, total);
+    info.textContent = total ? `Showing ${start+1}–${end} of ${total}` : 'No results';
+    document.getElementById('currentPage').textContent = String(currentPageIdx);
+    // Bind acknowledge buttons
+    incidentListEl.querySelectorAll('.acknowledge-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.getAttribute('data-id');
+            acknowledgeIncident(id);
+        });
+    });
+}
+
+function updateCounters() {
+    const available = ambulancesData.filter(a => a.status === 'Available').length;
+    const active = incidentsData.filter(i => ['New', 'Acknowledged', 'Dispatched', 'At Scene', 'Transporting', 'Arrived'].includes(i.status)).length;
+    document.getElementById('availableAmbulancesCount').textContent = available;
+    document.getElementById('activeIncidentsCount').textContent = active;
+}
+
+// Initial filter apply
+applyFiltersSort();
+
+// Pagination controls
+document.getElementById('prevPageBtn').addEventListener('click', () => {
+    if (currentPageIdx > 1) {
+        currentPageIdx--;
+        renderIncidentPage();
+    }
+});
+document.getElementById('nextPageBtn').addEventListener('click', () => {
+    const maxPage = Math.ceil(filteredIncidentIds.length / pageSize) || 1;
+    if (currentPageIdx < maxPage) {
+        currentPageIdx++;
+        renderIncidentPage();
+    }
+});
+
+// Filters events
+document.getElementById('searchInput').addEventListener('input', debounce(applyFiltersSort, 200));
+document.getElementById('severityFilter').addEventListener('change', applyFiltersSort);
+document.getElementById('statusFilter').addEventListener('change', applyFiltersSort);
+document.getElementById('sortBy').addEventListener('change', applyFiltersSort);
+document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('severityFilter').value = 'all';
+    document.getElementById('statusFilter').value = 'all';
+    document.getElementById('sortBy').value = 'recent';
+    applyFiltersSort();
+});
+
+// ------------ Selection & Dispatch Flow --------------
+const dispatchPanel = document.getElementById('dispatchPanel');
+const panelIncidentId = document.getElementById('panelIncidentId');
+const panelIncidentAddress = document.getElementById('panelIncidentAddress');
+const panelIncidentTime = document.getElementById('panelIncidentTime');
+const panelIncidentSeverity = document.getElementById('panelIncidentSeverity');
+const ambulanceList = document.getElementById('ambulanceList');
+const dispatchBtn = document.getElementById('dispatchBtn');
+const cancelDispatchBtn = document.getElementById('cancelDispatchBtn');
+const hidePanelBtn = document.getElementById('hidePanelBtn');
+const statusTracker = document.getElementById('statusTracker');
+const liveETAEl = document.getElementById('liveETA');
+const closeIncidentBtn = document.getElementById('closeIncidentBtn');
+
+hidePanelBtn.addEventListener('click', () => {
+    dispatchPanel.classList.add('d-none');
+});
+cancelDispatchBtn.addEventListener('click', () => {
+    selectedAmbulanceId = null;
+    renderAmbulanceOptions();
+    dispatchBtn.disabled = true;
+});
+
+function selectIncident(id, fromMap) {
+    selectedIncidentId = id;
+    // Center map and open tooltip
+    const inc = incidentsData.find(x => x.id === id);
+    if (inc) {
+        map.setView([inc.lat, inc.lng], Math.max(map.getZoom(), 14));
+        markers.incidents[id].openTooltip();
+    }
+    // Update list active state
+    renderIncidentPage();
+    // Fill panel
+    panelIncidentId.textContent = id;
+    panelIncidentAddress.textContent = inc ? inc.address : '—';
+    panelIncidentTime.textContent = inc ? timeAgo(inc.reportedAt) : '—';
+    panelIncidentSeverity.className = `uc-status-badge ${severityClass(inc.severity)}`;
+    panelIncidentSeverity.textContent = inc.severity;
+    renderAmbulanceOptions();
+    dispatchPanel.classList.remove('d-none');
+    statusTracker.classList.add('d-none');
+    document.getElementById('closeIncidentBtn').classList.add('d-none');
+    dispatchBtn.disabled = !selectedAmbulanceId;
+    if (!fromMap) { // also bounce the marker
+        if (markers.incidents[id]) {
+            // Simple visual: rebind tooltip
+            markers.incidents[id].openTooltip();
+        }
+    }
+}
+
+function renderAmbulanceOptions() {
+    ambulanceList.innerHTML = '';
+    const inc = incidentsData.find(x => x.id === selectedIncidentId);
+    if (!inc) {
+        ambulanceList.innerHTML = '<div class="text-muted small">Select an incident to see nearby ambulances.</div>';
+        return;
+    }
+    const available = ambulancesData.filter(a => a.status === 'Available').map(a => {
+        const dist = haversineKm({
+            lat: a.lat,
+            lng: a.lng
+        }, {
+            lat: inc.lat,
+            lng: inc.lng
+        });
+        return {
+            ...a,
+            dist,
+            eta: etaMinutesKm(dist)
+        };
+    }).sort((a, b) => a.eta - b.eta);
+    if (!available.length) {
+        ambulanceList.innerHTML = '<div class="text-muted small">No available ambulances nearby.</div>';
+        return;
+    }
+    available.forEach(a => {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = `list-group-item list-group-item-action ${selectedAmbulanceId===a.id?'active':''}`;
+        row.innerHTML = `
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-success">${a.id}</span>
+              <span class="small text-muted">${a.dist.toFixed(1)} km</span>
+            </div>
+            <div class="fw-semibold">ETA: ${a.eta} min</div>
+          </div>`;
+        row.addEventListener('click', () => {
+            selectedAmbulanceId = a.id;
+            renderAmbulanceOptions();
+            dispatchBtn.disabled = false;
+        });
+        ambulanceList.appendChild(row);
+    });
+}
+
+async function acknowledgeIncident(id) {
+    const inc = incidentsData.find(i => i.id === id);
+    if (!inc) return;
+    const res = await Swal.fire({
+        icon: 'question',
+        title: 'Acknowledge Incident?',
+        text: `Claim ${id} and mark as Acknowledged.`,
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Acknowledge'
+    });
+    if (res.isConfirmed) {
+        inc.status = 'Acknowledged';
+        showToast('info', 'Incident Acknowledged', `${id} marked as Acknowledged.`);
+        applyFiltersSort();
+    }
+}
+
+dispatchBtn.addEventListener('click', async () => {
+    const inc = incidentsData.find(i => i.id === selectedIncidentId);
+    const amb = ambulancesData.find(a => a.id === selectedAmbulanceId);
+    if (!inc || !amb) return;
+    const res = await Swal.fire({
+        icon: 'question',
+        title: 'Dispatch Ambulance?',
+        html: `Assign <b>${amb.id}</b> to <b>${inc.id}</b>?`,
+        showCancelButton: true,
+        confirmButtonText: 'Dispatch'
+    });
+    if (!res.isConfirmed) return;
+    // Simulate API success
+    amb.status = 'En Route';
+    inc.status = 'Dispatched';
+    updateAmbulanceMarker(amb);
+    updateIncidentMarker(inc);
+    applyFiltersSort();
+    startStatusTracker(inc, amb);
+    showToast('success', 'Dispatched', `${amb.id} dispatched to ${inc.id}.`);
+});
+
+function startStatusTracker(inc, amb) {
+    statusTracker.classList.remove('d-none');
+    renderTimeline([{
+        s: 'Dispatched',
+        t: new Date()
+    }]);
+    let step = 0;
+    const steps = ['At Scene', 'Transporting', 'Arrived'];
+    const stepTimes = [2, 5, 7]; // minutes after (simulated with seconds)
+    liveETAEl.textContent = '~ ' + etaMinutesKm(haversineKm({
+        lat: amb.lat,
+        lng: amb.lng
+    }, {
+        lat: inc.lat,
+        lng: inc.lng
+    })) + ' min';
+    const interval = setInterval(() => {
+        if (step >= steps.length) {
+            clearInterval(interval);
+            document.getElementById('closeIncidentBtn').classList.remove('d-none');
+            return;
+        }
+        const s = steps[step];
+        addTimelineEvent(s);
+        inc.status = (s === 'Arrived' ? 'Arrived' : s);
+        applyFiltersSort();
+        if (s === 'Arrived') liveETAEl.textContent = '0 min';
+        step++;
+    }, 3000);
+
+    closeIncidentBtn.onclick = async () => {
+        const ok = await Swal.fire({
+            icon: 'warning',
+            title: 'Close Incident?',
+            text: 'Confirm patient handover and close.',
+            showCancelButton: true,
+            confirmButtonText: 'Close Incident'
+        });
+        if (!ok.isConfirmed) return;
+        inc.status = 'Closed';
+        amb.status = 'Available';
+        updateAmbulanceMarker(amb);
+        updateIncidentMarker(inc);
+        applyFiltersSort();
+        showToast('success', 'Incident Closed', `${inc.id} closed and ${amb.id} is now Available.`);
+        document.getElementById('closeIncidentBtn').classList.add('d-none');
+    };
+}
+
+function renderTimeline(events) {
+    const tl = document.getElementById('statusTimeline');
+    tl.innerHTML = '';
+    events.forEach(e => addTimelineEvent(e.s, e.t));
+}
+
+function addTimelineEvent(status, time = new Date()) {
+    const tl = document.getElementById('statusTimeline');
+    const item = document.createElement('div');
+    item.className = 'uc-timeline-item';
+    item.innerHTML = `<div class="fw-semibold">${status}</div><div class="small text-muted">${time.toLocaleTimeString()}</div>`;
+    tl.appendChild(item);
+}
+
+function updateAmbulanceMarker(amb) {
+    const m = markers.ambulances[amb.id];
+    if (!m) return;
+    const cls = amb.status === 'Available' ? 'amb-available' : amb.status === 'En Route' ? 'amb-enroute' : 'amb-oos';
+    m.setIcon(makeDivIcon(`<div class='uc-marker ${cls}'><i class="fa-solid fa-truck-medical"></i></div>`));
+    m.bindTooltip(`<div><strong>${amb.id}</strong><br>Status: ${amb.status}</div>`);
+}
+
+function updateIncidentMarker(inc) {
+    const m = markers.incidents[inc.id];
+    if (!m) return;
+    const sevClass = inc.severity === 'High' ? 'inc-high' : inc.severity === 'Medium' ? 'inc-medium' : 'inc-low';
+    m.setIcon(makeDivIcon(`<div class='uc-marker ${sevClass}'><i class="fa-solid fa-siren-on"></i></div>`));
+    m.bindTooltip(`<div><strong>${inc.id}</strong><br>${inc.address}<br><span class='badge bg-${statusColor(inc.status)}'>${inc.status}</span></div>`);
+}
+
+// ------------ Recenter & Freshness --------------
+document.getElementById('recenterBtn').addEventListener('click', () => map.setView(center, 12));
+const freshnessEl = document.getElementById('dataFreshness');
+let lastUpdate = Date.now();
+setInterval(() => {
+    const diff = Math.floor((Date.now() - lastUpdate) / 1000);
+    const label = diff < 60 ? `${diff}s ago` : `${Math.floor(diff/60)} mins ago`;
+    freshnessEl.textContent = 'Last updated ' + label;
+    freshnessEl.classList.toggle('uc-freshness-stale', diff > 300);
+}, 5000);
+
+// ------------ Time labels refresh --------------
+setInterval(() => {
+    incidentListEl.querySelectorAll('[data-time]').forEach(el => {
+        el.textContent = timeAgo(el.getAttribute('data-time'));
+    });
+    // Simulate ambulance small movement for demo
+    tickAmbulances();
+}, 10000);
+
+function tickAmbulances() {
+    ambulancesData.filter(a => a.status !== 'Out of Service').forEach(a => {
+        a.lat += (Math.random() - 0.5) * 0.002;
+        a.lng += (Math.random() - 0.5) * 0.002;
+        const m = markers.ambulances[a.id];
+        if (m) m.setLatLng([a.lat, a.lng]);
+    });
+}
+
+// ------------ Chart --------------
+const ctx = document.getElementById('incidentsChart');
+const labels = Array.from({
+    length: 8
+}, (_, i) => `${(i*15)}m`);
+const dataSeries = labels.map(() => Math.floor(Math.random() * 6) + 2);
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels,
+        datasets: [{
+            label: 'Incidents',
+            data: dataSeries,
+            fill: false,
+            borderColor: '#0099D2',
+            tension: 0.25,
+            pointRadius: 3,
+            pointBackgroundColor: '#0099D2'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: true
+            }
+        }
+    }
+});
+
+// ------------ Toasts & Alerts --------------
+function showToast(type, title, msg) {
+    const cont = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    const cls = type === 'success' ? 'uc-toast-success' : type === 'warning' ? 'uc-toast-warning' : type === 'danger' ? 'uc-toast-danger' : 'uc-toast-info';
+    el.className = `uc-toast ${cls}`;
+    el.innerHTML = `<i class="fa-solid ${type==='success'?'fa-circle-check':type==='warning'?'fa-triangle-exclamation':type==='danger'?'fa-circle-exclamation':'fa-circle-info'}"></i><div><div class='fw-semibold'>${title}</div><div class='small'>${msg}</div></div>`;
+    cont.appendChild(el);
+    setTimeout(() => {
+        el.remove();
+    }, 5000);
+}
+
+// Simulate new High severity incoming incident to demonstrate alerts
+setTimeout(() => {
+    const inc = {
+        id: 'INC-2307',
+        lat: 22.575,
+        lng: 88.400,
+        severity: 'High',
+        status: 'New',
+        address: 'EM Bypass',
+        reportedAt: new Date().toISOString()
+    };
+    incidentsData.unshift(inc);
+    // Add marker
+    const icon = makeDivIcon(`<div class="uc-marker inc-high"><i class='fa-solid fa-siren-on'></i></div>`);
+    const m = L.marker([inc.lat, inc.lng], {
+        icon
+    }).addTo(map);
+    m.bindTooltip(`<div><strong>${inc.id}</strong><br>${inc.address}<br><span class='badge bg-${statusColor(inc.status)}'>${inc.status}</span></div>`);
+    m.on('click', () => selectIncident(inc.id, true));
+    markers.incidents[inc.id] = m;
+    applyFiltersSort();
+    lastUpdate = Date.now();
+    if (soundOn) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'warning',
+            title: 'New High Severity Incident',
+            text: `${inc.id} • ${inc.address}`,
+            showConfirmButton: false,
+            timer: 4000
+        });
+    }
+}, 7000);
+
+// Sound toggle button
+document.getElementById('toggleSoundBtn').addEventListener('click', function() {
+    soundOn = !soundOn;
+    this.innerHTML = `<i class="fa-solid ${soundOn?'fa-volume-high':'fa-volume-xmark'}"></i>`;
+});
+
+// Debounce helper
+function debounce(fn, d) {
+    let t;
+    return function() {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, arguments), d);
+    }
+}
+  </script>
+ </body>
+</html>

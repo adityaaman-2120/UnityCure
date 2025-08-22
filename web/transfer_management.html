@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   UnityCure Provider • Transfer Management
+  </title>
+  <!-- Brand font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfQv9Q4Wm79D1F5T9EM8fY2s9InMpVPS7Nk6+A9a0F6XHNdM+5wf0Zog==" referrerpolicy="no-referrer" rel="stylesheet">
+   <!-- Global site theme -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="transfer_management.css" rel="stylesheet"/>
+   <style>
+    /* Ensure Poppins is applied site-wide on this page without breaking global tokens */
+    body { font-family: 'Poppins', var(--uc-font-sans); }
+   </style>
+  </link>
+ </head>
+ <body class="uc-app">
+  <a class="uc-skip-link" href="#main">
+   Skip to content
+  </a>
+  <!-- Header (Provider Portal Header with Quick Update and Join Session actions) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarProvider" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarProvider" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./admin_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-logo/64/64';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Provider
+     </span>
+    </a>
+    <button aria-controls="ucNavbarProvider" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarProvider" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarProvider">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-50" onsubmit="event.preventDefault();" role="search">
+      <input aria-label="Search" class="form-control me-2" id="globalSearchInput" placeholder="Search patients, transfers..." type="search"/>
+      <button class="btn btn-outline-light" id="globalSearchBtn" type="button">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-md-inline">
+       <a class="btn btn-outline-light" href="./resource_management.html">
+        <i class="fa-solid fa-bed-pulse me-1">
+        </i>
+        Quick Update
+       </a>
+      </li>
+      <li class="nav-item me-2 d-none d-md-inline">
+       <a class="btn btn-warning" href="./teleconsult_session.html">
+        <i class="fa-solid fa-video me-1">
+        </i>
+        Join Session
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" title="Notifications">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" title="Messages">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user-doctor">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Provider
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./admin_dashboard.html">
+          Hospital Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./doctor_schedule.html">
+          My Schedule
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Offcanvas) - Provider Portal Sidebar -->
+  <div aria-labelledby="ucSidebarProviderLabel" class="offcanvas offcanvas-start" id="ucSidebarProvider" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-logo2/72/72';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarProviderLabel">
+      Provider Portal
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user-doctor">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Provider User
+       </div>
+       <div class="text-muted small">
+        Hospital Admin / Doctor
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucProviderNav">
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#opsGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-gauge me-2 text-success">
+      </i>
+      Hospital Operations
+     </button>
+     <div class="collapse show" id="opsGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./admin_dashboard.html">
+       <i class="fa-solid fa-gauge-high me-2">
+       </i>
+       Dashboard
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./resource_management.html">
+       <i class="fa-solid fa-bed-pulse me-2">
+       </i>
+       Manage Resources
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./transfer_management.html">
+       <i class="fa-solid fa-arrow-right-arrow-left me-2">
+       </i>
+       Transfers
+      </a>
+     </div>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2 mt-1" data-bs-target="#doctorGroup" data-bs-toggle="collapse">
+      <i class="fa-solid fa-user-doctor me-2 text-success">
+      </i>
+      Doctor Workspace
+     </button>
+     <div class="collapse show" id="doctorGroup">
+      <a class="nav-link ms-4 px-3 py-1" href="./doctor_schedule.html">
+       <i class="fa-regular fa-calendar-days me-2">
+       </i>
+       My Schedule
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./teleconsult_session.html">
+       <i class="fa-solid fa-video me-2">
+       </i>
+       Teleconsult Sessions
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./prescription_form.html">
+       <i class="fa-solid fa-prescription me-2">
+       </i>
+       E-Prescriptions
+      </a>
+     </div>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./admin_dashboard.html">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucProviderNav .nav-link{color:#212529}
+    #ucProviderNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <main class="uc-container my-3" id="main">
+   <!-- Page Header Section -->
+   <div class="uc-section">
+    <div class="uc-section-header">
+     <div>
+      <div class="uc-page-title mb-1">
+       Transfer Management
+      </div>
+      <div class="uc-text-muted">
+       Manage incoming and outgoing inter-hospital patient transfer requests in real-time.
+      </div>
+     </div>
+     <div class="d-flex align-items-center gap-2">
+      <span class="uc-freshness" id="freshnessLabel">
+       Last updated just now
+      </span>
+      <button class="uc-btn uc-btn-info uc-btn-sm" id="refreshBtn">
+       <i class="fa-solid fa-rotate">
+       </i>
+       Refresh
+      </button>
+     </div>
+    </div>
+    <nav class="uc-breadcrumbs">
+     <a href="./admin_dashboard.html">
+      <i class="fa-solid fa-gauge-high">
+      </i>
+      Dashboard
+     </a>
+     <span>
+      /
+     </span>
+     <span>
+      Transfers
+     </span>
+    </nav>
+   </div>
+   <!-- Dashboard Grid: Left column (Filters + List), Right column (Details) -->
+   <div class="row g-3">
+    <!-- Left column -->
+    <div class="col-12 col-lg-4">
+     <!-- FiltersAndSearch Card -->
+     <div class="uc-card mb-3">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Filters &amp; Search
+       </div>
+       <div class="uc-card-subtitle">
+        Find specific transfer requests quickly
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <div class="uc-form-group">
+        <label class="uc-label" for="searchInput">
+         Search
+        </label>
+        <div class="uc-search">
+         <i class="fa-solid fa-magnifying-glass text-muted">
+         </i>
+         <input class="form-control border-0 p-0" id="searchInput" placeholder="Patient name, ID, origin or destination" type="text">
+         </input>
+        </div>
+        <div class="uc-help-text">
+         Typing triggers search with 300ms debounce.
+        </div>
+       </div>
+       <div class="uc-form-group">
+        <label class="uc-label" for="statusSelect">
+         Status
+        </label>
+        <select class="uc-select" id="statusSelect">
+         <option value="All">
+          All
+         </option>
+         <option value="Pending">
+          Pending
+         </option>
+         <option value="Accepted">
+          Accepted
+         </option>
+         <option value="In-Progress">
+          In-Progress
+         </option>
+         <option value="Declined">
+          Declined
+         </option>
+         <option value="Completed">
+          Completed
+         </option>
+        </select>
+       </div>
+       <div class="row g-2">
+        <div class="col-6">
+         <label class="uc-label" for="dateFrom">
+          From
+         </label>
+         <input class="uc-input" id="dateFrom" type="date"/>
+        </div>
+        <div class="col-6">
+         <label class="uc-label" for="dateTo">
+          To
+         </label>
+         <input class="uc-input" id="dateTo" type="date"/>
+        </div>
+       </div>
+       <div class="uc-form-group mt-3">
+        <label class="uc-label" for="sortSelect">
+         Sort by
+        </label>
+        <select class="uc-select" id="sortSelect">
+         <option value="newest">
+          Requested Time — Newest
+         </option>
+         <option value="oldest">
+          Requested Time — Oldest
+         </option>
+         <option value="severity">
+          Severity — High to Low
+         </option>
+        </select>
+       </div>
+       <div class="d-flex justify-content-end gap-2 mt-2">
+        <button class="uc-btn uc-btn-outline uc-btn-sm" id="clearFiltersBtn">
+         <i class="fa-solid fa-eraser">
+         </i>
+         Clear
+        </button>
+        <button class="uc-btn uc-btn-primary uc-btn-sm" id="applyFiltersBtn">
+         <i class="fa-solid fa-filter">
+         </i>
+         Apply
+        </button>
+       </div>
+      </div>
+     </div>
+     <!-- Small status distribution chart -->
+     <div class="uc-card mb-3">
+      <div class="uc-card-header">
+       <div>
+        <div class="uc-card-title">
+         Status Overview
+        </div>
+        <div class="uc-card-subtitle">
+         Incoming &amp; Outgoing
+        </div>
+       </div>
+       <div class="uc-badge uc-badge-info" id="totalCountBadge">
+        <i class="fa-solid fa-list">
+        </i>
+        <span id="totalCount">
+         0
+        </span>
+        total
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <canvas aria-label="Transfer requests by status" id="statusChart" role="img">
+       </canvas>
+       <div class="uc-text-muted uc-text-sm mt-2">
+        Hover to see exact counts. Chart updates with filters.
+       </div>
+      </div>
+     </div>
+     <!-- RequestList Tabs and Items -->
+     <div class="uc-card">
+      <div class="uc-card-header">
+       <div class="uc-card-title">
+        Requests
+       </div>
+       <div class="uc-card-subtitle">
+        Incoming, Outgoing, and Archived
+       </div>
+      </div>
+      <div class="uc-card-body pt-0">
+       <ul class="nav nav-tabs mt-3" id="listTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+         <button aria-controls="incoming" aria-selected="true" class="nav-link active" data-bs-target="#incoming" data-bs-toggle="tab" id="incoming-tab" role="tab" type="button">
+          Incoming
+          <span class="badge text-bg-warning ms-1" id="incomingPendingCount">
+           0
+          </span>
+         </button>
+        </li>
+        <li class="nav-item" role="presentation">
+         <button aria-controls="outgoing" aria-selected="false" class="nav-link" data-bs-target="#outgoing" data-bs-toggle="tab" id="outgoing-tab" role="tab" type="button">
+          Outgoing
+         </button>
+        </li>
+        <li class="nav-item" role="presentation">
+         <button aria-controls="archived" aria-selected="false" class="nav-link" data-bs-target="#archived" data-bs-toggle="tab" id="archived-tab" role="tab" type="button">
+          Archived
+         </button>
+        </li>
+       </ul>
+       <div class="tab-content" id="listTabsContent">
+        <div aria-labelledby="incoming-tab" class="tab-pane fade show active" id="incoming" role="tabpanel">
+         <div class="mt-3" id="incomingList">
+         </div>
+        </div>
+        <div aria-labelledby="outgoing-tab" class="tab-pane fade" id="outgoing" role="tabpanel">
+         <div class="mt-3" id="outgoingList">
+         </div>
+        </div>
+        <div aria-labelledby="archived-tab" class="tab-pane fade" id="archived" role="tabpanel">
+         <div class="mt-3" id="archivedList">
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="uc-card-footer d-flex align-items-center justify-content-between">
+       <div class="small text-muted" id="paginationInfo">
+        Showing 0–0 of 0
+       </div>
+       <nav aria-label="Requests pagination" class="uc-pagination">
+        <button class="uc-page-btn btn btn-sm btn-light" disabled="" id="prevPageBtn">
+         <i class="fa-solid fa-chevron-left">
+         </i>
+        </button>
+        <span class="small mx-1" id="currentPageLabel">
+         1
+        </span>
+        <button class="uc-page-btn btn btn-sm btn-light" disabled="" id="nextPageBtn">
+         <i class="fa-solid fa-chevron-right">
+         </i>
+        </button>
+       </nav>
+      </div>
+     </div>
+    </div>
+    <!-- Right column: RequestDetails -->
+    <div class="col-12 col-lg-8">
+     <div class="uc-card h-100">
+      <div class="uc-card-header">
+       <div>
+        <div class="uc-card-title">
+         Request Details
+        </div>
+        <div class="uc-card-subtitle">
+         Select a request on the left to view details
+        </div>
+       </div>
+       <div>
+        <span class="uc-badge uc-badge-primary" id="selectedRequestBadge">
+         <i class="fa-solid fa-hashtag">
+         </i>
+         <span id="selectedRequestLabel">
+          None
+         </span>
+        </span>
+       </div>
+      </div>
+      <div class="uc-card-body" id="detailsContainer">
+       <!-- Initial prompt illustration -->
+       <div class="text-center p-4" id="detailsPlaceholder">
+        <img alt="Select a request to view details" class="img-fluid mx-auto mb-3" onerror="this.onerror=null;this.src='https://picsum.photos/seed/transfer-details/800/450';" src="assets/initial_detail_view_prompt_ill_3_e0fa4db6.png" style="max-width:640px;"/>
+        <p class="uc-text-muted">
+         Choose a transfer request from the list to see patient information, logistics, and actions.
+        </p>
+       </div>
+       <!-- Dynamic details content rendered by JS into #detailsContent -->
+       <div class="d-none" id="detailsContent">
+       </div>
+      </div>
+      <div class="uc-card-footer d-flex align-items-center justify-content-between">
+       <div class="small uc-text-muted">
+        All actions are logged. Ensure reasons for declines are meaningful for audit.
+       </div>
+       <div>
+        <button class="uc-btn uc-btn-success me-2" disabled="" id="acceptBtn">
+         <i class="fa-solid fa-check">
+         </i>
+         Accept
+        </button>
+        <button class="uc-btn uc-btn-danger" disabled="" id="declineBtn">
+         <i class="fa-solid fa-xmark">
+         </i>
+         Decline
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-footer/40/40';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg">
+      <span class="small text-muted">
+       © UnityCure Provider
+      </span>
+     </img>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-outline-success" href="./resource_management.html">
+      <i class="fa-solid fa-bed-pulse me-1">
+      </i>
+      Update Beds
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast container -->
+  <div aria-atomic="true" aria-live="polite" class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- Vendor JS: Bootstrap bundle, SweetAlert2, Chart.js -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Mock data for transfer requests
+const mockRequests = (() => {
+    const now = new Date();
+    const addMins = (d, m) => new Date(d.getTime() + m * 60000);
+    const sample = [{
+        id: 'TR-1001',
+        dir: 'incoming',
+        status: 'Pending',
+        patient: {
+            name: 'Amit Kumar',
+            age: 58,
+            severity: 'High'
+        },
+        origin: 'Howrah Dist. Hospital',
+        dest: 'UnityCare Kolkata',
+        resources: ['ICU Bed', 'Ventilator'],
+        requestedAt: addMins(now, -25)
+    }, {
+        id: 'TR-1002',
+        dir: 'incoming',
+        status: 'Accepted',
+        patient: {
+            name: 'Riya Sen',
+            age: 34,
+            severity: 'Medium'
+        },
+        origin: 'Barasat Sub-Divisional',
+        dest: 'UnityCare Kolkata',
+        resources: ['Isolation Bed'],
+        requestedAt: addMins(now, -65)
+    }, {
+        id: 'TR-1003',
+        dir: 'outgoing',
+        status: 'In-Progress',
+        patient: {
+            name: 'Sunil Das',
+            age: 71,
+            severity: 'High'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'NRS Medical College',
+        resources: ['Cardiac ICU'],
+        requestedAt: addMins(now, -120)
+    }, {
+        id: 'TR-1004',
+        dir: 'incoming',
+        status: 'Declined',
+        patient: {
+            name: 'Priya Sharma',
+            age: 26,
+            severity: 'Low'
+        },
+        origin: 'Kalyani AIIMS',
+        dest: 'UnityCare Kolkata',
+        resources: ['General Bed'],
+        requestedAt: addMins(now, -240)
+    }, {
+        id: 'TR-1005',
+        dir: 'outgoing',
+        status: 'Completed',
+        patient: {
+            name: 'Rahul Verma',
+            age: 49,
+            severity: 'Medium'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'Kolkata Medical College',
+        resources: ['ICU Bed'],
+        requestedAt: addMins(now, -480)
+    }, {
+        id: 'TR-1006',
+        dir: 'incoming',
+        status: 'Pending',
+        patient: {
+            name: 'Suman Ghosh',
+            age: 63,
+            severity: 'High'
+        },
+        origin: 'Sagar Dutta Hospital',
+        dest: 'UnityCare Kolkata',
+        resources: ['Neuro ICU', 'Ventilator'],
+        requestedAt: addMins(now, -15)
+    }, {
+        id: 'TR-1007',
+        dir: 'outgoing',
+        status: 'Pending',
+        patient: {
+            name: 'Meera Nair',
+            age: 52,
+            severity: 'Medium'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'Peerless Hospital',
+        resources: ['Isolation Bed'],
+        requestedAt: addMins(now, -35)
+    }, {
+        id: 'TR-1008',
+        dir: 'incoming',
+        status: 'In-Progress',
+        patient: {
+            name: 'Arjun Gupta',
+            age: 40,
+            severity: 'Medium'
+        },
+        origin: 'Bidhannagar Sub-Divisional',
+        dest: 'UnityCare Kolkata',
+        resources: ['Trauma ICU'],
+        requestedAt: addMins(now, -95)
+    }, {
+        id: 'TR-1009',
+        dir: 'outgoing',
+        status: 'Accepted',
+        patient: {
+            name: 'Nasrin B.',
+            age: 29,
+            severity: 'Low'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'AMRI Salt Lake',
+        resources: ['General Bed'],
+        requestedAt: addMins(now, -70)
+    }, {
+        id: 'TR-1010',
+        dir: 'incoming',
+        status: 'Pending',
+        patient: {
+            name: 'Anirban Roy',
+            age: 67,
+            severity: 'High'
+        },
+        origin: 'Murshidabad Med. College',
+        dest: 'UnityCare Kolkata',
+        resources: ['Cath Lab'],
+        requestedAt: addMins(now, -8)
+    }, {
+        id: 'TR-1011',
+        dir: 'outgoing',
+        status: 'Declined',
+        patient: {
+            name: 'Chandan P.',
+            age: 61,
+            severity: 'Low'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'Ruby General',
+        resources: ['General Bed'],
+        requestedAt: addMins(now, -300)
+    }, {
+        id: 'TR-1012',
+        dir: 'incoming',
+        status: 'Completed',
+        patient: {
+            name: 'Shreya Kar',
+            age: 19,
+            severity: 'Low'
+        },
+        origin: 'RG Kar Med. College',
+        dest: 'UnityCare Kolkata',
+        resources: ['Ward Bed'],
+        requestedAt: addMins(now, -1440)
+    }, {
+        id: 'TR-1013',
+        dir: 'outgoing',
+        status: 'Pending',
+        patient: {
+            name: 'Binod Mahato',
+            age: 38,
+            severity: 'Medium'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'ESI Maniktala',
+        resources: ['Isolation Bed'],
+        requestedAt: addMins(now, -52)
+    }, {
+        id: 'TR-1014',
+        dir: 'incoming',
+        status: 'Accepted',
+        patient: {
+            name: 'Puja S.',
+            age: 31,
+            severity: 'Medium'
+        },
+        origin: 'SSKM Hospital',
+        dest: 'UnityCare Kolkata',
+        resources: ['HDU'],
+        requestedAt: addMins(now, -180)
+    }, {
+        id: 'TR-1015',
+        dir: 'outgoing',
+        status: 'In-Progress',
+        patient: {
+            name: 'Kishore M.',
+            age: 65,
+            severity: 'High'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'M R Bangur',
+        resources: ['ICU Bed', 'Ventilator'],
+        requestedAt: addMins(now, -200)
+    }, {
+        id: 'TR-1016',
+        dir: 'incoming',
+        status: 'Pending',
+        patient: {
+            name: 'Debjani P.',
+            age: 54,
+            severity: 'Medium'
+        },
+        origin: 'Naihati State General',
+        dest: 'UnityCare Kolkata',
+        resources: ['HDU'],
+        requestedAt: addMins(now, -5)
+    }, {
+        id: 'TR-1017',
+        dir: 'outgoing',
+        status: 'Completed',
+        patient: {
+            name: 'Ramesh K.',
+            age: 72,
+            severity: 'Low'
+        },
+        origin: 'UnityCare Kolkata',
+        dest: 'Belle Vue',
+        resources: ['General Bed'],
+        requestedAt: addMins(now, -2880)
+    }, {
+        id: 'TR-1018',
+        dir: 'incoming',
+        status: 'Accepted',
+        patient: {
+            name: 'Farhan A.',
+            age: 47,
+            severity: 'Medium'
+        },
+        origin: 'Kalyani AIIMS',
+        dest: 'UnityCare Kolkata',
+        resources: ['Dialysis'],
+        requestedAt: addMins(now, -220)
+    }];
+    // Enrich with timeline & notes
+    return sample.map(r => ({
+        ...r,
+        notes: 'Referral via digital workflow. Initial vitals stable. Requires prompt attention.',
+        timeline: buildTimeline(r.status, r.requestedAt),
+        declineReason: r.status === 'Declined' ? 'Capacity constraints at requested time.' : undefined
+    }));
+
+    function buildTimeline(status, t0) {
+        const events = [{
+            label: 'Requested',
+            time: t0
+        }];
+        if (['Accepted', 'In-Progress', 'Completed'].includes(status)) events.push({
+            label: 'Accepted',
+            time: new Date(t0.getTime() + 30 * 60000)
+        });
+        if (['In-Progress', 'Completed'].includes(status)) events.push({
+            label: 'En Route',
+            time: new Date(t0.getTime() + 60 * 60000)
+        });
+        if (['Completed'].includes(status)) events.push({
+            label: 'Arrived',
+            time: new Date(t0.getTime() + 120 * 60000)
+        });
+        if (status === 'Declined') events.push({
+            label: 'Declined',
+            time: new Date(t0.getTime() + 25 * 60000)
+        });
+        return events;
+    }
+})();
+
+// State
+const state = {
+    activeTab: 'incoming',
+    selectedRequestId: null,
+    query: '',
+    status: 'All',
+    dateFrom: '',
+    dateTo: '',
+    sort: 'newest',
+    page: 1,
+    pageSize: 6,
+    data: [...mockRequests]
+};
+
+// DOM refs
+const incomingList = document.getElementById('incomingList');
+const outgoingList = document.getElementById('outgoingList');
+const archivedList = document.getElementById('archivedList');
+const incomingPendingCount = document.getElementById('incomingPendingCount');
+const totalCountBadge = document.getElementById('totalCount');
+const paginationInfo = document.getElementById('paginationInfo');
+const currentPageLabel = document.getElementById('currentPageLabel');
+const prevPageBtn = document.getElementById('prevPageBtn');
+const nextPageBtn = document.getElementById('nextPageBtn');
+const selectedRequestLabel = document.getElementById('selectedRequestLabel');
+const acceptBtn = document.getElementById('acceptBtn');
+const declineBtn = document.getElementById('declineBtn');
+const detailsPlaceholder = document.getElementById('detailsPlaceholder');
+const detailsContent = document.getElementById('detailsContent');
+const freshnessLabel = document.getElementById('freshnessLabel');
+const refreshBtn = document.getElementById('refreshBtn');
+
+// Filters
+const searchInput = document.getElementById('searchInput');
+const statusSelect = document.getElementById('statusSelect');
+const dateFrom = document.getElementById('dateFrom');
+const dateTo = document.getElementById('dateTo');
+const sortSelect = document.getElementById('sortSelect');
+const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+const applyFiltersBtn = document.getElementById('applyFiltersBtn');
+
+// Tabs
+const incomingTabBtn = document.getElementById('incoming-tab');
+const outgoingTabBtn = document.getElementById('outgoing-tab');
+const archivedTabBtn = document.getElementById('archived-tab');
+
+// Chart
+let statusChart;
+
+function initChart() {
+    const ctx = document.getElementById('statusChart');
+    if (statusChart) statusChart.destroy();
+    const counts = getStatusCounts(getVisibleData('incoming').concat(getVisibleData('outgoing')));
+    statusChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Pending', 'Accepted', 'In-Progress', 'Declined', 'Completed'],
+            datasets: [{
+                data: [counts.Pending, counts.Accepted, counts['In-Progress'], counts.Declined, counts.Completed],
+                backgroundColor: ['#FFA500', '#008000', '#0099D2', '#CD2026', '#6C757D'],
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    });
+}
+
+function getStatusCounts(arr) {
+    const init = {
+        Pending: 0,
+        Accepted: 0,
+        'In-Progress': 0,
+        Declined: 0,
+        Completed: 0
+    };
+    return arr.reduce((acc, r) => {
+        acc[r.status] = (acc[r.status] || 0) + 1;
+        return acc;
+    }, init);
+}
+
+// Filtering/sorting/paging helpers
+function applyFiltersTo(arr) {
+    let res = [...arr];
+    // Search query
+    if (state.query.trim()) {
+        const q = state.query.trim().toLowerCase();
+        res = res.filter(r => [r.id, r.patient.name, r.origin, r.dest].some(v => String(v).toLowerCase().includes(q)));
+    }
+    // Status
+    if (state.status !== 'All') res = res.filter(r => r.status === state.status);
+    // Date range (by requestedAt date only)
+    if (state.dateFrom) {
+        const from = new Date(state.dateFrom);
+        res = res.filter(r => r.requestedAt >= from);
+    }
+    if (state.dateTo) {
+        const to = new Date(state.dateTo);
+        // include end of day
+        to.setHours(23, 59, 59, 999);
+        res = res.filter(r => r.requestedAt <= to);
+    }
+    // Sorting
+    if (state.sort === 'newest') res.sort((a, b) => b.requestedAt - a.requestedAt);
+    if (state.sort === 'oldest') res.sort((a, b) => a.requestedAt - b.requestedAt);
+    if (state.sort === 'severity') res.sort((a, b) => severityRank(b.patient.severity) - severityRank(a.patient.severity));
+    return res;
+}
+
+function severityRank(s) {
+    return {
+        High: 3,
+        Medium: 2,
+        Low: 1
+    } [s] || 0;
+}
+
+function partitionByTab(arr) {
+    return {
+        incoming: arr.filter(r => r.dir === 'incoming' && !['Declined', 'Completed'].includes(r.status)),
+        outgoing: arr.filter(r => r.dir === 'outgoing' && !['Declined', 'Completed'].includes(r.status)),
+        archived: arr.filter(r => ['Declined', 'Completed'].includes(r.status))
+    };
+}
+
+function getVisibleData(tab) {
+    const filtered = applyFiltersTo(state.data);
+    const parts = partitionByTab(filtered);
+    return parts[tab];
+}
+
+function renderLists() {
+    const inData = getVisibleData('incoming');
+    const outData = getVisibleData('outgoing');
+    const archData = getVisibleData('archived');
+    totalCountBadge.textContent = inData.length + outData.length + archData.length;
+    incomingPendingCount.textContent = state.data.filter(r => r.dir === 'incoming' && r.status === 'Pending').length;
+
+    // Pagination on active tab
+    const activeArr = state.activeTab === 'incoming' ? inData : state.activeTab === 'outgoing' ? outData : archData;
+    const total = activeArr.length;
+    const from = (state.page - 1) * state.pageSize;
+    const to = Math.min(state.page * state.pageSize, total);
+    const pageArr = activeArr.slice(from, to);
+
+    paginationInfo.textContent = total ? `Showing ${from+1}–${to} of ${total}` : 'No results';
+    currentPageLabel.textContent = String(state.page);
+    prevPageBtn.disabled = state.page === 1;
+    nextPageBtn.disabled = to >= total;
+
+    // Render each list
+    renderListTo(incomingList, state.activeTab === 'incoming' ? pageArr : inData);
+    renderListTo(outgoingList, state.activeTab === 'outgoing' ? pageArr : outData);
+    renderListTo(archivedList, state.activeTab === 'archived' ? pageArr : archData, true);
+
+    initChart();
+}
+
+function renderListTo(container, arr, isArchived = false) {
+    container.innerHTML = '';
+    if (!arr.length) {
+        const imgName = isArchived ? 'empty_transfer_list_illustrati_4_52e94972.png' : 'empty_transfer_list_illustrati_1_7d9dc823.png';
+        const empty = document.createElement('div');
+        empty.className = 'text-center p-4';
+        empty.innerHTML = `
+          <img src="assets/${imgName}" alt="No requests" class="img-fluid mx-auto mb-2" style="max-width:420px;" onerror="this.onerror=null;this.src='https://picsum.photos/seed/empty-${container.id}/600/300';">
+          <div class="uc-text-muted">No ${isArchived?'archived':'active'} requests found for the current filters.</div>`;
+        container.appendChild(empty);
+        return;
+    }
+    arr.forEach(r => container.appendChild(buildRequestItem(r)));
+}
+
+function buildRequestItem(r) {
+    const wrapper = document.createElement('div');
+    const selected = state.selectedRequestId === r.id;
+    wrapper.className = `tm-request-item uc-list-item mb-2 ${selected?'tm-selected':''}`;
+    wrapper.tabIndex = 0;
+    wrapper.setAttribute('role', 'button');
+    wrapper.addEventListener('click', () => selectRequest(r.id));
+    wrapper.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') selectRequest(r.id);
+    });
+    const statusStripeClass = {
+        'Pending': 'tm-status-pending',
+        'Accepted': 'tm-status-accepted',
+        'In-Progress': 'tm-status-inprogress',
+        'Declined': 'tm-status-declined',
+        'Completed': 'tm-status-completed',
+    } [r.status] || 'tm-status-pending';
+    const timeStr = r.requestedAt.toLocaleString();
+    const sevBadge = severityBadge(r.patient.severity);
+    wrapper.innerHTML = `
+        <div class="tm-left ${statusStripeClass}"></div>
+        <div class="tm-content">
+          <div class="d-flex align-items-center justify-content-between mb-1">
+            <div class="fw-semibold">${r.patient.name} <span class="text-muted">• ${r.patient.age}y</span> ${sevBadge}</div>
+            <div class="small text-muted"><i class="fa-regular fa-clock"></i> ${timeStr}</div>
+          </div>
+          <div class="small text-muted mb-1"><i class="fa-solid fa-hospital"></i> <strong>${r.dir==='incoming' ? r.origin : r.dest}</strong> <i class="fa-solid fa-arrow-right-arrow-left mx-1"></i> <strong>${r.dir==='incoming' ? r.dest : r.origin}</strong></div>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="">
+              ${statusPill(r.status)}
+              <span class="uc-chip ms-1"><i class="fa-solid fa-box-medical"></i> ${r.resources.join(', ')}</span>
+            </div>
+            <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-eye"></i> View</button>
+          </div>
+        </div>`;
+    return wrapper;
+}
+
+function statusPill(status) {
+    const map = {
+        'Pending': 'warning',
+        'Accepted': 'primary',
+        'In-Progress': 'info',
+        'Declined': 'danger',
+        'Completed': 'neutral'
+    };
+    const cls = map[status] || 'primary';
+    const icon = {
+        'Pending': 'fa-hourglass-half',
+        'Accepted': 'fa-check',
+        'In-Progress': 'fa-truck-medical',
+        'Declined': 'fa-xmark',
+        'Completed': 'fa-flag-checkered'
+    } [status] || 'fa-circle';
+    return `<span class="uc-badge uc-badge-${cls}"><i class="fa-solid ${icon}"></i> ${status}</span>`;
+}
+
+function severityBadge(level) {
+    const m = {
+        High: 'uc-status-high',
+        Medium: 'uc-status-medium',
+        Low: 'uc-status-low'
+    };
+    return `<span class="uc-status-badge ${m[level]||''} ms-2"><i class="fa-solid fa-triangle-exclamation"></i> ${level}</span>`;
+}
+
+function selectRequest(id) {
+    state.selectedRequestId = id;
+    selectedRequestLabel.textContent = id;
+    acceptBtn.disabled = true;
+    declineBtn.disabled = true;
+    renderLists();
+    renderDetails();
+    showToast('info', `Loaded details for ${id}`);
+}
+
+function renderDetails() {
+    const r = state.data.find(x => x.id === state.selectedRequestId);
+    if (!r) {
+        detailsPlaceholder.classList.remove('d-none');
+        detailsContent.classList.add('d-none');
+        acceptBtn.disabled = true;
+        declineBtn.disabled = true;
+        return;
+    }
+    detailsPlaceholder.classList.add('d-none');
+    detailsContent.classList.remove('d-none');
+    const patientInfo = `
+        <div class="uc-card uc-hover-raise mb-3">
+          <div class="uc-card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <div class="uc-h3 mb-1">${r.patient.name} <span class="uc-text-muted">(${r.patient.age} years)</span></div>
+                <div class="mb-2">${severityBadge(r.patient.severity)}</div>
+                <div class="uc-text-muted">Clinical Summary: ${r.notes}</div>
+              </div>
+              <div class="uc-avatar uc-avatar-lg" title="Patient initials">${(r.patient.name||'P').split(' ').map(s=>s[0]).join('').slice(0,2).toUpperCase()}</div>
+            </div>
+          </div>
+        </div>`;
+    const logistics = `
+        <div class="uc-card mb-3">
+          <div class="uc-card-header">
+            <div class="uc-card-title">Transfer Logistics</div>
+            <div class="uc-card-subtitle">Request ${r.id} • ${statusPill(r.status)}</div>
+          </div>
+          <div class="uc-card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="uc-text-muted">Originating Facility</div>
+                <div class="fw-semibold"><i class="fa-solid fa-hospital"></i> ${r.origin}</div>
+              </div>
+              <div class="col-md-6">
+                <div class="uc-text-muted">Destination Facility</div>
+                <div class="fw-semibold"><i class="fa-solid fa-hospital-user"></i> ${r.dest}</div>
+              </div>
+              <div class="col-12">
+                <div class="uc-text-muted">Requested Resources</div>
+                <div>${r.resources.map(x=>`<span class='uc-chip me-1'><i class='fa-solid fa-box-medical'></i> ${x}</span>`).join('')}</div>
+              </div>
+            </div>
+            <div class="uc-divider"></div>
+            <div class="uc-text-muted mb-2">Status Timeline</div>
+            <div class="uc-timeline">
+              ${r.timeline.map(t=>`<div class='uc-timeline-item'><div class='fw-semibold'>${t.label}</div><div class='small text-muted'>${new Date(t.time).toLocaleString()}</div></div>`).join('')}
+            </div>
+          </div>
+        </div>`;
+    const disclaimer = `
+        <div class="uc-alert uc-alert-info">
+          <i class="fa-solid fa-circle-info mt-1 text-info"></i>
+          <div>
+            AI triage and ETA are assistive and not a substitute for professional medical diagnosis.
+          </div>
+        </div>`;
+    detailsContent.innerHTML = patientInfo + logistics + disclaimer;
+    // Enable actions for Pending only
+    const canAct = r.status === 'Pending';
+    acceptBtn.disabled = !canAct;
+    declineBtn.disabled = !canAct;
+}
+
+// Actions: Accept / Decline
+acceptBtn.addEventListener('click', async () => {
+    const r = state.data.find(x => x.id === state.selectedRequestId);
+    if (!r) return;
+    const result = await Swal.fire({
+        title: 'Accept transfer?',
+        text: `Confirm acceptance for ${r.patient.name} (${r.id}).`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#008000',
+        confirmButtonText: 'Accept',
+        cancelButtonText: 'Cancel'
+    });
+    if (result.isConfirmed) {
+        r.status = 'Accepted';
+        r.timeline.push({
+            label: 'Accepted',
+            time: new Date()
+        });
+        renderLists();
+        renderDetails();
+        showToast('success', `Request ${r.id} accepted.`);
+    }
+});
+
+declineBtn.addEventListener('click', async () => {
+    const r = state.data.find(x => x.id === state.selectedRequestId);
+    if (!r) return;
+    const {
+        value: reason,
+        isConfirmed
+    } = await Swal.fire({
+        title: 'Decline transfer',
+        input: 'textarea',
+        inputLabel: 'Please provide a decline reason',
+        inputPlaceholder: 'E.g., No ICU availability for next 2 hours...',
+        inputAttributes: {
+            'aria-label': 'Decline reason'
+        },
+        inputValidator: (v) => !v ? 'Reason is required' : undefined,
+        showCancelButton: true,
+        confirmButtonText: 'Confirm Decline',
+        confirmButtonColor: '#CD2026'
+    });
+    if (isConfirmed) {
+        r.status = 'Declined';
+        r.declineReason = reason;
+        r.timeline.push({
+            label: 'Declined',
+            time: new Date()
+        });
+        renderLists();
+        renderDetails();
+        showToast('warning', `Request ${r.id} declined.`);
+    }
+});
+
+// Debounce helper
+function debounce(fn, delay) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), delay);
+    }
+}
+
+// Filter handlers
+searchInput.addEventListener('input', debounce((e) => {
+    state.query = e.target.value;
+    state.page = 1;
+    renderLists();
+}, 300));
+statusSelect.addEventListener('change', () => {
+    state.status = statusSelect.value;
+    state.page = 1;
+    renderLists();
+});
+sortSelect.addEventListener('change', () => {
+    state.sort = sortSelect.value;
+    state.page = 1;
+    renderLists();
+});
+applyFiltersBtn.addEventListener('click', () => {
+    state.dateFrom = dateFrom.value;
+    state.dateTo = dateTo.value;
+    state.page = 1;
+    renderLists();
+});
+clearFiltersBtn.addEventListener('click', () => {
+    state.query = '';
+    state.status = 'All';
+    state.dateFrom = '';
+    state.dateTo = '';
+    state.sort = 'newest';
+    state.page = 1;
+    searchInput.value = '';
+    statusSelect.value = 'All';
+    dateFrom.value = '';
+    dateTo.value = '';
+    sortSelect.value = 'newest';
+    renderLists();
+});
+
+// Tabs switching
+incomingTabBtn.addEventListener('shown.bs.tab', () => {
+    state.activeTab = 'incoming';
+    state.page = 1;
+    renderLists();
+});
+outgoingTabBtn.addEventListener('shown.bs.tab', () => {
+    state.activeTab = 'outgoing';
+    state.page = 1;
+    renderLists();
+});
+archivedTabBtn.addEventListener('shown.bs.tab', () => {
+    state.activeTab = 'archived';
+    state.page = 1;
+    renderLists();
+});
+
+// Pagination
+prevPageBtn.addEventListener('click', () => {
+    if (state.page > 1) {
+        state.page--;
+        renderLists();
+    }
+});
+nextPageBtn.addEventListener('click', () => {
+    state.page++;
+    renderLists();
+});
+
+// Freshness label updater
+let startTime = new Date();
+
+function updateFreshness() {
+    const mins = Math.floor((new Date() - startTime) / 60000);
+    freshnessLabel.textContent = mins === 0 ? 'Last updated just now' : `Last updated ${mins} min ago`;
+}
+setInterval(updateFreshness, 30000);
+refreshBtn.addEventListener('click', () => {
+    startTime = new Date();
+    updateFreshness();
+    // Simulate fetch with skeletons
+    simulateLoading();
+});
+
+function simulateLoading() {
+    // optional: show skeleton in lists
+    [incomingList, outgoingList, archivedList].forEach(c => c.innerHTML = '<div class="uc-skeleton" style="height:60px"></div><div class="uc-skeleton mt-2" style="height:60px"></div>');
+    setTimeout(() => renderLists(), 600);
+}
+
+// Toast helper
+function showToast(variant, message) {
+    const variantClass = {
+        info: 'uc-toast-info',
+        success: 'uc-toast-success',
+        warning: 'uc-toast-warning',
+        danger: 'uc-toast-danger'
+    } [variant] || 'uc-toast-info';
+    const icon = {
+        info: 'fa-circle-info',
+        success: 'fa-check-circle',
+        warning: 'fa-triangle-exclamation',
+        danger: 'fa-circle-xmark'
+    } [variant] || 'fa-circle-info';
+    const el = document.createElement('div');
+    el.className = `uc-toast ${variantClass}`;
+    el.innerHTML = `<i class="fa-solid ${icon} text-${variant==='danger'?'danger':variant}"></i><div>${message}</div>`;
+    document.getElementById('toastContainer').appendChild(el);
+    setTimeout(() => {
+        el.remove();
+    }, 3500);
+}
+
+// Global search in header routes into local search
+document.getElementById('globalSearchBtn').addEventListener('click', () => {
+    const val = document.getElementById('globalSearchInput').value || '';
+    state.query = val;
+    searchInput.value = val;
+    state.page = 1;
+    renderLists();
+});
+
+// Init
+(function init() {
+    renderLists();
+    renderDetails();
+    updateFreshness();
+    showToast('info', 'Transfer Management ready.');
+})();
+  </script>
+ </body>
+</html>

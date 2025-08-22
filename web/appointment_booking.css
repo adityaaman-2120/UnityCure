@@ -1,0 +1,111 @@
+/* appointment_booking.css - Page specific styles for Book Appointment */
+/* Brand font override for this page */
+body, .uc-card, .uc-btn, .uc-label, .uc-h1, .uc-h2, .uc-h3, .uc-h4, .uc-page-title {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Stepper */
+.uc-stepper {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0;
+    margin: 0 0 var(--uc-space-4)
+    }
+.uc-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--uc-color-surface);
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-md)
+    }
+.uc-step .uc-step-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--uc-color-info) 14%, white);
+    color: var(--uc-color-info);
+    font-weight: 700
+    }
+.uc-step .uc-step-label {
+    font-weight: 600
+    }
+.uc-step.active {
+    border-color: var(--uc-color-primary);
+    box-shadow: var(--uc-shadow-sm)
+    }
+.uc-step.active .uc-step-index {
+    background: var(--uc-color-primary);
+    color: var(--uc-color-on-primary)
+    }
+.uc-step.complete .uc-step-index {
+    background: var(--uc-color-success);
+    color: var(--uc-color-on-success)
+    }
+/* Calendar container minor tweaks */
+.uc-calendar .flatpickr-calendar {
+    width: 100%
+    }
+.uc-calendar .flatpickr-calendar.inline {
+    box-shadow: var(--uc-shadow-sm);
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-md)
+    }
+.uc-calendar .flatpickr-day.selected, .uc-calendar .flatpickr-day.startRange, .uc-calendar .flatpickr-day.endRange {
+    background: var(--uc-color-info);
+    border-color: var(--uc-color-info);
+    color: var(--uc-color-on-info)
+    }
+.uc-calendar .flatpickr-day.today {
+    border-color: var(--uc-color-primary)
+    }
+.uc-calendar .flatpickr-day.disabled, .uc-calendar .flatpickr-day.notAllowed {
+    color: #9aa4b2
+    }
+/* Slots grid buttons */
+.slot-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    background: var(--uc-color-surface);
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-md);
+    box-shadow: var(--uc-shadow-sm);
+    font-weight: 600;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.06s ease
+    }
+.slot-btn:hover {
+    background: color-mix(in oklab, var(--uc-color-info) 6%, white)
+    }
+.slot-btn.active {
+    background: color-mix(in oklab, var(--uc-color-primary) 12%, white);
+    color: var(--uc-color-primary);
+    border-color: var(--uc-color-primary)
+    }
+/* Illustration */
+.appointment-illustration {
+    width: 100%;
+    height: auto;
+    border-radius: var(--uc-radius-md);
+    border: 1px solid var(--uc-color-border)
+    }
+/* Table interactivity hints */
+#availabilityTable thead th[role="button"] {
+    cursor: pointer
+    }
+#availabilityTable thead th[role="button"]:hover {
+    color: var(--uc-color-info)
+    }
+/* Responsive spacing adjustments */
+@media (max-width: 768px) {
+    .uc-stepper {
+        grid-template-columns: 1fr
+        }
+    }

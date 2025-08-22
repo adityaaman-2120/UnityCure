@@ -1,0 +1,58 @@
+/* admin_dashboard.css - Page-specific styles for Hospital Admin Dashboard */
+/* Use Poppins as primary brand font for this page */
+body {
+    font-family: "Poppins", var(--uc-font-sans)
+    }
+/* Make KPI cards obviously clickable */
+.metric-card {
+    cursor: pointer
+    }
+.metric-card .uc-stat-value {
+    letter-spacing: 0.2px
+    }
+/* Tighten card headers for dashboard density */
+.uc-card-header {
+    padding-top: 12px;
+    padding-bottom: 12px
+    }
+/* Transfers and Alerts list items: align content nicely on small screens */
+@media (max-width: 576px) {
+    .uc-list-item {
+        grid-template-columns: 1fr
+        }
+    }
+/* Search field width in header controls */
+.uc-search {
+    min-width: 240px
+    }
+@media (max-width: 992px) {
+    .uc-search {
+        min-width: 180px
+        }
+    }
+/* Improve visibility of stale freshness indicator inside KPI */
+#kpiIcuCard .uc-freshness.uc-freshness-stale {
+    color: var(--uc-color-warning-700)
+    }
+/* Chart container sizing */
+#bedsChart {
+    width: 100%;
+    height: 220px
+    }
+/* Pagination alignment */
+.uc-pagination .uc-page-btn {
+    border: none;
+    background: transparent
+    }
+.uc-pagination .uc-page-btn.btn {
+    border: 1px solid var(--uc-color-border)
+    }
+/* Sidebar toggler alignment in header on small screens */
+.navbar .btn-outline-light .fa-bars {
+    vertical-align: middle
+    }
+/* Small visual hint on hover for list action buttons */
+.uc-list-item .btn:hover {
+    transform: translatey(-1px);
+    transition: transform 0.12s ease
+    }

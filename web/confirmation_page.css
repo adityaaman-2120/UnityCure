@@ -1,0 +1,56 @@
+/* confirmation_page.css - Page-specific styles for Confirmation page */
+/* Use brand typography */
+body {
+    font-family: "Poppins", var(--uc-font-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif
+    }
+/* Confirmation card visuals */
+.confirmation-card {
+    border-left: 4px solid var(--uc-color-success)
+    }
+.success-indicator .success-icon-wrapper {
+    width: 88px;
+    height: 88px;
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+    background: color-mix(in oklab, var(--uc-color-success) 14%, white);
+    color: var(--uc-color-success);
+    border-radius: 50%;
+    box-shadow: var(--uc-shadow-md)
+    }
+.success-indicator i {
+    font-size: 42px
+    }
+.confirmation-visual img {
+    object-fit: cover;
+    max-height: 320px;
+    width: 100%
+    }
+/* List group within details to align with theme */
+#detailsList .list-group-item {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px dashed var(--uc-color-border)
+    }
+#detailsList .list-group-item:last-child {
+    border-bottom: 0
+    }
+/* Table tweaks */
+#upcomingTable thead th {
+    user-select: none;
+    cursor: pointer
+    }
+#upcomingTable thead th i {
+    color: var(--uc-color-text-muted);
+    margin-left: 6px
+    }
+/* Breadcrumb alignment */
+.uc-breadcrumbs {
+    gap: 8px
+    }
+/* Responsive spacing */
+@media (max-width: 576px) {
+    .confirmation-card .uc-card-body {
+        padding: 16px
+        }
+    }

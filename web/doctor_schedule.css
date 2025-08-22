@@ -1,0 +1,63 @@
+/* doctor_schedule.css — Page specific styles for Doctor Schedule Management */
+/* Calendar container sizing */
+.doctor-calendar {
+    min-height: 640px
+    }
+/* FullCalendar event styling variants */
+.fc-appt {
+    font-weight: 500
+    }
+.fc-tele {
+    background-color: rgba(0, 153, 210, 0.18) !important;
+    border-color: #0099D2 !important;
+    color: #0B1220 !important
+    }
+.fc-inperson {
+    background-color: rgba(0, 128, 0, 0.16) !important;
+    border-color: #008000 !important;
+    color: #0B1220 !important
+    }
+.fc-completed {
+    filter: grayscale(0.4) brightness(0.95);
+    opacity: 0.9
+    }
+.fc-cancelled {
+    background: repeating-linear-gradient(45deg, rgba(205, 32, 38, 0.08) 0 6px, rgba(205, 32, 38, 0.18) 6px 12px) !important;
+    border-color: #CD2026 !important;
+    text-decoration: line-through
+    }
+.fc-noshow {
+    background-color: rgba(255, 165, 0, 0.22) !important;
+    border-color: #FFA500 !important
+    }
+/* View switcher segmented group adjustments */
+.uc-segmented .btn[aria-pressed="true"], .uc-segmented .uc-seg[aria-pressed="true"] {
+    background: #fff;
+    border: 1px solid var(--uc-color-border);
+    box-shadow: var(--uc-shadow-sm);
+    font-weight: 700
+    }
+/* Modal imagery overlay text style */
+#availabilityModal .position-absolute h5 {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45)
+    }
+/* Quick Filters card spacing */
+#qfType, #qfStatus {
+    min-width: 160px
+    }
+/* Table hover */
+#appointmentsTable tbody tr:hover {
+    background: #FAFDFF
+    }
+/* Small badges rounded */
+.badge {
+    border-radius: 10px
+    }
+/* Spinner overlay for calendar already inline, ensure proper z-index */
+#calendarLoading {
+    backdrop-filter: blur(1px)
+    }
+/* Breadcrumb link color align with info */
+.breadcrumb a {
+    color: var(--uc-color-info)
+    }

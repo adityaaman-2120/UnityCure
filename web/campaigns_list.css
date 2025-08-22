@@ -1,0 +1,63 @@
+/* Campaigns List Page - Page-specific CSS */
+/* Use Poppins brand typography on this page */
+body {
+    font-family: "Poppins", var(--uc-font-sans), sans-serif
+    }
+/* Sticky filter with room for the top navbar */
+.uc-filter-sticky {
+    position: sticky;
+    top: 56px;
+    z-index: 30;
+    background: transparent;
+    padding-top: 4px
+    }
+@media (min-width: 992px) {
+    .uc-filter-sticky {
+        top: 64px
+        }
+    }
+/* Enhance filter bar spacing inside sticky container */
+.uc-filter-bar {
+    gap: 8px
+    }
+/* Card hover/active subtle effect (leveraging utilities) */
+.campaign-card {
+    border: 1px solid var(--uc-color-border);
+    border-radius: var(--uc-radius-lg);
+    overflow: hidden
+    }
+.campaign-card .card-title {
+    font-weight: 600
+    }
+.campaign-card:hover {
+    box-shadow: var(--uc-shadow-lg);
+    transform: translatey(-2px);
+    transition: all 0.2s ease
+    }
+/* Map height adjustment for better visibility */
+#campaignMap {
+    height: 460px
+    }
+/* Pagination compactness */
+.pagination .page-link {
+    color: var(--uc-color-text)
+    }
+.pagination .page-item.active .page-link {
+    background: color-mix(in oklab, var(--uc-color-info) 14%, white);
+    color: var(--uc-color-info);
+    border-color: var(--uc-color-info)
+    }
+/* Empty state image responsiveness */
+#emptyState img {
+    width: 100%;
+    height: auto;
+    max-width: 420px
+    }
+/* Improve badges legibility on light bg */
+.badge.bg-light.text-dark {
+    border: 1px solid var(--uc-color-border)
+    }
+/* Object-fit helper for card images */
+.object-fit-cover {
+    object-fit: cover
+    }

@@ -1,0 +1,36 @@
+/* user_dashboard.css - Page-specific styles for User Dashboard */
+/* Ensure main content spacing and section rhythm beyond global defaults */
+#mainContent .uc-section + .uc-section {
+    margin-top: var(--uc-space-8)
+    }
+/* Equal height quick action stat cards */
+.uc-stat-card {
+    min-height: 96px
+    }
+/* Appointment cards - tighter spacing on small screens */
+@media (max-width: 575.98px) {
+    .appointment-card .uc-card-body {
+        padding: 12px
+        }
+    }
+/* Nav tabs emphasis to align with brand */
+.nav-tabs .nav-link.active {
+    color: var(--uc-color-primary);
+    font-weight: 600
+    }
+.nav-tabs .nav-link {
+    color: var(--uc-color-text)
+    }
+/* Chart container minimal spacing */
+#careChart {
+    width: 100%
+    }
+/* Campaign card images maintain aspect ratio */
+.card-img-top {
+    aspect-ratio: 16/9;
+    object-fit: cover
+    }
+/* Toast button reset inside uc-toast */
+.uc-toast .uc-btn {
+    border: none
+    }

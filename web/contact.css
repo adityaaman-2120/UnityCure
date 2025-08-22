@@ -1,0 +1,142 @@
+/* Contact Page Styles */
+
+/* Office Location Cards */
+.office-location {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background-color: #f8f9fa;
+    transition: all 0.2s ease-in-out;
+}
+
+.office-location:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-1px);
+}
+
+.office-location h6 {
+    color: #198754;
+    font-weight: 600;
+}
+
+/* Contact Form Styling */
+.uc-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+.uc-input.is-valid {
+    border-color: #198754;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='m2.3 6.73.94-.94 2.54 2.54 2.54-2.54.94.94L5.78 9.27z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.uc-input.is-invalid {
+    border-color: #dc3545;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.6 2.4 2.4m0-2.4L5.8 7'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Social Media Buttons */
+.uc-btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+}
+
+.uc-btn-outline-info:hover {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: white;
+}
+
+.uc-btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+/* Emergency Contact Card */
+.uc-card[style*="background: linear-gradient"] {
+    border-left: 4px solid #ffc107;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .office-location {
+        margin-bottom: 1rem;
+    }
+    
+    .uc-card {
+        padding: 1.5rem !important;
+    }
+    
+    .d-flex.justify-content-center.gap-3 {
+        gap: 0.5rem !important;
+    }
+    
+    .uc-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Form Validation Animation */
+.uc-input.is-valid,
+.uc-input.is-invalid {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Loading Spinner */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility */
+.uc-skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.uc-skip-link:focus {
+    top: 6px;
+}
+
+/* Focus styles for better accessibility */
+.uc-btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: 2px solid #198754;
+    outline-offset: 2px;
+}
+
+/* Hover effects for interactive elements */
+.uc-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.office-location:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Campaign Details - UnityCure
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Font Awesome 6 -->
+   <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfG3lC1Kq1JbS7eGqSdz7P4R8GKsEFpI9EwYvK3Gq0C5FhKZ8+9+YxwA==" referrerpolicy="no-referrer" rel="stylesheet"/>
+   <!-- Leaflet (Map) -->
+   <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet"/>
+   <!-- Global Theme CSS -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="campaign_details.css" rel="stylesheet"/>
+   <style>
+    /* Ensure Poppins is applied globally */
+    body { font-family: 'Poppins', var(--uc-font-sans), sans-serif; }
+   </style>
+  </link>
+ </head>
+ <body>
+  <a class="uc-skip-link" href="#main">
+   Skip to main content
+  </a>
+  <!-- Header (Citizen/Community) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarCitizen" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarCitizen" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./map_view.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure
+     </span>
+    </a>
+    <button aria-controls="ucNavbarCitizen" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarCitizen" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarCitizen">
+     <form class="d-flex ms-lg-3 my-2 my-lg-0 w-100" role="search">
+      <input aria-label="Search" class="form-control me-2" placeholder="Search hospitals, doctors..." type="search"/>
+      <button class="btn btn-outline-light" type="submit">
+       <i class="fa-solid fa-magnifying-glass">
+       </i>
+      </button>
+     </form>
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2 d-none d-lg-block">
+       <a class="btn btn-warning fw-semibold" href="./sos_form.html">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        SOS
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Notifications" class="nav-link" href="#">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item me-2">
+       <a aria-label="Messages" class="nav-link" href="#">
+        <i class="fa-regular fa-envelope">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <span class="badge bg-info text-dark me-2">
+         <i class="fa-solid fa-globe">
+         </i>
+        </span>
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Citizen
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./user_dashboard.html">
+          My Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" href="#">
+          Settings
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <!-- Sidebar (Citizen/Community) -->
+  <div aria-labelledby="ucSidebarCitizenLabel" class="offcanvas offcanvas-start" id="ucSidebarCitizen" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarCitizenLabel">
+      UnityCure
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-user">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Guest/User
+       </div>
+       <div class="text-muted small">
+        Citizen
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucCitizenNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./map_view.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Find Healthcare (Map)
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenAppointments" data-bs-toggle="collapse">
+      <i class="fa-solid fa-calendar-check me-2 text-success">
+      </i>
+      Appointments
+     </button>
+     <div class="collapse show" id="citizenAppointments">
+      <a class="nav-link ms-4 px-3 py-1" href="./user_dashboard.html">
+       My Appointments
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./appointment_booking.html">
+       Book Appointment
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./teleconsult_session.html">
+       Join Teleconsultation
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-2 text-danger">
+      </i>
+      Emergency SOS
+     </a>
+     <button aria-expanded="true" class="btn btn-toggle align-items-center rounded w-100 text-start px-3 py-2" data-bs-target="#citizenCampaigns" data-bs-toggle="collapse">
+      <i class="fa-solid fa-hand-holding-medical me-2 text-success">
+      </i>
+      Community Campaigns
+     </button>
+     <div class="collapse show" id="citizenCampaigns">
+      <a class="nav-link ms-4 px-3 py-1" href="./campaigns_list.html">
+       Browse Campaigns
+      </a>
+      <a class="nav-link ms-4 px-3 py-1" href="./campaign_details.html">
+       Campaign Details
+      </a>
+     </div>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./feedback_form.html">
+      <i class="fa-regular fa-star me-2 text-success">
+      </i>
+      Provide Feedback
+     </a>
+     <hr class="my-2">
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+       <i class="fa-solid fa-gear me-2">
+       </i>
+       Settings
+      </a>
+      <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="./login_page.html">
+       <i class="fa-solid fa-right-from-bracket me-2">
+       </i>
+       Logout
+      </a>
+     </hr>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucCitizenNav .nav-link{color:#212529}
+    #ucCitizenNav .nav-link:hover{background:rgba(0,128,0,0.1)}
+    .btn-toggle{color:#212529}
+    .btn-toggle:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <!-- Main Content -->
+  <main class="pb-3" id="main">
+   <!-- Campaign Header (Hero) -->
+   <section class="position-relative">
+    <img alt="Campaign banner" class="w-100 campaign-hero" id="campaignHeroImg" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycure-campaign/1920/600';" src="assets/campaign_banner_image_3_1b10c0dc.jpg"/>
+    <div class="container py-3">
+     <nav aria-label="breadcrumb">
+      <ol class="breadcrumb small">
+       <li class="breadcrumb-item">
+        <a href="./campaigns_list.html">
+         Campaigns
+        </a>
+       </li>
+       <li aria-current="page" class="breadcrumb-item active">
+        Campaign Details
+       </li>
+      </ol>
+     </nav>
+     <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+      <div>
+       <h1 class="uc-h1 mb-1" id="campaignTitle">
+        Kolkata Mega Blood Donation Drive
+       </h1>
+       <div class="d-flex align-items-center flex-wrap gap-2">
+        <span class="badge text-bg-danger" id="campaignCategory">
+         <i class="fa-solid fa-droplet me-1">
+         </i>
+         Blood Drive
+        </span>
+        <a class="text-decoration-none" href="./organizer_dashboard.html" id="organizerLink">
+         <i class="fa-solid fa-building-ngo me-1 text-success">
+         </i>
+         <span id="organizerName">
+          Help4Life Foundation
+         </span>
+        </a>
+       </div>
+      </div>
+      <div class="text-muted small mt-2 mt-md-0">
+       <span class="uc-freshness" id="lastUpdated">
+        Last updated just now
+       </span>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Content and Sidebar -->
+   <section class="container mt-2">
+    <div class="row g-3">
+     <!-- Main Column -->
+     <div class="col-lg-8">
+      <div class="uc-card mb-3">
+       <div class="uc-card-body">
+        <h2 class="uc-h2 fs-4">
+         About this Campaign
+        </h2>
+        <p class="mb-3" id="campaignDescription">
+         Join our city-wide effort to ensure safe and sufficient blood supplies. Donors will undergo a quick health screening and receive refreshments and certificates of appreciation. Help save lives and strengthen Kolkata’s emergency response readiness.
+        </p>
+        <h3 class="uc-h3 fs-5">
+         Objectives
+        </h3>
+        <ul class="mb-0" id="campaignObjectives">
+         <li>
+          Collect 120+ units of blood to meet regional demand
+         </li>
+         <li>
+          Raise community awareness on regular blood donation
+         </li>
+         <li>
+          Onboard new donors and maintain follow-up registry
+         </li>
+        </ul>
+       </div>
+      </div>
+      <!-- Additional Info -->
+      <div class="uc-card mb-3">
+       <div class="uc-card-header">
+        <div class="uc-card-title">
+         What to Expect
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <ul class="mb-0">
+         <li>
+          Simple on-site registration and screening by certified staff
+         </li>
+         <li>
+          Comfortable donation area with hygienic protocols
+         </li>
+         <li>
+          Light refreshments provided post-donation
+         </li>
+         <li>
+          Digital certificate delivered to your registered email
+         </li>
+        </ul>
+       </div>
+      </div>
+      <!-- Organizer-only Section: Participant List -->
+      <div class="uc-card mb-3 d-none" id="organizerSection">
+       <div class="uc-card-header">
+        <div class="uc-card-title">
+         Registered Participants
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" id="exportCsvBtn">
+         <i class="fa-solid fa-file-arrow-down me-1">
+         </i>
+         Export as CSV
+        </button>
+       </div>
+       <div class="uc-card-body">
+        <div class="row g-2 align-items-end mb-2">
+         <div class="col-sm-6">
+          <label class="form-label mb-1" for="participantSearch">
+           Search Participants
+          </label>
+          <div class="uc-search">
+           <i class="fa-solid fa-magnifying-glass text-muted">
+           </i>
+           <input id="participantSearch" placeholder="Search by name..." type="text">
+           </input>
+          </div>
+         </div>
+         <div class="col-sm-6 text-sm-end">
+          <div class="small text-muted" id="paginationInfo">
+           Showing 1-6 of 8
+          </div>
+         </div>
+        </div>
+        <div class="uc-table-responsive">
+         <table aria-label="Registered participants table" class="uc-table" id="participantTable">
+          <thead>
+           <tr>
+            <th data-sort="name" role="button">
+             Name
+             <i class="fa-solid fa-sort ms-1">
+             </i>
+            </th>
+            <th data-sort="date" role="button">
+             Registration Date
+             <i class="fa-solid fa-sort ms-1">
+             </i>
+            </th>
+           </tr>
+          </thead>
+          <tbody id="participantTbody">
+           <!-- Rows injected by JS -->
+          </tbody>
+         </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+         <div class="small text-muted" id="pageSummary">
+          Page 1 of 2
+         </div>
+         <nav aria-label="Participants pagination">
+          <ul class="pagination pagination-sm mb-0">
+           <li class="page-item">
+            <button aria-label="Previous" class="page-link" id="prevPage">
+             «
+            </button>
+           </li>
+           <li class="page-item">
+            <button aria-label="Next" class="page-link" id="nextPage">
+             »
+            </button>
+           </li>
+          </ul>
+         </nav>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Sidebar Column -->
+     <div class="col-lg-4">
+      <div aria-labelledby="actionPanelTitle" class="uc-card sticky-sidebar mb-3">
+       <div class="uc-card-header">
+        <div class="uc-card-title" id="actionPanelTitle">
+         Event Details &amp; Registration
+        </div>
+       </div>
+       <div class="uc-card-body">
+        <div class="d-grid mb-3">
+         <button class="btn btn-success uc-btn uc-btn-success" id="registerBtn">
+          <i class="fa-solid fa-user-plus me-2">
+          </i>
+          Register
+         </button>
+        </div>
+        <div class="d-flex align-items-start mb-2">
+         <i class="fa-regular fa-calendar text-success me-2 mt-1">
+         </i>
+         <div>
+          <div class="fw-semibold">
+           Date &amp; Time
+          </div>
+          <div class="text-muted small" id="dateTimeText">
+           Fri, 12 Sep 2025 • 9:00 AM – 3:00 PM
+          </div>
+         </div>
+        </div>
+        <div class="d-flex align-items-start mb-2">
+         <i class="fa-solid fa-location-dot text-success me-2 mt-1">
+         </i>
+         <div>
+          <div class="fw-semibold">
+           Location
+          </div>
+          <div class="text-muted small" id="locationText">
+           Rabindra Sadan Community Hall, 7/1 Shambhunath Pandit St, Bhowanipore, Kolkata
+          </div>
+          <a class="uc-directions-button mt-2" href="#" id="directionsBtn" rel="noopener" target="_blank">
+           <i class="fa-solid fa-route">
+           </i>
+           Get Directions
+          </a>
+         </div>
+        </div>
+        <div class="d-flex align-items-start mb-2">
+         <i class="fa-solid fa-users text-success me-2 mt-1">
+         </i>
+         <div class="w-100">
+          <div class="fw-semibold">
+           Registrations
+          </div>
+          <div class="text-muted small">
+           <span id="regCount">
+            86
+           </span>
+           /
+           <span id="capacity">
+            120
+           </span>
+           filled
+          </div>
+          <div class="uc-progress mt-2">
+           <div class="uc-progress-bar" id="regProgress" style="width: 72%">
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="mt-3">
+         <canvas aria-label="Registration capacity chart" height="150" id="regChart" role="img">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <div class="uc-card mb-3">
+       <div class="uc-card-header">
+        <div class="uc-card-title">
+         Venue Map
+        </div>
+       </div>
+       <div class="uc-card-body p-0">
+        <div class="leaflet-map" id="campaignMap">
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+  <!-- Footer -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span class="small text-muted">
+      © UnityCure
+     </span>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+     <a class="btn btn-sm btn-warning d-lg-none" href="./sos_form.html">
+      <i class="fa-solid fa-triangle-exclamation me-1">
+      </i>
+      SOS
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Toast Container -->
+  <div class="uc-toast-container" id="toastContainer">
+  </div>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- Leaflet JS -->
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Mock Campaign Data
+const campaignData = {
+    id: 'cmp-123',
+    imageUrl: 'assets/campaign_banner_image_3_1b10c0dc.jpg',
+    title: 'Kolkata Mega Blood Donation Drive',
+    category: 'Blood Drive',
+    organizer: {
+        name: 'Help4Life Foundation',
+        profileUrl: './organizer_dashboard.html'
+    },
+    description: 'Join our city-wide effort to ensure safe and sufficient blood supplies. Donors will undergo a quick health screening and receive refreshments and certificates of appreciation. Help save lives and strengthen Kolkata’s emergency response readiness.',
+    objectives: [
+        'Collect 120+ units of blood to meet regional demand',
+        'Raise community awareness on regular blood donation',
+        'Onboard new donors and maintain follow-up registry'
+    ],
+    dateTime: '2025-09-12T09:00:00+05:30',
+    endTime: '2025-09-12T15:00:00+05:30',
+    location: {
+        venue: 'Rabindra Sadan Community Hall',
+        address: '7/1 Shambhunath Pandit St, Bhowanipore, Kolkata, West Bengal 700020',
+        coordinates: {
+            lat: 22.5368,
+            lng: 88.3426
+        }
+    },
+    capacity: 120,
+    registrationCount: 86
+};
+
+// Role detection (set by login page ideally). For demo, default to 'citizen'
+const roleKey = 'ucUserRole';
+if (!localStorage.getItem(roleKey)) localStorage.setItem(roleKey, 'citizen');
+const userRole = localStorage.getItem(roleKey);
+
+// Registration status persistence
+const regKey = `campaign_${campaignData.id}_registered`;
+const storedReg = localStorage.getItem(regKey);
+let isUserRegistered = storedReg === 'true';
+
+const isCampaignPast = new Date(campaignData.endTime) < new Date();
+const isCampaignFull = campaignData.registrationCount >= campaignData.capacity;
+
+// Populate page from data
+function populateCampaign() {
+    document.getElementById('campaignTitle').textContent = campaignData.title;
+    document.getElementById('campaignCategory').innerHTML = `<i class="fa-solid fa-droplet me-1"></i> ${campaignData.category}`;
+    document.getElementById('organizerName').textContent = campaignData.organizer.name;
+    document.getElementById('organizerLink').href = campaignData.organizer.profileUrl;
+    document.getElementById('campaignDescription').textContent = campaignData.description;
+
+    const objList = document.getElementById('campaignObjectives');
+    objList.innerHTML = '';
+    campaignData.objectives.forEach(o => {
+        const li = document.createElement('li');
+        li.textContent = o;
+        objList.appendChild(li);
+    });
+
+    const start = new Date(campaignData.dateTime);
+    const end = new Date(campaignData.endTime);
+    document.getElementById('dateTimeText').textContent = `${formatDate(start)} • ${formatTime(start)} – ${formatTime(end)}`;
+
+    document.getElementById('locationText').textContent = `${campaignData.location.venue}, ${campaignData.location.address}`;
+
+    document.getElementById('regCount').textContent = campaignData.registrationCount;
+    document.getElementById('capacity').textContent = campaignData.capacity;
+    updateProgress();
+
+    // Directions link (Google Maps)
+    const dir = document.getElementById('directionsBtn');
+    const q = encodeURIComponent(`${campaignData.location.venue}, ${campaignData.location.address}`);
+    dir.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+
+    // Hero image source
+    const hero = document.getElementById('campaignHeroImg');
+    hero.src = campaignData.imageUrl;
+
+    // Last updated freshness
+    document.getElementById('lastUpdated').textContent = 'Last updated just now';
+
+    // Setup register button state
+    renderRegisterButton();
+}
+
+function formatDate(d) {
+    return d.toLocaleDateString(undefined, {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    });
+}
+
+function formatTime(d) {
+    return d.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function updateProgress() {
+    const pct = Math.min(100, Math.round((campaignData.registrationCount / campaignData.capacity) * 100));
+    document.getElementById('regProgress').style.width = pct + '%';
+    // Chart update
+    if (window.regChart) {
+        window.regChart.data.datasets[0].data = [campaignData.registrationCount, Math.max(0, campaignData.capacity - campaignData.registrationCount)];
+        window.regChart.update();
+    }
+}
+
+function renderRegisterButton() {
+    const btn = document.getElementById('registerBtn');
+    btn.disabled = false;
+    btn.classList.remove('btn-outline-secondary', 'btn-success');
+    btn.classList.add('btn-success');
+    btn.innerHTML = '<i class="fa-solid fa-user-plus me-2"></i> Register';
+
+    if (isCampaignPast) {
+        btn.disabled = true;
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-outline-secondary');
+        btn.innerHTML = '<i class="fa-regular fa-calendar-xmark me-2"></i> Event Over';
+        return;
+    }
+    if (isCampaignFull && !isUserRegistered) {
+        btn.disabled = true;
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-outline-secondary');
+        btn.innerHTML = '<i class="fa-solid fa-users-line me-2"></i> Campaign Full';
+        return;
+    }
+    if (isUserRegistered) {
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-outline-secondary');
+        btn.innerHTML = '<i class="fa-solid fa-user-xmark me-2"></i> Unregister';
+    }
+}
+
+// Register/Unregister flow with SweetAlert2
+function handleRegistration() {
+    const btn = document.getElementById('registerBtn');
+    if (btn.disabled) return;
+
+    if (!isUserRegistered) {
+        Swal.fire({
+            title: 'Confirm Registration',
+            text: 'Do you want to register for this campaign?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#008000',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, register me'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Registering...';
+                setTimeout(() => { // Mock API
+                    isUserRegistered = true;
+                    localStorage.setItem(regKey, 'true');
+                    campaignData.registrationCount = Math.min(campaignData.capacity, campaignData.registrationCount + 1);
+                    renderRegisterButton();
+                    updateProgress();
+                    showToast('Registered successfully', 'success');
+                }, 800);
+            }
+        });
+    } else {
+        Swal.fire({
+            title: 'Unregister?',
+            text: 'You will be removed from the participant list.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, unregister'
+        }).then((res) => {
+            if (res.isConfirmed) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Processing...';
+                setTimeout(() => { // Mock API
+                    isUserRegistered = false;
+                    localStorage.setItem(regKey, 'false');
+                    campaignData.registrationCount = Math.max(0, campaignData.registrationCount - 1);
+                    renderRegisterButton();
+                    updateProgress();
+                    showToast('You have been unregistered', 'info');
+                }, 700);
+            }
+        });
+    }
+}
+
+document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'registerBtn') {
+        handleRegistration();
+    }
+});
+
+// Toast helper
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${type}`;
+    toast.innerHTML = `<i class="fa-solid ${type==='success' ? 'fa-circle-check' : type==='warning' ? 'fa-triangle-exclamation' : type==='danger' ? 'fa-circle-xmark' : 'fa-circle-info'} text-${type==='danger'?'danger': type==='warning'?'warning': type==='success'?'success':'info'}"></i><div>${message}</div>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 3500);
+}
+
+// Leaflet Map
+function initMap() {
+    const map = L.map('campaignMap').setView([campaignData.location.coordinates.lat, campaignData.location.coordinates.lng], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    const marker = L.marker([campaignData.location.coordinates.lat, campaignData.location.coordinates.lng]).addTo(map);
+    marker.bindPopup(`<strong>${campaignData.location.venue}</strong><br>${campaignData.location.address}<br/><a href="${document.getElementById('directionsBtn').href}" target="_blank" rel="noopener">Get directions</a>`);
+}
+
+// Chart.js - Doughnut for capacity
+function initChart() {
+    const ctx = document.getElementById('regChart');
+    window.regChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Filled', 'Available'],
+            datasets: [{
+                data: [campaignData.registrationCount, Math.max(0, campaignData.capacity - campaignData.registrationCount)],
+                backgroundColor: ['#008000', '#E5E7EB'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            },
+            cutout: '70%'
+        }
+    });
+}
+
+// Organizer Section: Table with mock data
+const participantsAll = [{
+    name: 'Amit Sharma',
+    date: '2025-08-28T10:15:00+05:30'
+}, {
+    name: 'Priya Sen',
+    date: '2025-08-28T11:40:00+05:30'
+}, {
+    name: 'Rahul Gupta',
+    date: '2025-08-29T09:05:00+05:30'
+}, {
+    name: 'Sukanya Roy',
+    date: '2025-08-29T10:22:00+05:30'
+}, {
+    name: 'Vikram Das',
+    date: '2025-08-29T13:33:00+05:30'
+}, {
+    name: 'Niharika Bose',
+    date: '2025-08-30T08:55:00+05:30'
+}, {
+    name: 'Rohan Mukherjee',
+    date: '2025-08-30T09:17:00+05:30'
+}, {
+    name: 'Tanvi Mehta',
+    date: '2025-08-30T11:01:00+05:30'
+}];
+let filtered = [...participantsAll];
+let currentPage = 1;
+const pageSize = 6;
+let currentSort = {
+    key: 'date',
+    dir: 'desc'
+};
+
+function applySort() {
+    filtered.sort((a, b) => {
+        let vA = a[currentSort.key],
+            vB = b[currentSort.key];
+        if (currentSort.key === 'date') {
+            vA = new Date(vA).getTime();
+            vB = new Date(vB).getTime();
+        }
+        return currentSort.dir === 'asc' ? (vA > vB ? 1 : vA < vB ? -1 : 0) : (vA < vB ? 1 : vA > vB ? -1 : 0);
+    });
+}
+
+function renderTable() {
+    const tbody = document.getElementById('participantTbody');
+    if (!tbody) return;
+    applySort();
+    const start = (currentPage - 1) * pageSize;
+    const rows = filtered.slice(start, start + pageSize);
+    tbody.innerHTML = '';
+    rows.forEach(r => {
+        const tr = document.createElement('tr');
+        const d = new Date(r.date);
+        tr.innerHTML = `<td>${r.name}</td><td>${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</td>`;
+        tbody.appendChild(tr);
+    });
+    const total = filtered.length;
+    const end = Math.min(start + pageSize, total);
+    const pageCount = Math.max(1, Math.ceil(total / pageSize));
+    document.getElementById('paginationInfo').textContent = `Showing ${total?start+1:0}-${end} of ${total}`;
+    document.getElementById('pageSummary').textContent = `Page ${currentPage} of ${pageCount}`;
+    document.getElementById('prevPage').disabled = currentPage <= 1;
+    document.getElementById('nextPage').disabled = currentPage >= pageCount;
+}
+
+function initOrganizerSection() {
+    const sec = document.getElementById('organizerSection');
+    if (userRole === 'organizer' || userRole === 'platform_admin') {
+        sec.classList.remove('d-none');
+        renderTable();
+        document.getElementById('participantSearch').addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            filtered = participantsAll.filter(p => p.name.toLowerCase().includes(q));
+            currentPage = 1;
+            renderTable();
+        });
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+        document.getElementById('nextPage').addEventListener('click', () => {
+            currentPage++;
+            renderTable();
+        });
+        document.querySelectorAll('#participantTable thead th').forEach(th => {
+            th.addEventListener('click', () => {
+                const key = th.dataset.sort;
+                if (!key) return;
+                currentSort.key = key;
+                currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+                renderTable();
+            });
+        });
+        document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    }
+}
+
+function exportCsv() {
+    const header = ['Name', 'Registration Date'];
+    const lines = [header.join(',')];
+    filtered.forEach(p => {
+        const d = new Date(p.date);
+        const f = `${d.toLocaleDateString()} ${d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+        lines.push([p.name, f].map(v => `"${v}"`).join(','));
+    });
+    const blob = new Blob(["\uFEFF" + lines.join('\n')], {
+        type: 'text/csv;charset=utf-8;'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'participants.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showToast('Export started', 'info');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    populateCampaign();
+    initMap();
+    initChart();
+    initOrganizerSection();
+});
+  </script>
+ </body>
+</html>

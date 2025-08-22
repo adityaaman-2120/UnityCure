@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Incident Details - UnityCure Dispatch
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+   <!-- Leaflet (Interactive Map) -->
+   <link crossorigin="" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" rel="stylesheet">
+    <!-- SweetAlert2 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet"/>
+    <!-- Global Theme Styles -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS -->
+    <link href="incident_details.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body class="uc-app" style="font-family: 'Poppins', var(--uc-font-sans);">
+  <a class="uc-skip-link" href="#main">
+   Skip to main content
+  </a>
+  <!-- Sidebar (included for Incident Details page) -->
+  <div aria-labelledby="ucSidebarDispatchLabel" class="offcanvas offcanvas-start" id="ucSidebarDispatch" tabindex="-1">
+   <div class="offcanvas-header" style="background-color:#008000;color:#fff;">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="28" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurelogo/72/72?grayscale';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <h5 class="offcanvas-title" id="ucSidebarDispatchLabel">
+      Dispatch Center
+     </h5>
+    </div>
+    <button aria-label="Close" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" type="button">
+    </button>
+   </div>
+   <div class="offcanvas-body p-0 d-flex flex-column">
+    <div class="p-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;">
+       <i class="fa-solid fa-truck-medical">
+       </i>
+      </div>
+      <div>
+       <div class="fw-semibold">
+        Dispatcher
+       </div>
+       <div class="text-muted small">
+        Emergency Ops
+       </div>
+      </div>
+     </div>
+    </div>
+    <nav class="nav flex-column p-2" id="ucDispatchNav">
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="dispatcher_dashboard" href="./dispatcher_dashboard.html">
+      <i class="fa-solid fa-satellite-dish me-2 text-success">
+      </i>
+      Live Dispatch
+     </a>
+     <a aria-current="page" class="nav-link d-flex align-items-center rounded px-3 py-2 uc-sidebar-link-active" data-page="incident_details" href="./incident_details.html">
+      <i class="fa-solid fa-map-location-dot me-2 text-success">
+      </i>
+      Incidents
+     </a>
+     <hr class="my-2"/>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" href="#">
+      <i class="fa-solid fa-gear me-2">
+      </i>
+      Settings
+     </a>
+     <a class="nav-link d-flex align-items-center rounded px-3 py-2" data-page="login_page" href="./login_page.html">
+      <i class="fa-solid fa-right-from-bracket me-2">
+      </i>
+      Logout
+     </a>
+    </nav>
+    <div class="mt-auto p-3 small text-muted border-top">
+     <div>
+      © UnityCure
+     </div>
+     <div class="mt-1">
+      <a class="text-decoration-none" href="#">
+       Terms
+      </a>
+      ·
+      <a class="text-decoration-none" href="#">
+       Privacy
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <style>
+   #ucDispatchNav .nav-link{color:#212529}
+    #ucDispatchNav .nav-link:hover{background:rgba(0,128,0,0.08)}
+  </style>
+  <!-- Header (included for Incident Details page) -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#008000;">
+   <div class="container-fluid">
+    <button aria-controls="ucSidebarDispatch" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#ucSidebarDispatch" data-bs-toggle="offcanvas" type="button">
+     <i class="fa-solid fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" data-page="dispatcher_dashboard" href="./dispatcher_dashboard.html">
+     <img alt="UnityCure" class="me-2 rounded" height="24" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurebrand/64/64?grayscale';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg"/>
+     <span>
+      UnityCure Dispatch
+     </span>
+     <span class="badge bg-warning text-dark ms-2">
+      <i class="fa-solid fa-bolt">
+      </i>
+      Live
+     </span>
+    </a>
+    <button aria-controls="ucNavbarDispatch" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#ucNavbarDispatch" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="ucNavbarDispatch">
+     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+      <li class="nav-item me-2">
+       <button class="btn btn-outline-light" id="toggleSoundBtn" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high">
+        </i>
+       </button>
+      </li>
+      <li class="nav-item me-2">
+       <a class="nav-link" href="#" id="notifBell">
+        <i class="fa-regular fa-bell">
+        </i>
+       </a>
+      </li>
+      <li class="nav-item dropdown">
+       <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button">
+        <div class="rounded-circle bg-light text-dark d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+         <i class="fa-solid fa-user">
+         </i>
+        </div>
+       </a>
+       <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+         <h6 class="dropdown-header">
+          Dispatcher
+         </h6>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="dispatcher_dashboard" href="./dispatcher_dashboard.html">
+          Dashboard
+         </a>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="incident_details" href="./incident_details.html">
+          Incidents
+         </a>
+        </li>
+        <li>
+         <hr class="dropdown-divider"/>
+        </li>
+        <li>
+         <a class="dropdown-item" data-page="login_page" href="./login_page.html">
+          Logout
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <main class="container-fluid py-3" id="main">
+   <!-- Breadcrumbs -->
+   <nav aria-label="breadcrumb" class="uc-breadcrumbs small mb-3">
+    <a href="./dispatcher_dashboard.html">
+     <i class="fa-solid fa-satellite-dish me-1">
+     </i>
+     Live Dispatch
+    </a>
+    <span class="mx-1">
+     /
+    </span>
+    <span class="text-muted">
+     Incident Details
+    </span>
+   </nav>
+   <!-- Incident Summary Header -->
+   <section class="uc-card uc-shadow-md mb-3">
+    <div class="uc-card-body">
+     <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between gap-3">
+      <div class="d-flex align-items-center gap-3">
+       <div aria-hidden="true" class="uc-brand-logo">
+       </div>
+       <div>
+        <div class="d-flex align-items-center gap-2">
+         <h1 class="uc-page-title m-0">
+          Incident
+          <span id="incIdLabel">
+           #INC-74219
+          </span>
+         </h1>
+         <button class="btn btn-sm btn-outline-secondary" id="copyIncIdBtn" title="Copy Incident ID">
+          <i class="fa-regular fa-copy">
+          </i>
+         </button>
+        </div>
+        <div class="text-muted">
+         Type:
+         <span id="incType">
+          SOS
+         </span>
+         • Reported
+         <span id="reportedAt">
+          08:42 AM
+         </span>
+         •
+         <span class="uc-freshness" id="freshness">
+          updated just now
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+       <span class="badge text-bg-primary px-3 py-2" id="statusBadge">
+        <i class="fa-solid fa-circle me-1">
+        </i>
+        <span>
+         New
+        </span>
+       </span>
+       <span class="badge text-bg-danger px-3 py-2" id="severityBadge">
+        <i class="fa-solid fa-triangle-exclamation me-1">
+        </i>
+        <span>
+         High
+        </span>
+       </span>
+       <div class="vr d-none d-lg-block">
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <span class="text-muted small">
+         Role:
+        </span>
+        <select class="form-select form-select-sm" id="roleSelect" style="width:auto;">
+         <option selected="" value="dispatcher">
+          Dispatcher
+         </option>
+         <option value="moderator">
+          Moderator
+         </option>
+         <option value="viewer">
+          Viewer
+         </option>
+        </select>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- Workspace: Map + Details/Actions -->
+   <section class="row g-3" id="workspace">
+    <!-- Map Column -->
+    <div class="col-lg-7">
+     <div class="uc-card uc-shadow-md">
+      <div class="uc-card-header d-flex align-items-center justify-content-between">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-map-location-dot text-success">
+        </i>
+        <strong>
+         Incident Map
+        </strong>
+        <span class="badge rounded-pill text-bg-light text-muted">
+         Kolkata
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary" id="recenterBtn" title="Recenter">
+         <i class="fa-solid fa-crosshairs">
+         </i>
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" id="toggleHospitalsBtn" title="Toggle Hospitals">
+         <i class="fa-solid fa-hospital">
+         </i>
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" id="toggleAmbBtn" title="Toggle Ambulances">
+         <i class="fa-solid fa-truck-medical">
+         </i>
+        </button>
+       </div>
+      </div>
+      <div class="uc-card-body p-0 position-relative">
+       <div class="uc-real-time-map" id="incidentMap">
+       </div>
+       <!-- Map Legend -->
+       <div class="map-legend card shadow-sm">
+        <div class="card-body p-2 small">
+         <div class="d-flex align-items-center gap-2 mb-1">
+          <span class="legend-dot bg-danger">
+          </span>
+          Incident
+         </div>
+         <div class="d-flex align-items-center gap-2 mb-1">
+          <span class="legend-dot bg-success">
+          </span>
+          Ambulance
+         </div>
+         <div class="d-flex align-items-center gap-2">
+          <span class="legend-dot bg-primary">
+          </span>
+          Hospital
+         </div>
+        </div>
+       </div>
+       <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75" id="mapLoading">
+        <div class="text-center">
+         <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">
+           Loading map...
+          </span>
+         </div>
+         <div class="small text-muted mt-2">
+          Loading map and real-time data...
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="uc-card-footer d-flex align-items-center justify-content-between small text-muted">
+       <div>
+        <i class="fa-regular fa-clock me-1">
+        </i>
+        ETA to nearest hospital:
+        <span id="etaHospital">
+         12
+        </span>
+        min
+       </div>
+       <div>
+        Coords:
+        <span id="coordsLabel">
+         22.5726, 88.3639
+        </span>
+       </div>
+      </div>
+     </div>
+     <!-- Nearby Resources Tables -->
+     <div class="uc-card uc-shadow-md mt-3">
+      <div class="uc-card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-layer-group text-info">
+        </i>
+        <strong>
+         Nearby Resources
+        </strong>
+       </div>
+      </div>
+      <div class="uc-card-body">
+       <ul class="nav nav-tabs" id="resTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+         <button aria-controls="ambTabPane" aria-selected="true" class="nav-link active" data-bs-target="#ambTabPane" data-bs-toggle="tab" id="amb-tab" role="tab" type="button">
+          <i class="fa-solid fa-truck-medical me-1">
+          </i>
+          Ambulances
+         </button>
+        </li>
+        <li class="nav-item" role="presentation">
+         <button aria-controls="hospTabPane" aria-selected="false" class="nav-link" data-bs-target="#hospTabPane" data-bs-toggle="tab" id="hosp-tab" role="tab" type="button">
+          <i class="fa-solid fa-hospital me-1">
+          </i>
+          Hospitals
+         </button>
+        </li>
+       </ul>
+       <div class="tab-content pt-3">
+        <!-- Ambulances Table -->
+        <div aria-labelledby="amb-tab" class="tab-pane fade show active" id="ambTabPane" role="tabpanel" tabindex="0">
+         <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="uc-search flex-grow-1 me-2">
+           <i class="fa-solid fa-magnifying-glass">
+           </i>
+           <input id="ambSearch" placeholder="Filter by ID or status" type="text"/>
+          </div>
+          <div class="text-muted small">
+           <span id="ambCount">
+            0
+           </span>
+           results
+          </div>
+         </div>
+         <div class="uc-table-responsive">
+          <table class="uc-table" id="ambTable">
+           <thead>
+            <tr>
+             <th data-sort="id" role="button">
+              Ambulance ID
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th>
+              Status
+             </th>
+             <th data-sort="eta" role="button">
+              ETA (min)
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th>
+              Distance (km)
+             </th>
+             <th>
+              Action
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <!-- Filled by JS -->
+           </tbody>
+          </table>
+         </div>
+         <div class="d-flex align-items-center justify-content-between mt-2 small text-muted">
+          <div>
+           Showing
+           <span id="ambShowingFrom">
+            1
+           </span>
+           -
+           <span id="ambShowingTo">
+            6
+           </span>
+           of
+           <span id="ambTotal">
+            6
+           </span>
+          </div>
+          <div class="uc-pagination">
+           <button class="uc-page-btn btn btn-sm btn-light" id="ambPrev">
+            Prev
+           </button>
+           <button class="uc-page-btn btn btn-sm btn-light" id="ambNext">
+            Next
+           </button>
+          </div>
+         </div>
+        </div>
+        <!-- Hospitals Table -->
+        <div aria-labelledby="hosp-tab" class="tab-pane fade" id="hospTabPane" role="tabpanel" tabindex="0">
+         <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="uc-search flex-grow-1 me-2">
+           <i class="fa-solid fa-magnifying-glass">
+           </i>
+           <input id="hospSearch" placeholder="Filter by name or area" type="text"/>
+          </div>
+          <div class="text-muted small">
+           <span id="hospCount">
+            0
+           </span>
+           results
+          </div>
+         </div>
+         <div class="uc-table-responsive">
+          <table class="uc-table" id="hospTable">
+           <thead>
+            <tr>
+             <th data-sort="name" role="button">
+              Hospital
+              <i class="fa-solid fa-sort ms-1">
+              </i>
+             </th>
+             <th>
+              ICU Beds
+             </th>
+             <th>
+              Gen Beds
+             </th>
+             <th>
+              Last Updated
+             </th>
+             <th>
+              Action
+             </th>
+            </tr>
+           </thead>
+           <tbody>
+            <!-- Filled by JS -->
+           </tbody>
+          </table>
+         </div>
+         <div class="d-flex align-items-center justify-content-between mt-2 small text-muted">
+          <div>
+           Showing
+           <span id="hospShowingFrom">
+            1
+           </span>
+           -
+           <span id="hospShowingTo">
+            6
+           </span>
+           of
+           <span id="hospTotal">
+            6
+           </span>
+          </div>
+          <div class="uc-pagination">
+           <button class="uc-page-btn btn btn-sm btn-light" id="hospPrev">
+            Prev
+           </button>
+           <button class="uc-page-btn btn btn-sm btn-light" id="hospNext">
+            Next
+           </button>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Details & Actions Column -->
+    <div class="col-lg-5">
+     <div class="uc-card uc-shadow-md sticky-side">
+      <div class="uc-card-header d-flex align-items-center justify-content-between">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-clipboard-list text-info">
+        </i>
+        <strong>
+         Details &amp; Actions
+        </strong>
+       </div>
+       <span class="badge rounded-pill text-bg-light">
+        <i class="fa-solid fa-shield-halved me-1 text-success">
+        </i>
+        DPDP Safe
+       </span>
+      </div>
+      <div class="uc-card-body">
+       <!-- Report Details (Collapsible) -->
+       <div class="accordion" id="reportAccordion">
+        <div class="accordion-item">
+         <h2 class="accordion-header" id="headingDetails">
+          <button aria-controls="collapseDetails" aria-expanded="true" class="accordion-button" data-bs-target="#collapseDetails" data-bs-toggle="collapse" type="button">
+           <i class="fa-regular fa-file-lines me-2 text-primary">
+           </i>
+           Report Details
+          </button>
+         </h2>
+         <div aria-labelledby="headingDetails" class="accordion-collapse collapse show" data-bs-parent="#reportAccordion" id="collapseDetails">
+          <div class="accordion-body">
+           <div class="row g-2 mb-2">
+            <div class="col-6">
+             <div class="small text-muted">
+              Reporter
+             </div>
+             <div class="fw-semibold">
+              Anonymous
+             </div>
+            </div>
+            <div class="col-6">
+             <div class="small text-muted">
+              Phone
+             </div>
+             <div>
+              <a class="uc-call-button uc-btn-sm" href="tel:+919876543210">
+               <i class="fa-solid fa-phone">
+               </i>
+               +91 98765 43210
+              </a>
+             </div>
+            </div>
+           </div>
+           <div class="row g-2 mb-2">
+            <div class="col-12">
+             <div class="small text-muted">
+              Symptoms
+             </div>
+             <div class="d-flex flex-wrap gap-2">
+              <span class="uc-badge uc-badge-danger">
+               <i class="fa-solid fa-heart-pulse">
+               </i>
+               Chest pain
+              </span>
+              <span class="uc-badge uc-badge-warning">
+               <i class="fa-solid fa-head-side-cough">
+               </i>
+               Breathlessness
+              </span>
+              <span class="uc-badge uc-badge-info">
+               <i class="fa-solid fa-temperature-three-quarters">
+               </i>
+               Fever
+              </span>
+             </div>
+            </div>
+           </div>
+           <div class="mb-2">
+            <div class="small text-muted">
+             Description
+            </div>
+            <p class="mb-2">
+             Patient collapsed near Gariahat market. Unconscious for ~2 minutes, regained consciousness but disoriented. Crowd present, traffic moderate.
+            </p>
+           </div>
+           <div>
+            <div class="small text-muted mb-1">
+             Attachments
+            </div>
+            <div class="row g-2" id="attachments">
+             <div class="col-4">
+              <img alt="Attachment 1" class="img-fluid rounded media-thumb" onerror="this.onerror=null;this.src='https://picsum.photos/id/1027/300/200';" src="assets/placeholder_illustration_for_n_1_f5e241da.png"/>
+             </div>
+             <div class="col-4">
+              <img alt="Attachment 2" class="img-fluid rounded media-thumb" onerror="this.onerror=null;this.src='https://picsum.photos/seed/attach2/300/200';" src="assets/illustration_for_no_media_atta_5_37fe1de7.jpg"/>
+             </div>
+             <div class="col-4">
+              <img alt="Attachment 3" class="img-fluid rounded media-thumb" onerror="this.onerror=null;this.src='https://picsum.photos/id/237/300/200';" src="assets/placeholder_illustration_for_n_3_4f58b2bd.png"/>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="uc-divider">
+       </div>
+       <!-- Action Controls -->
+       <div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+         <strong>
+          <i class="fa-solid fa-bolt me-2 text-danger">
+          </i>
+          Actions
+         </strong>
+         <span class="uc-freshness" id="actionHint">
+          Awaiting acknowledgement
+         </span>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-2">
+         <button class="btn uc-btn uc-btn-info" id="btnAcknowledge">
+          <i class="fa-solid fa-check">
+          </i>
+          Acknowledge
+         </button>
+         <button class="btn uc-btn uc-btn-success" disabled="" id="btnDispatch">
+          <i class="fa-solid fa-truck-medical">
+          </i>
+          Dispatch
+         </button>
+         <button class="btn uc-btn uc-btn-warning d-none" id="btnEscalate">
+          <i class="fa-solid fa-triangle-exclamation">
+          </i>
+          Escalate
+         </button>
+         <button class="btn uc-btn uc-btn-neutral" disabled="" id="btnClose">
+          <i class="fa-regular fa-circle-check">
+          </i>
+          Close
+         </button>
+         <button class="btn uc-btn uc-btn-outline d-none" id="btnMarkSpam">
+          <i class="fa-solid fa-ban">
+          </i>
+          Mark as Spam
+         </button>
+        </div>
+        <div class="input-group input-group-sm">
+         <span class="input-group-text">
+          <i class="fa-regular fa-note-sticky">
+          </i>
+         </span>
+         <input class="form-control" id="noteInput" placeholder="Add a note (optional)" type="text"/>
+         <button class="btn btn-outline-secondary" id="btnAddNote">
+          Add
+         </button>
+        </div>
+        <div class="small text-muted mt-1">
+         Note: Acknowledge before dispatch. Select an ambulance on the map or from the table to enable Dispatch.
+        </div>
+        <div class="selected-amb mt-3 p-2 rounded border">
+         <div class="small text-muted">
+          Selected Ambulance
+         </div>
+         <div class="fw-semibold" id="selectedAmbulance">
+          None
+         </div>
+        </div>
+       </div>
+       <div class="uc-divider">
+       </div>
+       <!-- Activity Log -->
+       <div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+         <strong>
+          <i class="fa-regular fa-clock me-2 text-primary">
+          </i>
+          Activity Log
+         </strong>
+         <button class="btn btn-sm btn-outline-secondary" id="refreshLog" title="Refresh">
+          <i class="fa-solid fa-rotate">
+          </i>
+         </button>
+        </div>
+        <div class="text-center p-3 d-none" id="emptyLog">
+         <img alt="Empty Activity" class="mx-auto d-block mb-2" height="150" onerror="this.onerror=null;this.src='https://picsum.photos/seed/emptylog/300/200?grayscale';" src="assets/illustration_for_empty_activit_1_65c28ba4.png" width="200">
+          <div class="text-muted">
+           No activity yet. Actions will appear here in real-time.
+          </div>
+         </img>
+        </div>
+        <ol class="uc-timeline mb-0" id="activityTimeline">
+         <!-- Log items injected by JS -->
+        </ol>
+       </div>
+       <div class="uc-divider">
+       </div>
+       <!-- Response Time Mini-Chart -->
+       <div>
+        <strong class="d-block mb-2">
+         <i class="fa-solid fa-chart-line me-2 text-success">
+         </i>
+         Response Timeline
+        </strong>
+        <canvas height="140" id="timelineChart">
+        </canvas>
+        <div class="small text-muted mt-1">
+         Simulated milestones from SOS to dispatch.
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- System Toasts -->
+   <div class="uc-toast-container" id="toastContainer">
+   </div>
+  </main>
+  <!-- Footer (included) -->
+  <footer class="border-top py-2" style="background-color:#f8f9fa;">
+   <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+     <img alt="UnityCure" class="me-2 rounded" height="12" onerror="this.onerror=null;this.src='https://picsum.photos/seed/unitycurefooter/40/40?grayscale';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68a58285b931135a2eff3752/logos/logo_00eb9a1a-0cd9-4269-af40-37c552af1618.jpg">
+      <span class="small text-muted">
+       © UnityCure Dispatch
+      </span>
+     </img>
+    </div>
+    <div class="d-flex align-items-center gap-3 small">
+     <a class="text-decoration-none" href="#">
+      Terms
+     </a>
+     <a class="text-decoration-none" href="#">
+      Privacy
+     </a>
+    </div>
+   </div>
+  </footer>
+  <!-- Scripts -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script crossorigin="" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script>
+   // Utility: Toast helper
+function showToast(message, variant = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `uc-toast uc-toast-${variant}`;
+    toast.innerHTML = `<i class="fa-solid ${variant==='success'?'fa-circle-check': variant==='warning'?'fa-triangle-exclamation': variant==='danger'?'fa-circle-exclamation':'fa-circle-info'}"></i><span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 5000);
+}
+
+// Incident sample data
+const incident = {
+    id: new URLSearchParams(location.search).get('inc') || 'INC-74219',
+    type: 'SOS',
+    severity: 'High', // High | Medium | Low
+    status: 'New', // New | Acknowledged | Dispatched | Escalated | Closed
+    reportedAt: '08:42 AM',
+    coords: [22.5339, 88.3527] // near Gariahat, Kolkata
+};
+
+// DOM bindings
+const incIdLabel = document.getElementById('incIdLabel');
+const incType = document.getElementById('incType');
+const reportedAt = document.getElementById('reportedAt');
+const statusBadge = document.getElementById('statusBadge');
+const severityBadge = document.getElementById('severityBadge');
+const coordLabel = document.getElementById('coordsLabel');
+const etaHospital = document.getElementById('etaHospital');
+const actionHint = document.getElementById('actionHint');
+const btnAck = document.getElementById('btnAcknowledge');
+const btnDispatch = document.getElementById('btnDispatch');
+const btnEscalate = document.getElementById('btnEscalate');
+const btnClose = document.getElementById('btnClose');
+const btnSpam = document.getElementById('btnMarkSpam');
+const roleSelect = document.getElementById('roleSelect');
+const selectedAmbEl = document.getElementById('selectedAmbulance');
+
+// Populate header
+incIdLabel.textContent = `#${incident.id}`;
+incType.textContent = incident.type;
+reportedAt.textContent = incident.reportedAt;
+coordLabel.textContent = incident.coords.map(n => n.toFixed(4)).join(', ');
+
+// Status/Severity badges mapping
+function setStatusBadge(status) {
+    const map = {
+        New: 'primary',
+        Acknowledged: 'warning',
+        Dispatched: 'success',
+        Escalated: 'danger',
+        Closed: 'secondary'
+    };
+    statusBadge.className = `badge text-bg-${map[status]||'secondary'} px-3 py-2`;
+    statusBadge.querySelector('span').textContent = status;
+}
+
+function setSeverityBadge(sev) {
+    const map = {
+        High: 'danger',
+        Medium: 'warning',
+        Low: 'success'
+    };
+    severityBadge.className = `badge text-bg-${map[sev]||'secondary'} px-3 py-2`;
+    severityBadge.querySelector('span').textContent = sev;
+}
+setStatusBadge(incident.status);
+setSeverityBadge(incident.severity);
+
+// Role-based controls
+function applyRole(role) {
+    if (role === 'dispatcher') {
+        btnEscalate.classList.add('d-none');
+        btnSpam.classList.add('d-none');
+    } else if (role === 'moderator') {
+        btnEscalate.classList.remove('d-none');
+        btnSpam.classList.remove('d-none');
+    } else {
+        btnEscalate.classList.add('d-none');
+        btnSpam.classList.add('d-none');
+    }
+}
+applyRole(roleSelect.value);
+roleSelect.addEventListener('change', e => applyRole(e.target.value));
+
+// Leaflet Map init
+let map, incidentMarker, ambMarkers = [],
+    hospMarkers = [],
+    routeLine = null;
+const mapLoading = document.getElementById('mapLoading');
+
+function initMap() {
+    map = L.map('incidentMap', {
+        zoomControl: true
+    });
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    });
+    osm.addTo(map);
+    map.setView(incident.coords, 14);
+
+    // Incident marker
+    const redIcon = L.divIcon({
+        className: 'custom-marker',
+        html: '<div class="uc-marker uc-marker-ambulance" style="background:#CD2026;border:2px solid #fff;"><i class="fa-solid fa-location-dot" style="color:#fff"></i></div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28]
+    });
+    incidentMarker = L.marker(incident.coords, {
+        icon: redIcon
+    }).addTo(map).bindPopup(`<strong>Incident ${incident.id}</strong><br/>${incType.textContent}<br/>Reported ${incident.reportedAt}`);
+
+    // Mock ambulances
+    const ambs = [{
+        id: 'AMB-102',
+        coords: [22.5405, 88.3562],
+        status: 'Available'
+    }, {
+        id: 'AMB-221',
+        coords: [22.5237, 88.3671],
+        status: 'Available'
+    }, {
+        id: 'AMB-317',
+        coords: [22.5598, 88.3499],
+        status: 'On Trip'
+    }, {
+        id: 'AMB-415',
+        coords: [22.5460, 88.3773],
+        status: 'Available'
+    }, {
+        id: 'AMB-509',
+        coords: [22.5301, 88.3341],
+        status: 'Available'
+    }, {
+        id: 'AMB-612',
+        coords: [22.5667, 88.3697],
+        status: 'Maintenance'
+    }, ];
+    const ambIcon = L.divIcon({
+        className: 'custom-marker',
+        html: '<div class="uc-marker uc-marker-ambulance"><i class="fa-solid fa-truck-medical"></i></div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28]
+    });
+    ambs.forEach(a => {
+        const m = L.marker(a.coords, {
+            icon: ambIcon
+        }).addTo(map).bindPopup(`<strong>${a.id}</strong><br>Status: ${a.status}`);
+        m.on('click', () => selectAmbulance(a));
+        ambMarkers.push({
+            data: a,
+            marker: m
+        });
+    });
+
+    // Mock hospitals
+    const hosps = [{
+        name: 'CityCare Hospital',
+        coords: [22.5762, 88.3651],
+        icu: 4,
+        gen: 12,
+        updated: '5 min ago'
+    }, {
+        name: 'Greenlife Medical',
+        coords: [22.5531, 88.3822],
+        icu: 2,
+        gen: 8,
+        updated: '12 min ago'
+    }, {
+        name: 'Metro Heart Institute',
+        coords: [22.5393, 88.3275],
+        icu: 0,
+        gen: 6,
+        updated: '58 min ago'
+    }, {
+        name: 'Nirmal Seva Clinic',
+        coords: [22.5274, 88.3548],
+        icu: 1,
+        gen: 10,
+        updated: '35 min ago'
+    }, {
+        name: 'Apollo Gleneagles (Unit)',
+        coords: [22.5739, 88.4036],
+        icu: 6,
+        gen: 24,
+        updated: '18 min ago'
+    }, {
+        name: 'Kolkata General',
+        coords: [22.5610, 88.3530],
+        icu: 3,
+        gen: 14,
+        updated: '9 min ago'
+    }, ];
+    const hospIcon = L.divIcon({
+        className: 'custom-marker',
+        html: '<div class="uc-marker uc-marker-hospital"><i class="fa-solid fa-hospital"></i></div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 28]
+    });
+    hosps.forEach(h => {
+        const m = L.marker(h.coords, {
+            icon: hospIcon
+        }).addTo(map).bindPopup(`<strong>${h.name}</strong><br/>ICU: ${h.icu} • Beds: ${h.gen}<br/><span class="uc-freshness ${/min ago|ago/.test(h.updated)&&parseInt(h.updated)>45?'uc-freshness-stale':''}">Last updated ${h.updated}</span>`);
+        hospMarkers.push({
+            data: h,
+            marker: m
+        });
+    });
+
+    // Fit bounds
+    const group = new L.featureGroup([incidentMarker, ...ambMarkers.map(a => a.marker), ...hospMarkers.map(h => h.marker)]);
+    map.fitBounds(group.getBounds().pad(0.2));
+
+    // Hide loading
+    setTimeout(() => mapLoading.classList.add('d-none'), 600);
+
+    // Populate tables
+    populateAmbTable(ambs);
+    populateHospTable(hosps);
+
+    // Simulate ambulance live movement
+    setInterval(() => {
+        ambMarkers.forEach(am => {
+            const p = am.marker.getLatLng();
+            const jitter = () => (Math.random() - 0.5) * 0.001;
+            const np = [p.lat + jitter(), p.lng + jitter()];
+            am.marker.setLatLng(np);
+        });
+        updateAmbTableETA();
+    }, 5000);
+}
+document.addEventListener('DOMContentLoaded', initMap);
+
+// Select ambulance
+let selectedAmb = null;
+
+function distanceKm(a, b) {
+    const R = 6371,
+        toRad = d => d * Math.PI / 180;
+    const dLat = toRad(b[0] - a[0]);
+    const dLon = toRad(b[1] - a[1]);
+    const lat1 = toRad(a[0]);
+    const lat2 = toRad(b[0]);
+    const x = Math.sin(dLat / 2) ** 2 + Math.sin(dLon / 2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
+    return 2 * R * Math.asin(Math.sqrt(x));
+}
+
+function etaMin(distKm, speedKmph = 30) {
+    return Math.max(2, Math.round((distKm / speedKmph) * 60));
+}
+
+function selectAmbulance(a) {
+    selectedAmb = a;
+    selectedAmbEl.textContent = `${a.id} (${a.status})`;
+    // enable Dispatch if acknowledged
+    if (incident.status === 'Acknowledged') btnDispatch.removeAttribute('disabled');
+    showToast(`${a.id} selected. ETA calculated.`, 'success');
+    // draw route line (straight line mock)
+    if (routeLine) routeLine.remove();
+    const mk = ambMarkers.find(x => x.data.id === a.id).marker.getLatLng();
+    routeLine = L.polyline([mk, incidentMarker.getLatLng()], {
+        color: '#008000',
+        weight: 4,
+        opacity: 0.7,
+        dashArray: '6,6'
+    }).addTo(map);
+    // center bounds
+    const fg = L.featureGroup([ambMarkers.find(x => x.data.id === a.id).marker, incidentMarker]);
+    map.fitBounds(fg.getBounds().pad(0.3));
+}
+
+// Controls
+document.getElementById('recenterBtn').addEventListener('click', () => {
+    map.setView(incidentMarker.getLatLng(), 14);
+});
+let hospitalsVisible = true,
+    ambVisible = true;
+document.getElementById('toggleHospitalsBtn').addEventListener('click', () => {
+    hospitalsVisible = !hospitalsVisible;
+    hospMarkers.forEach(h => hospitalsVisible ? h.marker.addTo(map) : h.marker.remove());
+});
+document.getElementById('toggleAmbBtn').addEventListener('click', () => {
+    ambVisible = !ambVisible;
+    ambMarkers.forEach(a => ambVisible ? a.marker.addTo(map) : a.marker.remove());
+});
+
+// Actions logic
+btnAck.addEventListener('click', () => {
+    incident.status = 'Acknowledged';
+    setStatusBadge(incident.status);
+    actionHint.textContent = 'Acknowledged by dispatcher';
+    btnAck.setAttribute('disabled', 'true');
+    btnClose.removeAttribute('disabled');
+    if (selectedAmb) btnDispatch.removeAttribute('disabled');
+    logActivity('Acknowledged incident');
+    Swal.fire({
+        icon: 'success',
+        title: 'Acknowledged',
+        text: 'Incident has been acknowledged. Proceed to dispatch.',
+        confirmButtonColor: '#008000'
+    });
+});
+btnDispatch.addEventListener('click', () => {
+    if (!selectedAmb) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Select an Ambulance',
+            text: 'Please select an ambulance on the map or table first.'
+        });
+        return;
+    }
+    incident.status = 'Dispatched';
+    setStatusBadge(incident.status);
+    logActivity(`Dispatched ${selectedAmb.id}`);
+    showToast(`Dispatch sent to ${selectedAmb.id}`, 'success');
+    Swal.fire({
+        icon: 'success',
+        title: 'Ambulance Dispatched',
+        html: `<b>${selectedAmb.id}</b> notified. ETA ${computeAmbETA(selectedAmb)} min.`,
+        confirmButtonColor: '#008000'
+    });
+});
+btnEscalate.addEventListener('click', () => {
+    Swal.fire({
+        title: 'Escalate to Admin?',
+        text: 'This will alert the platform admin and district authority.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, escalate',
+        confirmButtonColor: '#CD2026'
+    }).then(res => {
+        if (res.isConfirmed) {
+            incident.status = 'Escalated';
+            setStatusBadge(incident.status);
+            logActivity('Escalated to admin');
+            showToast('Incident escalated', 'warning');
+        }
+    });
+});
+btnClose.addEventListener('click', () => {
+    Swal.fire({
+        title: 'Close Incident?',
+        input: 'text',
+        inputLabel: 'Closing note',
+        inputPlaceholder: 'Optional note',
+        showCancelButton: true,
+        confirmButtonText: 'Close',
+        confirmButtonColor: '#008000'
+    }).then(res => {
+        if (res.isConfirmed) {
+            incident.status = 'Closed';
+            setStatusBadge(incident.status);
+            logActivity('Incident closed' + (res.value ? `: ${res.value}` : ''));
+            showToast('Incident closed', 'success');
+            btnDispatch.setAttribute('disabled', 'true');
+            btnEscalate.setAttribute('disabled', 'true');
+            btnSpam.setAttribute('disabled', 'true');
+        }
+    });
+});
+document.getElementById('btnAddNote').addEventListener('click', () => {
+    const v = document.getElementById('noteInput').value.trim();
+    if (v) {
+        logActivity('Note added: ' + v);
+        document.getElementById('noteInput').value = '';
+        showToast('Note added', 'info');
+    }
+});
+
+// Copy Incident ID
+document.getElementById('copyIncIdBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(incident.id).then(() => showToast('Incident ID copied', 'success'));
+});
+
+// Activity Log
+const timeline = document.getElementById('activityTimeline');
+const emptyLog = document.getElementById('emptyLog');
+const activity = [{
+    time: '08:42 AM',
+    text: 'Incident created via SOS'
+}, {
+    time: '08:43 AM',
+    text: 'AI triage assessed severity: High'
+}];
+
+function renderLog() {
+    timeline.innerHTML = '';
+    if (activity.length === 0) {
+        emptyLog.classList.remove('d-none');
+        return;
+    }
+    emptyLog.classList.add('d-none');
+    activity.forEach(a => {
+        const li = document.createElement('li');
+        li.className = 'uc-timeline-item';
+        li.innerHTML = `<div class="small text-muted">${a.time}</div><div>${a.text}</div>`;
+        timeline.appendChild(li);
+    });
+}
+
+function logActivity(text) {
+    const now = new Date();
+    const t = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    activity.push({
+        time: t,
+        text
+    });
+    renderLog();
+}
+renderLog();
+document.getElementById('refreshLog').addEventListener('click', () => {
+    showToast('Activity updated', 'info');
+    renderLog();
+});
+
+// Simple timeline chart
+let chart;
+
+function initChart() {
+    const ctx = document.getElementById('timelineChart');
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['SOS', 'Triage', 'Acknowledge', 'Dispatch'],
+            datasets: [{
+                label: 'Minutes since SOS',
+                data: [0, 1, 3, 7],
+                borderColor: '#008000',
+                backgroundColor: 'rgba(0,128,0,0.1)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 4,
+                pointBackgroundColor: '#008000'
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                },
+                x: {}
+            },
+            maintainAspectRatio: false
+        }
+    });
+}
+initChart();
+
+// Nearby Resources Tables (sorting/filtering/pagination basic)
+let ambTableData = [],
+    hospTableData = [];
+
+function computeAmbETA(a) {
+    // find current marker for distance
+    const mk = ambMarkers.find(x => x.data.id === a.id)?.marker?.getLatLng() || {
+        lat: a.coords[0],
+        lng: a.coords[1]
+    };
+    const d = distanceKm([mk.lat, mk.lng], incident.coords);
+    return etaMin(d);
+}
+
+function populateAmbTable(data) {
+    ambTableData = data;
+    renderAmbTable();
+}
+let ambPage = 1,
+    ambPageSize = 6,
+    ambSortKey = 'id',
+    ambSearch = '';
+
+function renderAmbTable() {
+    const tbody = document.querySelector('#ambTable tbody');
+    let rows = ambTableData.map(a => {
+        // compute distance and ETA from live marker
+        const mk = ambMarkers.find(x => x.data.id === a.id)?.marker?.getLatLng() || {
+            lat: a.coords[0],
+            lng: a.coords[1]
+        };
+        const dist = distanceKm([mk.lat, mk.lng], incident.coords);
+        return {
+            ...a,
+            eta: etaMin(dist),
+            dist: dist
+        };
+    });
+    if (ambSearch) {
+        rows = rows.filter(r => r.id.toLowerCase().includes(ambSearch) || r.status.toLowerCase().includes(ambSearch));
+    }
+    rows.sort((a, b) => ambSortKey === 'id' ? a.id.localeCompare(b.id) : a.eta - b.eta);
+    const total = rows.length;
+    document.getElementById('ambTotal').textContent = total;
+    const start = (ambPage - 1) * ambPageSize;
+    const end = Math.min(start + ambPageSize, total);
+    document.getElementById('ambShowingFrom').textContent = total ? (start + 1) : 0;
+    document.getElementById('ambShowingTo').textContent = end;
+    document.getElementById('ambCount').textContent = total;
+    tbody.innerHTML = rows.slice(start, end).map(r => `
+        <tr>
+          <td>${r.id}</td>
+          <td><span class="badge ${r.status==='Available'?'text-bg-success': r.status==='On Trip'?'text-bg-secondary':'text-bg-warning'}">${r.status}</span></td>
+          <td>${r.eta}</td>
+          <td>${r.dist.toFixed(2)}</td>
+          <td><button class="btn btn-sm btn-outline-success" data-amb="${r.id}"><i class="fa-solid fa-plus"></i> Select</button></td>
+        </tr>`).join('');
+    tbody.querySelectorAll('button[data-amb]').forEach(btn => btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-amb');
+        const a = ambTableData.find(x => x.id === id);
+        selectAmbulance(a);
+    }));
+    document.getElementById('ambPrev').disabled = ambPage === 1;
+    document.getElementById('ambNext').disabled = end >= total;
+}
+
+function updateAmbTableETA() {
+    renderAmbTable();
+}
+document.getElementById('ambPrev').addEventListener('click', () => {
+    ambPage = Math.max(1, ambPage - 1);
+    renderAmbTable();
+});
+document.getElementById('ambNext').addEventListener('click', () => {
+    ambPage = ambPage + 1;
+    renderAmbTable();
+});
+document.getElementById('ambSearch').addEventListener('input', (e) => {
+    ambSearch = e.target.value.trim().toLowerCase();
+    ambPage = 1;
+    renderAmbTable();
+});
+document.querySelectorAll('#ambTable thead th[role="button"]').forEach(th => th.addEventListener('click', () => {
+    ambSortKey = th.dataset.sort;
+    renderAmbTable();
+}));
+
+function populateHospTable(data) {
+    hospTableData = data;
+    renderHospTable();
+}
+let hospPage = 1,
+    hospPageSize = 6,
+    hospSearch = '';
+
+function renderHospTable() {
+    const tbody = document.querySelector('#hospTable tbody');
+    let rows = hospTableData.slice();
+    if (hospSearch) rows = rows.filter(r => r.name.toLowerCase().includes(hospSearch));
+    const total = rows.length;
+    document.getElementById('hospTotal').textContent = total;
+    const start = (hospPage - 1) * hospPageSize;
+    const end = Math.min(start + hospPageSize, total);
+    document.getElementById('hospShowingFrom').textContent = total ? (start + 1) : 0;
+    document.getElementById('hospShowingTo').textContent = end;
+    document.getElementById('hospCount').textContent = total;
+    tbody.innerHTML = rows.slice(start, end).map(r => `
+        <tr>
+          <td>${r.name}</td>
+          <td>${r.icu}</td>
+          <td>${r.gen}</td>
+          <td>${r.updated}</td>
+          <td><a class="btn btn-sm btn-outline-info uc-directions-button" href="https://www.google.com/maps/dir/?api=1&destination=${r.coords[0]},${r.coords[1]}" target="_blank"><i class="fa-solid fa-location-arrow"></i> Route</a></td>
+        </tr>`).join('');
+    document.getElementById('hospPrev').disabled = hospPage === 1;
+    document.getElementById('hospNext').disabled = end >= total;
+}
+document.getElementById('hospPrev').addEventListener('click', () => {
+    hospPage = Math.max(1, hospPage - 1);
+    renderHospTable();
+});
+document.getElementById('hospNext').addEventListener('click', () => {
+    hospPage = hospPage + 1;
+    renderHospTable();
+});
+document.getElementById('hospSearch').addEventListener('input', (e) => {
+    hospSearch = e.target.value.trim().toLowerCase();
+    hospPage = 1;
+    renderHospTable();
+});
+
+// Attachment modal via SweetAlert2
+document.getElementById('attachments').addEventListener('click', (e) => {
+    if (e.target.tagName === 'IMG') {
+        Swal.fire({
+            imageUrl: e.target.src,
+            imageAlt: 'Attachment preview',
+            showConfirmButton: false,
+            showCloseButton: true,
+            width: 800
+        });
+    }
+});
+
+// Sound toggle demo
+let soundOn = true;
+document.getElementById('toggleSoundBtn').addEventListener('click', (e) => {
+    soundOn = !soundOn;
+    e.currentTarget.innerHTML = `<i class="fa-solid ${soundOn?'fa-volume-high':'fa-volume-xmark'}"></i>`;
+    showToast(`Sound ${soundOn?'enabled':'muted'}`, 'info');
+});
+
+// Notification bell demo
+document.getElementById('notifBell').addEventListener('click', (e) => {
+    e.preventDefault();
+    showToast('No new notifications', 'info');
+});
+
+// Update freshness every minute
+const freshEl = document.getElementById('freshness');
+let mins = 0;
+setInterval(() => {
+    mins++;
+    freshEl.textContent = `updated ${mins} min ago`;
+    freshEl.classList.toggle('uc-freshness-stale', mins > 45);
+}, 60000);
+
+// Initial ETA to nearest hospital (mock shortest distance)
+function initETA() {
+    const inc = incident.coords;
+    const distances = hospMarkers.map(h => distanceKm(inc, [h.data.coords[0], h.data.coords[1]]));
+    const minD = Math.min(...distances);
+    etaHospital.textContent = etaMin(minD);
+}
+setTimeout(initETA, 1200);
+  </script>
+ </body>
+</html>

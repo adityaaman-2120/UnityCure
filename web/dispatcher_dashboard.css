@@ -1,0 +1,94 @@
+/* dispatcher_dashboard.css - Page-specific styles for Dispatcher Dashboard */
+/* Subtle background overlay for dashboard pages (non-intrusive, keeps global gradient) */
+body.uc-app::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: url(assets/subtle_background_for_dashboar_3_ee75b2ef.jpg) center/cover no-repeat;
+    opacity: 0.06;
+    z-index: -1
+    }
+/* Map sizing tweaks for larger viewports */
+#realTimeMap {
+    height: 420px
+    }
+@media (min-width: 992px) {
+    #realTimeMap {
+        height: 540px
+        }
+    }
+/* Leaflet default div icon reset to not show the blue icon size placeholder */
+.leaflet-div-icon {
+    background: transparent;
+    border: none
+    }
+/* Incident markers by severity */
+.uc-marker.inc-high {
+    background: var(--uc-color-error);
+    animation: dash-pulse 1.2s infinite
+    }
+.uc-marker.inc-medium {
+    background: var(--uc-color-warning)
+    }
+.uc-marker.inc-low {
+    background: var(--uc-color-success)
+    }
+/* Ambulance markers by status */
+.uc-marker.amb-available {
+    background: var(--uc-color-primary)
+    }
+.uc-marker.amb-enroute {
+    background: var(--uc-color-info)
+    }
+.uc-marker.amb-oos {
+    background: var(--uc-color-neutral)
+    }
+/* Pulsing effect for high severity markers */
+@keyframes dash-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(205, 32, 38, 0.45);
+        } 70% {
+        box-shadow: 0 0 0 16px rgba(205, 32, 38, 0);
+        } 100% {
+        box-shadow: 0 0 0 0 rgba(205, 32, 38, 0);
+        }
+    }
+/* Active selection in list-group */
+.list-group-item.active {
+    background: color-mix(in oklab, var(--uc-color-primary) 12%, white);
+    color: var(--uc-color-primary);
+    border-color: var(--uc-color-primary)
+    }
+/* Ensure card headers don’t wrap awkwardly */
+.uc-card-header .uc-card-title {
+    white-space: nowrap
+    }
+/* Tighten list group spacing for incident list */
+#incidentList .list-group-item {
+    padding-top: 10px;
+    padding-bottom: 10px
+    }
+#incidentList .badge {
+    font-weight: 600
+    }
+/* Dispatch panel: keep CTA area visible */
+#dispatchPanel {
+    position: relative
+    }
+#dispatchPanel .list-group-item {
+    cursor: pointer
+    }
+#dispatchPanel .list-group-item.active {
+    background: color-mix(in oklab, var(--uc-color-info) 12%, white);
+    color: var(--uc-color-info);
+    border-color: var(--uc-color-info)
+    }
+/* Chart container minimal height */
+#incidentsChart {
+    min-height: 160px
+    }
+/* Accessibility: Improve contrast for small text */
+.small.text-muted {
+    color: color-mix(in oklab, var(--uc-color-text-muted) 85%, black)
+    }
