@@ -5,13 +5,26 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import fetch from 'node-fetch';
-import sqlite3 from 'sqlite3';
+
+// MongoDB imports
+import dbConnection from './database/connection.js';
+import { seedInitialData } from './database/seedData.js';
+import { migrateSQLiteToMongoDB } from './database/migrate.js';
+
+// Model imports
+import User from './models/User.js';
+import Hospital from './models/Hospital.js';
+import Appointment from './models/Appointment.js';
+import SosReport from './models/SosReport.js';
+import Feedback from './models/Feedback.js';
+import Provider from './models/Provider.js';
+import ContactMessage from './models/ContactMessage.js';
+import ChatbotMessage from './models/ChatbotMessage.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const WEB_DIR = path.join(ROOT, 'web');
-const DB_PATH = path.join(__dirname, 'unitycure.db');
 
 const app = express();
 app.use(express.json({ limit: '2mb' }));
@@ -20,354 +33,36 @@ app.use(cors());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(morgan('dev'));
 
-// Database configuration and initialization
-let db = null;
-let dbType = 'sqlite'; // Default to SQLite
-
+// Initialize database and migrate data
 async function initializeDatabase() {
   try {
-    // Try MySQL first
-    const mysql = await import('mysql2/promise');
-    const dbConfig = {
-      host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'root',
-      password: process.env.DB_PASSWORD || '',
-      database: process.env.DB_NAME || 'unitycure',
-      port: process.env.DB_PORT || 3306,
-      waitForConnections: true,
-      connectionLimit: 10,
-      queueLimit: 0
-    };
-
-    const pool = mysql.createPool(dbConfig);
+    await dbConnection.connect();
     
-    // Test MySQL connection
-    const connection = await pool.getConnection();
-    console.log('✅ MySQL connection successful! Using MySQL database.');
+    // Try to migrate existing SQLite data
+    await migrateSQLiteToMongoDB();
     
-    // Create database if it doesn't exist
-    await connection.execute(`CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`);
-    await connection.execute(`USE ${dbConfig.database}`);
+    // Seed initial data if needed
+    await seedInitialData();
     
-    // Create tables
-    await createMySQLTables(connection);
-    
-    // Seed demo data
-    await seedMySQLData(connection);
-    
-    connection.release();
-    db = pool;
-    dbType = 'mysql';
-    
+    console.log('🗄️  Database initialization completed');
   } catch (error) {
-    console.log('⚠️  MySQL connection failed, falling back to SQLite...');
-    console.log('Error:', error.message);
-    
-    // Fallback to SQLite
-sqlite3.verbose();
-    db = new sqlite3.Database(DB_PATH);
-    
-    await createSQLiteTables();
-    await seedSQLiteData();
-    
-    console.log('✅ SQLite database initialized successfully!');
+    console.error('❌ Database initialization failed:', error);
+    process.exit(1);
   }
-}
-
-async function createMySQLTables(connection) {
-  const tables = [
-    `CREATE TABLE IF NOT EXISTS users (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      identifier VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      role VARCHAR(50) NOT NULL,
-      redirect VARCHAR(255) NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS appointments (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      doctor_name VARCHAR(255),
-      hospital VARCHAR(255),
-      type VARCHAR(100),
-      date DATE,
-      time TIME,
-      patient_name VARCHAR(255),
-      patient_age INT,
-      patient_contact VARCHAR(50),
-      reason TEXT,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS sos_reports (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      lat DECIMAL(10, 8),
-      lng DECIMAL(11, 8),
-      symptoms JSON,
-      description TEXT,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS feedback (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      service_id VARCHAR(255),
-      service_type VARCHAR(100),
-      user_id VARCHAR(255),
-      rating INT,
-      review TEXT,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS providers (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      provider_type VARCHAR(100),
-      name VARCHAR(255),
-      address TEXT,
-      lat DECIMAL(10, 8),
-      lng DECIMAL(11, 8),
-      contact VARCHAR(255),
-      services TEXT,
-      specialty VARCHAR(255),
-      admin_name VARCHAR(255),
-      admin_email VARCHAR(255),
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS contact_messages (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      first_name VARCHAR(100) NOT NULL,
-      last_name VARCHAR(100) NOT NULL,
-      email VARCHAR(255) NOT NULL,
-      phone VARCHAR(50),
-      subject VARCHAR(255) NOT NULL,
-      message TEXT NOT NULL,
-      newsletter BOOLEAN DEFAULT FALSE,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS chatbot_messages (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id VARCHAR(255),
-      user_message TEXT NOT NULL,
-      bot_response TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`,
-    `CREATE TABLE IF NOT EXISTS hospitals (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      address TEXT NOT NULL,
-      lat DECIMAL(10, 8),
-      lng DECIMAL(11, 8),
-      contact VARCHAR(255),
-      services JSON,
-      specialty VARCHAR(255),
-      emergency_services BOOLEAN DEFAULT FALSE,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )`
-  ];
-
-  for (const table of tables) {
-    await connection.execute(table);
-  }
-}
-
-async function createSQLiteTables() {
-  return new Promise((resolve, reject) => {
-  db.serialize(() => {
-    db.run(`CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      identifier TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL,
-      role TEXT NOT NULL,
-        redirect TEXT NOT NULL,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    )`);
-
-    db.run(`CREATE TABLE IF NOT EXISTS appointments (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      doctor_name TEXT,
-      hospital TEXT,
-      type TEXT,
-      date TEXT,
-      time TEXT,
-      patient_name TEXT,
-      patient_age INTEGER,
-      patient_contact TEXT,
-      reason TEXT,
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    )`);
-
-    db.run(`CREATE TABLE IF NOT EXISTS sos_reports (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      lat REAL,
-      lng REAL,
-      symptoms TEXT,
-      description TEXT,
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    )`);
-
-    db.run(`CREATE TABLE IF NOT EXISTS feedback (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      service_id TEXT,
-      service_type TEXT,
-      user_id TEXT,
-      rating INTEGER,
-      review TEXT,
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    )`);
-
-    db.run(`CREATE TABLE IF NOT EXISTS providers (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      provider_type TEXT,
-      name TEXT,
-      address TEXT,
-      lat REAL,
-      lng REAL,
-      contact TEXT,
-      services TEXT,
-      specialty TEXT,
-      admin_name TEXT,
-      admin_email TEXT,
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    )`);
-
-      db.run(`CREATE TABLE IF NOT EXISTS contact_messages (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        first_name TEXT NOT NULL,
-        last_name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT,
-        subject TEXT NOT NULL,
-        message TEXT NOT NULL,
-        newsletter BOOLEAN DEFAULT 0,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
-      )`);
-
-      db.run(`CREATE TABLE IF NOT EXISTS chatbot_messages (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id TEXT,
-        user_message TEXT NOT NULL,
-        bot_response TEXT NOT NULL,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
-      )`);
-
-      db.run(`CREATE TABLE IF NOT EXISTS hospitals (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        address TEXT NOT NULL,
-        lat REAL,
-        lng REAL,
-        contact TEXT,
-        services TEXT,
-        specialty TEXT,
-        emergency_services BOOLEAN DEFAULT 0,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
-      )`);
-
-      db.run('PRAGMA foreign_keys = ON', (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-  });
-}
-
-async function seedMySQLData(connection) {
-  const seedUsers = [
-    ['citizen@example.com', 'Test@123', 'Citizen', '/user_dashboard.html'],
-    ['9876543210', 'Test@123', 'Citizen', '/user_dashboard.html'],
-    ['hospitaladmin@uc.com', 'Admin@123', 'Hospital Staff', '/resource_management.html'],
-    ['doctor@uc.com', 'Doc@123', 'Doctor', '/doctor_schedule.html'],
-    ['dispatcher@uc.com', 'Disp@123', 'Dispatcher', '/dispatcher_dashboard.html'],
-    ['platformadmin@uc.com', 'Root@123', 'Platform Admin', '/platform_admin_dashboard.html']
-  ];
-
-  for (const [identifier, password, role, redirect] of seedUsers) {
-    await connection.execute(
-      'INSERT IGNORE INTO users(identifier, password, role, redirect) VALUES (?, ?, ?, ?)',
-      [identifier, password, role, redirect]
-    );
-  }
-
-  const seedHospitals = [
-    ['Unity General Hospital', '123 Healthcare Ave, Medical District', 40.7128, -74.0060, '+1-555-0101', JSON.stringify(['Emergency', 'Cardiology', 'Pediatrics']), 'General', true],
-    ['City Medical Center', '456 Wellness Blvd, Downtown', 40.7589, -73.9851, '+1-555-0102', JSON.stringify(['Surgery', 'Oncology', 'Neurology']), 'Specialized', true],
-    ['Community Health Clinic', '789 Care Street, Suburbia', 40.7505, -73.9934, '+1-555-0103', JSON.stringify(['Primary Care', 'Vaccination', 'Mental Health']), 'Community', false]
-  ];
-
-  for (const [name, address, lat, lng, contact, services, specialty, emergency] of seedHospitals) {
-    await connection.execute(
-      'INSERT IGNORE INTO hospitals(name, address, lat, lng, contact, services, specialty, emergency_services) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [name, address, lat, lng, contact, services, specialty, emergency]
-    );
-  }
-}
-
-async function seedSQLiteData() {
-  return new Promise((resolve, reject) => {
-    const seedUsers = [
-      ['citizen@example.com', 'Test@123', 'Citizen', '/user_dashboard.html'],
-      ['9876543210', 'Test@123', 'Citizen', '/user_dashboard.html'],
-      ['hospitaladmin@uc.com', 'Admin@123', 'Hospital Staff', '/resource_management.html'],
-      ['doctor@uc.com', 'Doc@123', 'Doctor', '/doctor_schedule.html'],
-      ['dispatcher@uc.com', 'Disp@123', 'Dispatcher', '/dispatcher_dashboard.html'],
-      ['platformadmin@uc.com', 'Root@123', 'Platform Admin', '/platform_admin_dashboard.html']
-    ];
-
-    seedUsers.forEach(([identifier, password, role, redirect]) => {
-      db.run(
-        'INSERT OR IGNORE INTO users(identifier, password, role, redirect) VALUES (?, ?, ?, ?)',
-        [identifier, password, role, redirect]
-      );
-    });
-
-    const seedHospitals = [
-      ['Unity General Hospital', '123 Healthcare Ave, Medical District', 40.7128, -74.0060, '+1-555-0101', JSON.stringify(['Emergency', 'Cardiology', 'Pediatrics']), 'General', 1],
-      ['City Medical Center', '456 Wellness Blvd, Downtown', 40.7589, -73.9851, '+1-555-0102', JSON.stringify(['Surgery', 'Oncology', 'Neurology']), 'Specialized', 1],
-      ['Community Health Clinic', '789 Care Street, Suburbia', 40.7505, -73.9934, '+1-555-0103', JSON.stringify(['Primary Care', 'Vaccination', 'Mental Health']), 'Community', 0]
-    ];
-
-    seedHospitals.forEach(([name, address, lat, lng, contact, services, specialty, emergency]) => {
-      db.run(
-        'INSERT OR IGNORE INTO hospitals(name, address, lat, lng, contact, services, specialty, emergency_services) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [name, address, lat, lng, contact, services, specialty, emergency]
-      );
-    });
-
-    db.run('SELECT COUNT(*) FROM users', (err, row) => {
-      if (err) reject(err);
-      else resolve();
-    });
-  });
 }
 
 // Initialize database
 initializeDatabase();
 
-// Helper function to execute database queries
-async function executeQuery(query, params = []) {
-  if (dbType === 'mysql') {
-    const [rows] = await db.execute(query, params);
-    return rows;
-  } else {
-    return new Promise((resolve, reject) => {
-      db.all(query, params, (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows);
-      });
-    });
-  }
-}
+// Helper function for error handling
+const handleError = (res, error, message = 'Database error') => {
+  console.error(message + ':', error);
+  return res.status(500).json({ ok: false, error: message });
+};
 
-async function executeInsert(query, params = []) {
-  if (dbType === 'mysql') {
-    const [result] = await db.execute(query, params);
-    return result;
-  } else {
-    return new Promise((resolve, reject) => {
-      db.run(query, params, function(err) {
-        if (err) reject(err);
-        else resolve({ insertId: this.lastID });
-      });
-    });
-  }
-}
+// API Routes
 
-// API routes
+// User Authentication
 app.post('/api/login', async (req, res) => {
   const { identifier, password } = req.body || {};
   if (!identifier || !password) {
@@ -375,24 +70,27 @@ app.post('/api/login', async (req, res) => {
   }
   
   try {
-    const query = dbType === 'mysql' 
-      ? 'SELECT role, redirect FROM users WHERE LOWER(identifier) = LOWER(?) AND password = ? LIMIT 1'
-      : 'SELECT role, redirect FROM users WHERE lower(identifier) = lower(?) AND password = ? LIMIT 1';
+    const user = await User.findOne({ 
+      identifier: { $regex: new RegExp(`^${identifier}$`, 'i') },
+      password: password 
+    });
     
-    const rows = await executeQuery(query, [identifier, password]);
-    
-    if (rows.length === 0) {
+    if (!user) {
       return res.status(401).json({ ok: false, error: 'Invalid credentials' });
     }
     
-    return res.json({ ok: true, role: rows[0].role, redirect: rows[0].redirect });
+    return res.json({ 
+      ok: true, 
+      role: user.role, 
+      redirect: user.redirect,
+      userId: user._id 
+    });
   } catch (error) {
-    console.error('Login error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Login error');
   }
 });
 
-// New API: User Registration
+// User Registration
 app.post('/api/register', async (req, res) => {
   const { identifier, password, role, redirect } = req.body || {};
   
@@ -400,40 +98,40 @@ app.post('/api/register', async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Missing required fields' });
   }
 
-  // Basic validation
   if (password.length < 6) {
     return res.status(400).json({ ok: false, error: 'Password must be at least 6 characters' });
   }
 
   try {
-    const existingQuery = dbType === 'mysql'
-      ? 'SELECT id FROM users WHERE LOWER(identifier) = LOWER(?)'
-      : 'SELECT id FROM users WHERE lower(identifier) = lower(?)';
-    
-    const existing = await executeQuery(existingQuery, [identifier]);
+    const existingUser = await User.findOne({ 
+      identifier: { $regex: new RegExp(`^${identifier}$`, 'i') }
+    });
 
-    if (existing.length > 0) {
+    if (existingUser) {
       return res.status(400).json({ ok: false, error: 'User already exists' });
     }
 
-    const insertQuery = 'INSERT INTO users(identifier, password, role, redirect) VALUES (?, ?, ?, ?)';
-    const result = await executeInsert(insertQuery, [identifier, password, role, redirect || '/user_dashboard.html']);
+    const user = new User({
+      identifier,
+      password,
+      role,
+      redirect: redirect || '/user_dashboard.html'
+    });
 
-    return res.json({ ok: true, id: result.insertId });
+    await user.save();
+    return res.json({ ok: true, id: user._id });
   } catch (error) {
-    console.error('Registration error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Registration error');
   }
 });
 
-// New API: Get Hospital Details
+// Hospital APIs
 app.get('/api/hospitals', async (req, res) => {
   try {
-    const rows = await executeQuery('SELECT * FROM hospitals ORDER BY name');
-    return res.json({ ok: true, hospitals: rows });
+    const hospitals = await Hospital.find().sort({ name: 1 });
+    return res.json({ ok: true, hospitals });
   } catch (error) {
-    console.error('Get hospitals error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Get hospitals error');
   }
 });
 
@@ -441,55 +139,92 @@ app.get('/api/hospitals/:id', async (req, res) => {
   const { id } = req.params;
   
   try {
-    const rows = await executeQuery('SELECT * FROM hospitals WHERE id = ?', [id]);
+    const hospital = await Hospital.findById(id);
     
-    if (rows.length === 0) {
+    if (!hospital) {
       return res.status(404).json({ ok: false, error: 'Hospital not found' });
     }
     
-    return res.json({ ok: true, hospital: rows[0] });
+    return res.json({ ok: true, hospital });
   } catch (error) {
-    console.error('Get hospital error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Get hospital error');
   }
 });
 
+// Nearby hospitals with geospatial query
+app.get('/api/hospitals/nearby/:lat/:lng', async (req, res) => {
+  const { lat, lng } = req.params;
+  const maxDistance = req.query.maxDistance || 10000; // 10km default
+  
+  try {
+    const hospitals = await Hospital.find({
+      location: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [parseFloat(lng), parseFloat(lat)]
+          },
+          $maxDistance: parseInt(maxDistance)
+        }
+      }
+    }).limit(20);
+    
+    return res.json({ ok: true, hospitals });
+  } catch (error) {
+    return handleError(res, error, 'Get nearby hospitals error');
+  }
+});
+
+// Appointment Management
 app.post('/api/appointments', async (req, res) => {
-  const {
-    doctorName,
-    hospital,
-    type,
-    date,
-    time,
-    patient
-  } = req.body || {};
+  const { doctorName, hospital, type, date, time, patient } = req.body || {};
   
   if (!doctorName || !hospital || !type || !date || !time || !patient || !patient.name) {
     return res.status(400).json({ ok: false, error: 'Missing fields' });
   }
   
   try {
-    const query = `INSERT INTO appointments(doctor_name, hospital, type, date, time, patient_name, patient_age, patient_contact, reason)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const result = await executeInsert(query, [
+    const appointment = new Appointment({
       doctorName,
       hospital,
       type,
-      date,
+      date: new Date(date),
       time,
-      patient.name,
-      Number(patient.age) || null,
-      patient.contact || null,
-      patient.reason || null
-    ]);
+      patient: {
+        name: patient.name,
+        age: patient.age ? parseInt(patient.age) : undefined,
+        contact: patient.contact,
+        reason: patient.reason
+      }
+    });
     
-    return res.json({ ok: true, id: result.insertId });
+    await appointment.save();
+    return res.json({ ok: true, id: appointment._id });
   } catch (error) {
-    console.error('Appointment creation error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Appointment creation error');
   }
 });
 
+app.get('/api/appointments', async (req, res) => {
+  const { doctorName, hospital, date, limit = 50 } = req.query;
+  
+  try {
+    let query = {};
+    if (doctorName) query.doctorName = { $regex: doctorName, $options: 'i' };
+    if (hospital) query.hospital = { $regex: hospital, $options: 'i' };
+    if (date) query.date = new Date(date);
+    
+    const appointments = await Appointment.find(query)
+      .sort({ date: 1, time: 1 })
+      .limit(parseInt(limit));
+    
+    return res.json({ ok: true, appointments });
+  } catch (error) {
+    return handleError(res, error, 'Get appointments error');
+  }
+});
+
+// SOS Reports
 app.post('/api/sos', async (req, res) => {
   const { lat, lng, symptoms, description } = req.body || {};
   
@@ -498,16 +233,52 @@ app.post('/api/sos', async (req, res) => {
   }
   
   try {
-    const query = 'INSERT INTO sos_reports(lat, lng, symptoms, description) VALUES (?, ?, ?, ?)';
-    const result = await executeInsert(query, [lat, lng, JSON.stringify(symptoms), description || null]);
+    const sosReport = new SosReport({
+      location: {
+        type: 'Point',
+        coordinates: [lng, lat] // MongoDB expects [longitude, latitude]
+      },
+      symptoms,
+      description
+    });
     
-    return res.json({ ok: true, id: result.insertId });
+    await sosReport.save();
+    return res.json({ ok: true, id: sosReport._id });
   } catch (error) {
-    console.error('SOS report error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'SOS report error');
   }
 });
 
+app.get('/api/sos', async (req, res) => {
+  const { lat, lng, maxDistance = 5000, limit = 50 } = req.query;
+  
+  try {
+    let query = {};
+    
+    // If location provided, find nearby reports
+    if (lat && lng) {
+      query.location = {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [parseFloat(lng), parseFloat(lat)]
+          },
+          $maxDistance: parseInt(maxDistance)
+        }
+      };
+    }
+    
+    const sosReports = await SosReport.find(query)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit));
+    
+    return res.json({ ok: true, sosReports });
+  } catch (error) {
+    return handleError(res, error, 'Get SOS reports error');
+  }
+});
+
+// Feedback System
 app.post('/api/feedback', async (req, res) => {
   const { serviceId, serviceType, userId, rating, review } = req.body || {};
   
@@ -516,49 +287,135 @@ app.post('/api/feedback', async (req, res) => {
   }
   
   try {
-    const query = 'INSERT INTO feedback(service_id, service_type, user_id, rating, review) VALUES (?, ?, ?, ?, ?)';
-    const result = await executeInsert(query, [String(serviceId), String(serviceType), userId || null, Number(rating), review || null]);
+    const feedback = new Feedback({
+      serviceId: String(serviceId),
+      serviceType: String(serviceType),
+      userId,
+      rating: parseInt(rating),
+      review
+    });
     
-    return res.json({ ok: true, id: result.insertId });
+    await feedback.save();
+    
+    // Update hospital rating if it's hospital feedback
+    if (serviceType === 'hospital') {
+      await updateHospitalRating(serviceId);
+    }
+    
+    return res.json({ ok: true, id: feedback._id });
   } catch (error) {
-    console.error('Feedback error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Feedback error');
   }
 });
 
+// Helper function to update hospital ratings
+async function updateHospitalRating(hospitalId) {
+  try {
+    const feedbacks = await Feedback.find({ 
+      serviceId: hospitalId, 
+      serviceType: 'hospital' 
+    });
+    
+    if (feedbacks.length > 0) {
+      const totalRating = feedbacks.reduce((sum, f) => sum + f.rating, 0);
+      const averageRating = totalRating / feedbacks.length;
+      
+      await Hospital.findByIdAndUpdate(hospitalId, {
+        'rating.average': Math.round(averageRating * 10) / 10,
+        'rating.count': feedbacks.length
+      });
+    }
+  } catch (error) {
+    console.error('Error updating hospital rating:', error);
+  }
+}
+
+app.get('/api/feedback/:serviceId/:serviceType', async (req, res) => {
+  const { serviceId, serviceType } = req.params;
+  const { limit = 20 } = req.query;
+  
+  try {
+    const feedbacks = await Feedback.find({ serviceId, serviceType })
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit));
+    
+    return res.json({ ok: true, feedbacks });
+  } catch (error) {
+    return handleError(res, error, 'Get feedback error');
+  }
+});
+
+// Provider Registration
 app.post('/api/providers', async (req, res) => {
   const { providerType, name, address, location, contact, services, specialty, admin } = req.body || {};
   
-  if (!providerType || !name || !address || !location || typeof location.lat !== 'number' || typeof location.lng !== 'number' || !contact || !admin || !admin.fullName || !admin.email) {
+  if (!providerType || !name || !address || !location || 
+      typeof location.lat !== 'number' || typeof location.lng !== 'number' || 
+      !contact || !admin || !admin.fullName || !admin.email) {
     return res.status(400).json({ ok: false, error: 'Missing fields' });
   }
   
   try {
-    const query = `INSERT INTO providers(provider_type, name, address, lat, lng, contact, services, specialty, admin_name, admin_email)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const result = await executeInsert(query, [
+    const provider = new Provider({
       providerType,
       name,
       address,
-      Number(location.lat),
-      Number(location.lng),
+      location: {
+        type: 'Point',
+        coordinates: [location.lng, location.lat]
+      },
       contact,
-      Array.isArray(services) ? services.join(',') : services || null,
-      specialty || null,
-      admin.fullName,
-      admin.email
-    ]);
+      services: Array.isArray(services) ? services : (services ? [services] : []),
+      specialty,
+      admin: {
+        name: admin.fullName,
+        email: admin.email
+      }
+    });
     
-    return res.json({ ok: true, id: result.insertId });
+    await provider.save();
+    return res.json({ ok: true, id: provider._id });
   } catch (error) {
-    console.error('Provider creation error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Provider creation error');
   }
 });
 
-// Enhanced Chatbot API endpoint with message storage
+app.get('/api/providers', async (req, res) => {
+  const { type, lat, lng, maxDistance = 10000, limit = 50 } = req.query;
+  
+  try {
+    let query = {};
+    if (type) query.providerType = { $regex: type, $options: 'i' };
+    
+    let providers;
+    if (lat && lng) {
+      providers = await Provider.find({
+        ...query,
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [parseFloat(lng), parseFloat(lat)]
+            },
+            $maxDistance: parseInt(maxDistance)
+          }
+        }
+      }).limit(parseInt(limit));
+    } else {
+      providers = await Provider.find(query)
+        .sort({ name: 1 })
+        .limit(parseInt(limit));
+    }
+    
+    return res.json({ ok: true, providers });
+  } catch (error) {
+    return handleError(res, error, 'Get providers error');
+  }
+});
+
+// Enhanced Chatbot API with MongoDB storage
 app.post('/api/chatbot', async (req, res) => {
-  const { message, userId } = req.body || {};
+  const { message, userId, sessionId } = req.body || {};
   
   if (!message) {
     return res.status(400).json({ ok: false, error: 'Message is required' });
@@ -601,13 +458,17 @@ app.post('/api/chatbot', async (req, res) => {
     if (data.choices && data.choices[0] && data.choices[0].message) {
       const botResponse = data.choices[0].message.content;
       
-      // Store the conversation in database
+      // Store the conversation in MongoDB
       try {
-        const query = 'INSERT INTO chatbot_messages(user_id, user_message, bot_response) VALUES (?, ?, ?)';
-        await executeInsert(query, [userId || null, message, botResponse]);
+        const chatbotMessage = new ChatbotMessage({
+          userId,
+          userMessage: message,
+          botResponse,
+          sessionId
+        });
+        await chatbotMessage.save();
       } catch (dbError) {
         console.error('Failed to store chatbot message:', dbError);
-        // Continue even if storage fails
       }
       
       return res.json({ 
@@ -621,32 +482,27 @@ app.post('/api/chatbot', async (req, res) => {
       });
     }
   } catch (error) {
-    console.error('Chatbot error:', error);
-    return res.status(500).json({ 
-      ok: false, 
-      error: 'Internal server error' 
-    });
+    return handleError(res, error, 'Chatbot error');
   }
 });
 
-// New API: Get Chatbot Message History
+// Get Chatbot Message History
 app.get('/api/chatbot/history/:userId', async (req, res) => {
   const { userId } = req.params;
+  const { limit = 50 } = req.query;
   
   try {
-    const query = dbType === 'mysql'
-      ? 'SELECT * FROM chatbot_messages WHERE user_id = ? ORDER BY created_at DESC LIMIT 50'
-      : 'SELECT * FROM chatbot_messages WHERE user_id = ? ORDER BY created_at DESC LIMIT 50';
+    const messages = await ChatbotMessage.find({ userId })
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit));
     
-    const rows = await executeQuery(query, [userId]);
-    
-    return res.json({ ok: true, messages: rows });
+    return res.json({ ok: true, messages });
   } catch (error) {
-    console.error('Get chatbot history error:', error);
-    return res.status(500).json({ ok: false, error: 'Database error' });
+    return handleError(res, error, 'Get chatbot history error');
   }
 });
 
+// Contact Form
 app.post('/api/contact', async (req, res) => {
   const { firstName, lastName, email, phone, subject, message, newsletter } = req.body || {};
   
@@ -661,22 +517,57 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    const query = `INSERT INTO contact_messages(first_name, last_name, email, phone, subject, message, newsletter)
-                   VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const result = await executeInsert(query, [
+    const contactMessage = new ContactMessage({
       firstName,
       lastName,
       email,
-      phone || null,
+      phone,
       subject,
       message,
-      newsletter ? (dbType === 'mysql' ? 1 : 1) : (dbType === 'mysql' ? 0 : 0)
-    ]);
+      newsletter: Boolean(newsletter)
+    });
     
-    return res.json({ ok: true, id: result.insertId });
+    await contactMessage.save();
+    return res.json({ ok: true, id: contactMessage._id });
   } catch (error) {
-    console.error('Contact form error:', error);
-    return res.status(500).json({ ok: false, error: 'Failed to save message' });
+    return handleError(res, error, 'Contact form error');
+  }
+});
+
+// Get contact messages (for admin)
+app.get('/api/contact', async (req, res) => {
+  const { status, limit = 50 } = req.query;
+  
+  try {
+    let query = {};
+    if (status) query.status = status;
+    
+    const messages = await ContactMessage.find(query)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit));
+    
+    return res.json({ ok: true, messages });
+  } catch (error) {
+    return handleError(res, error, 'Get contact messages error');
+  }
+});
+
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+  try {
+    const dbStatus = dbConnection.getConnectionStatus();
+    return res.json({
+      ok: true,
+      status: 'healthy',
+      database: dbStatus,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    return res.status(500).json({
+      ok: false,
+      status: 'unhealthy',
+      error: error.message
+    });
   }
 });
 
@@ -687,7 +578,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 UnityCure server running on http://localhost:${PORT}`);
   console.log(`📁 Serving static files from ${WEB_DIR}`);
-  console.log(`🗄️  Database type: ${dbType.toUpperCase()}`);
+  console.log(`🗄️  Database: MongoDB`);
   console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
   console.log(`\n📋 Demo Credentials:`);
   console.log(`   Citizen: citizen@example.com / Test@123`);
@@ -697,4 +588,15 @@ app.listen(PORT, () => {
   console.log(`   Platform Admin: platformadmin@uc.com / Root@123`);
 });
 
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('\n🔄 Shutting down gracefully...');
+  await dbConnection.disconnect();
+  process.exit(0);
+});
 
+process.on('SIGTERM', async () => {
+  console.log('\n🔄 Shutting down gracefully...');
+  await dbConnection.disconnect();
+  process.exit(0);
+});
